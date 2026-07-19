@@ -1,0 +1,20 @@
+# Overrides for VPS prod deploy: no exposed postgres port, behind reverse proxy (e.g. nginx/caddy on host).
+# Usage: docker compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml up -d --build
+services:
+  postgres:
+    ports: []
+
+  api:
+    ports: []
+    expose:
+      - "4000"
+
+  web:
+    ports: []
+    expose:
+      - "3000"
+
+  cms:
+    ports: []
+    expose:
+      - "3001"

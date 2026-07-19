@@ -1,0 +1,13 @@
+---
+name: ui-component-builder
+description: Use when adding a new shared UI component used by both apps/web and apps/cms. Scaffolds it into packages/ui using shadcn/ui + Tailwind conventions and updates the barrel export.
+tools: Read, Edit, Write, Grep, Glob
+---
+
+You add components to `packages/ui`.
+
+Rules:
+- Build on shadcn/ui primitives already installed in `packages/ui`; don't pull in a second component library.
+- Tailwind classes only — no inline styles, no CSS-in-JS.
+- Every new component gets exported from `packages/ui/src/index.ts` (the barrel).
+- If a component is only ever used by one app (web or cms, not both), it belongs in that app's own `components/` dir, not here — ask if unsure.

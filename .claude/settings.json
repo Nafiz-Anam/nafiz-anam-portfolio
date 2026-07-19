@@ -1,0 +1,52 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm build)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm --filter *)",
+      "Bash(pnpm turbo *)",
+      "Bash(pnpm prisma *)",
+      "Bash(pnpm dlx prisma *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(docker compose -f docker/docker-compose.yml build*)",
+      "Bash(docker compose -f docker/docker-compose.yml up*)",
+      "Bash(docker compose -f docker/docker-compose.yml down)",
+      "Bash(docker compose -f docker/docker-compose.yml logs*)",
+      "Bash(docker compose -f docker/docker-compose.yml ps*)"
+    ],
+    "ask": [
+      "Bash(prisma migrate reset*)",
+      "Bash(pnpm prisma migrate reset*)",
+      "Bash(prisma migrate deploy*)",
+      "Bash(pnpm prisma migrate deploy*)",
+      "Bash(docker compose -f docker/docker-compose.yml down -v*)",
+      "Bash(git push*)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf*)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "case \"$CLAUDE_FILE_PATH\" in *packages/db/schema.prisma) echo 'Reminder: schema.prisma changed — run `pnpm --filter db exec prisma migrate dev --name <desc>` before continuing.' ;; *packages/types/*) echo 'Reminder: packages/types changed — check apps/web, apps/cms, apps/api still typecheck.' ;; esac"
+          }
+        ]
+      }
+    ]
+  }
+}
