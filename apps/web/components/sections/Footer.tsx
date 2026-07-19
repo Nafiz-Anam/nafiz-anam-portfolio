@@ -8,15 +8,15 @@ function SquareBullet() {
 
 export function Footer({ data = defaultFooter }: { data?: FooterContent }) {
   return (
-    <footer className="dark bg-texture-lines bg-surface px-6 pb-20 pt-4 lg:px-16">
-      <div className="mx-auto max-w-[1800px] overflow-hidden rounded-[5px] border border-panel-foreground bg-panel bg-texture-lines-panel p-8 text-panel-foreground sm:p-12">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-[1fr_auto]">
+    <footer className="dark bg-texture-lines bg-surface px-6 pb-24 pt-8 lg:px-16">
+      <div className="mx-auto max-w-[1800px] overflow-hidden rounded-[5px] border border-panel-foreground bg-panel bg-texture-lines-panel p-10 text-panel-foreground sm:p-16">
+        <div className="grid grid-cols-1 gap-14 sm:grid-cols-[1fr_auto]">
           <div className="flex flex-col justify-between gap-10">
             <p className="font-sans text-7xl font-bold leading-none tracking-tight sm:text-8xl">
               {data.brand}
             </p>
 
-            <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium uppercase tracking-wide text-panel-muted">
+            <div className="flex flex-wrap gap-x-10 gap-y-4 text-sm font-medium uppercase tracking-wide text-panel-muted">
               {data.socials.map((social) => (
                 <a
                   key={social.label}

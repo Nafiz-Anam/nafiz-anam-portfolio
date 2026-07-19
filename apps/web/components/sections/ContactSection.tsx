@@ -14,13 +14,13 @@ const contactSchema = z.object({
 });
 
 const fieldClassName =
-  "rounded-[5px] border border-foreground/10 bg-surface px-4 py-3 text-foreground placeholder:text-foreground/50 focus:outline-none focus:ring-1 focus:ring-accent";
+  "rounded-[5px] border border-foreground/10 bg-surface px-5 py-4 text-[14px] text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-1 focus:ring-accent transition-colors duration-250";
 
 const selectClassName =
-  "rounded-[5px] border border-foreground/10 bg-surface px-4 py-3 text-foreground/50 focus:text-foreground focus:outline-none focus:ring-1 focus:ring-accent";
+  "rounded-[5px] border border-foreground/10 bg-surface px-5 py-4 text-[14px] text-foreground/50 focus:text-foreground focus:outline-none focus:ring-1 focus:ring-accent transition-colors duration-250";
 
-const categoryOptions = ["Category", "Web Design", "Development", "Branding", "Consulting"];
-const budgetOptions = ["Budget", "< $5k", "$5k – $15k", "$15k – $30k", "$30k+"];
+const categoryOptions = ["Web Design", "Development", "Branding", "Consulting"];
+const budgetOptions = ["< $5k", "$5k – $15k", "$15k – $30k", "$30k+"];
 
 export function ContactSection() {
   const [error, setError] = useState<string | null>(null);
@@ -43,34 +43,40 @@ export function ContactSection() {
       return;
     }
 
-    // No backend endpoint wired up yet — this is a scaffold. See .claude/CLAUDE.md follow-ups.
     setError(null);
   }
 
   return (
-    <section id="contact" className="dark bg-texture-lines bg-surface px-6 py-24 text-foreground lg:px-16">
+    <section id="contact" className="dark bg-texture-lines bg-surface px-6 py-32 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
-        <FadeIn>
-          <h2 className="text-center text-4xl font-bold sm:text-5xl">
+        <FadeIn className="flex flex-col items-center gap-5 text-center">
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+            Let&apos;s Work Together
+          </p>
+          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             <span className="font-sans text-foreground">Let&apos;s Get</span>{" "}
             <span className="font-serif italic text-accent-soft">Connected</span>
           </h2>
+          <p className="max-w-[520px] text-[15px] leading-[1.85] text-foreground/55">
+            Whether you have a project in mind or want to explore how we might work together,
+            I&apos;d love to hear from you.
+          </p>
         </FadeIn>
 
         <FadeIn delay={0.1}>
           <form
             id="contact-form"
             onSubmit={handleSubmit}
-            className="mt-10 flex flex-col gap-4 rounded-[5px] bg-background p-6 sm:p-8"
+            className="mt-14 flex flex-col gap-5 rounded-[5px] bg-background p-8 sm:p-12"
           >
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
               <input name="name" placeholder="Full Name" className={fieldClassName} />
-              <input name="email" type="email" placeholder="Email" className={fieldClassName} />
+              <input name="email" type="email" placeholder="Email Address" className={fieldClassName} />
               <select name="category" defaultValue="" className={selectClassName}>
                 <option value="" disabled>
                   Category
                 </option>
-                {categoryOptions.slice(1).map((option) => (
+                {categoryOptions.map((option) => (
                   <option key={option} value={option} className="bg-background text-foreground">
                     {option}
                   </option>
@@ -78,27 +84,27 @@ export function ContactSection() {
               </select>
               <select name="budget" defaultValue="" className={selectClassName}>
                 <option value="" disabled>
-                  Budget
+                  Budget Range
                 </option>
-                {budgetOptions.slice(1).map((option) => (
+                {budgetOptions.map((option) => (
                   <option key={option} value={option} className="bg-background text-foreground">
                     {option}
                   </option>
                 ))}
               </select>
             </div>
-            <textarea name="message" placeholder="Your Message" rows={5} className={fieldClassName} />
+            <textarea name="message" placeholder="Tell me about your project..." rows={6} className={fieldClassName} />
             {error ? <p className="text-sm text-red-400">{error}</p> : null}
           </form>
         </FadeIn>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <Button
             type="submit"
             form="contact-form"
-            className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90"
+            className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90"
           >
-            Book a consultancy 🤙
+            Send Message 🤙
           </Button>
         </div>
       </div>
