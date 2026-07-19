@@ -25,11 +25,14 @@ services:
       - ../.env
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-portfolio}:${POSTGRES_PASSWORD:-changeme}@postgres:5432/${POSTGRES_DB:-portfolio}
+      UPLOAD_DIR: /repo/apps/api/uploads
     depends_on:
       postgres:
         condition: service_healthy
     ports:
       - "4000:4000"
+    volumes:
+      - api_uploads:/repo/apps/api/uploads
 
   web:
     build:
@@ -57,3 +60,4 @@ services:
 
 volumes:
   pgdata:
+  api_uploads:

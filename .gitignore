@@ -16,6 +16,10 @@ build/
 # prisma
 packages/db/generated/
 
+# uploads (local dev/prod media storage, persisted via docker volume)
+apps/api/uploads/*
+!apps/api/uploads/.gitkeep
+
 # misc
 .DS_Store
 *.log
@@ -25,3 +29,4 @@ npm-debug.log*
 
 # claude local settings (personal, not shared)
 .claude/settings.local.json
+*.tsbuildinfo

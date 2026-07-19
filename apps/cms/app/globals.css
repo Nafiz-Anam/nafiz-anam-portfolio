@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+ * cms is always dark — mirrors the .dark tokens from apps/web/app/globals.css,
+ * which are sampled from ref.webp (see that file's comments for the source hex).
+ */
+:root {
+  --background: 12 31% 13%;
+  --foreground: 27 41% 95%;
+  --surface: 10 33% 19%;
+  --muted: 15 15% 65%;
+  --border: 12 30% 22%;
+  --accent: 13 79% 57%;
+  --accent-soft: 17 71% 78%;
+  --accent-foreground: 0 0% 100%;
+  --primary: 27 41% 95%;
+  --primary-foreground: 12 31% 13%;
+  --panel: 23 40% 92%;
+  --panel-foreground: 12 31% 13%;
+  --panel-muted: 12 15% 35%;
+}
+
+.dark {
+  --background: 12 31% 13%;
+  --foreground: 27 41% 95%;
+  --surface: 10 33% 19%;
+  --muted: 15 15% 65%;
+  --border: 12 30% 22%;
+  --accent: 13 79% 57%;
+  --accent-soft: 17 71% 78%;
+  --accent-foreground: 0 0% 100%;
+  --primary: 27 41% 95%;
+  --primary-foreground: 12 31% 13%;
+  --panel: 23 40% 92%;
+  --panel-foreground: 12 31% 13%;
+  --panel-muted: 12 15% 35%;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}

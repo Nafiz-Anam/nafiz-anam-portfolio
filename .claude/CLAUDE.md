@@ -14,7 +14,11 @@ Monorepo: public site, CMS admin, API. pnpm workspaces + Turborepo.
 - `packages/ui`: shared shadcn/ui components, used by web + cms.
 - `packages/config`: shared tsconfig/eslint/tailwind config.
 - DB: Postgres. Deploy: Docker Compose on a single VPS.
-- Auth: self-rolled JWT issued by `apps/api`, set as httpOnly cookie, verified by Next middleware in web/cms.
+- Auth: self-rolled JWT access (7d) + refresh (30d) tokens, both httpOnly cookies. Refresh tokens are stored **hashed** in `RefreshToken` (DB) and **rotated on every use** — see `apps/api/src/routes/auth.ts`.
+- API clients: `apps/web/lib/api.ts` and `apps/cms/lib/api.ts` are Axios instances with response interceptors that normalize every error into `ApiErrorShape` (`packages/types`). The cms client additionally retries once on `ACCESS_TOKEN_EXPIRED` via `/api/auth/refresh` before giving up and redirecting to `/login`.
+- Animations: Framer Motion + GSAP, `apps/web` only (`apps/web/components/FadeIn.tsx`, `apps/web/lib/gsap.ts`). Not installed in cms.
+- Image uploads: local disk (`apps/api/uploads/`, Docker volume `api_uploads`), served at `/uploads/*`, behind `requireAuth`. `apps/cms/components/ImageUpload.tsx` is the client-side upload widget.
+- Rich text: Tiptap, cms-only (`apps/cms/components/RichTextEditor.tsx`). Content is stored as HTML in `BlogPost.contentHtml` — server is the trust boundary, sanitize/escape on render in `apps/web` before this ships to production.
 
 ## Hard rules
 
@@ -26,6 +30,8 @@ Monorepo: public site, CMS admin, API. pnpm workspaces + Turborepo.
 6. **No `docker compose down -v` and no `prisma migrate reset` without explicit user confirmation** — both destroy data.
 7. **No `prisma migrate deploy` against a prod-looking `DATABASE_URL`** without explicit user confirmation.
 8. Commits follow **Conventional Commits** (`feat:`, `fix:`, `chore:`, ...).
+9. **Never reuse a revoked/rotated refresh token.** Current implementation revokes-on-use but does not yet detect reuse-of-a-revoked-token as a breach signal (which should revoke the whole token family) — flag this as a known gap, don't silently "fix" it as part of an unrelated change.
+10. **Uploads**: enforce the mimetype allow-list and size limit already in `apps/api/src/routes/uploads.ts` — don't loosen either without asking.
 
 ## Conventions
 

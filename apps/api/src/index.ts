@@ -1,3 +1,4 @@
+import path from "node:path";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -9,9 +10,12 @@ const allowedOrigins = [process.env.CORS_ORIGIN_WEB, process.env.CORS_ORIGIN_CMS
   (origin): origin is string => Boolean(origin)
 );
 
+const uploadDir = process.env.UPLOAD_DIR ?? path.join(process.cwd(), "uploads");
+
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use("/uploads", express.static(uploadDir));
 
 app.use("/api", apiRouter);
 

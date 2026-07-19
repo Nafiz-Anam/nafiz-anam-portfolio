@@ -1,10 +1,23 @@
-import { Button } from "@portfolio/ui";
+import { Nav } from "@/components/sections/Nav";
+import { Hero } from "@/components/sections/Hero";
+import { WorkGrid } from "@/components/sections/WorkGrid";
+import { StatsBand } from "@/components/sections/StatsBand";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { Footer } from "@/components/sections/Footer";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4">
-      <h1 className="text-3xl font-bold">Portfolio — web</h1>
-      <Button>Placeholder button from @portfolio/ui</Button>
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="dark bg-texture-lines bg-background text-foreground">
+        <Nav />
+        <Hero />
+      </div>
+      <WorkGrid />
+      <StatsBand />
+      <Testimonials />
+      <ContactSection />
+      <Footer />
     </main>
   );
 }
