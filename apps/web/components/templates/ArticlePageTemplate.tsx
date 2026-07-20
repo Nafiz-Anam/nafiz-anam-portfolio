@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@portfolio/ui";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
@@ -450,17 +451,126 @@ function ArticleHero({
 }
 
 /* ═══════════════════════════════════════════════════════════
+   TABLE OF CONTENTS
+═══════════════════════════════════════════════════════════ */
+interface TocHeading {
+  id: string;
+  text: string;
+  level: 2 | 3;
+}
+
+function extractHeadings(blocks: ContentBlock[]): TocHeading[] {
+  const out: TocHeading[] = [];
+  for (const b of blocks) {
+    if (b.type === "h2") out.push({ id: b.id, text: b.text, level: 2 });
+    else if (b.type === "h3") out.push({ id: b.id, text: b.text, level: 3 });
+  }
+  return out;
+}
+
+function TableOfContents({ headings }: { headings: TocHeading[] }) {
+  const [activeId, setActiveId] = useState<string>("");
+
+  useEffect(() => {
+    if (headings.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-80px 0px -60% 0px", threshold: 0 }
+    );
+
+    headings.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [headings]);
+
+  if (headings.length === 0) return null;
+
+  return (
+    <aside className="hidden lg:block">
+      <div className="sticky top-28 flex flex-col gap-5">
+        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/35">
+          On This Page
+        </p>
+
+        <nav className="flex flex-col">
+          {headings.map(({ id, text, level }) => {
+            const isActive = activeId === id;
+            return (
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className={`relative flex items-start py-1.5 text-[12.5px] leading-[1.5] transition-colors duration-150 ${
+                  level === 3 ? "pl-4" : "pl-0"
+                } ${
+                  isActive
+                    ? "font-semibold text-accent"
+                    : "text-foreground/38 hover:text-foreground/65"
+                }`}
+              >
+                {/* Active indicator bar */}
+                {isActive && (
+                  <motion.span
+                    layoutId="toc-indicator"
+                    className="absolute -left-4 top-[6px] h-3 w-0.5 rounded-full bg-accent"
+                  />
+                )}
+                {text}
+              </a>
+            );
+          })}
+        </nav>
+
+        {/* Divider + back to top */}
+        <div className="flex flex-col gap-3 border-t border-foreground/[0.07] pt-4">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex items-center gap-1.5 text-[11px] text-foreground/28 transition-colors duration-150 hover:text-foreground/55"
+          >
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+              <path d="M5 8V2M2 5l3-3 3 3" />
+            </svg>
+            Back to top
+          </button>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    SECTION 2 — Article Content
 ═══════════════════════════════════════════════════════════ */
 function ArticleContent({ blocks }: { blocks: ContentBlock[] }) {
+  const headings = extractHeadings(blocks);
+
   return (
     <section className="bg-background px-6 py-20 lg:px-16">
-      <div className="mx-auto max-w-[860px]">
-        <Reveal>
-          <div className="flex flex-col gap-8">
-            {blocks.map((block, i) => renderBlock(block, i))}
-          </div>
-        </Reveal>
+      <div className="mx-auto max-w-[1080px]">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[minmax(0,1fr)_200px]">
+          {/* Article body */}
+          <Reveal>
+            <div className="flex flex-col gap-8">
+              {blocks.map((block, i) => renderBlock(block, i))}
+            </div>
+          </Reveal>
+
+          {/* Sticky ToC sidebar */}
+          <TableOfContents headings={headings} />
+        </div>
       </div>
     </section>
   );
@@ -472,7 +582,8 @@ function ArticleContent({ blocks }: { blocks: ContentBlock[] }) {
 function KeyTakeaways({ takeaways }: { takeaways: string[] }) {
   return (
     <section className="bg-background px-6 pb-24 lg:px-16">
-      <div className="mx-auto max-w-[860px]">
+      <div className="mx-auto max-w-[1080px]">
+        <div className="lg:max-w-[calc(100%-216px)]">
         <Reveal>
           <div className="rounded-[5px] border border-accent/20 bg-accent/[0.04] px-8 py-9 sm:px-10 sm:py-11">
             {/* Header */}
@@ -512,6 +623,7 @@ function KeyTakeaways({ takeaways }: { takeaways: string[] }) {
             </ul>
           </div>
         </Reveal>
+        </div>
       </div>
     </section>
   );
