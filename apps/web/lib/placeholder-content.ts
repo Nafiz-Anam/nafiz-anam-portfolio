@@ -8,6 +8,7 @@ export const defaultNav: NavContent = {
   links: [
     { label: "Intro", href: "#intro" },
     { label: "Work", href: "#work" },
+    { label: "Services", href: "/services" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "#contact" },
   ],
