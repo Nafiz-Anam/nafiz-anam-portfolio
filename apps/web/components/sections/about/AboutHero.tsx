@@ -29,7 +29,7 @@ export function AboutHero() {
               style={{ fontSize: "clamp(44px, 6.5vw, 88px)" }}
             >
               Building Software That{" "}
-              <span className="font-serif italic text-accent-soft">Businesses</span>
+              <span className="font-serif italic text-accent">Businesses</span>
               <br className="hidden sm:block" />
               {" "}Can Depend On.
             </h1>

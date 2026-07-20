@@ -63,7 +63,7 @@ export function NumbersMatter() {
           </p>
           <h2 className="max-w-[520px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Numbers That{" "}
-            <span className="font-serif italic text-accent-soft">Matter</span>
+            <span className="font-serif italic text-accent">Matter</span>
           </h2>
         </motion.div>
 

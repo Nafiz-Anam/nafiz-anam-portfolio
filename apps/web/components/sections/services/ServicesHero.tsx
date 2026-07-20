@@ -29,7 +29,7 @@ export function ServicesHero() {
               style={{ fontSize: "clamp(42px, 6vw, 84px)" }}
             >
               Engineering Services{" "}
-              <span className="font-serif italic text-accent-soft">Built Around</span>
+              <span className="font-serif italic text-accent">Built Around</span>
               <br className="hidden sm:block" />
               {" "}Business Goals.
             </h1>

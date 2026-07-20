@@ -114,7 +114,7 @@ export function WhyClientsChooseMe() {
           </p>
           <h2 className="max-w-[660px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Not Just an Engineer.{" "}
-            <span className="font-serif italic text-accent-soft">
+            <span className="font-serif italic text-accent">
               A Technical Partner.
             </span>
           </h2>

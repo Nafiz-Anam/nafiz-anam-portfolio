@@ -111,7 +111,7 @@ export function WhoIWorkWith() {
           </p>
           <h2 className="max-w-[640px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Built for Businesses That{" "}
-            <span className="font-serif italic text-accent-soft">
+            <span className="font-serif italic text-accent">
               Take Software Seriously
             </span>
           </h2>

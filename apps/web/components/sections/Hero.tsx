@@ -11,12 +11,12 @@ export function Hero({ data = defaultHero }: { data?: HeroContent }) {
           <h1 className="max-w-none text-6xl font-bold leading-[0.95] tracking-tight sm:text-7xl">
             <span className="block font-sans text-foreground">{data.headlineLine1}</span>
             <span className="block whitespace-nowrap">
-              <span className="font-serif italic text-accent-soft">{data.headlineLine2Serif}</span>{" "}
+              <span className="font-serif italic text-accent">{data.headlineLine2Serif}</span>{" "}
               <span className="font-sans text-foreground">{data.headlineLine2Sans}</span>
             </span>
           </h1>
 
-          <div className="flex gap-6 pt-4 text-sm font-medium text-accent-soft/80 sm:pt-6">
+          <div className="flex gap-6 pt-4 text-sm font-medium text-accent/80 sm:pt-6">
             {data.tags.map((tag) => (
               <span key={tag}>{tag}</span>
             ))}
@@ -33,7 +33,7 @@ export function Hero({ data = defaultHero }: { data?: HeroContent }) {
 
             <div className="flex justify-end">
               <Button className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
-                {data.ctaLabel} 🤙
+                {data.ctaLabel}
               </Button>
             </div>
           </div>

@@ -36,7 +36,7 @@ export function Testimonials() {
         <FadeIn>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_2fr] lg:grid-rows-[auto_auto_auto]">
             <h2 className="text-5xl font-bold leading-none sm:text-6xl lg:col-start-1 lg:row-start-1">
-              <span className="font-serif italic text-accent-soft">Happy</span>{" "}
+              <span className="font-serif italic text-accent">Happy</span>{" "}
               <span className="font-sans text-foreground">Words.</span>
             </h2>
 
@@ -102,7 +102,7 @@ export function Testimonials() {
                     </p>
                     <p className="text-xl font-bold text-foreground">
                       {testimonial.name}{" "}
-                      <span className="text-sm font-normal text-accent-soft/80">{testimonial.role}</span>
+                      <span className="text-sm font-normal text-accent/80">{testimonial.role}</span>
                     </p>
                   </div>
                 </motion.div>
@@ -111,7 +111,7 @@ export function Testimonials() {
 
             <div className="flex justify-end lg:col-start-2 lg:row-start-3">
               <Button className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
-                Read all review 🤙
+                Read all review
               </Button>
             </div>
           </div>

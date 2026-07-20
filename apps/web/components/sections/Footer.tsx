@@ -38,7 +38,7 @@ export function Footer({ data = defaultFooter }: { data?: FooterContent }) {
               </p>
 
               <Button className="w-fit shrink-0 rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
-                Book a free call 🤙
+                Book a free call
               </Button>
             </div>
 

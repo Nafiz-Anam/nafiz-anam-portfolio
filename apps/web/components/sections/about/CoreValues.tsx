@@ -121,7 +121,7 @@ export function CoreValues() {
           </p>
           <h2 className="max-w-[640px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             What Guides Every{" "}
-            <span className="font-serif italic text-accent-soft">
+            <span className="font-serif italic text-accent">
               Decision I Make
             </span>
           </h2>

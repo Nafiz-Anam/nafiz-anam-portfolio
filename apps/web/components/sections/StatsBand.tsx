@@ -72,7 +72,7 @@ export function StatsBand() {
 
         <div className="mt-10 flex justify-end">
           <Button className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
-            Book a free call 🤙
+            Book a free call
           </Button>
         </div>
       </div>

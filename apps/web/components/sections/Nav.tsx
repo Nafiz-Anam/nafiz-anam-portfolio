@@ -34,9 +34,8 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
         </a>
 
         <nav className="hidden items-center gap-8 text-sm text-muted md:flex">
-          {data.links.map((link) =>
+          {data.links.filter((l) => l.href.startsWith("/")).map((link) =>
             link.label === "Services" ? (
-              /* Services dropdown */
               <div
                 key={link.href}
                 className="relative"
@@ -62,7 +61,6 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                   </svg>
                 </a>
 
-                {/* dropdown panel */}
                 <div
                   className={`absolute left-1/2 top-full z-50 w-[300px] -translate-x-1/2 pt-3 transition-all duration-[200ms] ${
                     servicesOpen
@@ -71,41 +69,38 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                   }`}
                 >
                   <div className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.10] bg-panel shadow-xl">
-                  {/* header row */}
-                  <div className="border-b border-panel-foreground/[0.08] px-5 py-3.5">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
-                      Services
-                    </p>
-                  </div>
+                    <div className="border-b border-panel-foreground/[0.08] px-5 py-3.5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
+                        Services
+                      </p>
+                    </div>
 
-                  {/* service links */}
-                  <div className="flex flex-col py-2">
-                    {SERVICE_LINKS.map((s) => (
+                    <div className="flex flex-col py-2">
+                      {SERVICE_LINKS.map((s) => (
+                        <a
+                          key={s.href}
+                          href={s.href}
+                          className="group flex items-center justify-between px-5 py-3 transition-colors duration-150 hover:bg-panel-foreground/[0.05]"
+                        >
+                          <span className="text-[13px] font-medium text-panel-foreground/75 transition-colors duration-150 group-hover:text-panel-foreground">
+                            {s.label}
+                          </span>
+                          <span className="translate-x-0 text-panel-foreground/25 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-accent">
+                            →
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+
+                    <div className="border-t border-panel-foreground/[0.08] px-5 py-3">
                       <a
-                        key={s.href}
-                        href={s.href}
-                        className="group flex items-center justify-between px-5 py-3 transition-colors duration-150 hover:bg-panel-foreground/[0.05]"
+                        href="/services"
+                        className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent transition-opacity hover:opacity-75"
                       >
-                        <span className="text-[13px] font-medium text-panel-foreground/75 transition-colors duration-150 group-hover:text-panel-foreground">
-                          {s.label}
-                        </span>
-                        <span className="translate-x-0 text-panel-foreground/25 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-accent">
-                          →
-                        </span>
+                        View All Services →
                       </a>
-                    ))}
+                    </div>
                   </div>
-
-                  {/* footer row */}
-                  <div className="border-t border-panel-foreground/[0.08] px-5 py-3">
-                    <a
-                      href="/services"
-                      className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent hover:opacity-75 transition-opacity"
-                    >
-                      View All Services →
-                    </a>
-                  </div>
-                  </div>{/* end inner panel */}
                 </div>
               </div>
             ) : (
@@ -126,7 +121,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
             size="sm"
             className="rounded-[5px] bg-accent px-5 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90"
           >
-            Book a free call 🤙
+            Book a free call
           </Button>
         </div>
       </div>

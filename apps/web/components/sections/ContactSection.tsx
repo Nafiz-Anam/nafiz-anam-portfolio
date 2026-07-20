@@ -55,7 +55,7 @@ export function ContactSection() {
           </p>
           <h2 className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             <span className="font-sans text-foreground">Let&apos;s Get</span>{" "}
-            <span className="font-serif italic text-accent-soft">Connected</span>
+            <span className="font-serif italic text-accent">Connected</span>
           </h2>
           <p className="max-w-[520px] text-[15px] leading-[1.85] text-foreground/55">
             Whether you have a project in mind or want to explore how we might work together,
@@ -104,7 +104,7 @@ export function ContactSection() {
             form="contact-form"
             className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90"
           >
-            Send Message 🤙
+            Send Message
           </Button>
         </div>
       </div>

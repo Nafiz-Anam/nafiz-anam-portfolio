@@ -73,7 +73,7 @@ function HeroSection({
               style={{ fontSize: "clamp(40px, 5.8vw, 82px)" }}
             >
               {headline}{" "}
-              <span className="font-serif italic text-accent-soft">
+              <span className="font-serif italic text-accent">
                 {headlineAccent}
               </span>
             </h1>
@@ -209,7 +209,7 @@ function DeliverablesSection({
           <SectionLabel>What You&apos;ll Get</SectionLabel>
           <h2 className="max-w-[640px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Everything Included.{" "}
-            <span className="font-serif italic text-accent-soft">Nothing Hidden.</span>
+            <span className="font-serif italic text-accent">Nothing Hidden.</span>
           </h2>
         </Reveal>
 
@@ -304,7 +304,7 @@ function IdealForSection({ idealFor }: Pick<ServicePageData, "idealFor">) {
           <SectionLabel>Ideal For</SectionLabel>
           <h2 className="max-w-[620px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Who This Service{" "}
-            <span className="font-serif italic text-accent-soft">Is Built For</span>
+            <span className="font-serif italic text-accent">Is Built For</span>
           </h2>
         </Reveal>
 
@@ -428,7 +428,7 @@ function FAQSection({ faqs }: Pick<ServicePageData, "faqs">) {
           <SectionLabel>FAQ</SectionLabel>
           <h2 className="max-w-[560px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Common Questions,{" "}
-            <span className="font-serif italic text-accent-soft">Direct Answers</span>
+            <span className="font-serif italic text-accent">Direct Answers</span>
           </h2>
         </Reveal>
 

@@ -8,7 +8,7 @@ export function WorkGrid() {
       <div className="mx-auto max-w-[1800px]">
         <FadeIn>
           <h2 className="text-4xl font-bold leading-none sm:text-5xl">
-            <span className="font-serif italic text-accent-soft">Recent</span>{" "}
+            <span className="font-serif italic text-accent">Recent</span>{" "}
             <span className="font-sans text-foreground">Work</span>
           </h2>
         </FadeIn>
@@ -45,7 +45,7 @@ export function WorkGrid() {
 
         <div className="mt-14 flex justify-center">
           <Button className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
-            See all works 🤙
+            See all works
           </Button>
         </div>
       </div>

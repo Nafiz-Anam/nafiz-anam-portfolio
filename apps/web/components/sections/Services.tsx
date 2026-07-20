@@ -149,11 +149,11 @@ export function Services() {
           </p>
           <h2 className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Helping Businesses{" "}
-            <span className="font-serif italic text-accent-soft">Build</span>
+            <span className="font-serif italic text-accent">Build</span>
             {", "}
-            <span className="font-serif italic text-accent-soft">Scale</span>
+            <span className="font-serif italic text-accent">Scale</span>
             {" & "}
-            <span className="font-serif italic text-accent-soft">Modernize</span>
+            <span className="font-serif italic text-accent">Modernize</span>
             {" Software"}
           </h2>
           <p className="max-w-[600px] text-[15px] leading-relaxed text-foreground/55">

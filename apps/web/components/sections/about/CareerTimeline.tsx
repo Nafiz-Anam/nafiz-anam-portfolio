@@ -59,7 +59,7 @@ export function CareerTimeline() {
           </p>
           <h2 className="max-w-[620px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             A Decade of{" "}
-            <span className="font-serif italic text-accent-soft">Building & Leading</span>
+            <span className="font-serif italic text-accent">Building & Leading</span>
           </h2>
         </motion.div>
 

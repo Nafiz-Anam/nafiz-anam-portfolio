@@ -5,9 +5,9 @@ import { useState } from "react";
 
 const CAPABILITIES = [
   {
-    title: "Frontend Engineering",
-    description: "Designing fast, accessible and scalable user interfaces.",
-    tags: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "HTML5", "CSS3"],
+    group: "Frontend",
+    description: "High-performance interfaces that users trust.",
+    tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Vue.js", "React Native"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -16,9 +16,9 @@ const CAPABILITIES = [
     ),
   },
   {
-    title: "Backend Engineering",
-    description: "Building secure APIs and scalable business logic.",
-    tags: ["Node.js", "NestJS", "Express.js", "Laravel", "PHP", "REST APIs", "GraphQL"],
+    group: "Backend",
+    description: "Secure APIs and scalable server-side systems.",
+    tags: ["Node.js", "NestJS", "Express", "Laravel", "PHP", "REST", "GraphQL", "WebSockets"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M22 12H2" />
@@ -28,9 +28,9 @@ const CAPABILITIES = [
     ),
   },
   {
-    title: "Cloud Infrastructure",
-    description: "Deploying reliable, secure and scalable production environments.",
-    tags: ["AWS", "Docker", "Kubernetes", "GitHub Actions", "CI/CD", "Linux", "Nginx", "Traefik", "Cloudflare"],
+    group: "Cloud & Infrastructure",
+    description: "Reliable, scalable production environments.",
+    tags: ["AWS", "Google Cloud", "Docker", "Kubernetes", "Nginx", "Traefik", "Cloudflare", "VPS"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
@@ -38,9 +38,19 @@ const CAPABILITIES = [
     ),
   },
   {
-    title: "Data Engineering",
-    description: "Designing efficient and scalable data architectures.",
-    tags: ["PostgreSQL", "MongoDB", "Redis", "MySQL", "Prisma", "Drizzle ORM"],
+    group: "DevOps & CI/CD",
+    description: "Automated pipelines from commit to production.",
+    tags: ["GitHub Actions", "GitLab CI", "Jenkins", "Terraform", "Ansible", "Linux", "Monitoring", "Logging"],
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      </svg>
+    ),
+  },
+  {
+    group: "Databases",
+    description: "Optimized data persistence for any scale.",
+    tags: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Prisma", "Drizzle ORM", "Elasticsearch", "ClickHouse"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <ellipse cx="12" cy="5" rx="9" ry="3" />
@@ -50,9 +60,9 @@ const CAPABILITIES = [
     ),
   },
   {
-    title: "AI & Automation",
-    description: "Building intelligent workflows and AI-powered business solutions.",
-    tags: ["OpenAI", "Claude", "LangChain", "Model Context Protocol", "Retrieval-Augmented Generation", "Vector Databases", "AI Agents", "Workflow Automation"],
+    group: "AI & Automation",
+    description: "Intelligent systems that compound business value.",
+    tags: ["OpenAI", "Claude", "LangChain", "RAG", "Vector Databases", "AI Agents", "MCP", "Workflow Automation"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 0 2h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1 0-2h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2z" />
@@ -61,9 +71,20 @@ const CAPABILITIES = [
     ),
   },
   {
-    title: "Architecture & Leadership",
-    description: "Leading engineering teams and designing scalable software systems.",
-    tags: ["Software Architecture", "System Design", "Scalability", "Microservices", "Event-Driven Architecture", "Performance", "Security", "Technical Leadership", "Code Reviews", "Mentoring"],
+    group: "Mobile",
+    description: "Cross-platform apps with native performance.",
+    tags: ["React Native", "Expo", "iOS", "Android", "Push Notifications", "Offline-first", "App Store"],
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="5" y="2" width="14" height="20" rx="2" />
+        <path d="M12 18h.01" />
+      </svg>
+    ),
+  },
+  {
+    group: "Architecture & Leadership",
+    description: "System design and team leadership at scale.",
+    tags: ["Microservices", "Event-Driven", "Domain-Driven Design", "System Design", "Code Reviews", "Mentoring", "Scalability"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="3" />
@@ -74,7 +95,7 @@ const CAPABILITIES = [
 ] as const;
 
 function CapabilityRow({
-  title,
+  group,
   description,
   tags,
   icon,
@@ -90,15 +111,12 @@ function CapabilityRow({
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* left orange accent bar */}
         <div
           className="absolute inset-y-0 left-0 w-[2px] transition-all duration-[250ms]"
           style={{ backgroundColor: hovered ? "hsl(var(--accent))" : "transparent" }}
         />
 
         <div className="flex flex-col gap-6 px-10 py-11 lg:flex-row lg:items-start lg:gap-0">
-
-          {/* left: icon + title + description */}
           <div className="flex shrink-0 gap-4 lg:w-[38%] lg:pr-14">
             <span
               className="mt-0.5 shrink-0 transition-colors duration-[250ms]"
@@ -108,7 +126,7 @@ function CapabilityRow({
             </span>
             <div className="flex flex-col gap-1.5">
               <p className="text-[15px] font-bold leading-snug tracking-tight text-panel-foreground">
-                {title}
+                {group}
               </p>
               <p className="text-[12px] leading-[1.75] text-panel-foreground/45">
                 {description}
@@ -116,7 +134,6 @@ function CapabilityRow({
             </div>
           </div>
 
-          {/* right: chips */}
           <div className="flex flex-1 flex-wrap gap-2">
             {tags.map((tag) => (
               <span
@@ -136,7 +153,6 @@ function CapabilityRow({
               </span>
             ))}
           </div>
-
         </div>
       </div>
 
@@ -147,47 +163,43 @@ function CapabilityRow({
   );
 }
 
-export function TechnicalExpertise() {
+export function TechCapabilities() {
   return (
-    <section
-      id="expertise"
-      className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16"
-    >
-      <div className="mx-auto max-w-[1800px]">
+    <section className="bg-panel py-28 text-panel-foreground">
+      <div className="mx-auto max-w-[1800px] px-6 lg:px-16">
 
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, ease: "easeOut" }}
-          className="mb-20 flex flex-col items-center gap-5 text-center"
+          className="mb-16 flex flex-col items-center gap-4 text-center"
         >
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
-            Technical Expertise
+            Technology Capabilities
           </p>
-          <h2 className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-            Modern Technologies.{" "}
-            <span className="font-serif italic text-accent">Practical Experience.</span>
+          <h2 className="max-w-[640px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+            The Right Tool for{" "}
+            <span className="font-serif italic" style={{ color: "hsl(var(--accent))" }}>
+              Every Problem.
+            </span>
           </h2>
-          <p className="max-w-[640px] text-[15px] leading-relaxed text-foreground/55">
-            Over the past seven years, I've worked across frontend, backend, cloud
-            infrastructure, AI automation, and enterprise systems—choosing technologies
-            based on business requirements rather than trends.
+          <p className="max-w-[580px] text-[15px] leading-[1.85] text-panel-foreground/50">
+            Technology choices are informed by business requirements, not trends. Every capability
+            below has been deployed in real production environments serving real users.
           </p>
         </motion.div>
 
-        {/* Capability matrix */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="overflow-hidden rounded-[5px] bg-panel"
+          className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.08]"
         >
           {CAPABILITIES.map((cap, i) => (
             <CapabilityRow
-              key={cap.title}
+              key={cap.group}
               {...cap}
               isLast={i === CAPABILITIES.length - 1}
             />

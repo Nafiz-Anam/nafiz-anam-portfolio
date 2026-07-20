@@ -111,7 +111,7 @@ export function ServicesFAQ() {
           </p>
           <h2 className="max-w-[560px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             Questions About{" "}
-            <span className="font-serif italic text-accent-soft">
+            <span className="font-serif italic text-accent">
               Working Together
             </span>
           </h2>

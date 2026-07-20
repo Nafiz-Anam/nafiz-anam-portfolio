@@ -7,35 +7,33 @@
  * Each line notes the sampled hex so these can be re-tuned later without re-sampling.
  */
 :root {
-  --background: 20 45% 96%;   /* light mode bg — warm off-white, no direct ref sample (ref is dark-only) */
-  --foreground: 12 38% 13%;   /* = ref page-bg #2d1914, reused as text on light bg */
-  --surface: 10 33% 92%;      /* light analogue of ref work-section #3f2520 */
-  --muted: 12 15% 40%;
-  --border: 15 25% 85%;
-  --accent: 9 100% 62%;       /* ref accent button/badge #ff5a3c */
-  --accent-soft: 10 79% 55%;  /* darkened for legibility on light bg — ref's headline peach #f5b5a8 is dark-bg only */
+  --background: 240 20% 97%;   /* light bg — cool off-white tinted with navy hue */
+  --foreground: 240 35% 8%;    /* #0E0E1D navy, body text on light bg */
+  --surface: 240 15% 93%;      /* slightly deeper cool surface */
+  --muted: 240 8% 42%;         /* cool slate muted text */
+  --border: 240 10% 87%;       /* cool light border */
+  --accent: 9 100% 62%;        /* coral #FF5A3C — pops on cool bg */
   --accent-foreground: 0 0% 100%;
-  --primary: 12 38% 13%;
-  --primary-foreground: 20 45% 97%;
-  --panel: 12 38% 13%;        /* inverted-contrast card — dark in light mode */
-  --panel-foreground: 20 45% 97%;
-  --panel-muted: 10 20% 75%;
+  --primary: 240 35% 8%;
+  --primary-foreground: 240 20% 97%;
+  --panel: 240 35% 8%;          /* inverted card — navy #0E0E1D */
+  --panel-foreground: 240 20% 96%; /* cool off-white #F4F4F8 */
+  --panel-muted: 240 15% 68%;
 }
 
 .dark {
-  --background: 12 31% 13%;   /* spec bg #2A1A16 */
+  --background: 240 35% 8%;   /* #0E0E1D dark navy */
   --foreground: 27 41% 95%;   /* spec text-on-dark #F7F1EC */
-  --surface: 10 33% 19%;      /* ref "Recent Work" section bg #3f2520 */
-  --muted: 15 15% 65%;
-  --border: 12 30% 22%;
+  --surface: 240 25% 13%;     /* slightly lighter navy for surface lift */
+  --muted: 240 10% 60%;
+  --border: 240 15% 20%;
   --accent: 13 79% 57%;       /* spec coral #E8623C */
-  --accent-soft: 17 71% 78%;  /* spec peach #EFB6A0 */
   --accent-foreground: 0 0% 100%;
   --primary: 27 41% 95%;
-  --primary-foreground: 12 31% 13%;
-  --panel: 23 40% 92%;        /* spec cream #F3E9E3 */
-  --panel-foreground: 12 31% 13%; /* spec text-on-light #2A1A16 */
-  --panel-muted: 12 15% 35%;
+  --primary-foreground: 240 35% 8%;
+  --panel: 240 20% 96%;        /* cool off-white #F4F4F8 — matches navy family */
+  --panel-foreground: 240 35% 8%; /* text on panel — navy #0E0E1D */
+  --panel-muted: 240 10% 35%;
 }
 
 body {
