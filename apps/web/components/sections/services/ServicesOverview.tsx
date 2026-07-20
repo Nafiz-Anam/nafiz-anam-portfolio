@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Link from "next/link";
 
 const SERVICES = [
   {
+    slug: "custom-software-development",
     title: "Custom Software Development",
     description:
       "Tailored web platforms, enterprise applications, and business systems designed around your workflows and long-term goals.",
@@ -18,6 +20,7 @@ const SERVICES = [
     ),
   },
   {
+    slug: "saas-product-engineering",
     title: "SaaS Product Engineering",
     description:
       "Transform ideas into scalable SaaS products with modern architecture, secure infrastructure, and production-ready engineering from day one.",
@@ -31,6 +34,7 @@ const SERVICES = [
     ),
   },
   {
+    slug: "ai-automation-business-systems",
     title: "AI Automation & Business Systems",
     description:
       "Automate repetitive workflows, integrate AI capabilities, and streamline operations so your team focuses on high-value work.",
@@ -45,6 +49,7 @@ const SERVICES = [
     ),
   },
   {
+    slug: "technical-consulting-architecture",
     title: "Technical Consulting & Architecture",
     description:
       "Expert guidance on software architecture, technology decisions, scalability planning, code quality, and long-term technical strategy.",
@@ -57,6 +62,7 @@ const SERVICES = [
     ),
   },
   {
+    slug: "cloud-infrastructure-devops",
     title: "Cloud Infrastructure & DevOps",
     description:
       "Secure, scalable cloud environments with CI/CD pipelines, containerization, monitoring, and reliable production infrastructure.",
@@ -68,6 +74,7 @@ const SERVICES = [
     ),
   },
   {
+    slug: "engineering-leadership",
     title: "Engineering Leadership",
     description:
       "Fractional CTO, technical leadership, engineering process improvement, mentoring, and strategic execution for growing teams.",
@@ -84,6 +91,7 @@ const SERVICES = [
 ] as const;
 
 function ServiceCard({
+  slug,
   title,
   description,
   outcome,
@@ -143,7 +151,10 @@ function ServiceCard({
       </div>
 
       {/* learn more */}
-      <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-panel-foreground/30">
+      <Link
+        href={`/services/${slug}`}
+        className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-panel-foreground/30 hover:text-accent transition-colors duration-200"
+      >
         <span>Learn More</span>
         <motion.span
           animate={{ x: hovered ? 4 : 0 }}
@@ -151,7 +162,7 @@ function ServiceCard({
         >
           →
         </motion.span>
-      </div>
+      </Link>
     </motion.div>
   );
 }
