@@ -74,12 +74,12 @@ export function HowWeWork() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="grid grid-cols-1 gap-px bg-panel-foreground/[0.07] overflow-hidden rounded-[5px] sm:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
           {STEPS.map((step) => (
             <div
               key={step.number}
-              className="flex flex-col gap-5 bg-panel p-10"
+              className="flex flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-panel p-10"
             >
               <p
                 className="font-mono text-[42px] font-bold leading-none"

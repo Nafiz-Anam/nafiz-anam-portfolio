@@ -77,12 +77,12 @@ export function FrequentlyRequested() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="grid grid-cols-1 gap-px bg-panel-foreground/[0.07] overflow-hidden rounded-[5px] sm:grid-cols-2 lg:grid-cols-4"
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
           {PROJECTS.map((p, i) => (
             <div
               key={p.title}
-              className="group flex flex-col gap-4 bg-panel px-8 py-9 transition-colors duration-[250ms] hover:bg-panel-foreground/[0.03]"
+              className="group flex flex-col gap-4 rounded-[5px] border border-panel-foreground/[0.08] bg-panel px-8 py-9 transition-colors duration-[250ms] hover:border-panel-foreground/[0.14] hover:bg-panel-foreground/[0.03]"
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent">
                 {String(i + 1).padStart(2, "0")}

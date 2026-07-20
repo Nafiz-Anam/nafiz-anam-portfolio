@@ -215,12 +215,12 @@ function DeliverablesSection({
 
         <Reveal
           delay={0.1}
-          className="grid grid-cols-1 gap-px bg-foreground/[0.07] overflow-hidden rounded-[5px] sm:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
           {deliverables.map((d, i) => (
             <div
               key={d.title}
-              className="group flex flex-col gap-4 bg-background px-8 py-9 transition-colors duration-[250ms] hover:bg-foreground/[0.03]"
+              className="group flex flex-col gap-4 rounded-[5px] border border-foreground/[0.08] bg-background px-8 py-9 transition-colors duration-[250ms] hover:border-foreground/[0.14] hover:bg-foreground/[0.03]"
             >
               <div className="flex items-center gap-3">
                 <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-accent" />
