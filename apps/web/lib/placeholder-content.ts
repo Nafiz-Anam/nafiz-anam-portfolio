@@ -9,6 +9,7 @@ export const defaultNav: NavContent = {
     { label: "Intro", href: "#intro" },
     { label: "Work", href: "#work" },
     { label: "Services", href: "/services" },
+    { label: "Insights", href: "/insights" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "#contact" },
   ],
