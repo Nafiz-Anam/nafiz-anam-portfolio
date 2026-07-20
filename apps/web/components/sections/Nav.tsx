@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@portfolio/ui";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { defaultNav, type NavContent } from "@/lib/placeholder-content";
@@ -16,6 +16,15 @@ const SERVICE_LINKS = [
 
 export function Nav({ data = defaultNav }: { data?: NavContent }) {
   const [servicesOpen, setServicesOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openServices = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setServicesOpen(true);
+  };
+  const closeServices = () => {
+    closeTimer.current = setTimeout(() => setServicesOpen(false), 120);
+  };
 
   return (
     <header>
@@ -31,8 +40,8 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
               <div
                 key={link.href}
                 className="relative"
-                onMouseEnter={() => setServicesOpen(true)}
-                onMouseLeave={() => setServicesOpen(false)}
+                onMouseEnter={openServices}
+                onMouseLeave={closeServices}
               >
                 <a
                   href={link.href}
@@ -55,12 +64,13 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
 
                 {/* dropdown panel */}
                 <div
-                  className={`absolute left-1/2 top-full z-50 mt-3 w-[300px] -translate-x-1/2 overflow-hidden rounded-[5px] border border-panel-foreground/[0.10] bg-panel shadow-xl transition-all duration-[200ms] ${
+                  className={`absolute left-1/2 top-full z-50 w-[300px] -translate-x-1/2 pt-3 transition-all duration-[200ms] ${
                     servicesOpen
                       ? "pointer-events-auto translate-y-0 opacity-100"
                       : "pointer-events-none -translate-y-1 opacity-0"
                   }`}
                 >
+                  <div className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.10] bg-panel shadow-xl">
                   {/* header row */}
                   <div className="border-b border-panel-foreground/[0.08] px-5 py-3.5">
                     <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
@@ -95,6 +105,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                       View All Services →
                     </a>
                   </div>
+                  </div>{/* end inner panel */}
                 </div>
               </div>
             ) : (
