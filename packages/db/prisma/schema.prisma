@@ -8,16 +8,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model SiteConfig {
+  key       String   @id
+  value     String
+  label     String   @default("")
+  updatedAt DateTime @updatedAt
+}
+
 model Project {
-  id            String   @id @default(cuid())
-  title         String
-  slug          String   @unique
-  summary       String
-  content       String
-  coverImageUrl String?
-  published     Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id             String    @id @default(cuid())
+  title          String
+  slug           String    @unique
+  excerpt        String    @default("")
+  coverImageUrl  String?
+  industry       String    @default("")
+  tags           String[]
+  contentJson    Json?
+  contentHtml    String    @default("")
+  client         String    @default("")
+  role           String    @default("")
+  outcome        String    @default("")
+  year           String    @default("")
+  status         String    @default("draft")
+  publishedAt    DateTime?
+  seoTitle       String?
+  seoDescription String?
+  ogImage        String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model AdminUser {
@@ -48,13 +66,46 @@ model Media {
 }
 
 model BlogPost {
-  id            String   @id @default(cuid())
-  title         String
-  slug          String   @unique
-  excerpt       String
-  contentHtml   String
-  coverImageUrl String?
-  published     Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id              String    @id @default(cuid())
+  title           String
+  slug            String    @unique
+  excerpt         String
+  coverImageUrl   String?
+  category        String    @default("")
+  tags            String[]
+  contentJson     Json?
+  contentHtml     String    @default("")
+  readTimeMinutes Int       @default(1)
+  status          String    @default("draft")
+  publishedAt     DateTime?
+  authorName      String    @default("Nafiz Anam")
+  seoTitle        String?
+  seoDescription  String?
+  ogImage         String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  quote     String
+  name      String
+  role      String
+  company   String   @default("")
+  photoUrl  String?
+  rating    Int      @default(5)
+  featured  Boolean  @default(false)
+  sortOrder Int      @default(0)
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BlogCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

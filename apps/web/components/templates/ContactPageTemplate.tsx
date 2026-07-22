@@ -630,9 +630,9 @@ const CONNECT_ITEMS = [
     ),
   },
   {
-    label: "Calendly",
+    label: "Google Calendar",
     value: "Book a 30-min call",
-    href: "https://calendly.com/nafizanam",
+    href: "https://calendar.google.com/calendar/appointments",
     description: "Pick a time that works for you",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
@@ -668,7 +668,7 @@ const CONNECT_ITEMS = [
   },
 ] as const;
 
-function OtherWaysToConnect() {
+function OtherWaysToConnect({ calendarUrl }: { calendarUrl: string }) {
   return (
     <section className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
@@ -685,19 +685,22 @@ function OtherWaysToConnect() {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CONNECT_ITEMS.map((item, i) => {
+            const resolvedItem = item.label === "Google Calendar"
+              ? { ...item, href: calendarUrl || item.href }
+              : item;
             const inner = (
               <div className="flex h-full flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-background/[0.04] p-7 transition-colors duration-200 hover:border-panel-foreground/[0.18] hover:bg-background/[0.07]">
-                <div className="text-panel-foreground/40">{item.icon}</div>
+                <div className="text-panel-foreground/40">{resolvedItem.icon}</div>
                 <div className="flex flex-col gap-1">
                   <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-panel-foreground/30">
-                    {item.label}
+                    {resolvedItem.label}
                   </p>
                   <p className="text-[14px] font-semibold text-panel-foreground/80">
-                    {item.value}
+                    {resolvedItem.value}
                   </p>
-                  <p className="text-[12px] text-panel-foreground/40">{item.description}</p>
+                  <p className="text-[12px] text-panel-foreground/40">{resolvedItem.description}</p>
                 </div>
-                {item.href && (
+                {resolvedItem.href && (
                   <div className="mt-auto">
                     <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-accent">
                       Open →
@@ -707,14 +710,14 @@ function OtherWaysToConnect() {
               </div>
             );
 
-            return item.href ? (
-              <Reveal key={item.label} delay={(i % 3) * 0.06}>
-                <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block h-full">
+            return resolvedItem.href ? (
+              <Reveal key={resolvedItem.label} delay={(i % 3) * 0.06}>
+                <a href={resolvedItem.href} target={resolvedItem.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block h-full">
                   {inner}
                 </a>
               </Reveal>
             ) : (
-              <Reveal key={item.label} delay={(i % 3) * 0.06}>
+              <Reveal key={resolvedItem.label} delay={(i % 3) * 0.06}>
                 {inner}
               </Reveal>
             );
@@ -959,7 +962,8 @@ function ContactFinalCTA() {
 /* ═══════════════════════════════════════════════════════════
    MAIN EXPORT
 ═══════════════════════════════════════════════════════════ */
-export function ContactPageTemplate() {
+export function ContactPageTemplate({ config = {} }: { config?: Record<string, string> }) {
+  const calendarUrl = config.google_calendar_url ?? "https://calendar.google.com/calendar/appointments";
   return (
     <>
       {/* Hero — dark */}
@@ -977,7 +981,7 @@ export function ContactPageTemplate() {
 
       {/* Other ways to connect — dark panel */}
       <div className="dark">
-        <OtherWaysToConnect />
+        <OtherWaysToConnect calendarUrl={calendarUrl} />
       </div>
 
       {/* What happens next — light */}

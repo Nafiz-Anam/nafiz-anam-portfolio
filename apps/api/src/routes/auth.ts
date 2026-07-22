@@ -49,7 +49,7 @@ authRouter.post("/login", async (req, res) => {
 
   const { accessToken, refreshToken } = await issueTokenPair(user.id, user.email);
   setAuthCookies(res, accessToken, refreshToken);
-  res.json({ user: { id: user.id, email: user.email } });
+  res.json({ user: { id: user.id, email: user.email }, accessToken });
 });
 
 authRouter.post("/refresh", async (req, res) => {
@@ -78,7 +78,7 @@ authRouter.post("/refresh", async (req, res) => {
 
   const { accessToken, refreshToken } = await issueTokenPair(user.id, user.email);
   setAuthCookies(res, accessToken, refreshToken);
-  res.json({ user: { id: user.id, email: user.email } });
+  res.json({ user: { id: user.id, email: user.email }, accessToken });
 });
 
 authRouter.post("/logout", async (req, res) => {

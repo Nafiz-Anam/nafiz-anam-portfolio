@@ -2,10 +2,11 @@ import crypto from "node:crypto";
 import jwt, { type SignOptions } from "jsonwebtoken";
 import type { Response } from "express";
 
-const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
-const ACCESS_TOKEN_TTL = (process.env.ACCESS_TOKEN_TTL ?? "7d") as SignOptions["expiresIn"];
-const REFRESH_TOKEN_TTL = (process.env.REFRESH_TOKEN_TTL ?? "30d") as SignOptions["expiresIn"];
+// Read lazily so dotenv has time to load before first use
+function accessSecret() { return requireSecret(process.env.ACCESS_TOKEN_SECRET, "ACCESS_TOKEN_SECRET"); }
+function refreshSecret() { return requireSecret(process.env.REFRESH_TOKEN_SECRET, "REFRESH_TOKEN_SECRET"); }
+function accessTTL() { return (process.env.ACCESS_TOKEN_TTL ?? "7d") as SignOptions["expiresIn"]; }
+function refreshTTL() { return (process.env.REFRESH_TOKEN_TTL ?? "30d") as SignOptions["expiresIn"]; }
 
 export const ACCESS_COOKIE_NAME = "portfolio_access";
 export const REFRESH_COOKIE_NAME = "portfolio_refresh";
@@ -28,23 +29,19 @@ function requireSecret(secret: string | undefined, name: string): string {
 }
 
 export function signAccessToken(payload: AccessTokenPayload): string {
-  return jwt.sign(payload, requireSecret(ACCESS_TOKEN_SECRET, "ACCESS_TOKEN_SECRET"), {
-    expiresIn: ACCESS_TOKEN_TTL,
-  });
+  return jwt.sign(payload, accessSecret(), { expiresIn: accessTTL() });
 }
 
 export function signRefreshToken(payload: RefreshTokenPayload): string {
-  return jwt.sign(payload, requireSecret(REFRESH_TOKEN_SECRET, "REFRESH_TOKEN_SECRET"), {
-    expiresIn: REFRESH_TOKEN_TTL,
-  });
+  return jwt.sign(payload, refreshSecret(), { expiresIn: refreshTTL() });
 }
 
 export function verifyAccessToken(token: string): AccessTokenPayload {
-  return jwt.verify(token, requireSecret(ACCESS_TOKEN_SECRET, "ACCESS_TOKEN_SECRET")) as AccessTokenPayload;
+  return jwt.verify(token, accessSecret()) as AccessTokenPayload;
 }
 
 export function verifyRefreshToken(token: string): RefreshTokenPayload {
-  return jwt.verify(token, requireSecret(REFRESH_TOKEN_SECRET, "REFRESH_TOKEN_SECRET")) as RefreshTokenPayload;
+  return jwt.verify(token, refreshSecret()) as RefreshTokenPayload;
 }
 
 // Refresh tokens are stored server-side only as this hash — the raw JWT never touches the DB,

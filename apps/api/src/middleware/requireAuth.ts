@@ -10,7 +10,8 @@ declare global {
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
-  const token = req.cookies?.[ACCESS_COOKIE_NAME];
+  const bearer = req.headers.authorization?.match(/^Bearer\s+(.+)$/)?.[1];
+  const token = bearer ?? req.cookies?.[ACCESS_COOKIE_NAME];
   if (!token) {
     return res.status(401).json({ error: { message: "unauthenticated", code: "ACCESS_TOKEN_MISSING" } });
   }

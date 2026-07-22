@@ -1,8 +1,26 @@
+import Link from "next/link";
 import { Button } from "@portfolio/ui";
 import { FadeIn } from "@/components/FadeIn";
 import { ProjectCard } from "./ProjectCard";
+import type { Project } from "@portfolio/types";
 
-export function WorkGrid() {
+async function getPublishedProjects(): Promise<Project[]> {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/projects?published=true`,
+      { next: { revalidate: 60 } }
+    );
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
+export async function WorkGrid() {
+  const projects = await getPublishedProjects();
+  const p = (i: number) => projects[i] ?? null;
+
   return (
     <section id="work" className="dark bg-texture-lines bg-background px-6 py-24 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
@@ -13,40 +31,65 @@ export function WorkGrid() {
           </h2>
         </FadeIn>
 
-        <div className="mt-14 flex flex-col gap-5">
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-4">
-            <div className="h-[440px] sm:col-span-2">
-              <ProjectCard />
-            </div>
-            <div className="h-[440px] sm:col-span-1">
-              <ProjectCard />
-            </div>
-          </div>
+        {projects.length === 0 ? (
+          <p className="mt-14 text-sm text-muted-foreground">No projects published yet.</p>
+        ) : (
+          <div className="mt-14 flex flex-col gap-5">
+            {(p(0) || p(1)) && (
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-4">
+                {p(0) && (
+                  <div className="h-[440px] sm:col-span-2">
+                    <ProjectCard project={p(0)!} />
+                  </div>
+                )}
+                {p(1) && (
+                  <div className="h-[440px] sm:col-span-1">
+                    <ProjectCard project={p(1)!} />
+                  </div>
+                )}
+              </div>
+            )}
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-4">
-            <div className="hidden sm:block" />
-            <div className="h-[360px] sm:col-span-1">
-              <ProjectCard />
-            </div>
-            <div className="h-[360px] sm:col-span-2">
-              <ProjectCard />
-            </div>
-          </div>
+            {(p(2) || p(3)) && (
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-4">
+                <div className="hidden sm:block" />
+                {p(2) && (
+                  <div className="h-[360px] sm:col-span-1">
+                    <ProjectCard project={p(2)!} />
+                  </div>
+                )}
+                {p(3) && (
+                  <div className="h-[360px] sm:col-span-2">
+                    <ProjectCard project={p(3)!} />
+                  </div>
+                )}
+              </div>
+            )}
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-4">
-            <div className="h-[360px] sm:col-span-2">
-              <ProjectCard />
-            </div>
-            <div className="h-[360px] sm:col-span-2">
-              <ProjectCard />
-            </div>
+            {(p(4) || p(5)) && (
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-4">
+                {p(4) && (
+                  <div className="h-[360px] sm:col-span-2">
+                    <ProjectCard project={p(4)!} />
+                  </div>
+                )}
+                {p(5) && (
+                  <div className="h-[360px] sm:col-span-2">
+                    <ProjectCard project={p(5)!} />
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-        </div>
+        )}
 
         <div className="mt-14 flex justify-center">
-          <Button className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
+          <Link
+            href="/case-studies"
+            className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90"
+          >
             See all works
-          </Button>
+          </Link>
         </div>
       </div>
     </section>

@@ -5,8 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@portfolio/ui";
 import { ArrowUpLeft, ArrowUpRight } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
-import { placeholderTestimonials } from "@/lib/placeholder-content";
+import type { Testimonial } from "@portfolio/types";
 
 const slideVariants = {
   enter: (direction: number) => ({ x: direction > 0 ? 60 : -60, opacity: 0 }),
@@ -14,20 +13,15 @@ const slideVariants = {
   exit: (direction: number) => ({ x: direction > 0 ? -60 : 60, opacity: 0 }),
 };
 
-export function Testimonials() {
+export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) {
   const [[index, direction], setState] = useState<[number, number]>([0, 1]);
-  const testimonial = placeholderTestimonials[index]!;
+
+  if (testimonials.length === 0) return null;
+
+  const testimonial = testimonials[index % testimonials.length]!;
 
   function go(i: number, dir: number) {
-    setState([(i + placeholderTestimonials.length) % placeholderTestimonials.length, dir]);
-  }
-
-  function next() {
-    go(index + 1, 1);
-  }
-
-  function prev() {
-    go(index - 1, -1);
+    setState([(i + testimonials.length) % testimonials.length, dir]);
   }
 
   return (
@@ -42,14 +36,14 @@ export function Testimonials() {
 
             <div className="flex justify-end gap-3 lg:col-start-2 lg:row-start-1">
               <button
-                onClick={prev}
+                onClick={() => go(index - 1, -1)}
                 aria-label="Previous testimonial"
                 className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-accent-foreground hover:bg-accent/90"
               >
                 <ArrowUpLeft size={18} />
               </button>
               <button
-                onClick={next}
+                onClick={() => go(index + 1, 1)}
                 aria-label="Next testimonial"
                 className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-accent-foreground hover:bg-accent/90"
               >
@@ -58,19 +52,20 @@ export function Testimonials() {
             </div>
 
             <div className="flex gap-4 self-end lg:col-start-1 lg:row-start-2">
-              {placeholderTestimonials.map((t, i) => (
+              {testimonials.map((t, i) => (
                 <button
-                  key={t.name}
+                  key={t.id}
                   onClick={() => go(i, i > index ? 1 : -1)}
                   aria-label={`Show testimonial from ${t.name}`}
                   className="h-[160px] w-[150px] shrink-0 overflow-hidden rounded-[5px]"
                 >
-                  <ImagePlaceholder
-                    src={t.photoUrl}
-                    label={t.name}
-                    aspectClassName="aspect-square"
-                    className="h-full w-full rounded-[5px] object-cover"
-                  />
+                  {t.photoUrl ? (
+                    <img src={t.photoUrl} alt={t.name} className="h-full w-full rounded-[5px] object-cover" />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center rounded-[5px] bg-accent/20 text-2xl font-bold text-accent">
+                      {t.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
                 </button>
               ))}
             </div>
@@ -88,12 +83,17 @@ export function Testimonials() {
                   className="grid grid-cols-1 sm:grid-cols-[45%_55%]"
                 >
                   <div className="relative aspect-[3/4] sm:aspect-auto sm:min-h-[430px]">
-                    <ImagePlaceholder
-                      src={testimonial.photoUrl}
-                      label={testimonial.name}
-                      aspectClassName="aspect-auto"
-                      className="absolute inset-0 h-full w-full rounded-none object-cover"
-                    />
+                    {testimonial.photoUrl ? (
+                      <img
+                        src={testimonial.photoUrl}
+                        alt={testimonial.name}
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center bg-accent/20 text-6xl font-bold text-accent">
+                        {testimonial.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex flex-col justify-center gap-4 p-6 sm:p-8">
@@ -102,7 +102,9 @@ export function Testimonials() {
                     </p>
                     <p className="text-xl font-bold text-foreground">
                       {testimonial.name}{" "}
-                      <span className="text-sm font-normal text-accent/80">{testimonial.role}</span>
+                      <span className="text-sm font-normal text-accent/80">
+                        {testimonial.role}{testimonial.company ? ` · ${testimonial.company}` : ""}
+                      </span>
                     </p>
                   </div>
                 </motion.div>
@@ -111,7 +113,7 @@ export function Testimonials() {
 
             <div className="flex justify-end lg:col-start-2 lg:row-start-3">
               <Button className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
-                Read all review
+                Read all reviews
               </Button>
             </div>
           </div>

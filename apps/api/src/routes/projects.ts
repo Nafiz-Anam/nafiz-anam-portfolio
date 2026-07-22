@@ -1,40 +1,146 @@
 import { Router } from "express";
 import { prisma } from "@portfolio/db";
 import { createProjectSchema, updateProjectSchema } from "@portfolio/types";
+import { requireAuth } from "../middleware/requireAuth";
 
 export const projectsRouter = Router();
 
-projectsRouter.get("/", async (_req, res) => {
-  const projects = await prisma.project.findMany({ orderBy: { createdAt: "desc" } });
-  res.json(projects);
+const LIST_SELECT = {
+  id: true,
+  slug: true,
+  title: true,
+  excerpt: true,
+  coverImageUrl: true,
+  industry: true,
+  tags: true,
+  client: true,
+  role: true,
+  outcome: true,
+  year: true,
+  status: true,
+  publishedAt: true,
+  updatedAt: true,
+};
+
+// Public: list published projects
+projectsRouter.get("/", async (req, res) => {
+  const page = Math.max(1, Number(req.query.page) || 1);
+  const limit = Math.min(50, Math.max(1, Number(req.query.limit) || 12));
+  const industry = req.query.industry as string | undefined;
+  const tag = req.query.tag as string | undefined;
+  const skip = (page - 1) * limit;
+
+  const where: Record<string, unknown> = { status: "published" };
+  if (industry) where.industry = industry;
+  if (tag) where.tags = { has: tag };
+
+  const [projects, total, industries] = await Promise.all([
+    prisma.project.findMany({ where, select: LIST_SELECT, orderBy: { publishedAt: "desc" }, skip, take: limit }),
+    prisma.project.count({ where }),
+    prisma.project.findMany({
+      where: { status: "published" },
+      select: { industry: true },
+      distinct: ["industry"],
+      orderBy: { industry: "asc" },
+    }),
+  ]);
+
+  res.json({
+    projects,
+    total,
+    page,
+    totalPages: Math.ceil(total / limit),
+    industries: industries.map((p) => p.industry).filter(Boolean),
+  });
 });
 
-projectsRouter.get("/:slug", async (req, res) => {
-  const project = await prisma.project.findUnique({ where: { slug: req.params.slug } });
-  if (!project) return res.status(404).json({ error: "not found" });
+// Admin list — must come before /:slug
+projectsRouter.get("/admin/list", requireAuth, async (req, res) => {
+  const status = req.query.status as string | undefined;
+  const search = req.query.search as string | undefined;
+  const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 50));
+
+  const where: Record<string, unknown> = {};
+  if (status && status !== "all") where.status = status;
+  if (search) {
+    where.OR = [
+      { title: { contains: search, mode: "insensitive" } },
+      { excerpt: { contains: search, mode: "insensitive" } },
+      { client: { contains: search, mode: "insensitive" } },
+    ];
+  }
+
+  const projects = await prisma.project.findMany({ where, select: LIST_SELECT, orderBy: { updatedAt: "desc" }, take: limit });
+  res.json({ projects });
+});
+
+// must come before /:slug
+projectsRouter.get("/id/:id", requireAuth, async (req, res) => {
+  const project = await prisma.project.findUnique({ where: { id: req.params.id } });
+  if (!project) return res.status(404).json({ error: { message: "not found" } });
   res.json(project);
 });
 
-projectsRouter.post("/", async (req, res) => {
-  const parsed = createProjectSchema.safeParse(req.body);
-  if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });
+// Public: single project with prev/next/related
+projectsRouter.get("/:slug", async (req, res) => {
+  const project = await prisma.project.findFirst({
+    where: { slug: req.params.slug, status: "published" },
+  });
+  if (!project) return res.status(404).json({ error: { message: "not found" } });
 
-  const project = await prisma.project.create({ data: parsed.data });
+  const [prev, next, related] = await Promise.all([
+    prisma.project.findFirst({
+      where: { status: "published", publishedAt: { lt: project.publishedAt ?? project.createdAt } },
+      select: { slug: true, title: true },
+      orderBy: { publishedAt: "desc" },
+    }),
+    prisma.project.findFirst({
+      where: { status: "published", publishedAt: { gt: project.publishedAt ?? project.createdAt } },
+      select: { slug: true, title: true },
+      orderBy: { publishedAt: "asc" },
+    }),
+    prisma.project.findMany({
+      where: { status: "published", industry: project.industry, slug: { not: project.slug } },
+      select: LIST_SELECT,
+      orderBy: { publishedAt: "desc" },
+      take: 3,
+    }),
+  ]);
+
+  res.json({ project, prev, next, related });
+});
+
+projectsRouter.post("/", requireAuth, async (req, res) => {
+  const parsed = createProjectSchema.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: { message: "invalid input", details: parsed.error.flatten() } });
+
+  const data = parsed.data;
+  if (data.status === "published" && !data.publishedAt) {
+    (data as Record<string, unknown>).publishedAt = new Date();
+  }
+
+  const project = await prisma.project.create({ data: data as Parameters<typeof prisma.project.create>[0]["data"] });
   res.status(201).json(project);
 });
 
-projectsRouter.patch("/:id", async (req, res) => {
+projectsRouter.patch("/:id", requireAuth, async (req, res) => {
   const parsed = updateProjectSchema.safeParse(req.body);
-  if (!parsed.success) return res.status(400).json({ error: parsed.error.flatten() });
+  if (!parsed.success) return res.status(400).json({ error: { message: "invalid input", details: parsed.error.flatten() } });
+
+  const data = parsed.data;
+  if (data.status === "published") {
+    const current = await prisma.project.findUnique({ where: { id: req.params.id }, select: { publishedAt: true } });
+    if (!current?.publishedAt) (data as Record<string, unknown>).publishedAt = new Date();
+  }
 
   const project = await prisma.project.update({
     where: { id: req.params.id },
-    data: parsed.data,
+    data: data as Parameters<typeof prisma.project.update>[0]["data"],
   });
   res.json(project);
 });
 
-projectsRouter.delete("/:id", async (req, res) => {
+projectsRouter.delete("/:id", requireAuth, async (req, res) => {
   await prisma.project.delete({ where: { id: req.params.id } });
   res.status(204).send();
 });

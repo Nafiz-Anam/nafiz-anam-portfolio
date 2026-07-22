@@ -9,6 +9,7 @@ import { ProjectApproach } from "@/components/sections/case-studies/ProjectAppro
 import { TechCapabilities } from "@/components/sections/case-studies/TechCapabilities";
 import { OutcomesStrip } from "@/components/sections/case-studies/OutcomesStrip";
 import { CaseStudiesCTA } from "@/components/sections/case-studies/CaseStudiesCTA";
+import { fetchProjectList } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Case Studies — Nafiz Anam",
@@ -16,50 +17,36 @@ export const metadata: Metadata = {
     "Real engineering challenges, measurable business outcomes. Explore how Nafiz Anam has led complex software projects from strategy to production across healthcare, logistics, finance, and more.",
 };
 
-export default function CaseStudiesPage() {
+export default async function CaseStudiesPage() {
+  const { projects } = await fetchProjectList({ limit: 50 });
+
   return (
     <main className="min-h-screen bg-background text-foreground">
-      {/* Hero: dark background */}
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
         <CaseStudiesHero />
       </div>
-
-      {/* Featured case study: panel (cream/light) */}
       <div className="dark">
         <FeaturedCaseStudy />
       </div>
-
-      {/* All case studies grid: dark */}
       <div className="dark">
-        <CaseStudiesGrid />
+        <CaseStudiesGrid projects={projects} />
       </div>
-
-      {/* Industries: panel */}
       <div className="dark">
         <IndustriesServed />
       </div>
-
-      {/* Process: dark */}
       <div className="dark">
         <ProjectApproach />
       </div>
-
-      {/* Tech capabilities: panel */}
       <div className="dark">
         <TechCapabilities />
       </div>
-
-      {/* Outcomes strip: dark */}
       <div className="dark">
         <OutcomesStrip />
       </div>
-
-      {/* Final CTA: panel */}
       <div className="dark">
         <CaseStudiesCTA />
       </div>
-
       <Footer />
     </main>
   );

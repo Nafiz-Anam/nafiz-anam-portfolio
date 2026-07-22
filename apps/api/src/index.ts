@@ -1,4 +1,6 @@
+import { config } from "dotenv";
 import path from "node:path";
+config({ path: path.resolve(process.cwd(), "../../.env") });
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
