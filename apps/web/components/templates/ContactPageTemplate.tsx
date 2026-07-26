@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@portfolio/ui";
+import { BookingButton } from "@/components/sections/BookingButton";
 
 /* ─── Shared Reveal ─── */
 function Reveal({
@@ -668,7 +669,23 @@ const CONNECT_ITEMS = [
   },
 ] as const;
 
-function OtherWaysToConnect({ calendarUrl }: { calendarUrl: string }) {
+function ConnectCard({ icon, label, value, description }: { icon: React.ReactNode; label: string; value: string; description: string }) {
+  return (
+    <div className="flex h-full flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-background/[0.04] p-7 transition-colors duration-200 hover:border-panel-foreground/[0.18] hover:bg-background/[0.07]">
+      <div className="text-panel-foreground/40">{icon}</div>
+      <div className="flex flex-col gap-1">
+        <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-panel-foreground/30">{label}</p>
+        <p className="text-[14px] font-semibold text-panel-foreground/80">{value}</p>
+        <p className="text-[12px] text-panel-foreground/40">{description}</p>
+      </div>
+      <div className="mt-auto">
+        <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-accent">Open →</span>
+      </div>
+    </div>
+  );
+}
+
+function OtherWaysToConnect() {
   return (
     <section className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
@@ -685,41 +702,24 @@ function OtherWaysToConnect({ calendarUrl }: { calendarUrl: string }) {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CONNECT_ITEMS.map((item, i) => {
-            const resolvedItem = item.label === "Google Calendar"
-              ? { ...item, href: calendarUrl || item.href }
-              : item;
-            const inner = (
-              <div className="flex h-full flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-background/[0.04] p-7 transition-colors duration-200 hover:border-panel-foreground/[0.18] hover:bg-background/[0.07]">
-                <div className="text-panel-foreground/40">{resolvedItem.icon}</div>
-                <div className="flex flex-col gap-1">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-panel-foreground/30">
-                    {resolvedItem.label}
-                  </p>
-                  <p className="text-[14px] font-semibold text-panel-foreground/80">
-                    {resolvedItem.value}
-                  </p>
-                  <p className="text-[12px] text-panel-foreground/40">{resolvedItem.description}</p>
-                </div>
-                {resolvedItem.href && (
-                  <div className="mt-auto">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-accent">
-                      Open →
-                    </span>
-                  </div>
-                )}
-              </div>
-            );
-
-            return resolvedItem.href ? (
-              <Reveal key={resolvedItem.label} delay={(i % 3) * 0.06}>
-                <a href={resolvedItem.href} target={resolvedItem.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block h-full">
+            if (item.label === "Google Calendar") {
+              return (
+                <Reveal key={item.label} delay={(i % 3) * 0.06}>
+                  <BookingButton className="block h-full w-full text-left">
+                    <ConnectCard icon={item.icon} label={item.label} value={item.value} description={item.description} />
+                  </BookingButton>
+                </Reveal>
+              );
+            }
+            const inner = <ConnectCard icon={item.icon} label={item.label} value={item.value} description={item.description} />;
+            return item.href ? (
+              <Reveal key={item.label} delay={(i % 3) * 0.06}>
+                <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block h-full">
                   {inner}
                 </a>
               </Reveal>
             ) : (
-              <Reveal key={resolvedItem.label} delay={(i % 3) * 0.06}>
-                {inner}
-              </Reveal>
+              <Reveal key={item.label} delay={(i % 3) * 0.06}>{inner}</Reveal>
             );
           })}
         </div>
@@ -939,11 +939,9 @@ function ContactFinalCTA() {
             let's discuss how we can turn it into a scalable, reliable product.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="#inquiry">
-              <Button className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
-                Book Discovery Call
-              </Button>
-            </a>
+            <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+              Book Discovery Call
+            </BookingButton>
             <a href="/case-studies">
               <Button
                 variant="outline"
@@ -962,8 +960,7 @@ function ContactFinalCTA() {
 /* ═══════════════════════════════════════════════════════════
    MAIN EXPORT
 ═══════════════════════════════════════════════════════════ */
-export function ContactPageTemplate({ config = {} }: { config?: Record<string, string> }) {
-  const calendarUrl = config.google_calendar_url ?? "https://calendar.google.com/calendar/appointments";
+export function ContactPageTemplate({ config: _config = {} }: { config?: Record<string, string> }) {
   return (
     <>
       {/* Hero — dark */}
@@ -981,7 +978,7 @@ export function ContactPageTemplate({ config = {} }: { config?: Record<string, s
 
       {/* Other ways to connect — dark panel */}
       <div className="dark">
-        <OtherWaysToConnect calendarUrl={calendarUrl} />
+        <OtherWaysToConnect />
       </div>
 
       {/* What happens next — light */}

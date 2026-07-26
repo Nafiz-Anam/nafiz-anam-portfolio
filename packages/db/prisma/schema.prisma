@@ -109,3 +109,37 @@ model BlogCategory {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model ContactLead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  category  String
+  budget    String
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GoogleCalendarToken {
+  id           String   @id @default(cuid())
+  refreshToken String   // AES-256-GCM encrypted
+  email        String   @default("")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  name          String
+  email         String
+  message       String   @default("")
+  scheduledAt   DateTime
+  durationMins  Int      @default(30)
+  timezone      String   @default("UTC")
+  googleEventId String?
+  status        String   @default("confirmed")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

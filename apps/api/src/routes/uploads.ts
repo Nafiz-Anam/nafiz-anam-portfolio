@@ -1,4 +1,5 @@
 import path from "node:path";
+import fs from "node:fs/promises";
 import crypto from "node:crypto";
 import { Router } from "express";
 import multer from "multer";
@@ -32,6 +33,12 @@ const upload = multer({
   },
 });
 
+// Admin: list all media
+uploadsRouter.get("/", requireAuth, async (_req, res) => {
+  const media = await prisma.media.findMany({ orderBy: { createdAt: "desc" } });
+  res.json({ media });
+});
+
 uploadsRouter.post("/", requireAuth, upload.single("file"), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: { message: "no file uploaded" } });
 
@@ -45,6 +52,21 @@ uploadsRouter.post("/", requireAuth, upload.single("file"), async (req, res) => 
   });
 
   res.status(201).json(media);
+});
+
+// Admin: delete media + unlink file from disk
+uploadsRouter.delete("/:id", requireAuth, async (req, res) => {
+  const media = await prisma.media.findUnique({ where: { id: req.params.id } });
+  if (!media) return res.status(404).json({ error: { message: "not found" } });
+
+  await prisma.media.delete({ where: { id: req.params.id } });
+
+  const filePath = path.join(UPLOAD_DIR, media.filename);
+  await fs.unlink(filePath).catch(() => {
+    // File may already be gone — not a hard error
+  });
+
+  res.status(204).send();
 });
 
 uploadsRouter.use((err: Error, _req: any, res: any, _next: any) => {

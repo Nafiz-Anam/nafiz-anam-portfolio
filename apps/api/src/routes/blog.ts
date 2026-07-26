@@ -2,6 +2,9 @@ import { Router } from "express";
 import { prisma } from "@portfolio/db";
 import { createBlogPostSchema, updateBlogPostSchema } from "@portfolio/types";
 import { requireAuth } from "../middleware/requireAuth";
+import { revalidate } from "../lib/revalidate";
+
+const BLOG_PATHS = ["/", "/insights", "/insights/[slug]", "/feed.xml", "/sitemap.xml"];
 
 export const blogRouter = Router();
 
@@ -117,6 +120,7 @@ blogRouter.post("/", requireAuth, async (req, res) => {
   }
 
   const post = await prisma.blogPost.create({ data: data as Parameters<typeof prisma.blogPost.create>[0]["data"] });
+  void revalidate(BLOG_PATHS);
   res.status(201).json(post);
 });
 
@@ -134,10 +138,12 @@ blogRouter.patch("/:id", requireAuth, async (req, res) => {
     where: { id: req.params.id },
     data: data as Parameters<typeof prisma.blogPost.update>[0]["data"],
   });
+  void revalidate(BLOG_PATHS);
   res.json(post);
 });
 
 blogRouter.delete("/:id", requireAuth, async (req, res) => {
   await prisma.blogPost.delete({ where: { id: req.params.id } });
+  void revalidate(BLOG_PATHS);
   res.status(204).send();
 });

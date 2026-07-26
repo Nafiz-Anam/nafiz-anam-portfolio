@@ -1,6 +1,7 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import { z } from "zod";
+import rateLimit from "express-rate-limit";
 import { prisma } from "@portfolio/db";
 import {
   signAccessToken,
@@ -13,6 +14,14 @@ import {
 } from "../lib/auth";
 
 export const authRouter = Router();
+
+const loginLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: { message: "Too many login attempts. Try again in 15 minutes.", code: "RATE_LIMITED" } },
+});
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -36,7 +45,7 @@ async function issueTokenPair(userId: string, email: string) {
   return { accessToken, refreshToken };
 }
 
-authRouter.post("/login", async (req, res) => {
+authRouter.post("/login", loginLimit, async (req, res) => {
   const parsed = loginSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: { message: "invalid input", details: parsed.error.flatten() } });
 
@@ -79,6 +88,41 @@ authRouter.post("/refresh", async (req, res) => {
   const { accessToken, refreshToken } = await issueTokenPair(user.id, user.email);
   setAuthCookies(res, accessToken, refreshToken);
   res.json({ user: { id: user.id, email: user.email }, accessToken });
+});
+
+const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1),
+  newPassword: z.string().min(8),
+});
+
+authRouter.post("/change-password", async (req, res) => {
+  const bearer = req.headers.authorization?.match(/^Bearer\s+(.+)$/)?.[1];
+  const token = bearer ?? req.cookies?.portfolio_access_pub;
+  if (!token) return res.status(401).json({ error: { message: "unauthenticated" } });
+
+  let payload;
+  try {
+    const { verifyAccessToken } = await import("../lib/auth");
+    payload = verifyAccessToken(token);
+  } catch {
+    return res.status(401).json({ error: { message: "invalid token" } });
+  }
+
+  const parsed = changePasswordSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: { message: "invalid input", details: parsed.error.flatten() } });
+  }
+
+  const user = await prisma.adminUser.findUnique({ where: { id: payload.sub } });
+  if (!user) return res.status(404).json({ error: { message: "user not found" } });
+
+  const valid = await bcrypt.compare(parsed.data.currentPassword, user.passwordHash);
+  if (!valid) return res.status(400).json({ error: { message: "current password incorrect", code: "WRONG_PASSWORD" } });
+
+  const newHash = await bcrypt.hash(parsed.data.newPassword, 12);
+  await prisma.adminUser.update({ where: { id: user.id }, data: { passwordHash: newHash } });
+
+  res.json({ ok: true });
 });
 
 authRouter.post("/logout", async (req, res) => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@portfolio/ui";
+import { BookingButton } from "@/components/sections/BookingButton";
 
 const STATS = [
   { value: "50+", label: "Articles Published" },
@@ -50,19 +50,15 @@ export function InsightsHero() {
               transition={{ duration: 0.55, ease: "easeOut", delay: 0.2 }}
               className="flex flex-wrap gap-4"
             >
-              <a href="#articles">
-                <Button className="rounded-[5px] bg-accent px-7 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
-                  Explore Articles
-                </Button>
+              <a
+                href="#articles"
+                className="rounded-[5px] bg-accent px-7 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
+              >
+                Explore Articles
               </a>
-              <a href="#contact">
-                <Button
-                  variant="outline"
-                  className="rounded-[5px] border-foreground/20 px-7 py-3 text-xs font-bold uppercase tracking-wide hover:border-foreground/40 hover:bg-foreground/[0.03]"
-                >
-                  Book Discovery Call
-                </Button>
-              </a>
+              <BookingButton className="rounded-[5px] border border-foreground/20 px-7 py-3 text-xs font-bold uppercase tracking-wide text-foreground transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]">
+                Book Discovery Call
+              </BookingButton>
             </motion.div>
           </div>
 

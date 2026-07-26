@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Button } from "@portfolio/ui";
 import type { ServicePageData } from "@/lib/service-pages";
+import { BookingButton } from "@/components/sections/BookingButton";
 
 /* ─── shared animation wrapper ─── */
 function Reveal({
@@ -83,15 +84,15 @@ function HeroSection({
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Button className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+              <BookingButton className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
                 Book Discovery Call
-              </Button>
-              <Button
-                variant="outline"
-                className="rounded-[5px] border-foreground/20 bg-transparent px-9 py-4 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
+              </BookingButton>
+              <a
+                href="/case-studies"
+                className="rounded-[5px] border border-foreground/20 bg-transparent px-9 py-4 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
               >
                 View Case Studies
-              </Button>
+              </a>
             </div>
           </motion.div>
 
@@ -463,15 +464,12 @@ function CTASection({ tagline }: Pick<ServicePageData, "tagline">) {
             your project and we'll figure out if we're the right fit.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-4">
-            <Button className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+            <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
               Book Discovery Call
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-[5px] border-panel-foreground/20 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-widest text-panel-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
-            >
+            </BookingButton>
+            <BookingButton className="rounded-[5px] border border-panel-foreground/20 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-widest text-panel-foreground transition-colors duration-250 hover:border-accent hover:text-accent">
               Schedule Consultation
-            </Button>
+            </BookingButton>
           </div>
         </Reveal>
       </div>

@@ -7,5 +7,8 @@
     "tsconfig.base.json",
     "tailwind.preset.js",
     "eslint.base.js"
-  ]
+  ],
+  "devDependencies": {
+    "tailwindcss-animate": "^1.0.7"
+  }
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FolderKanban, FileText, MessageSquare, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, FolderKanban, FileText, Tag, MessageSquare, Settings, LogOut, Inbox, Image, CalendarCheck } from "lucide-react";
 import { cn } from "@portfolio/ui";
 import { api } from "@/lib/api";
 
@@ -10,7 +10,11 @@ const NAV = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/projects", label: "Projects", icon: FolderKanban },
   { href: "/blog", label: "Blog", icon: FileText },
+  { href: "/blog/categories", label: "Categories", icon: Tag },
   { href: "/testimonials", label: "Testimonials", icon: MessageSquare },
+  { href: "/leads", label: "Leads", icon: Inbox },
+  { href: "/bookings", label: "Bookings", icon: CalendarCheck },
+  { href: "/media", label: "Media", icon: Image },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
@@ -35,7 +39,12 @@ export function Sidebar() {
 
       <nav className="flex flex-col gap-1 px-3 py-2 flex-1">
         {NAV.map(({ href, label, icon: Icon }) => {
-          const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
+          const active = href === "/"
+            ? pathname === "/"
+            : pathname === href || (
+                pathname.startsWith(href + "/") &&
+                !NAV.some((n) => n.href !== href && n.href.startsWith(href + "/") && pathname.startsWith(n.href))
+              );
           return (
             <Link
               key={href}

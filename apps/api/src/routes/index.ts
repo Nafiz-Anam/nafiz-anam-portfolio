@@ -7,6 +7,10 @@ import { blogRouter } from "./blog";
 import { blogCategoriesRouter } from "./blog-categories";
 import { testimonialsRouter } from "./testimonials";
 import { siteConfigRouter } from "./site-config";
+import { contactRouter } from "./contact";
+import { statsRouter } from "./stats";
+import { bookingRouter } from "./booking";
+import { googleAuthRouter } from "./google-auth";
 
 export const apiRouter = Router();
 
@@ -18,3 +22,7 @@ apiRouter.use("/blog", blogRouter);
 apiRouter.use("/blog-categories", blogCategoriesRouter);
 apiRouter.use("/testimonials", testimonialsRouter);
 apiRouter.use("/site-config", siteConfigRouter);
+apiRouter.use("/contact", contactRouter);
+apiRouter.use("/stats", statsRouter);
+apiRouter.use("/booking", bookingRouter);
+apiRouter.use("/google-calendar", googleAuthRouter);

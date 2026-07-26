@@ -3,3 +3,5 @@ export * from "./blog-post";
 export * from "./media";
 export * from "./api-error";
 export * from "./testimonial";
+export * from "./contact-lead";
+export * from "./booking";

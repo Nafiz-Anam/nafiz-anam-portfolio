@@ -2,6 +2,9 @@ import { Router } from "express";
 import { prisma } from "@portfolio/db";
 import { createTestimonialSchema, updateTestimonialSchema } from "@portfolio/types";
 import { requireAuth } from "../middleware/requireAuth";
+import { revalidate } from "../lib/revalidate";
+
+const TESTIMONIAL_PATHS = ["/", "/testimonials"];
 
 export const testimonialsRouter = Router();
 
@@ -36,6 +39,7 @@ testimonialsRouter.post("/", requireAuth, async (req, res) => {
   const parsed = createTestimonialSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: { message: "invalid input", details: parsed.error.flatten() } });
   const testimonial = await prisma.testimonial.create({ data: parsed.data });
+  void revalidate(TESTIMONIAL_PATHS);
   res.status(201).json(testimonial);
 });
 
@@ -43,10 +47,12 @@ testimonialsRouter.patch("/:id", requireAuth, async (req, res) => {
   const parsed = updateTestimonialSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: { message: "invalid input", details: parsed.error.flatten() } });
   const testimonial = await prisma.testimonial.update({ where: { id: req.params.id }, data: parsed.data });
+  void revalidate(TESTIMONIAL_PATHS);
   res.json(testimonial);
 });
 
 testimonialsRouter.delete("/:id", requireAuth, async (req, res) => {
   await prisma.testimonial.delete({ where: { id: req.params.id } });
+  void revalidate(TESTIMONIAL_PATHS);
   res.status(204).send();
 });

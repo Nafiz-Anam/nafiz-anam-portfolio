@@ -11,9 +11,24 @@ import { FAQSection } from "@/components/sections/about/FAQSection";
 import { AboutCTA } from "@/components/sections/about/AboutCTA";
 
 export const metadata = {
-  title: "About — Nafiz Anam",
+  title: "About",
   description:
     "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About — Nafiz Anam",
+    description:
+      "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+    url: "/about",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About — Nafiz Anam",
+    description:
+      "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function AboutPage() {

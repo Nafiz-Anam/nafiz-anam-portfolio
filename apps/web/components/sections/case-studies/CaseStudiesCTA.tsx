@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button } from "@portfolio/ui";
+import { BookingButton } from "@/components/sections/BookingButton";
 
 export function CaseStudiesCTA() {
   return (
@@ -45,9 +45,9 @@ export function CaseStudiesCTA() {
           </div>
 
           <div className="flex flex-col gap-4 sm:items-end">
-            <Button className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+            <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
               Book Discovery Call
-            </Button>
+            </BookingButton>
             <a
               href="/services"
               className="text-center text-[11px] font-bold uppercase tracking-[0.14em] text-panel-foreground/40 transition-colors hover:text-panel-foreground/70"

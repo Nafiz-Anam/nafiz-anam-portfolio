@@ -2,6 +2,9 @@ import { Router } from "express";
 import { prisma } from "@portfolio/db";
 import { createProjectSchema, updateProjectSchema } from "@portfolio/types";
 import { requireAuth } from "../middleware/requireAuth";
+import { revalidate } from "../lib/revalidate";
+
+const PROJECT_PATHS = ["/", "/case-studies", "/case-studies/[slug]", "/sitemap.xml"];
 
 export const projectsRouter = Router();
 
@@ -120,6 +123,7 @@ projectsRouter.post("/", requireAuth, async (req, res) => {
   }
 
   const project = await prisma.project.create({ data: data as Parameters<typeof prisma.project.create>[0]["data"] });
+  void revalidate(PROJECT_PATHS);
   res.status(201).json(project);
 });
 
@@ -137,10 +141,12 @@ projectsRouter.patch("/:id", requireAuth, async (req, res) => {
     where: { id: req.params.id },
     data: data as Parameters<typeof prisma.project.update>[0]["data"],
   });
+  void revalidate(PROJECT_PATHS);
   res.json(project);
 });
 
 projectsRouter.delete("/:id", requireAuth, async (req, res) => {
   await prisma.project.delete({ where: { id: req.params.id } });
+  void revalidate(PROJECT_PATHS);
   res.status(204).send();
 });

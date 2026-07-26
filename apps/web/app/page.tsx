@@ -1,3 +1,26 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Nafiz Anam — Lead Software Engineer & Founder",
+  description:
+    "I help founders and businesses design, build, and scale reliable software. Available for consulting, architecture reviews, and full-cycle product engineering.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Nafiz Anam — Lead Software Engineer & Founder",
+    description:
+      "I help founders and businesses design, build, and scale reliable software. Available for consulting, architecture reviews, and full-cycle product engineering.",
+    url: "/",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nafiz Anam — Lead Software Engineer & Founder",
+    description:
+      "I help founders and businesses design, build, and scale reliable software. Available for consulting, architecture reviews, and full-cycle product engineering.",
+    images: ["/opengraph-image"],
+  },
+};
+
 import { Nav } from "@/components/sections/Nav";
 import { Hero } from "@/components/sections/Hero";
 import { AuthoritySnapshot } from "@/components/sections/AuthoritySnapshot";
@@ -24,14 +47,28 @@ async function getFeaturedTestimonials(): Promise<Testimonial[]> {
   }
 }
 
+async function getAvailabilityStatus(): Promise<string | null> {
+  try {
+    const res = await fetch(`${API}/api/site-config`, { next: { revalidate: 300 } });
+    if (!res.ok) return null;
+    const data = await res.json() as { config: Record<string, string> };
+    return data.config?.availability_status ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export default async function HomePage() {
-  const testimonials = await getFeaturedTestimonials();
+  const [testimonials, availability] = await Promise.all([
+    getFeaturedTestimonials(),
+    getAvailabilityStatus(),
+  ]);
 
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
-        <Hero />
+        <Hero availability={availability} />
         <AuthoritySnapshot />
       </div>
       <WorkGrid />

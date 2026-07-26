@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@portfolio/ui";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { BookingButton } from "@/components/sections/BookingButton";
 import type { ArticleData, ContentBlock, RelatedArticle } from "@/lib/article-content";
 
 /* ─── Animation wrapper ─── */
@@ -711,11 +712,9 @@ function ArticleCTA() {
             products the right way. Let's talk about your specific challenges.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="#contact">
-              <Button className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
-                Book Discovery Call
-              </Button>
-            </a>
+            <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+              Book Discovery Call
+            </BookingButton>
             <a href="/insights">
               <Button
                 variant="outline"

@@ -1,16 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import type { ProjectListItem } from "@portfolio/types";
 
 function CaseStudyCard({ project, index }: { project: ProjectListItem; index: number }) {
   return (
     <motion.div
+      layout
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, ease: "easeOut", delay: (index % 2) * 0.1 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 8 }}
+      transition={{ duration: 0.35, ease: "easeOut", delay: (index % 2) * 0.05 }}
       className="group flex flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background transition-colors duration-300 hover:border-foreground/[0.15]"
     >
       {/* Image */}
@@ -72,7 +74,18 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
   );
 }
 
-export function CaseStudiesGrid({ projects }: { projects: ProjectListItem[] }) {
+export function CaseStudiesGrid({
+  projects,
+  industries = [],
+}: {
+  projects: ProjectListItem[];
+  industries?: string[];
+}) {
+  const [active, setActive] = useState("All");
+
+  const filtered = active === "All" ? projects : projects.filter((p) => p.industry === active);
+  const tabs = ["All", ...industries.filter(Boolean)];
+
   return (
     <section
       id="all-case-studies"
@@ -84,7 +97,7 @@ export function CaseStudiesGrid({ projects }: { projects: ProjectListItem[] }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, ease: "easeOut" }}
-          className="mb-16 flex flex-col gap-3"
+          className="mb-10 flex flex-col gap-3"
         >
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">All Case Studies</p>
           <h2 className="text-4xl font-bold leading-[1.0] tracking-tight sm:text-5xl">
@@ -97,14 +110,37 @@ export function CaseStudiesGrid({ projects }: { projects: ProjectListItem[] }) {
           </p>
         </motion.div>
 
-        {projects.length === 0 ? (
-          <p className="text-sm text-foreground/40">No case studies published yet.</p>
-        ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {projects.map((p, i) => (
-              <CaseStudyCard key={p.id} project={p} index={i} />
+        {/* Industry filter */}
+        {tabs.length > 1 && (
+          <div className="mb-10 flex flex-wrap gap-2">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActive(tab)}
+                className={`rounded-[3px] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] transition-colors duration-200 ${
+                  active === tab
+                    ? "bg-accent text-accent-foreground"
+                    : "border border-foreground/10 text-foreground/50 hover:border-foreground/20 hover:text-foreground/80"
+                }`}
+              >
+                {tab}
+              </button>
             ))}
           </div>
+        )}
+
+        {projects.length === 0 ? (
+          <p className="text-sm text-foreground/40">No case studies published yet.</p>
+        ) : filtered.length === 0 ? (
+          <p className="text-sm text-foreground/40">No case studies in this industry yet.</p>
+        ) : (
+          <AnimatePresence mode="popLayout">
+            <motion.div layout className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {filtered.map((p, i) => (
+                <CaseStudyCard key={p.id} project={p} index={i} />
+              ))}
+            </motion.div>
+          </AnimatePresence>
         )}
       </div>
     </section>

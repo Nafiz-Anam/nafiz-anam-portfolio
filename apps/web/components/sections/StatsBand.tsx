@@ -1,7 +1,8 @@
-import { Button } from "@portfolio/ui";
 import { FadeIn } from "@/components/FadeIn";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
-import { placeholderStats } from "@/lib/placeholder-content";
+import { BookingButton } from "./BookingButton";
+
+const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 const logoTiles = [
   {
@@ -33,7 +34,39 @@ const logoTiles = [
   },
 ];
 
-export function StatsBand() {
+const STAT_DEFAULTS = [
+  { value: "7+",  label: "Years Experience" },
+  { value: "40+", label: "Projects Delivered" },
+  { value: "20+", label: "Happy Clients" },
+];
+
+async function getSiteStats(): Promise<Array<{ value: string; label: string }>> {
+  try {
+    const res = await fetch(`${API}/api/site-config`, { next: { revalidate: 300 } });
+    if (!res.ok) return STAT_DEFAULTS;
+    const { config } = await res.json() as { config: Record<string, string> };
+    return [
+      {
+        value: config.stat_1_value || STAT_DEFAULTS[0]!.value,
+        label: config.stat_1_label || STAT_DEFAULTS[0]!.label,
+      },
+      {
+        value: config.stat_2_value || STAT_DEFAULTS[1]!.value,
+        label: config.stat_2_label || STAT_DEFAULTS[1]!.label,
+      },
+      {
+        value: config.stat_3_value || STAT_DEFAULTS[2]!.value,
+        label: config.stat_3_label || STAT_DEFAULTS[2]!.label,
+      },
+    ];
+  } catch {
+    return STAT_DEFAULTS;
+  }
+}
+
+export async function StatsBand() {
+  const stats = await getSiteStats();
+
   return (
     <section id="about" className="dark bg-panel bg-texture-lines-panel text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 py-16 lg:px-16">
@@ -62,7 +95,7 @@ export function StatsBand() {
         </div>
 
         <div className="mt-[2px] grid grid-cols-3 gap-[2px] bg-panel-foreground/10 sm:grid-cols-6">
-          {placeholderStats.map((stat) => (
+          {stats.map((stat) => (
             <div key={stat.label} className="col-span-1 flex items-baseline gap-3 bg-[#F9F3EF] px-6 py-8 sm:col-span-2">
               <p className="text-[68px] font-bold leading-none text-panel-foreground">{stat.value}</p>
               <p className="text-base text-panel-muted">{stat.label}</p>
@@ -71,9 +104,9 @@ export function StatsBand() {
         </div>
 
         <div className="mt-10 flex justify-end">
-          <Button className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
+          <BookingButton className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
             Book a free call
-          </Button>
+          </BookingButton>
         </div>
       </div>
     </section>

@@ -10,9 +10,24 @@ import { ServicesFAQ } from "@/components/sections/services/ServicesFAQ";
 import { ServicesCTA } from "@/components/sections/services/ServicesCTA";
 
 export const metadata = {
-  title: "Services — Nafiz Anam",
+  title: "Services",
   description:
     "Engineering services built around business goals. Custom software development, SaaS engineering, AI automation, cloud infrastructure, and technical leadership.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Services — Nafiz Anam",
+    description:
+      "Engineering services built around business goals. Custom software development, SaaS engineering, AI automation, cloud infrastructure, and technical leadership.",
+    url: "/services",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services — Nafiz Anam",
+    description:
+      "Engineering services built around business goals. Custom software development, SaaS engineering, AI automation, cloud infrastructure, and technical leadership.",
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function ServicesPage() {

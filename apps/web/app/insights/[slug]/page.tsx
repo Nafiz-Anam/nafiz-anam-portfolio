@@ -3,17 +3,24 @@ import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
-import { fetchBlogPost } from "@/lib/blog";
+import { fetchBlogPost, fetchBlogList } from "@/lib/blog";
+import { sanitizeContent } from "@/lib/sanitize";
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const { posts } = await fetchBlogList({ limit: 500 });
+  return posts.map((p) => ({ slug: p.slug }));
 }
 
 function slugifyHeading(text: string) {
   return text.toLowerCase().replace(/<[^>]+>/g, "").replace(/[^a-z0-9\s]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-");
 }
 
-function processHtml(html: string) {
+function processHtml(rawHtml: string) {
+  const html = sanitizeContent(rawHtml);
   type TocItem = { id: string; text: string };
   const toc: TocItem[] = [];
   const seen = new Map<string, number>();
@@ -39,10 +46,11 @@ function formatDate(iso: string | Date | null) {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const data = await fetchBlogPost(slug);
-  if (!data) return { title: "Insights — Nafiz Anam" };
+  if (!data) return { title: "Insights" };
   const { post } = data;
   return {
-    title: `${post.seoTitle || post.title} — Nafiz Anam`,
+    title: post.seoTitle || post.title,
+    alternates: { canonical: `/insights/${slug}` },
     description: post.seoDescription || post.excerpt,
     keywords: post.tags,
     openGraph: {
@@ -72,15 +80,21 @@ export default async function InsightDetailPage({ params }: Props) {
   const { processed, toc } = processHtml(post.contentHtml);
   const initials = post.authorName.split(" ").map((p) => p[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
 
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.seoTitle || post.title,
     description: post.seoDescription || post.excerpt,
     image: post.ogImage || post.coverImageUrl || undefined,
     datePublished: post.publishedAt ?? post.createdAt,
     dateModified: post.updatedAt,
-    author: { "@type": "Person", name: post.authorName },
+    author: { "@type": "Person", name: post.authorName, url: SITE_URL },
+    publisher: { "@type": "Person", name: "Nafiz Anam", url: SITE_URL },
+    url: `${SITE_URL}/insights/${post.slug}`,
+    keywords: post.tags.join(", "),
+    articleSection: post.category || undefined,
+    wordCount: post.readTimeMinutes ? post.readTimeMinutes * 200 : undefined,
   };
 
   return (

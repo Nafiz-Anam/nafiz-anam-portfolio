@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { Button } from "@portfolio/ui";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { BookingButton } from "./BookingButton";
 import { defaultNav, type NavContent } from "@/lib/placeholder-content";
 
 const SERVICE_LINKS = [
@@ -117,12 +118,9 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <Button
-            size="sm"
-            className="rounded-[5px] bg-accent px-5 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90"
-          >
+          <BookingButton className="rounded-[5px] bg-accent px-5 py-2 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
             Book a free call
-          </Button>
+          </BookingButton>
         </div>
       </div>
     </header>

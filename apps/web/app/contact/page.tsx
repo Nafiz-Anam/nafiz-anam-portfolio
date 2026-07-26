@@ -4,9 +4,24 @@ import { Footer } from "@/components/sections/Footer";
 import { ContactPageTemplate } from "@/components/templates/ContactPageTemplate";
 
 export const metadata: Metadata = {
-  title: "Contact — Nafiz Anam",
+  title: "Contact",
   description:
     "Start a conversation about your software project. Nafiz Anam works with founders, startups, and businesses to build scalable, maintainable software solutions.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact — Nafiz Anam",
+    description:
+      "Start a conversation about your software project. Nafiz Anam works with founders, startups, and businesses to build scalable, maintainable software solutions.",
+    url: "/contact",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact — Nafiz Anam",
+    description:
+      "Start a conversation about your software project. Nafiz Anam works with founders, startups, and businesses to build scalable, maintainable software solutions.",
+    images: ["/opengraph-image"],
+  },
 };
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";

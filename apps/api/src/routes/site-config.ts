@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { prisma } from "@portfolio/db";
 import { requireAuth } from "../middleware/requireAuth";
+import { revalidate } from "../lib/revalidate";
+
+const CONFIG_PATHS = ["/", "/contact", "/sitemap.xml"];
 
 export const siteConfigRouter = Router();
 
@@ -21,10 +24,12 @@ siteConfigRouter.put("/:key", requireAuth, async (req, res) => {
     update: { value, ...(label !== undefined && { label }) },
     create: { key: req.params.key, value, label: label ?? req.params.key },
   });
+  void revalidate(CONFIG_PATHS);
   res.json(row);
 });
 
 siteConfigRouter.delete("/:key", requireAuth, async (req, res) => {
   await prisma.siteConfig.delete({ where: { key: req.params.key } });
+  void revalidate(CONFIG_PATHS);
   res.status(204).send();
 });

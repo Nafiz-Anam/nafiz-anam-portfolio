@@ -3,17 +3,24 @@ import Link from "next/link";
 import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Tag } from "lucide-react";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
-import { fetchProject } from "@/lib/projects";
+import { fetchProject, fetchProjectList } from "@/lib/projects";
+import { sanitizeContent } from "@/lib/sanitize";
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const { projects } = await fetchProjectList({ limit: 500 });
+  return projects.map((p) => ({ slug: p.slug }));
 }
 
 function slugifyHeading(text: string) {
   return text.toLowerCase().replace(/<[^>]+>/g, "").replace(/[^a-z0-9\s]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-");
 }
 
-function processHtml(html: string) {
+function processHtml(rawHtml: string) {
+  const html = sanitizeContent(rawHtml);
   type TocItem = { id: string; text: string };
   const toc: TocItem[] = [];
   const seen = new Map<string, number>();
@@ -34,17 +41,26 @@ function processHtml(html: string) {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const data = await fetchProject(slug);
-  if (!data) return { title: "Case Studies — Nafiz Anam" };
+  if (!data) return { title: "Case Studies" };
   const { project } = data;
   return {
-    title: `${project.seoTitle || project.title} — Nafiz Anam`,
+    title: project.seoTitle || project.title,
     description: project.seoDescription || project.excerpt,
     keywords: project.tags,
+    alternates: { canonical: `/case-studies/${slug}` },
     openGraph: {
       title: project.seoTitle || project.title,
       description: project.seoDescription || project.excerpt,
-      images: project.ogImage || project.coverImageUrl || undefined,
+      images: project.ogImage || project.coverImageUrl
+        ? [{ url: (project.ogImage || project.coverImageUrl) as string }]
+        : [{ url: "/opengraph-image", width: 1200, height: 630 }],
       type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.seoTitle || project.title,
+      description: project.seoDescription || project.excerpt,
+      images: [project.ogImage || project.coverImageUrl || "/opengraph-image"],
     },
   };
 }
@@ -57,8 +73,24 @@ export default async function CaseStudyPage({ params }: Props) {
   const { project, prev, next, related } = data;
   const { processed, toc } = processHtml(project.contentHtml);
 
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
+  const caseStudySchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: project.seoTitle || project.title,
+    description: project.seoDescription || project.excerpt,
+    image: project.ogImage || project.coverImageUrl || undefined,
+    datePublished: project.publishedAt ?? project.createdAt,
+    dateModified: project.updatedAt,
+    author: { "@type": "Person", name: "Nafiz Anam", url: SITE_URL },
+    publisher: { "@type": "Person", name: "Nafiz Anam", url: SITE_URL },
+    url: `${SITE_URL}/case-studies/${project.slug}`,
+    keywords: project.tags.join(", "),
+  };
+
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudySchema) }} />
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
       </div>

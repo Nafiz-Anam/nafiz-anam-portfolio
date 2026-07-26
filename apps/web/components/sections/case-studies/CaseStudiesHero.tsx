@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Button } from "@portfolio/ui";
+import { BookingButton } from "@/components/sections/BookingButton";
 
 export function CaseStudiesHero() {
   return (
@@ -44,15 +45,15 @@ export function CaseStudiesHero() {
         transition={{ duration: 0.5, delay: 0.28, ease: "easeOut" }}
         className="mt-12 flex flex-wrap gap-4"
       >
-        <Button className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+        <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
           Book Discovery Call
-        </Button>
-        <Button
-          variant="outline"
+        </BookingButton>
+        <Link
+          href="/services"
           className="rounded-[5px] border border-foreground/20 bg-transparent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-foreground/40 hover:bg-foreground/5"
         >
           Explore Services
-        </Button>
+        </Link>
       </motion.div>
     </section>
   );

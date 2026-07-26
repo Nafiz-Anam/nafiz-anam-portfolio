@@ -1,5 +1,6 @@
-import { Button } from "@portfolio/ui";
+import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
+import { BookingButton } from "@/components/sections/BookingButton";
 
 export function AboutCTA() {
   return (
@@ -23,15 +24,15 @@ export function AboutCTA() {
             senior engineering leadership—I'd like to hear what you're working on.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-4">
-            <Button className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+            <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
               Book Discovery Call
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-[5px] border-foreground/20 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
+            </BookingButton>
+            <Link
+              href="/case-studies"
+              className="rounded-[5px] border border-foreground/20 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
             >
               View My Work
-            </Button>
+            </Link>
           </div>
         </FadeIn>
       </div>

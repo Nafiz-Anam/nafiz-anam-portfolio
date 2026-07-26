@@ -1,0 +1,28 @@
+# Dependencies (rebuilt inside container)
+**/node_modules
+**/.pnpm-store
+
+# Build output
+**/.next
+**/dist
+**/generated
+
+# Dev files
+**/.env
+**/.env.local
+**/.env.*.local
+**/.git
+**/.gitignore
+**/.github
+**/.vscode
+**/.claude
+
+# Test / docs
+**/coverage
+**/*.test.ts
+**/*.spec.ts
+**/README.md
+
+# OS
+**/.DS_Store
+**/Thumbs.db

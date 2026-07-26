@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@portfolio/ui";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { BookingButton } from "@/components/sections/BookingButton";
 
 export function AboutHero() {
   return (
@@ -42,15 +44,15 @@ export function AboutHero() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Button className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+              <BookingButton className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
                 Book Discovery Call
-              </Button>
-              <Button
-                variant="outline"
-                className="rounded-[5px] border-foreground/20 bg-transparent px-9 py-4 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
+              </BookingButton>
+              <Link
+                href="/case-studies"
+                className="rounded-[5px] border border-foreground/20 bg-transparent px-9 py-4 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
               >
                 View Case Studies
-              </Button>
+              </Link>
             </div>
           </motion.div>
 

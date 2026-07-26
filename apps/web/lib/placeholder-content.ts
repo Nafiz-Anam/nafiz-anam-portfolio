@@ -11,6 +11,7 @@ export const defaultNav: NavContent = {
     { label: "Services", href: "/services" },
     { label: "Case Studies", href: "/case-studies" },
     { label: "Insights", href: "/insights" },
+    { label: "Testimonials", href: "/testimonials" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ],
@@ -111,6 +112,7 @@ export interface FooterContent {
   brand: string;
   email: string;
   socials: { label: string; href: string }[];
+  pages: { label: string; href: string }[];
   photoUrl: string | null;
 }
 
@@ -121,6 +123,13 @@ export const defaultFooter: FooterContent = {
     { label: "GitHub", href: "https://github.com" },
     { label: "LinkedIn", href: "https://linkedin.com" },
     { label: "Twitter", href: "https://twitter.com" },
+  ],
+  pages: [
+    { label: "Case Studies", href: "/case-studies" },
+    { label: "Insights", href: "/insights" },
+    { label: "Testimonials", href: "/testimonials" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
   ],
   photoUrl: "/Nafiz-Anam.jpg",
 };

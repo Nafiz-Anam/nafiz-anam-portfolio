@@ -1,9 +1,23 @@
-import { Button } from "@portfolio/ui";
 import { FadeIn } from "@/components/FadeIn";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { defaultHero, type HeroContent } from "@/lib/placeholder-content";
+import { BookingButton } from "./BookingButton";
 
-export function Hero({ data = defaultHero }: { data?: HeroContent }) {
+const AVAILABILITY_CONFIG = {
+  available: { dot: "bg-green-400", text: "Available for work" },
+  limited: { dot: "bg-amber-400", text: "Limited availability" },
+  unavailable: { dot: "bg-red-400", text: "Not available" },
+} as const;
+
+export function Hero({
+  data = defaultHero,
+  availability,
+}: {
+  data?: HeroContent;
+  availability?: string | null;
+}) {
+  const badge = availability ? AVAILABILITY_CONFIG[availability as keyof typeof AVAILABILITY_CONFIG] : null;
+
   return (
     <section id="intro" className="mx-auto max-w-[1800px] px-6 lg:px-16 pb-24 pt-12">
       <FadeIn>
@@ -16,10 +30,18 @@ export function Hero({ data = defaultHero }: { data?: HeroContent }) {
             </span>
           </h1>
 
-          <div className="flex gap-6 pt-4 text-sm font-medium text-accent/80 sm:pt-6">
-            {data.tags.map((tag) => (
-              <span key={tag}>{tag}</span>
-            ))}
+          <div className="flex flex-col items-end gap-3 pt-4 sm:pt-6">
+            <div className="flex gap-6 text-sm font-medium text-accent/80">
+              {data.tags.map((tag) => (
+                <span key={tag}>{tag}</span>
+              ))}
+            </div>
+            {badge && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-foreground/10 bg-foreground/5 px-3 py-1 text-xs font-medium text-foreground/70">
+                <span className={`h-1.5 w-1.5 rounded-full ${badge.dot} animate-pulse`} />
+                {badge.text}
+              </span>
+            )}
           </div>
         </div>
       </FadeIn>
@@ -32,9 +54,9 @@ export function Hero({ data = defaultHero }: { data?: HeroContent }) {
             <p className="max-w-md text-base leading-[1.8] text-panel-muted">{data.pitch}</p>
 
             <div className="flex justify-end">
-              <Button className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+              <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
                 {data.ctaLabel}
-              </Button>
+              </BookingButton>
             </div>
           </div>
 
