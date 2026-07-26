@@ -213,23 +213,29 @@ bookingRouter.post("/", async (req, res) => {
     }
   }
 
-  // Fire-and-forget — never let email failure fail the booking response
+  // Fire-and-forget — never let email failures affect the booking response
   sendConfirmationEmail({ name, email, scheduledAt: scheduled, durationMins, timezone }).catch((err) => {
-    console.error("[Booking] confirmation email failed", err);
+    console.error("[Booking] visitor confirmation email failed", err);
+  });
+  notifyOwnerNewBooking({ name, email, message, scheduledAt: scheduled, durationMins, timezone }).catch((err) => {
+    console.error("[Booking] owner notification email failed", err);
   });
 
   res.status(201).json({ booking: { ...booking, googleEventId: googleEventId ?? null } });
 });
 
-/** GET /api/booking — admin: list all bookings */
+/** GET /api/booking — admin: list bookings with pagination */
 bookingRouter.get("/", requireAuth, async (req, res) => {
   const { status } = req.query as { status?: string };
+  const page = Math.max(1, Number(req.query.page) || 1);
+  const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 25));
+  const skip = (page - 1) * limit;
   const where = status ? { status } : {};
-  const bookings = await prisma.booking.findMany({
-    where,
-    orderBy: { scheduledAt: "desc" },
-  });
-  res.json({ bookings });
+  const [bookings, total] = await Promise.all([
+    prisma.booking.findMany({ where, orderBy: { scheduledAt: "desc" }, skip, take: limit }),
+    prisma.booking.count({ where }),
+  ]);
+  res.json({ bookings, total, page, totalPages: Math.ceil(total / limit) });
 });
 
 /** DELETE /api/booking/:id — admin: cancel booking */
@@ -253,6 +259,15 @@ bookingRouter.delete("/:id", requireAuth, async (req, res) => {
   }
 
   await prisma.booking.update({ where: { id }, data: { status: "cancelled" } });
+
+  sendCancellationEmail({
+    name: booking.name,
+    email: booking.email,
+    scheduledAt: booking.scheduledAt,
+    durationMins: booking.durationMins,
+    timezone: booking.timezone,
+  }).catch((err) => console.error("[Booking] cancellation email failed", err));
+
   res.json({ ok: true });
 });
 
@@ -293,6 +308,81 @@ async function sendConfirmationEmail(params: {
       `You'll receive a Google Calendar invite shortly with a meeting link.`,
       ``,
       `If you need to reschedule, reply to this email.`,
+      ``,
+      `— Nafiz Anam`,
+    ].join("\n"),
+  });
+}
+
+async function notifyOwnerNewBooking(params: {
+  name: string;
+  email: string;
+  message: string;
+  scheduledAt: Date;
+  durationMins: number;
+  timezone: string;
+}) {
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM, NOTIFY_EMAIL } = process.env;
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !NOTIFY_EMAIL) return;
+
+  const dateStr = params.scheduledAt.toLocaleString("en-GB", {
+    dateStyle: "full", timeStyle: "short", timeZone: params.timezone,
+  });
+
+  const transporter = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: SMTP_PORT ? Number(SMTP_PORT) : 587,
+    secure: false,
+    auth: { user: SMTP_USER, pass: SMTP_PASS },
+  });
+
+  await transporter.sendMail({
+    from: SMTP_FROM ?? SMTP_USER,
+    to: NOTIFY_EMAIL,
+    subject: `New booking — ${params.name} · ${dateStr}`,
+    text: [
+      `New discovery call booked.`,
+      ``,
+      `Name: ${params.name}`,
+      `Email: ${params.email}`,
+      `Date & time: ${dateStr} (${params.timezone})`,
+      `Duration: ${params.durationMins} min`,
+      params.message ? `\nMessage:\n${params.message}` : "",
+    ].join("\n"),
+  });
+}
+
+async function sendCancellationEmail(params: {
+  name: string;
+  email: string;
+  scheduledAt: Date;
+  durationMins: number;
+  timezone: string;
+}) {
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM } = process.env;
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return;
+
+  const dateStr = params.scheduledAt.toLocaleString("en-GB", {
+    dateStyle: "full", timeStyle: "short", timeZone: params.timezone,
+  });
+
+  const transporter = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: SMTP_PORT ? Number(SMTP_PORT) : 587,
+    secure: false,
+    auth: { user: SMTP_USER, pass: SMTP_PASS },
+  });
+
+  await transporter.sendMail({
+    from: SMTP_FROM ?? SMTP_USER,
+    to: params.email,
+    subject: `Your discovery call on ${dateStr} has been cancelled`,
+    text: [
+      `Hi ${params.name},`,
+      ``,
+      `Your ${params.durationMins}-minute discovery call scheduled for ${dateStr} has been cancelled.`,
+      ``,
+      `To rebook, visit nafizanam.com or reply to this email.`,
       ``,
       `— Nafiz Anam`,
     ].join("\n"),

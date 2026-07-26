@@ -24,6 +24,7 @@ async function getFooterData(): Promise<FooterContent> {
       ...defaultFooter,
       email: config.contact_email || defaultFooter.email,
       socials: socials.length > 0 ? socials : defaultFooter.socials,
+      photoUrl: config.footer_photo_url || defaultFooter.photoUrl,
     };
   } catch {
     return defaultFooter;

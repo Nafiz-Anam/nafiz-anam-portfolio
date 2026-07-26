@@ -2,7 +2,6 @@ import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
 import { InsightsHero } from "@/components/sections/insights/InsightsHero";
 import { ArticlesSection } from "@/components/sections/insights/ArticlesSection";
-import { NewsletterSection } from "@/components/sections/insights/NewsletterSection";
 import { fetchBlogList } from "@/lib/blog";
 
 export const metadata = {
@@ -36,7 +35,6 @@ export default async function InsightsPage() {
         <InsightsHero />
       </div>
       <ArticlesSection posts={posts} categories={categories} />
-      <NewsletterSection />
       <Footer />
     </main>
   );

@@ -82,15 +82,18 @@ contactRouter.post("/", submitLimit, async (req, res) => {
   res.status(201).json({ ok: true, id: lead.id });
 });
 
-// Admin: list all leads
+// Admin: list leads with pagination
 contactRouter.get("/", requireAuth, async (req, res) => {
   const status = req.query.status as string | undefined;
+  const page = Math.max(1, Number(req.query.page) || 1);
+  const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 25));
+  const skip = (page - 1) * limit;
   const where = status && status !== "all" ? { status } : {};
-  const leads = await prisma.contactLead.findMany({
-    where,
-    orderBy: { createdAt: "desc" },
-  });
-  res.json({ leads });
+  const [leads, total] = await Promise.all([
+    prisma.contactLead.findMany({ where, orderBy: { createdAt: "desc" }, skip, take: limit }),
+    prisma.contactLead.count({ where }),
+  ]);
+  res.json({ leads, total, page, totalPages: Math.ceil(total / limit) });
 });
 
 // Admin: update status

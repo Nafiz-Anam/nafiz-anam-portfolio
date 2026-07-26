@@ -75,14 +75,22 @@ authRouter.post("/refresh", async (req, res) => {
   const tokenHash = hashToken(token);
   const stored = await prisma.refreshToken.findUnique({ where: { tokenHash } });
 
-  if (!stored || stored.revokedAt || stored.expiresAt < new Date()) {
+  if (!stored || stored.expiresAt < new Date()) {
     return res.status(401).json({ error: { message: "refresh token revoked or expired", code: "REFRESH_TOKEN_INVALID" } });
+  }
+
+  // Reuse detection: token was already revoked — breach signal, revoke all tokens for this user
+  if (stored.revokedAt) {
+    console.error(`[Auth] refresh token reuse detected for userId=${stored.userId} — revoking all tokens`);
+    await prisma.refreshToken.updateMany({ where: { userId: stored.userId }, data: { revokedAt: new Date() } });
+    clearAuthCookies(res);
+    return res.status(401).json({ error: { message: "session invalidated — please log in again", code: "REFRESH_TOKEN_REUSE" } });
   }
 
   const user = await prisma.adminUser.findUnique({ where: { id: payload.sub } });
   if (!user) return res.status(401).json({ error: { message: "user not found", code: "REFRESH_TOKEN_INVALID" } });
 
-  // Rotation: revoke the used token before issuing a new pair so it can't be replayed.
+  // Rotation: revoke the used token before issuing a new pair
   await prisma.refreshToken.update({ where: { id: stored.id }, data: { revokedAt: new Date() } });
 
   const { accessToken, refreshToken } = await issueTokenPair(user.id, user.email);

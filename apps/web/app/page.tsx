@@ -47,28 +47,38 @@ async function getFeaturedTestimonials(): Promise<Testimonial[]> {
   }
 }
 
-async function getAvailabilityStatus(): Promise<string | null> {
+async function getSiteConfig(): Promise<Record<string, string>> {
   try {
     const res = await fetch(`${API}/api/site-config`, { next: { revalidate: 300 } });
-    if (!res.ok) return null;
+    if (!res.ok) return {};
     const data = await res.json() as { config: Record<string, string> };
-    return data.config?.availability_status ?? null;
+    return data.config ?? {};
   } catch {
-    return null;
+    return {};
   }
 }
 
 export default async function HomePage() {
-  const [testimonials, availability] = await Promise.all([
+  const [testimonials, config] = await Promise.all([
     getFeaturedTestimonials(),
-    getAvailabilityStatus(),
+    getSiteConfig(),
   ]);
+
+  const heroData = {
+    tags: config.hero_tags ? config.hero_tags.split("|").map((t) => t.trim()) : undefined,
+    headlineLine1: config.hero_headline_1 || undefined,
+    headlineLine2Serif: config.hero_headline_2_serif || undefined,
+    headlineLine2Sans: config.hero_headline_2_sans || undefined,
+    name: config.hero_name || undefined,
+    pitch: config.hero_pitch || undefined,
+    photoUrl: config.hero_photo_url || undefined,
+  };
 
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
-        <Hero availability={availability} />
+        <Hero availability={config.availability_status ?? null} data={heroData} />
         <AuthoritySnapshot />
       </div>
       <WorkGrid />

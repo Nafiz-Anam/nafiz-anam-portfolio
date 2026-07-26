@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Calendar, Clock, Mail, User, Trash2, Loader2 } from "lucide-react";
 import { type Booking } from "@portfolio/types";
 import { api } from "@/lib/api";
+import { Pagination } from "@/components/Pagination";
 
 function formatDateTime(d: Date | string, tz?: string) {
   return new Date(d).toLocaleString("en-GB", {
@@ -18,21 +19,35 @@ const STATUS_COLORS: Record<string, string> = {
   cancelled: "bg-muted/40 text-muted-foreground",
 };
 
+const LIMIT = 25;
+
 export default function BookingsPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [cancelling, setCancelling] = useState<string | null>(null);
   const [filter, setFilter] = useState<"all" | "confirmed" | "cancelled">("all");
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
+  function load(f = filter, p = page) {
     setLoading(true);
-    const params = filter !== "all" ? `?status=${filter}` : "";
+    const params: Record<string, unknown> = { page: p, limit: LIMIT };
+    if (f !== "all") params.status = f;
     api
-      .get<{ bookings: Booking[] }>(`/booking${params}`)
-      .then((res) => setBookings(res.data.bookings ?? []))
+      .get<{ bookings: Booking[]; total: number; totalPages: number }>("/booking", { params })
+      .then((res) => {
+        setBookings(res.data.bookings ?? []);
+        setTotal(res.data.total ?? 0);
+        setTotalPages(res.data.totalPages ?? 1);
+      })
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [filter]);
+  }
+
+  useEffect(() => { setPage(1); load(filter, 1); }, [filter]);
+
+  function handlePage(p: number) { setPage(p); load(filter, p); }
 
   async function cancelBooking(id: string) {
     if (!confirm("Cancel this booking? The Google Calendar event will be deleted.")) return;
@@ -180,6 +195,7 @@ export default function BookingsPage() {
           </table>
         </div>
       )}
+      <Pagination page={page} totalPages={totalPages} total={total} limit={LIMIT} onPage={handlePage} />
     </div>
   );
 }

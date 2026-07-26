@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Loader2, Inbox, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { type ContactLead } from "@portfolio/types";
 import { api } from "@/lib/api";
+import { Pagination } from "@/components/Pagination";
 
 type Status = "all" | "new" | "read" | "replied" | "archived";
 
@@ -18,6 +19,8 @@ function formatDate(d: Date | string) {
   return new Date(d).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
+const LIMIT = 25;
+
 export default function LeadsPage() {
   const [leads, setLeads] = useState<ContactLead[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,14 +29,19 @@ export default function LeadsPage() {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
-  async function load() {
+  async function load(p = page) {
     setLoading(true);
     try {
-      const res = await api.get<{ leads: ContactLead[] }>("/contact", {
-        params: { status },
+      const res = await api.get<{ leads: ContactLead[]; total: number; totalPages: number }>("/contact", {
+        params: { status, page: p, limit: LIMIT },
       });
       setLeads(res.data.leads ?? []);
+      setTotal(res.data.total ?? 0);
+      setTotalPages(res.data.totalPages ?? 1);
     } catch (e) {
       const err = e as { message?: string };
       setError(err.message ?? "Failed to load.");
@@ -42,7 +50,12 @@ export default function LeadsPage() {
     }
   }
 
-  useEffect(() => { load(); }, [status]);
+  useEffect(() => { setPage(1); load(1); }, [status]);
+
+  function handlePage(p: number) {
+    setPage(p);
+    load(p);
+  }
 
   async function handleStatusChange(id: string, newStatus: ContactLead["status"]) {
     setUpdatingId(id);
@@ -205,6 +218,7 @@ export default function LeadsPage() {
           </table>
         </div>
       )}
+      <Pagination page={page} totalPages={totalPages} total={total} limit={LIMIT} onPage={handlePage} />
     </div>
   );
 }
