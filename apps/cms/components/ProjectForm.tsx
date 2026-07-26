@@ -111,6 +111,16 @@ export function ProjectForm({
           <h1 className="text-2xl font-bold">{mode === "create" ? "New project" : "Edit project"}</h1>
         </div>
         <div className="flex items-center gap-2">
+          {mode === "edit" && values.slug && (
+            <a
+              href={`${WEBSITE_URL}/api/draft?secret=${process.env.NEXT_PUBLIC_PREVIEW_SECRET ?? ""}&slug=${values.slug}&type=project`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 text-sm font-medium text-amber-500 hover:bg-amber-500/20"
+            >
+              <Eye size={14} /> Preview
+            </a>
+          )}
           {mode === "edit" && values.status === "published" && (
             <a
               href={`${WEBSITE_URL}/case-studies/${values.slug}`}

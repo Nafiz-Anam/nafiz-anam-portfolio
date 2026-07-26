@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Tag } from "lucide-react";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
+import { draftMode } from "next/headers";
 import { fetchProject, fetchProjectList } from "@/lib/projects";
 import { sanitizeContent } from "@/lib/sanitize";
 
@@ -67,7 +68,8 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function CaseStudyPage({ params }: Props) {
   const { slug } = await params;
-  const data = await fetchProject(slug);
+  const { isEnabled: isPreview } = await draftMode();
+  const data = await fetchProject(slug, isPreview);
   if (!data) notFound();
 
   const { project, prev, next, related } = data;
@@ -91,6 +93,12 @@ export default async function CaseStudyPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudySchema) }} />
+      {isPreview && (
+        <div className="flex items-center justify-between bg-amber-500 px-6 py-2 text-xs font-bold text-black">
+          <span>DRAFT PREVIEW — not published</span>
+          <a href={`${SITE_URL}/api/disable-draft`} className="underline">Exit preview</a>
+        </div>
+      )}
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
       </div>

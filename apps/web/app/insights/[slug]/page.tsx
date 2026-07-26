@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
+import { draftMode } from "next/headers";
 import { fetchBlogPost, fetchBlogList } from "@/lib/blog";
 import { sanitizeContent } from "@/lib/sanitize";
 
@@ -73,11 +74,13 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function InsightDetailPage({ params }: Props) {
   const { slug } = await params;
-  const data = await fetchBlogPost(slug);
+  const { isEnabled: isPreview } = await draftMode();
+  const data = await fetchBlogPost(slug, isPreview);
   if (!data) notFound();
 
   const { post, prev, next } = data;
   const { processed, toc } = processHtml(post.contentHtml);
+  const SITE_URL_DRAFT = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
   const initials = post.authorName.split(" ").map((p) => p[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
 
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
@@ -100,6 +103,13 @@ export default async function InsightDetailPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+
+      {isPreview && (
+        <div className="flex items-center justify-between bg-amber-500 px-6 py-2 text-xs font-bold text-black">
+          <span>DRAFT PREVIEW — not published</span>
+          <a href={`${SITE_URL_DRAFT}/api/disable-draft`} className="underline">Exit preview</a>
+        </div>
+      )}
 
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />

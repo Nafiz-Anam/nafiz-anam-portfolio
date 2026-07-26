@@ -28,6 +28,8 @@ export async function fetchProjectList(params?: {
   return result ?? { projects: [], total: 0, page: 1, totalPages: 1, industries: [] };
 }
 
-export async function fetchProject(slug: string): Promise<ProjectSingleResult | null> {
-  return fetchJson<ProjectSingleResult>(`/projects/${encodeURIComponent(slug)}`);
+export async function fetchProject(slug: string, preview = false): Promise<ProjectSingleResult | null> {
+  const token = preview ? process.env.REVALIDATE_SECRET : undefined;
+  const qs = token ? `?token=${encodeURIComponent(token)}` : "";
+  return fetchJson<ProjectSingleResult>(`/projects/${encodeURIComponent(slug)}${qs}`, preview ? 0 : 60);
 }

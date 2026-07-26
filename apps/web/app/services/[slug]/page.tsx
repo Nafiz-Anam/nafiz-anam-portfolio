@@ -3,19 +3,20 @@ import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
 import { ServicePageTemplate } from "@/components/templates/ServicePageTemplate";
 import { RelatedCaseStudies } from "@/components/sections/RelatedCaseStudies";
-import { getServiceBySlug, SERVICE_PAGES } from "@/lib/service-pages";
+import { getServicePageData, getAllServiceSlugs } from "@/lib/services";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return SERVICE_PAGES.map((s) => ({ slug: s.slug }));
+  const slugs = await getAllServiceSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const service = await getServicePageData(slug);
   if (!service) return {};
   return {
     title: service.metaTitle,
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function ServicePage({ params }: Props) {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const service = await getServicePageData(slug);
   if (!service) notFound();
 
   return (

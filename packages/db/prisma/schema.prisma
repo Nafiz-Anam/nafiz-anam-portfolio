@@ -143,3 +143,20 @@ model Booking {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+model Service {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  tagline         String   @default("")
+  status          String   @default("published")
+  sortOrder       Int      @default(0)
+  metaTitle       String   @default("")
+  metaDescription String   @default("")
+  headline        String   @default("")
+  headlineAccent  String   @default("")
+  description     String   @default("")
+  contentJson     Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

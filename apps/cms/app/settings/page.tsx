@@ -138,6 +138,42 @@ const MANAGED_KEYS: { key: string; label: string; description: string; type?: "u
     description: "Label for stat 3 (e.g. \"Happy Clients\").",
     type: "text",
   },
+  {
+    key: "client_logo_1",
+    label: "Client Logo 1",
+    description: "Client name shown in homepage logo strip (slot 1). Leave blank for decorative tile.",
+    type: "text",
+  },
+  {
+    key: "client_logo_2",
+    label: "Client Logo 2",
+    description: "Client name shown in homepage logo strip (slot 2).",
+    type: "text",
+  },
+  {
+    key: "client_logo_3",
+    label: "Client Logo 3",
+    description: "Client name shown in homepage logo strip (slot 3).",
+    type: "text",
+  },
+  {
+    key: "client_logo_4",
+    label: "Client Logo 4",
+    description: "Client name shown in homepage logo strip (slot 4).",
+    type: "text",
+  },
+  {
+    key: "client_logo_5",
+    label: "Client Logo 5",
+    description: "Client name shown in homepage logo strip (slot 5).",
+    type: "text",
+  },
+  {
+    key: "client_logo_6",
+    label: "Client Logo 6",
+    description: "Client name shown in homepage logo strip (slot 6).",
+    type: "text",
+  },
 ];
 
 export default function SettingsPage() {

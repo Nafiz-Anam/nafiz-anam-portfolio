@@ -76,9 +76,15 @@ export function ArticlesSection({
   categories: string[];
 }) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [search, setSearch] = useState("");
 
   const allCategories = ["All", ...categories];
-  const filtered = activeCategory === "All" ? posts : posts.filter((p) => p.category === activeCategory);
+  const filtered = posts.filter((p) => {
+    const matchCat = activeCategory === "All" || p.category === activeCategory;
+    const q = search.toLowerCase().trim();
+    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q);
+    return matchCat && matchSearch;
+  });
 
   return (
     <section
@@ -93,10 +99,21 @@ export function ArticlesSection({
           transition={{ duration: 0.55, ease: "easeOut" }}
           className="mb-14 flex flex-col gap-5"
         >
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">Browse by Topic</p>
-          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
-            Latest <span className="font-serif italic text-accent">Articles</span>
-          </h2>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">Browse by Topic</p>
+              <h2 className="mt-2 text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
+                Latest <span className="font-serif italic text-accent">Articles</span>
+              </h2>
+            </div>
+            <input
+              type="search"
+              placeholder="Search articles…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full rounded-[5px] border border-panel-foreground/10 bg-background/50 px-4 py-2.5 text-sm text-panel-foreground placeholder:text-panel-foreground/30 focus:outline-none focus:ring-1 focus:ring-accent sm:w-64"
+            />
+          </div>
         </motion.div>
 
         {allCategories.length > 1 && (

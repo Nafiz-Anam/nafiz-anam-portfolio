@@ -28,6 +28,8 @@ export async function fetchBlogList(params?: {
   return result ?? { posts: [], total: 0, page: 1, totalPages: 1, categories: [] };
 }
 
-export async function fetchBlogPost(slug: string): Promise<BlogSingleResult | null> {
-  return fetchJson<BlogSingleResult>(`/blog/${encodeURIComponent(slug)}`);
+export async function fetchBlogPost(slug: string, preview = false): Promise<BlogSingleResult | null> {
+  const token = preview ? process.env.REVALIDATE_SECRET : undefined;
+  const qs = token ? `?token=${encodeURIComponent(token)}` : "";
+  return fetchJson<BlogSingleResult>(`/blog/${encodeURIComponent(slug)}${qs}`, preview ? 0 : 60);
 }

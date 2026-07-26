@@ -31,9 +31,18 @@ blogRouter.get("/", async (req, res) => {
   const tag = req.query.tag as string | undefined;
   const skip = (page - 1) * limit;
 
+  const search = req.query.search as string | undefined;
+
   const where: Record<string, unknown> = { status: "published" };
   if (category) where.category = category;
   if (tag) where.tags = { has: tag };
+  if (search) {
+    where.OR = [
+      { title: { contains: search, mode: "insensitive" } },
+      { excerpt: { contains: search, mode: "insensitive" } },
+      { category: { contains: search, mode: "insensitive" } },
+    ];
+  }
 
   const [posts, total, categories] = await Promise.all([
     prisma.blogPost.findMany({ where, select: LIST_SELECT, orderBy: { publishedAt: "desc" }, skip, take: limit }),
@@ -81,9 +90,12 @@ blogRouter.get("/id/:id", requireAuth, async (req, res) => {
 });
 
 // Public: single post with prev/next/related
+// If preview token matches REVALIDATE_SECRET, returns draft posts too
 blogRouter.get("/:slug", async (req, res) => {
+  const previewToken = req.query.token as string | undefined;
+  const isPreview = previewToken && previewToken === process.env.REVALIDATE_SECRET;
   const post = await prisma.blogPost.findFirst({
-    where: { slug: req.params.slug, status: "published" },
+    where: { slug: req.params.slug, ...(isPreview ? {} : { status: "published" }) },
   });
   if (!post) return res.status(404).json({ error: { message: "not found" } });
 

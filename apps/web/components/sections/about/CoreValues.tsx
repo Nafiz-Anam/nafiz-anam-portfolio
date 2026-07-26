@@ -102,7 +102,8 @@ function ValueRow({
   );
 }
 
-export function CoreValues() {
+export function CoreValues({ values: data }: { values?: typeof VALUES }) {
+  const values = data ?? VALUES;
   return (
     <section
       id="values"
@@ -134,8 +135,8 @@ export function CoreValues() {
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
           className="overflow-hidden rounded-[5px] border border-foreground/[0.08]"
         >
-          {VALUES.map((v, i) => (
-            <ValueRow key={v.number} {...v} isLast={i === VALUES.length - 1} />
+          {values.map((v, i) => (
+            <ValueRow key={v.number} {...v} isLast={i === values.length - 1} />
           ))}
         </motion.div>
       </div>

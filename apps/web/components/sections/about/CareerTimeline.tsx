@@ -40,7 +40,8 @@ const MILESTONES = [
   },
 ] as const;
 
-export function CareerTimeline() {
+export function CareerTimeline({ milestones: data }: { milestones?: typeof MILESTONES }) {
+  const milestones = data ?? MILESTONES;
   return (
     <section
       id="career"
@@ -64,7 +65,7 @@ export function CareerTimeline() {
         </motion.div>
 
         <div className="mx-auto max-w-[860px]">
-          {MILESTONES.map((m, i) => (
+          {milestones.map((m, i) => (
             <motion.div
               key={`${m.org}-${i}`}
               initial={{ opacity: 0, y: 16 }}
@@ -74,7 +75,7 @@ export function CareerTimeline() {
               className="relative"
             >
               {/* vertical connector */}
-              {i < MILESTONES.length - 1 && (
+              {i < milestones.length - 1 && (
                 <div className="absolute left-[3px] top-[24px] h-full w-px bg-foreground/[0.11]" />
               )}
 

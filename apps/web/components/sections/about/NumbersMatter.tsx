@@ -44,7 +44,8 @@ function StatItem({ value, label }: { value: string; label: string }) {
   );
 }
 
-export function NumbersMatter() {
+export function NumbersMatter({ stats: data }: { stats?: typeof STATS }) {
+  const stats = data ?? STATS;
   return (
     <section
       id="numbers"
@@ -74,7 +75,7 @@ export function NumbersMatter() {
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
           className="flex flex-wrap overflow-hidden rounded-[5px] bg-panel"
         >
-          {STATS.map((stat, i) => (
+          {stats.map((stat, i) => (
             <div
               key={stat.label}
               className={`flex min-w-[33.333%] flex-1 ${i > 0 ? "border-l border-panel-foreground/[0.07]" : ""} ${i >= 3 ? "border-t border-panel-foreground/[0.07]" : ""}`}

@@ -238,6 +238,68 @@ bookingRouter.get("/", requireAuth, async (req, res) => {
   res.json({ bookings, total, page, totalPages: Math.ceil(total / limit) });
 });
 
+/** PATCH /api/booking/:id/reschedule — admin: move booking to new time */
+bookingRouter.patch("/:id/reschedule", requireAuth, async (req, res) => {
+  const { scheduledAt, timezone } = req.body as { scheduledAt?: string; timezone?: string };
+  if (!scheduledAt) {
+    res.status(400).json({ error: { message: "scheduledAt required" } });
+    return;
+  }
+  const newTime = new Date(scheduledAt);
+  if (isNaN(newTime.getTime()) || newTime < new Date()) {
+    res.status(400).json({ error: { message: "scheduledAt must be a valid future date" } });
+    return;
+  }
+
+  const booking = await prisma.booking.findUnique({ where: { id: req.params.id } });
+  if (!booking) { res.status(404).json({ error: { message: "Booking not found" } }); return; }
+  if (booking.status === "cancelled") {
+    res.status(409).json({ error: { message: "Cannot reschedule a cancelled booking" } });
+    return;
+  }
+
+  const newTz = timezone ?? booking.timezone;
+  const refreshToken = await getStoredRefreshToken();
+  const ownerEmail = await getStoredEmail();
+
+  // Update Google Calendar event if connected
+  if (refreshToken && booking.googleEventId) {
+    try {
+      const { deleteCalendarEvent: del, createCalendarEvent: create } = await import("../lib/googleCalendar");
+      await del(refreshToken, booking.googleEventId);
+      const newEventId = await create(refreshToken, {
+        bookingId: booking.id,
+        name: booking.name,
+        email: booking.email,
+        scheduledAt: newTime,
+        durationMins: booking.durationMins,
+        timezone: newTz,
+        ownerEmail,
+      });
+      await prisma.booking.update({ where: { id: booking.id }, data: { googleEventId: newEventId } });
+    } catch (err) {
+      console.error("[Booking] reschedule GCal update failed", err);
+    }
+  }
+
+  const updated = await prisma.booking.update({
+    where: { id: req.params.id },
+    data: { scheduledAt: newTime, timezone: newTz },
+  });
+
+  // Notify visitor of new time
+  sendRescheduleEmail({
+    name: booking.name,
+    email: booking.email,
+    oldScheduledAt: booking.scheduledAt,
+    newScheduledAt: newTime,
+    durationMins: booking.durationMins,
+    timezone: newTz,
+  }).catch((err) => console.error("[Booking] reschedule email failed", err));
+
+  res.json({ booking: updated });
+});
+
 /** DELETE /api/booking/:id — admin: cancel booking */
 bookingRouter.delete("/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
@@ -383,6 +445,46 @@ async function sendCancellationEmail(params: {
       `Your ${params.durationMins}-minute discovery call scheduled for ${dateStr} has been cancelled.`,
       ``,
       `To rebook, visit nafizanam.com or reply to this email.`,
+      ``,
+      `— Nafiz Anam`,
+    ].join("\n"),
+  });
+}
+
+async function sendRescheduleEmail(params: {
+  name: string;
+  email: string;
+  oldScheduledAt: Date;
+  newScheduledAt: Date;
+  durationMins: number;
+  timezone: string;
+}) {
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM } = process.env;
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return;
+
+  const fmt = (d: Date) => d.toLocaleString("en-GB", { dateStyle: "full", timeStyle: "short", timeZone: params.timezone });
+  const transporter = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: SMTP_PORT ? Number(SMTP_PORT) : 587,
+    secure: false,
+    auth: { user: SMTP_USER, pass: SMTP_PASS },
+  });
+
+  await transporter.sendMail({
+    from: SMTP_FROM ?? SMTP_USER,
+    to: params.email,
+    subject: `Your discovery call has been rescheduled — ${fmt(params.newScheduledAt)}`,
+    text: [
+      `Hi ${params.name},`,
+      ``,
+      `Your discovery call has been rescheduled.`,
+      ``,
+      `Previous time: ${fmt(params.oldScheduledAt)} (${params.timezone})`,
+      `New time: ${fmt(params.newScheduledAt)} (${params.timezone})`,
+      `Duration: ${params.durationMins} min`,
+      ``,
+      `Your Google Calendar invite has been updated automatically.`,
+      `If this time doesn't work, reply to this email.`,
       ``,
       `— Nafiz Anam`,
     ].join("\n"),

@@ -40,11 +40,19 @@ const STAT_DEFAULTS = [
   { value: "20+", label: "Happy Clients" },
 ];
 
-async function getSiteStats(): Promise<Array<{ value: string; label: string }>> {
+async function getSiteConfig(): Promise<Record<string, string>> {
   try {
     const res = await fetch(`${API}/api/site-config`, { next: { revalidate: 300 } });
-    if (!res.ok) return STAT_DEFAULTS;
+    if (!res.ok) return {};
     const { config } = await res.json() as { config: Record<string, string> };
+    return config ?? {};
+  } catch {
+    return {};
+  }
+}
+
+async function getSiteStats(config: Record<string, string>): Promise<Array<{ value: string; label: string }>> {
+  try {
     return [
       {
         value: config.stat_1_value || STAT_DEFAULTS[0]!.value,
@@ -65,7 +73,19 @@ async function getSiteStats(): Promise<Array<{ value: string; label: string }>> 
 }
 
 export async function StatsBand() {
-  const stats = await getSiteStats();
+  const config = await getSiteConfig();
+  const stats = await getSiteStats(config);
+
+  // Build logo tiles: use site-config text if set, otherwise fall back to decorative defaults
+  const resolvedLogoTiles = logoTiles.map((tile, i) => {
+    const key = `client_logo_${i + 1}`;
+    const text = config[key]?.trim();
+    if (!text) return tile;
+    return {
+      key: tile.key,
+      node: <span className="font-sans font-black uppercase tracking-tight">{text}</span>,
+    };
+  });
 
   return (
     <section id="about" className="dark bg-panel bg-texture-lines-panel text-panel-foreground">
@@ -84,7 +104,7 @@ export async function StatsBand() {
         </FadeIn>
 
         <div className="mt-10 grid grid-cols-3 gap-[2px] bg-panel-foreground/10 sm:grid-cols-6">
-          {logoTiles.map((logo) => (
+          {resolvedLogoTiles.map((logo) => (
             <div
               key={logo.key}
               className="flex h-24 items-center justify-center bg-[#F9F3EF] px-4 text-center text-xl text-panel-foreground"

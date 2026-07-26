@@ -33,9 +33,19 @@ projectsRouter.get("/", async (req, res) => {
   const tag = req.query.tag as string | undefined;
   const skip = (page - 1) * limit;
 
+  const search = req.query.search as string | undefined;
+
   const where: Record<string, unknown> = { status: "published" };
   if (industry) where.industry = industry;
   if (tag) where.tags = { has: tag };
+  if (search) {
+    where.OR = [
+      { title: { contains: search, mode: "insensitive" } },
+      { excerpt: { contains: search, mode: "insensitive" } },
+      { client: { contains: search, mode: "insensitive" } },
+      { industry: { contains: search, mode: "insensitive" } },
+    ];
+  }
 
   const [projects, total, industries] = await Promise.all([
     prisma.project.findMany({ where, select: LIST_SELECT, orderBy: { publishedAt: "desc" }, skip, take: limit }),
@@ -85,9 +95,12 @@ projectsRouter.get("/id/:id", requireAuth, async (req, res) => {
 });
 
 // Public: single project with prev/next/related
+// Preview token bypasses published filter
 projectsRouter.get("/:slug", async (req, res) => {
+  const previewToken = req.query.token as string | undefined;
+  const isPreview = previewToken && previewToken === process.env.REVALIDATE_SECRET;
   const project = await prisma.project.findFirst({
-    where: { slug: req.params.slug, status: "published" },
+    where: { slug: req.params.slug, ...(isPreview ? {} : { status: "published" }) },
   });
   if (!project) return res.status(404).json({ error: { message: "not found" } });
 

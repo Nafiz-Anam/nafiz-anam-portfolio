@@ -82,9 +82,15 @@ export function CaseStudiesGrid({
   industries?: string[];
 }) {
   const [active, setActive] = useState("All");
+  const [search, setSearch] = useState("");
 
-  const filtered = active === "All" ? projects : projects.filter((p) => p.industry === active);
   const tabs = ["All", ...industries.filter(Boolean)];
+  const filtered = projects.filter((p) => {
+    const matchIndustry = active === "All" || p.industry === active;
+    const q = search.toLowerCase().trim();
+    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || (p.client ?? "").toLowerCase().includes(q);
+    return matchIndustry && matchSearch;
+  });
 
   return (
     <section
@@ -104,10 +110,19 @@ export function CaseStudiesGrid({
             <span className="font-sans text-foreground">Real Projects.</span>{" "}
             <span className="font-serif italic text-accent">Measurable Results.</span>
           </h2>
-          <p className="mt-2 max-w-[600px] text-[15px] leading-[1.85] text-foreground/50">
-            Each engagement below began with a specific business problem and ended with a
-            production system delivering quantifiable impact.
-          </p>
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-[600px] text-[15px] leading-[1.85] text-foreground/50">
+              Each engagement below began with a specific business problem and ended with a
+              production system delivering quantifiable impact.
+            </p>
+            <input
+              type="search"
+              placeholder="Search projects…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full rounded-[5px] border border-foreground/10 bg-foreground/5 px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:ring-1 focus:ring-accent sm:w-64"
+            />
+          </div>
         </motion.div>
 
         {/* Industry filter */}

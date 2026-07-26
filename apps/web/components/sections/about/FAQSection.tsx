@@ -92,7 +92,8 @@ function FAQItem({
   );
 }
 
-export function FAQSection() {
+export function FAQSection({ faqs: data }: { faqs?: typeof FAQS }) {
+  const faqs = data ?? FAQS;
   return (
     <section
       id="faq"
@@ -122,8 +123,8 @@ export function FAQSection() {
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
           className="mx-auto max-w-[860px]"
         >
-          {FAQS.map((faq, i) => (
-            <FAQItem key={faq.q} {...faq} isLast={i === FAQS.length - 1} />
+          {faqs.map((faq, i) => (
+            <FAQItem key={faq.q} {...faq} isLast={i === faqs.length - 1} />
           ))}
         </motion.div>
       </div>

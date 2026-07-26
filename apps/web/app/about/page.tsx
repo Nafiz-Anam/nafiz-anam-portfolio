@@ -31,7 +31,36 @@ export const metadata = {
   },
 };
 
-export default function AboutPage() {
+function tryParseJSON<T>(value: string | undefined): T | undefined {
+  if (!value) return undefined;
+  try {
+    return JSON.parse(value) as T;
+  } catch {
+    return undefined;
+  }
+}
+
+export default async function AboutPage() {
+  let config: Record<string, string> = {};
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000"}/api/site-config`,
+      { next: { revalidate: 300 } }
+    );
+    if (res.ok) {
+      const data = await res.json() as { config: Record<string, string> };
+      config = data.config ?? {};
+    }
+  } catch {
+    // fall back to hardcoded data in each component
+  }
+
+  const milestones = tryParseJSON<Parameters<typeof CareerTimeline>[0]["milestones"]>(config["about_career_json"]);
+  const values = tryParseJSON<Parameters<typeof CoreValues>[0]["values"]>(config["about_values_json"]);
+  const companies = tryParseJSON<Parameters<typeof CompaniesVentures>[0]["companies"]>(config["about_companies_json"]);
+  const stats = tryParseJSON<Parameters<typeof NumbersMatter>[0]["stats"]>(config["about_numbers_json"]);
+  const faqs = tryParseJSON<Parameters<typeof FAQSection>[0]["faqs"]>(config["about_faqs_json"]);
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="dark bg-texture-lines bg-background text-foreground">
@@ -39,12 +68,12 @@ export default function AboutPage() {
         <AboutHero />
       </div>
       <FounderIntro />
-      <CareerTimeline />
+      <CareerTimeline milestones={milestones} />
       <LeadershipSection />
-      <CoreValues />
-      <CompaniesVentures />
-      <NumbersMatter />
-      <FAQSection />
+      <CoreValues values={values} />
+      <CompaniesVentures companies={companies} />
+      <NumbersMatter stats={stats} />
+      <FAQSection faqs={faqs} />
       <AboutCTA />
       <Footer />
     </main>

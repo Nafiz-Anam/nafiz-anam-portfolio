@@ -11,6 +11,7 @@ import { contactRouter } from "./contact";
 import { statsRouter } from "./stats";
 import { bookingRouter } from "./booking";
 import { googleAuthRouter } from "./google-auth";
+import { servicesRouter } from "./services";
 
 export const apiRouter = Router();
 
@@ -26,3 +27,4 @@ apiRouter.use("/contact", contactRouter);
 apiRouter.use("/stats", statsRouter);
 apiRouter.use("/booking", bookingRouter);
 apiRouter.use("/google-calendar", googleAuthRouter);
+apiRouter.use("/services", servicesRouter);

@@ -33,7 +33,8 @@ const COMPANIES = [
   },
 ] as const;
 
-export function CompaniesVentures() {
+export function CompaniesVentures({ companies: data }: { companies?: typeof COMPANIES }) {
+  const companies = data ?? COMPANIES;
   return (
     <section
       id="ventures"
@@ -63,10 +64,10 @@ export function CompaniesVentures() {
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
           className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.08]"
         >
-          {COMPANIES.map((co, i) => (
+          {companies.map((co, i) => (
             <div
               key={co.name}
-              className={`grid grid-cols-1 gap-5 px-10 py-10 lg:grid-cols-[220px_180px_1fr] lg:items-start${i < COMPANIES.length - 1 ? " border-b border-panel-foreground/[0.07]" : ""}`}
+              className={`grid grid-cols-1 gap-5 px-10 py-10 lg:grid-cols-[220px_180px_1fr] lg:items-start${i < companies.length - 1 ? " border-b border-panel-foreground/[0.07]" : ""}`}
             >
               <div className="flex flex-col gap-1">
                 <p className="text-[18px] font-bold tracking-tight text-panel-foreground">
