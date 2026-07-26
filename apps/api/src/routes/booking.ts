@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { z } from "zod";
+import rateLimit from "express-rate-limit";
 import { prisma } from "@portfolio/db";
 import { createBookingSchema } from "@portfolio/types";
 import { requireAuth } from "../middleware/requireAuth";
@@ -8,6 +9,14 @@ import { getFreeBusy, createCalendarEvent, deleteCalendarEvent } from "../lib/go
 import nodemailer from "nodemailer";
 
 export const bookingRouter = Router();
+
+const bookingLimit = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 3,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: { message: "Too many booking attempts. Try again later.", code: "RATE_LIMITED" } },
+});
 
 const BOOKING_KEYS = [
   "booking_timezone",
@@ -150,8 +159,8 @@ bookingRouter.get("/slots", async (req, res) => {
   res.json({ date, slots: slots.map((s) => ({ start: s.start.toISOString(), end: s.end.toISOString(), label: s.label })) });
 });
 
-/** POST /api/booking — public: create a booking */
-bookingRouter.post("/", async (req, res) => {
+/** POST /api/booking — public: create a booking (rate limited: 3/hr per IP) */
+bookingRouter.post("/", bookingLimit, async (req, res) => {
   const parsed = createBookingSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: { message: parsed.error.errors[0]?.message ?? "Invalid input" } });

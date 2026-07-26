@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import type { ProjectListItem } from "@portfolio/types";
+
+const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 function CaseStudyCard({ project, index }: { project: ProjectListItem; index: number }) {
   return (
@@ -75,14 +78,23 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
 }
 
 export function CaseStudiesGrid({
-  projects,
+  projects: initialProjects,
   industries = [],
+  total = 0,
+  initialLimit = 12,
 }: {
   projects: ProjectListItem[];
   industries?: string[];
+  total?: number;
+  initialLimit?: number;
 }) {
+  const [projects, setProjects] = useState(initialProjects);
   const [active, setActive] = useState("All");
   const [search, setSearch] = useState("");
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+
+  const allLoaded = projects.length >= total;
 
   const tabs = ["All", ...industries.filter(Boolean)];
   const filtered = projects.filter((p) => {
@@ -91,6 +103,21 @@ export function CaseStudiesGrid({
     const matchSearch = !q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q) || (p.client ?? "").toLowerCase().includes(q);
     return matchIndustry && matchSearch;
   });
+
+  async function loadMore() {
+    setLoadingMore(true);
+    try {
+      const nextPage = page + 1;
+      const res = await fetch(`${API}/api/projects?page=${nextPage}&limit=${initialLimit}`);
+      const data = await res.json() as { projects: ProjectListItem[] };
+      setProjects((prev) => [...prev, ...(data.projects ?? [])]);
+      setPage(nextPage);
+    } catch {
+      // silent fail
+    } finally {
+      setLoadingMore(false);
+    }
+  }
 
   return (
     <section
@@ -156,6 +183,19 @@ export function CaseStudiesGrid({
               ))}
             </motion.div>
           </AnimatePresence>
+        )}
+
+        {!search && active === "All" && !allLoaded && (
+          <div className="mt-14 flex justify-center">
+            <button
+              onClick={loadMore}
+              disabled={loadingMore}
+              className="flex items-center gap-2 rounded-[5px] border border-foreground/15 px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-foreground/60 transition-colors hover:border-foreground/30 hover:text-foreground/90 disabled:opacity-50"
+            >
+              {loadingMore && <Loader2 size={13} className="animate-spin" />}
+              {loadingMore ? "Loading…" : `Load more (${projects.length} of ${total})`}
+            </button>
+          </div>
         )}
       </div>
     </section>

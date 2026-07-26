@@ -26,7 +26,7 @@ export const metadata = {
 };
 
 export default async function InsightsPage() {
-  const { posts, categories } = await fetchBlogList({ limit: 50 });
+  const { posts, categories, total } = await fetchBlogList({ limit: 12 });
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -34,7 +34,7 @@ export default async function InsightsPage() {
         <Nav />
         <InsightsHero />
       </div>
-      <ArticlesSection posts={posts} categories={categories} />
+      <ArticlesSection posts={posts} categories={categories} total={total} initialLimit={12} />
       <Footer />
     </main>
   );

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { FileText, FolderKanban, MessageSquare, Inbox, Loader2 } from "lucide-react";
+import { FileText, FolderKanban, MessageSquare, Inbox, CalendarCheck, Loader2 } from "lucide-react";
 import { type ContactLead } from "@portfolio/types";
 import { api } from "@/lib/api";
 
@@ -11,6 +11,7 @@ type Stats = {
   projects: { total: number; published: number; draft: number };
   testimonials: { total: number; published: number };
   leads: { total: number; new: number };
+  bookings: { total: number; upcoming: number };
   recentLeads: ContactLead[];
 };
 
@@ -49,7 +50,7 @@ export default function DashboardPage() {
         </div>
       ) : stats ? (
         <>
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
             <StatCard
               href="/blog"
               icon={<FileText size={18} />}
@@ -79,6 +80,15 @@ export default function DashboardPage() {
               badge={stats.leads.new > 0 ? `${stats.leads.new} new` : undefined}
               sub={`${stats.leads.new} unread`}
               highlight={stats.leads.new > 0}
+            />
+            <StatCard
+              href="/bookings"
+              icon={<CalendarCheck size={18} />}
+              label="Bookings"
+              total={stats.bookings.total}
+              badge={stats.bookings.upcoming > 0 ? `${stats.bookings.upcoming} upcoming` : undefined}
+              sub={`${stats.bookings.upcoming} upcoming`}
+              highlight={stats.bookings.upcoming > 0}
             />
           </div>
 

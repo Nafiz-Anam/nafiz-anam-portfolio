@@ -3,7 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 import type { BlogListItem } from "@portfolio/types";
+
+const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 function formatDate(iso: Date | string | null) {
   if (!iso) return "";
@@ -69,14 +72,23 @@ function ArticleCard({ post }: { post: BlogListItem }) {
 }
 
 export function ArticlesSection({
-  posts,
+  posts: initialPosts,
   categories,
+  total = 0,
+  initialLimit = 12,
 }: {
   posts: BlogListItem[];
   categories: string[];
+  total?: number;
+  initialLimit?: number;
 }) {
+  const [posts, setPosts] = useState(initialPosts);
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [search, setSearch] = useState("");
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+
+  const allLoaded = posts.length >= total;
 
   const allCategories = ["All", ...categories];
   const filtered = posts.filter((p) => {
@@ -85,6 +97,21 @@ export function ArticlesSection({
     const matchSearch = !q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q);
     return matchCat && matchSearch;
   });
+
+  async function loadMore() {
+    setLoadingMore(true);
+    try {
+      const nextPage = page + 1;
+      const res = await fetch(`${API}/api/blog?page=${nextPage}&limit=${initialLimit}`);
+      const data = await res.json() as { posts: BlogListItem[] };
+      setPosts((prev) => [...prev, ...(data.posts ?? [])]);
+      setPage(nextPage);
+    } catch {
+      // silent fail — user can retry
+    } finally {
+      setLoadingMore(false);
+    }
+  }
 
   return (
     <section
@@ -158,6 +185,19 @@ export function ArticlesSection({
             )}
           </motion.div>
         </AnimatePresence>
+
+        {!search && activeCategory === "All" && !allLoaded && (
+          <div className="mt-14 flex justify-center">
+            <button
+              onClick={loadMore}
+              disabled={loadingMore}
+              className="flex items-center gap-2 rounded-[5px] border border-panel-foreground/15 px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-panel-foreground/60 transition-colors hover:border-panel-foreground/30 hover:text-panel-foreground/90 disabled:opacity-50"
+            >
+              {loadingMore && <Loader2 size={13} className="animate-spin" />}
+              {loadingMore ? "Loading…" : `Load more (${posts.length} of ${total})`}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

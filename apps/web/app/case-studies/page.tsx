@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CaseStudiesPage() {
-  const { projects, industries } = await fetchProjectList({ limit: 50 });
+  const { projects, industries, total } = await fetchProjectList({ limit: 12 });
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -45,7 +45,7 @@ export default async function CaseStudiesPage() {
         <FeaturedCaseStudy />
       </div>
       <div className="dark">
-        <CaseStudiesGrid projects={projects} industries={industries} />
+        <CaseStudiesGrid projects={projects} industries={industries} total={total} initialLimit={12} />
       </div>
       <div className="dark">
         <IndustriesServed />

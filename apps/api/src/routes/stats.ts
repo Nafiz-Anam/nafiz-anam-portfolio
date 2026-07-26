@@ -10,6 +10,7 @@ statsRouter.get("/", requireAuth, async (_req, res) => {
     totalProjects, publishedProjects,
     totalTestimonials, publishedTestimonials,
     totalLeads, newLeads,
+    totalBookings, upcomingBookings,
     recentLeads,
   ] = await Promise.all([
     prisma.blogPost.count(),
@@ -20,6 +21,8 @@ statsRouter.get("/", requireAuth, async (_req, res) => {
     prisma.testimonial.count({ where: { published: true } }),
     prisma.contactLead.count(),
     prisma.contactLead.count({ where: { status: "new" } }),
+    prisma.booking.count({ where: { status: "confirmed" } }),
+    prisma.booking.count({ where: { status: "confirmed", scheduledAt: { gt: new Date() } } }),
     prisma.contactLead.findMany({ orderBy: { createdAt: "desc" }, take: 5 }),
   ]);
 
@@ -28,6 +31,7 @@ statsRouter.get("/", requireAuth, async (_req, res) => {
     projects: { total: totalProjects, published: publishedProjects, draft: totalProjects - publishedProjects },
     testimonials: { total: totalTestimonials, published: publishedTestimonials },
     leads: { total: totalLeads, new: newLeads },
+    bookings: { total: totalBookings, upcoming: upcomingBookings },
     recentLeads,
   });
 });

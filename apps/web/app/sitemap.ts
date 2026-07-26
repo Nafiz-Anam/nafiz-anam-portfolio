@@ -9,7 +9,7 @@ async function getPublishedSlugs(
   key: "projects" | "posts"
 ): Promise<{ slug: string; updatedAt: string }[]> {
   try {
-    const res = await fetch(`${API}/${path}?limit=500`, {
+    const res = await fetch(`${API}/api/${path}?limit=500`, {
       next: { revalidate: 3600 },
     });
     if (!res.ok) return [];
@@ -23,10 +23,23 @@ async function getPublishedSlugs(
   }
 }
 
+async function getServiceSlugs(): Promise<{ slug: string; updatedAt: string }[]> {
+  try {
+    const res = await fetch(`${API}/api/services?limit=100`, { next: { revalidate: 3600 } });
+    if (!res.ok) throw new Error();
+    const data = (await res.json()) as { services?: { slug: string; updatedAt: string }[] };
+    if (data.services?.length) return data.services;
+    throw new Error("empty");
+  } catch {
+    return SERVICE_PAGES.map((s) => ({ slug: s.slug, updatedAt: new Date().toISOString() }));
+  }
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [projects, posts] = await Promise.all([
+  const [projects, posts, services] = await Promise.all([
     getPublishedSlugs("projects", "projects"),
     getPublishedSlugs("blog", "posts"),
+    getServiceSlugs(),
   ]);
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -39,9 +52,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/testimonials`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
   ];
 
-  const serviceRoutes: MetadataRoute.Sitemap = SERVICE_PAGES.map((s) => ({
+  const serviceRoutes: MetadataRoute.Sitemap = services.map((s) => ({
     url: `${SITE_URL}/services/${s.slug}`,
-    lastModified: new Date(),
+    lastModified: new Date(s.updatedAt),
     changeFrequency: "monthly",
     priority: 0.8,
   }));
