@@ -1,8 +1,29 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+
+function WordReveal({ children, className, delay = 0 }: { children: string; className?: string; delay?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  return (
+    <span ref={ref} className={className} style={{ display: "block" }}>
+      {children.split(" ").map((word, i) => (
+        <span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", marginRight: "0.25em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
+          <motion.span
+            style={{ display: "inline-block" }}
+            initial={{ y: "110%", opacity: 0 }}
+            animate={inView ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: delay + i * 0.06 }}
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </span>
+  );
+}
 
 const STEPS = [
   {
@@ -80,13 +101,49 @@ const STEPS = [
   },
 ] as const;
 
-function StepCard({ number, title, description, icon }: (typeof STEPS)[number]) {
+function HeadingReveal() {
+  const ref = useRef<HTMLHeadingElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const words = ["How", "We"];
+  return (
+    <h2 ref={ref} className="text-5xl font-bold leading-[1.1] tracking-tight text-panel-foreground sm:text-6xl">
+      {words.map((w, i) => (
+        <span key={w} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", marginRight: "0.25em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
+          <motion.span
+            style={{ display: "inline-block" }}
+            initial={{ y: "110%", opacity: 0 }}
+            animate={inView ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.05 + i * 0.07 }}
+          >{w}</motion.span>
+        </span>
+      ))}
+      <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
+        <motion.span
+          className="font-serif italic"
+          style={{ display: "inline-block", color: "hsl(var(--accent))" }}
+          initial={{ y: "110%", opacity: 0 }}
+          animate={inView ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.19 }}
+        >Build</motion.span>
+      </span>
+    </h2>
+  );
+}
+
+function StepCard({ number, title, description, icon, index }: (typeof STEPS)[number] & { index: number }) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div
-      className="relative flex flex-1 flex-col gap-6 border-r border-panel-foreground/[0.07] px-7 py-10 last:border-r-0 transition-colors duration-200"
-      style={{ backgroundColor: hovered ? "hsl(var(--panel-foreground) / 0.03)" : "transparent" }}
+    <motion.div
+      className="relative flex flex-1 flex-col gap-6 border-r border-panel-foreground/[0.07] px-7 py-10 last:border-r-0"
+      initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
+      whileInView={{ clipPath: "inset(0 0 0% 0)", opacity: 1 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+      style={{
+        backgroundColor: hovered ? "hsl(var(--panel-foreground) / 0.03)" : "transparent",
+        transition: "background-color 200ms",
+      }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -121,7 +178,7 @@ function StepCard({ number, title, description, icon }: (typeof STEPS)[number]) 
           {description}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -131,54 +188,47 @@ export function HowWeBuild() {
       <div className="mx-auto max-w-[1800px] px-6 py-24 lg:px-16">
 
         {/* Top: portrait + copy */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          className="grid grid-cols-1 items-center gap-16 sm:grid-cols-[35fr_65fr]"
-        >
-          <ImagePlaceholder
-            src="/Nafiz-Anam.jpg"
-            aspectClassName="aspect-[4/5]"
-            className="max-h-[500px] w-full rounded-[5px] object-cover object-top"
-          />
+        <div className="grid grid-cols-1 items-center gap-16 sm:grid-cols-[35fr_65fr]">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <ImagePlaceholder
+              src="/Nafiz-Anam.jpg"
+              aspectClassName="aspect-[4/5]"
+              className="max-h-[500px] w-full rounded-[5px] object-cover object-top"
+            />
+          </motion.div>
 
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-3">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-panel-foreground/40">
+              <WordReveal
+                delay={0}
+                className="text-[11px] font-bold uppercase tracking-[0.18em] text-panel-foreground/40"
+              >
                 From strategy to scalable software.
-              </p>
-              <h2 className="text-5xl font-bold leading-[0.95] tracking-tight text-panel-foreground sm:text-6xl">
-                How We{" "}
-                <span className="font-serif italic" style={{ color: "hsl(var(--accent))" }}>
-                  Build
-                </span>
-              </h2>
+              </WordReveal>
+              <HeadingReveal />
             </div>
-            <p className="max-w-xl text-[17px] leading-[1.85] text-panel-foreground/60">
-              Every successful software product begins with understanding the business, not the
-              technology. My process is built around clear communication, thoughtful architecture,
-              iterative development, and long-term partnership—ensuring every decision supports
-              real business outcomes.
-            </p>
+            <WordReveal
+              delay={0.3}
+              className="max-w-xl text-[17px] leading-[1.85] text-panel-foreground/60"
+            >
+              Every successful software product begins with understanding the business, not the technology. My process is built around clear communication, thoughtful architecture, iterative development, and long-term partnership—ensuring every decision supports real business outcomes.
+            </WordReveal>
           </div>
-        </motion.div>
+        </div>
 
         {/* Bottom: 6-step process */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="mt-20 overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-panel"
-        >
+        <div className="mt-20 overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-panel">
           <div className="flex flex-col sm:flex-row">
-            {STEPS.map((step) => (
-              <StepCard key={step.number} {...step} />
+            {STEPS.map((step, i) => (
+              <StepCard key={step.number} {...step} index={i} />
             ))}
           </div>
-        </motion.div>
+        </div>
 
       </div>
     </section>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { z } from "zod";
 import { Button, Select } from "@portfolio/ui";
-import { FadeIn } from "@/components/FadeIn";
+import { Reveal } from "@/components/ui/Reveal";
 import { api } from "@/lib/api";
 
 const contactSchema = z.object({
@@ -61,7 +61,7 @@ export function ContactSection() {
   return (
     <section id="contact" className="dark bg-texture-lines bg-surface px-6 py-32 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
-        <FadeIn className="flex flex-col items-center gap-5 text-center">
+        <Reveal className="flex flex-col items-center gap-5 text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
             Let&apos;s Work Together
           </p>
@@ -73,10 +73,10 @@ export function ContactSection() {
             Whether you have a project in mind or want to explore how we might work together,
             I&apos;d love to hear from you.
           </p>
-        </FadeIn>
+        </Reveal>
 
         {submitted ? (
-          <FadeIn delay={0.1}>
+          <Reveal delay={0.1}>
             <div className="mt-14 flex flex-col items-center gap-4 rounded-[5px] bg-background p-12 text-center">
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-accent/15">
                 <svg className="h-7 w-7 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -88,9 +88,9 @@ export function ContactSection() {
                 Thanks for reaching out. I&apos;ll review your message and get back to you within 24 hours.
               </p>
             </div>
-          </FadeIn>
+          </Reveal>
         ) : (
-          <FadeIn delay={0.1}>
+          <Reveal delay={0.1}>
             <form
               id="contact-form"
               onSubmit={handleSubmit}
@@ -128,7 +128,7 @@ export function ContactSection() {
                 {loading ? "Sending…" : "Send Message"}
               </Button>
             </div>
-          </FadeIn>
+          </Reveal>
         )}
       </div>
     </section>

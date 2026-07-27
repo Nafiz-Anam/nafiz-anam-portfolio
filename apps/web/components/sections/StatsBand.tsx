@@ -1,6 +1,7 @@
-import { FadeIn } from "@/components/FadeIn";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { BookingButton } from "./BookingButton";
+import { Reveal } from "@/components/ui/Reveal";
+import { Counter } from "@/components/ui/Counter";
 
 import { SERVER_API as API } from "@/lib/api-url";
 
@@ -90,7 +91,7 @@ export async function StatsBand() {
   return (
     <section id="about" className="dark bg-panel bg-texture-lines-panel text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 py-16 lg:px-16">
-        <FadeIn className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <Reveal className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           <ImagePlaceholder
             src="/Nafiz-Anam.jpg"
             aspectClassName="aspect-square"
@@ -101,7 +102,7 @@ export async function StatsBand() {
             delivering solutions that stand out in competitive landscapes. I&apos;m driven by the
             passion to craft experiences that create lasting impact through thoughtful interaction.
           </p>
-        </FadeIn>
+        </Reveal>
 
         <div className="mt-10 grid grid-cols-3 gap-[2px] bg-panel-foreground/10 sm:grid-cols-6">
           {resolvedLogoTiles.map((logo) => (
@@ -117,7 +118,7 @@ export async function StatsBand() {
         <div className="mt-[2px] grid grid-cols-3 gap-[2px] bg-panel-foreground/10 sm:grid-cols-6">
           {stats.map((stat) => (
             <div key={stat.label} className="col-span-1 flex items-baseline gap-3 bg-[#F9F3EF] px-6 py-8 sm:col-span-2">
-              <p className="text-[68px] font-bold leading-none text-panel-foreground">{stat.value}</p>
+              <Counter value={stat.value} className="text-[68px] font-bold leading-none text-panel-foreground" />
               <p className="text-base text-panel-muted">{stat.label}</p>
             </div>
           ))}

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { SectionReveal, titleVariants, bodyVariants, cardVariants } from "@/components/ui/SectionReveal";
 
 const PRINCIPLES = [
   {
@@ -95,7 +96,7 @@ function PrincipleRow({
             className="absolute inset-0 origin-left bg-accent"
             initial={false}
             animate={{ scaleX: hovered ? 1 : 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           />
         </div>
       )}
@@ -111,46 +112,29 @@ export function WhyChooseMe() {
     >
       <div className="mx-auto max-w-[1800px]">
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          className="mb-20 flex flex-col items-center gap-5 text-center"
-        >
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+        <SectionReveal className="mb-20 flex flex-col items-center gap-5 text-center" stagger={0.14}>
+          <motion.p variants={bodyVariants} className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
             Core Principles
-          </p>
-          <h2 className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
-            The Principles Behind{" "}
-            <span className="font-serif italic text-accent">
-              Every Product I Build.
-            </span>
-          </h2>
-          <p className="max-w-[580px] text-[15px] leading-[1.85] text-panel-foreground/50">
+          </motion.p>
+          <div style={{ overflow: "hidden" }}>
+            <motion.h2 variants={titleVariants} className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
+              The Principles Behind{" "}
+              <span className="font-serif italic text-accent">Every Product I Build.</span>
+            </motion.h2>
+          </div>
+          <motion.p variants={bodyVariants} className="max-w-[580px] text-[15px] leading-[1.85] text-panel-foreground/50">
             Great software is built on thoughtful decisions, not just technical expertise.
-            These principles guide every project—from the first conversation to
-            long-term product growth.
-          </p>
-        </motion.div>
+            These principles guide every project—from the first conversation to long-term product growth.
+          </motion.p>
+        </SectionReveal>
 
-        {/* Principles */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-panel"
-        >
+        <SectionReveal className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-panel" stagger={0.1} delay={0.05}>
           {PRINCIPLES.map((p, i) => (
-            <PrincipleRow
-              key={p.number}
-              {...p}
-              isLast={i === PRINCIPLES.length - 1}
-            />
+            <motion.div key={p.number} variants={cardVariants}>
+              <PrincipleRow {...p} isLast={i === PRINCIPLES.length - 1} />
+            </motion.div>
           ))}
-        </motion.div>
+        </SectionReveal>
 
       </div>
     </section>

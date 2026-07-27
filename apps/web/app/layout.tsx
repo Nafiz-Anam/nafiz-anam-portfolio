@@ -4,6 +4,9 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { BookingProvider } from "@/components/sections/BookingProvider";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { CursorFollower } from "@/components/CursorFollower";
+import { PageIntro } from "@/components/PageIntro";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -80,7 +83,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${playfair.variable} ${jakarta.variable} ${jetbrains.variable} font-sans`}>
         <GoogleAnalytics />
         <ThemeProvider>
-          <BookingProvider>{children}</BookingProvider>
+          <PageIntro />
+          <SmoothScroll>
+            <BookingProvider>{children}</BookingProvider>
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

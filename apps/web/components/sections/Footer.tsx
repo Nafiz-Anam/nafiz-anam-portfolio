@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { defaultFooter, type FooterContent } from "@/lib/placeholder-content";
 import { BookingButton } from "./BookingButton";
+import { TextHoverEffect } from "@/components/ui/TextHoverEffect";
 
 import { SERVER_API as API } from "@/lib/api-url";
 
@@ -35,12 +36,15 @@ export async function Footer() {
   const data = await getFooterData();
 
   return (
-    <footer className="dark bg-texture-lines bg-surface px-6 pb-24 pt-8 lg:px-16">
-      <div className="mx-auto max-w-[1800px] overflow-hidden rounded-[5px] border border-panel-foreground bg-panel p-10 text-panel-foreground sm:p-16">
+    <footer className="dark bg-texture-lines bg-surface px-6 pb-0 pt-8 lg:px-16">
+      <div className="mx-auto max-w-[1800px] overflow-hidden rounded-[5px] border border-panel-foreground bg-panel p-10 pb-24 text-panel-foreground sm:p-16 sm:pb-32">
         <div className="grid grid-cols-1 gap-14 sm:grid-cols-[1fr_auto]">
           <div className="flex flex-col justify-between gap-10">
             <p className="font-sans text-7xl font-bold leading-none tracking-tight sm:text-8xl">
-              {data.brand}
+              Nafiz{" "}
+              <span className="font-serif italic" style={{ color: "hsl(13, 79%, 57%)" }}>
+                Anam.
+              </span>
             </p>
 
             {/* Page links */}
@@ -98,15 +102,17 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-panel-foreground/[0.07] pt-6 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-panel-muted">
-            © {new Date().getFullYear()} Nafiz Anam. All rights reserved.
-          </p>
-          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-panel-muted">
-            Designed & built by Nafiz Anam
-          </p>
-        </div>
       </div>
+
+      {/* Big stroke name — outside card, ~30% overlaps card bottom */}
+      <div className="mx-auto hidden max-w-[1800px] lg:block h-80 -mt-40">
+        <TextHoverEffect text="Nafiz Anam" />
+      </div>
+
+      {/* Copyright — centered below stroke name */}
+      <p className="hidden lg:block text-center text-[11px] font-medium uppercase tracking-[0.14em] text-panel-muted pb-8 pt-2">
+        © {new Date().getFullYear()} Nafiz Anam. All rights reserved.
+      </p>
     </footer>
   );
 }

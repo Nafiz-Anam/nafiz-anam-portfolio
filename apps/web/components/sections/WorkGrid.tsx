@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@portfolio/ui";
-import { FadeIn } from "@/components/FadeIn";
+import { Reveal } from "@/components/ui/Reveal";
 import { ProjectCard } from "./ProjectCard";
 import type { Project } from "@portfolio/types";
 
@@ -24,12 +24,12 @@ export async function WorkGrid() {
   return (
     <section id="work" className="dark bg-texture-lines bg-background px-6 py-24 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
-        <FadeIn>
+        <Reveal>
           <h2 className="text-4xl font-bold leading-none sm:text-5xl">
             <span className="font-serif italic text-accent">Recent</span>{" "}
             <span className="font-sans text-foreground">Work</span>
           </h2>
-        </FadeIn>
+        </Reveal>
 
         {projects.length === 0 ? (
           <p className="mt-14 text-sm text-muted-foreground">No projects published yet.</p>

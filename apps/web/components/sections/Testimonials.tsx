@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@portfolio/ui";
 import { ArrowUpLeft, ArrowUpRight } from "lucide-react";
-import { FadeIn } from "@/components/FadeIn";
+import { Reveal } from "@/components/ui/Reveal";
 import type { Testimonial } from "@portfolio/types";
 
 const slideVariants = {
@@ -28,7 +28,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
   return (
     <section className="dark bg-texture-lines bg-background px-6 py-20 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
-        <FadeIn>
+        <Reveal>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_2fr] lg:grid-rows-[auto_auto_auto]">
             <h2 className="text-5xl font-bold leading-none sm:text-6xl lg:col-start-1 lg:row-start-1">
               <span className="font-serif italic text-accent">Happy</span>{" "}
@@ -118,7 +118,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
               </Button>
             </div>
           </div>
-        </FadeIn>
+        </Reveal>
       </div>
     </section>
   );

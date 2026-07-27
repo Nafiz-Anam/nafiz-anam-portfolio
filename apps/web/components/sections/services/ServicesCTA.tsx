@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FadeIn } from "@/components/FadeIn";
+import { Reveal } from "@/components/ui/Reveal";
 import { BookingButton } from "@/components/sections/BookingButton";
 
 export function ServicesCTA() {
@@ -9,7 +9,7 @@ export function ServicesCTA() {
       className="bg-panel bg-texture-lines-panel px-6 py-36 text-panel-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
-        <FadeIn className="flex flex-col items-center gap-8 text-center">
+        <Reveal className="flex flex-col items-center gap-8 text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
             Start Here
           </p>
@@ -37,7 +37,7 @@ export function ServicesCTA() {
               View My Work
             </Link>
           </div>
-        </FadeIn>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SectionReveal, titleVariants, bodyVariants, cardVariants } from "@/components/ui/SectionReveal";
 import { useState } from "react";
 
 const SERVICES = [
@@ -92,7 +93,7 @@ function ServiceCard({ title, description, icon }: (typeof SERVICES)[number]) {
       style={{
         borderColor: hovered ? "hsl(var(--accent))" : "hsl(var(--panel-foreground) / 0.1)",
       }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
+      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
     >
@@ -103,7 +104,7 @@ function ServiceCard({ title, description, icon }: (typeof SERVICES)[number]) {
           y: hovered ? -3 : 0,
           color: hovered ? "hsl(var(--accent))" : "hsl(var(--panel-foreground) / 0.5)",
         }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
       >
         {icon}
       </motion.span>
@@ -122,7 +123,7 @@ function ServiceCard({ title, description, icon }: (typeof SERVICES)[number]) {
         <span>Learn More</span>
         <motion.span
           animate={{ x: hovered ? 4 : 0 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
+          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
         >
           →
         </motion.span>
@@ -136,45 +137,37 @@ export function Services() {
     <section id="services" className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          className="mb-20 flex flex-col items-center gap-5 text-center"
-        >
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+        {/* Header — cascades label → heading → body */}
+        <SectionReveal className="mb-20 flex flex-col items-center gap-5 text-center" stagger={0.14}>
+          <motion.p variants={bodyVariants} className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
             Services
-          </p>
-          <h2 className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-            Helping Businesses{" "}
-            <span className="font-serif italic text-accent">Build</span>
-            {", "}
-            <span className="font-serif italic text-accent">Scale</span>
-            {" & "}
-            <span className="font-serif italic text-accent">Modernize</span>
-            {" Software"}
-          </h2>
-          <p className="max-w-[600px] text-[15px] leading-relaxed text-foreground/55">
+          </motion.p>
+          <div style={{ overflow: "hidden" }}>
+            <motion.h2 variants={titleVariants} className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+              Helping Businesses{" "}
+              <span className="font-serif italic text-accent">Build</span>
+              {", "}
+              <span className="font-serif italic text-accent">Scale</span>
+              {" & "}
+              <span className="font-serif italic text-accent">Modernize</span>
+              {" Software"}
+            </motion.h2>
+          </div>
+          <motion.p variants={bodyVariants} className="max-w-[600px] text-[15px] leading-relaxed text-foreground/55">
             From product strategy and scalable architecture to AI automation and cloud
             infrastructure, I help businesses build reliable software systems that support
             long-term growth.
-          </p>
-        </motion.div>
+          </motion.p>
+        </SectionReveal>
 
-        {/* Cards grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        {/* Cards — each card staggers in */}
+        <SectionReveal className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.12} delay={0.05}>
           {SERVICES.map((service) => (
-            <ServiceCard key={service.title} {...service} />
+            <motion.div key={service.title} variants={cardVariants}>
+              <ServiceCard {...service} />
+            </motion.div>
           ))}
-        </motion.div>
+        </SectionReveal>
 
       </div>
     </section>
