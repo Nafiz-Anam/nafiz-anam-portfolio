@@ -668,7 +668,7 @@ const CONNECT_ITEMS = [
 
 function ConnectCard({ icon, label, value, description }: { icon: React.ReactNode; label: string; value: string; description: string }) {
   return (
-    <div className="flex h-full flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-background/[0.04] p-7 transition-colors duration-200 hover:border-panel-foreground/[0.18] hover:bg-background/[0.07]">
+    <div className="flex h-full flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-panel p-7 shadow-sm transition-all duration-200 hover:border-accent/40 hover:shadow-md">
       <div className="text-panel-foreground/40">{icon}</div>
       <div className="flex flex-col gap-1">
         <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-panel-foreground/30">{label}</p>

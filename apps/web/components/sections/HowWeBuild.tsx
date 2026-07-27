@@ -84,10 +84,9 @@ function StepCard({ number, title, description, icon }: (typeof STEPS)[number]) 
   const [hovered, setHovered] = useState(false);
 
   return (
-    <motion.div
-      className="relative flex flex-1 flex-col gap-6 border-r border-panel-foreground/[0.07] px-7 py-10 last:border-r-0"
-      animate={{ y: hovered ? -2 : 0 }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
+    <div
+      className="relative flex flex-1 flex-col gap-6 border-r border-panel-foreground/[0.07] px-7 py-10 last:border-r-0 transition-colors duration-200"
+      style={{ backgroundColor: hovered ? "hsl(var(--panel-foreground) / 0.03)" : "transparent" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -122,7 +121,7 @@ function StepCard({ number, title, description, icon }: (typeof STEPS)[number]) 
           {description}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
