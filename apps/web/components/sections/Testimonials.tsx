@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@portfolio/ui";
 import { ArrowUpLeft, ArrowUpRight } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
@@ -60,7 +61,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                   className="h-[160px] w-[150px] shrink-0 overflow-hidden rounded-[5px]"
                 >
                   {t.photoUrl ? (
-                    <img src={t.photoUrl} alt={t.name} className="h-full w-full rounded-[5px] object-cover" />
+                    <Image src={t.photoUrl} alt={t.name} fill className="rounded-[5px] object-cover" sizes="150px" />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center rounded-[5px] bg-accent/20 text-2xl font-bold text-accent">
                       {t.name.charAt(0).toUpperCase()}

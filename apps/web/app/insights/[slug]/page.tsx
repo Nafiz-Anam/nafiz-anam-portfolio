@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Clock, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
@@ -167,7 +168,7 @@ export default async function InsightDetailPage({ params }: Props) {
         {post.coverImageUrl && (
           <div className="mx-auto max-w-4xl px-6 pb-10 lg:px-8">
             <div className="overflow-hidden rounded-2xl border border-border">
-              <img src={post.coverImageUrl} alt={post.title} className="h-auto w-full object-cover" />
+              <Image src={post.coverImageUrl} alt={post.title} width={1200} height={630} className="h-auto w-full object-cover" priority />
             </div>
           </div>
         )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Save, Send } from "lucide-react";
@@ -50,6 +50,16 @@ export function ServiceForm({ mode, id, initial }: Props) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [jsonError, setJsonError] = useState<string | null>(null);
+  const [slugTouched, setSlugTouched] = useState(mode === "edit" && Boolean(initial?.slug));
+
+  useEffect(() => {
+    if (!slugTouched) {
+      setValues((v) => ({
+        ...v,
+        slug: v.title.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-"),
+      }));
+    }
+  }, [values.title, slugTouched]);
   const [values, setValues] = useState<ServiceFormValues>({
     slug: "",
     title: "",
@@ -135,7 +145,12 @@ export function ServiceForm({ mode, id, initial }: Props) {
           </div>
           <div>
             <label className={label}>Slug *</label>
-            <input value={values.slug} onChange={(e) => set("slug", e.target.value.toLowerCase().replace(/\s+/g, "-"))} className={field} placeholder="custom-software-development" />
+            <input
+              value={values.slug}
+              onChange={(e) => { setSlugTouched(true); set("slug", e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "").replace(/-+/g, "-")); }}
+              className={field}
+              placeholder="custom-software-development"
+            />
           </div>
         </div>
 

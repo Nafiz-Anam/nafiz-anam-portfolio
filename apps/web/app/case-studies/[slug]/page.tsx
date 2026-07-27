@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Tag } from "lucide-react";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
@@ -165,7 +166,7 @@ export default async function CaseStudyPage({ params }: Props) {
           <div className="dark bg-background px-6 pb-12 lg:px-16">
             <div className="mx-auto max-w-[1800px]">
               <div className="overflow-hidden rounded-2xl border border-border">
-                <img src={project.coverImageUrl} alt={project.title} className="h-auto w-full object-cover" />
+                <Image src={project.coverImageUrl} alt={project.title} width={1800} height={900} className="h-auto w-full object-cover" priority />
               </div>
             </div>
           </div>
@@ -240,7 +241,7 @@ export default async function CaseStudyPage({ params }: Props) {
                     className="group flex flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] transition-colors hover:border-foreground/[0.16]">
                     <div className="relative h-32 bg-foreground/[0.04]">
                       {r.coverImageUrl ? (
-                        <img src={r.coverImageUrl} alt={r.title} className="h-full w-full object-cover" />
+                        <Image src={r.coverImageUrl} alt={r.title} fill className="object-cover" sizes="300px" />
                       ) : (
                         <div className="flex h-full items-center justify-center">
                           <span className="font-mono text-[10px] uppercase tracking-wider text-foreground/30">{r.industry}</span>
