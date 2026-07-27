@@ -53,6 +53,7 @@ body {
     transparent 14px,
     transparent 160px
   );
+  background-attachment: fixed;
 }
 
 .bg-texture-lines-panel {
@@ -67,4 +68,5 @@ body {
     transparent 14px,
     transparent 160px
   );
+  background-attachment: fixed;
 }

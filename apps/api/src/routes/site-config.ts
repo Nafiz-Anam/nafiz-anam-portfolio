@@ -22,7 +22,7 @@ siteConfigRouter.put("/:key", requireAuth, async (req, res) => {
   const row = await prisma.siteConfig.upsert({
     where: { key: req.params.key },
     update: { value, ...(label !== undefined && { label }) },
-    create: { key: req.params.key, value, label: label ?? req.params.key },
+    create: { key: req.params.key!, value, label: label ?? req.params.key! },
   });
   void revalidate(CONFIG_PATHS);
   res.json(row);

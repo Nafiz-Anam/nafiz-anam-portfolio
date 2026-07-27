@@ -7,14 +7,14 @@ COPY packages/ui/package.json packages/ui/package.json
 COPY packages/types/package.json packages/types/package.json
 COPY packages/config/package.json packages/config/package.json
 COPY apps/cms/package.json apps/cms/package.json
-RUN pnpm install --frozen-lockfile --filter @portfolio/cms...
+RUN pnpm install --frozen-lockfile --shamefully-hoist --store-dir /repo/.pnpm-store --filter @portfolio/cms...
 
 COPY packages/ui packages/ui
 COPY packages/types packages/types
 COPY packages/config packages/config
 COPY apps/cms apps/cms
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN pnpm --filter @portfolio/cms build
+RUN cd /repo/apps/cms && /repo/node_modules/.bin/next build
 
 FROM node:20-alpine AS runner
 RUN corepack enable && apk add --no-cache libc6-compat
@@ -30,4 +30,4 @@ COPY --from=builder /repo/apps/cms/next.config.ts apps/cms/next.config.ts
 COPY --from=builder /repo/apps/cms/next.config.mjs apps/cms/next.config.mjs
 EXPOSE 3001
 WORKDIR /repo/apps/cms
-CMD ["node_modules/.bin/next", "start", "-p", "3001"]
+CMD ["/repo/node_modules/.bin/next", "start", "-p", "3001"]

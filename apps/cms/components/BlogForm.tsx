@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, X, Plus, Eye, Save, Send, Image as ImageIcon } from "lucide-react";
-import { Button } from "@portfolio/ui";
+import { Button, Select } from "@portfolio/ui";
 import { api } from "@/lib/api";
 import { RichTextEditor } from "./RichTextEditor";
 import { ImageUpload } from "./ImageUpload";
@@ -250,16 +250,12 @@ export function BlogForm({
                 No categories. <Link href="/blog/categories" className="text-accent hover:underline">Create one</Link>
               </p>
             ) : (
-              <select
+              <Select
                 value={values.category}
-                onChange={(e) => set("category", e.target.value)}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-accent"
-              >
-                <option value="">— Select category —</option>
-                {categories.map((c) => (
-                  <option key={c.id} value={c.name}>{c.name}</option>
-                ))}
-              </select>
+                onChange={(v) => set("category", v)}
+                placeholder="— Select category —"
+                options={categories.map((c) => ({ value: c.name, label: c.name }))}
+              />
             )}
           </div>
 

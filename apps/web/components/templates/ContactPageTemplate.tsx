@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@portfolio/ui";
+import { Button, Select } from "@portfolio/ui";
 import { BookingButton } from "@/components/sections/BookingButton";
 
 /* ─── Shared Reveal ─── */
@@ -285,6 +285,11 @@ function ProjectInquiryForm() {
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
   };
 
+  const setField = (field: keyof FormState) => (v: string) => {
+    setForm((prev) => ({ ...prev, [field]: v }));
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
+  };
+
   const validate = () => {
     const errs: Partial<FormState> = {};
     if (!form.name.trim()) errs.name = "Name is required";
@@ -435,59 +440,53 @@ function ProjectInquiryForm() {
 
                   {/* Row 3: Project Type */}
                   <FormField label="Project Type">
-                    <SelectWrapper>
-                      <select
-                        value={form.projectType}
-                        onChange={set("projectType")}
-                        className={`${selectClass} ${form.projectType ? "text-foreground" : "text-foreground/30"}`}
-                      >
-                        <option value="" disabled>Select a project type…</option>
-                        <option value="custom-software">Custom Software Development</option>
-                        <option value="saas">SaaS Platform</option>
-                        <option value="ai-automation">AI & Automation</option>
-                        <option value="cloud-devops">Cloud Infrastructure & DevOps</option>
-                        <option value="consulting">Technical Consulting & Architecture</option>
-                        <option value="team-scaling">Engineering Leadership & Team Scaling</option>
-                        <option value="integration">System Integration</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </SelectWrapper>
+                    <Select
+                      value={form.projectType}
+                      onChange={setField("projectType")}
+                      placeholder="Select a project type…"
+                      options={[
+                        { value: "custom-software", label: "Custom Software Development" },
+                        { value: "saas", label: "SaaS Platform" },
+                        { value: "ai-automation", label: "AI & Automation" },
+                        { value: "cloud-devops", label: "Cloud Infrastructure & DevOps" },
+                        { value: "consulting", label: "Technical Consulting & Architecture" },
+                        { value: "team-scaling", label: "Engineering Leadership & Team Scaling" },
+                        { value: "integration", label: "System Integration" },
+                        { value: "other", label: "Other" },
+                      ]}
+                    />
                   </FormField>
 
                   {/* Row 4: Budget + Timeline */}
                   <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
                     <FormField label="Estimated Budget (Optional)">
-                      <SelectWrapper>
-                        <select
-                          value={form.budget}
-                          onChange={set("budget")}
-                          className={`${selectClass} ${form.budget ? "text-foreground" : "text-foreground/30"}`}
-                        >
-                          <option value="" disabled>Select a range…</option>
-                          <option value="under-10k">Under $10,000</option>
-                          <option value="10-25k">$10,000 – $25,000</option>
-                          <option value="25-50k">$25,000 – $50,000</option>
-                          <option value="50-100k">$50,000 – $100,000</option>
-                          <option value="100k-plus">$100,000+</option>
-                          <option value="undecided">Not sure yet</option>
-                        </select>
-                      </SelectWrapper>
+                      <Select
+                        value={form.budget}
+                        onChange={setField("budget")}
+                        placeholder="Select a range…"
+                        options={[
+                          { value: "under-10k", label: "Under $10,000" },
+                          { value: "10-25k", label: "$10,000 – $25,000" },
+                          { value: "25-50k", label: "$25,000 – $50,000" },
+                          { value: "50-100k", label: "$50,000 – $100,000" },
+                          { value: "100k-plus", label: "$100,000+" },
+                          { value: "undecided", label: "Not sure yet" },
+                        ]}
+                      />
                     </FormField>
                     <FormField label="Desired Timeline (Optional)">
-                      <SelectWrapper>
-                        <select
-                          value={form.timeline}
-                          onChange={set("timeline")}
-                          className={`${selectClass} ${form.timeline ? "text-foreground" : "text-foreground/30"}`}
-                        >
-                          <option value="" disabled>Select a timeline…</option>
-                          <option value="asap">As soon as possible</option>
-                          <option value="1-3mo">1 – 3 months</option>
-                          <option value="3-6mo">3 – 6 months</option>
-                          <option value="6mo-plus">6+ months</option>
-                          <option value="flexible">Flexible</option>
-                        </select>
-                      </SelectWrapper>
+                      <Select
+                        value={form.timeline}
+                        onChange={setField("timeline")}
+                        placeholder="Select a timeline…"
+                        options={[
+                          { value: "asap", label: "As soon as possible" },
+                          { value: "1-3mo", label: "1 – 3 months" },
+                          { value: "3-6mo", label: "3 – 6 months" },
+                          { value: "6mo-plus", label: "6+ months" },
+                          { value: "flexible", label: "Flexible" },
+                        ]}
+                      />
                     </FormField>
                   </div>
 
@@ -509,18 +508,16 @@ function ProjectInquiryForm() {
 
                   {/* Preferred contact method */}
                   <FormField label="Preferred Contact Method">
-                    <SelectWrapper>
-                      <select
-                        value={form.contactMethod}
-                        onChange={set("contactMethod")}
-                        className={`${selectClass} ${form.contactMethod ? "text-foreground" : "text-foreground/30"}`}
-                      >
-                        <option value="" disabled>Select a preference…</option>
-                        <option value="email">Email</option>
-                        <option value="video">Video Call</option>
-                        <option value="phone">Phone</option>
-                      </select>
-                    </SelectWrapper>
+                    <Select
+                      value={form.contactMethod}
+                      onChange={setField("contactMethod")}
+                      placeholder="Select a preference…"
+                      options={[
+                        { value: "email", label: "Email" },
+                        { value: "video", label: "Video Call" },
+                        { value: "phone", label: "Phone" },
+                      ]}
+                    />
                   </FormField>
 
                   {/* Submit */}

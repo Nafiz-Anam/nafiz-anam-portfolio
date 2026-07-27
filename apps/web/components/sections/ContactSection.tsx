@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { z } from "zod";
-import { Button } from "@portfolio/ui";
+import { Button, Select } from "@portfolio/ui";
 import { FadeIn } from "@/components/FadeIn";
 import { api } from "@/lib/api";
 
@@ -17,9 +17,6 @@ const contactSchema = z.object({
 const fieldClassName =
   "rounded-[5px] border border-foreground/10 bg-surface px-5 py-4 text-[14px] text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-1 focus:ring-accent transition-colors duration-250";
 
-const selectClassName =
-  "rounded-[5px] border border-foreground/10 bg-surface px-5 py-4 text-[14px] text-foreground/50 focus:text-foreground focus:outline-none focus:ring-1 focus:ring-accent transition-colors duration-250";
-
 const categoryOptions = ["Web Design", "Development", "Branding", "Consulting"];
 const budgetOptions = ["< $5k", "$5k – $15k", "$15k – $30k", "$30k+"];
 
@@ -27,6 +24,8 @@ export function ContactSection() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [category, setCategory] = useState("");
+  const [budget, setBudget] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -100,26 +99,20 @@ export function ContactSection() {
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 <input name="name" placeholder="Full Name" className={fieldClassName} />
                 <input name="email" type="email" placeholder="Email Address" className={fieldClassName} />
-                <select name="category" defaultValue="" className={selectClassName}>
-                  <option value="" disabled>
-                    Category
-                  </option>
-                  {categoryOptions.map((option) => (
-                    <option key={option} value={option} className="bg-background text-foreground">
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                <select name="budget" defaultValue="" className={selectClassName}>
-                  <option value="" disabled>
-                    Budget Range
-                  </option>
-                  {budgetOptions.map((option) => (
-                    <option key={option} value={option} className="bg-background text-foreground">
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                <Select
+                  name="category"
+                  value={category}
+                  onChange={setCategory}
+                  placeholder="Category"
+                  options={categoryOptions.map((o) => ({ value: o, label: o }))}
+                />
+                <Select
+                  name="budget"
+                  value={budget}
+                  onChange={setBudget}
+                  placeholder="Budget Range"
+                  options={budgetOptions.map((o) => ({ value: o, label: o }))}
+                />
               </div>
               <textarea name="message" placeholder="Tell me about your project..." rows={6} className={fieldClassName} />
               {error ? <p className="text-sm text-red-400">{error}</p> : null}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Loader2, Inbox, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { type ContactLead } from "@portfolio/types";
 import { api } from "@/lib/api";
+import { Select } from "@portfolio/ui";
 import { Pagination } from "@/components/Pagination";
 
 type Status = "all" | "new" | "read" | "replied" | "archived";
@@ -36,7 +37,7 @@ export default function LeadsPage() {
   async function load(p = page) {
     setLoading(true);
     try {
-      const res = await api.get<{ leads: ContactLead[]; total: number; totalPages: number }>("/contact", {
+      const res = await api.get<{ leads: ContactLead[]; total: number; totalPages: number }>("/api/contact", {
         params: { status, page: p, limit: LIMIT },
       });
       setLeads(res.data.leads ?? []);
@@ -60,7 +61,7 @@ export default function LeadsPage() {
   async function handleStatusChange(id: string, newStatus: ContactLead["status"]) {
     setUpdatingId(id);
     try {
-      const res = await api.patch<ContactLead>(`/contact/${id}/status`, { status: newStatus });
+      const res = await api.patch<ContactLead>(`/api/contact/${id}/status`, { status: newStatus });
       setLeads((prev) => prev.map((l) => (l.id === id ? res.data : l)));
     } catch (e) {
       const err = e as { message?: string };
@@ -74,7 +75,7 @@ export default function LeadsPage() {
     if (!confirm(`Delete lead from "${name}"? Cannot be undone.`)) return;
     setDeletingId(id);
     try {
-      await api.delete(`/contact/${id}`);
+      await api.delete(`/api/contact/${id}`);
       setLeads((prev) => prev.filter((l) => l.id !== id));
     } catch (e) {
       const err = e as { message?: string };
@@ -155,24 +156,19 @@ export default function LeadsPage() {
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">{lead.category}</td>
                     <td className="px-4 py-3 text-muted-foreground">{lead.budget}</td>
-                    <td className="px-4 py-3">
-                      <select
+                    <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
+                      <Select
                         value={lead.status}
                         disabled={updatingId === lead.id}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={(e) => {
-                          e.stopPropagation();
-                          handleStatusChange(lead.id, e.target.value as ContactLead["status"]);
-                        }}
-                        className={`rounded-full px-2 py-0.5 text-[11px] font-semibold border-0 cursor-pointer focus:outline-none ${
-                          STATUS_COLORS[lead.status] ?? STATUS_COLORS.new
-                        }`}
-                      >
-                        <option value="new">new</option>
-                        <option value="read">read</option>
-                        <option value="replied">replied</option>
-                        <option value="archived">archived</option>
-                      </select>
+                        onChange={(v) => handleStatusChange(lead.id, v as ContactLead["status"])}
+                        className="w-32"
+                        options={[
+                          { value: "new", label: "new" },
+                          { value: "read", label: "read" },
+                          { value: "replied", label: "replied" },
+                          { value: "archived", label: "archived" },
+                        ]}
+                      />
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">{formatDate(lead.createdAt)}</td>
                     <td className="px-4 py-3">

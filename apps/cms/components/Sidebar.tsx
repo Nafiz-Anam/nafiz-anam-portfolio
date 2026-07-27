@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FolderKanban, FileText, Tag, MessageSquare, Settings, LogOut, Inbox, Image, CalendarCheck, Layers, User } from "lucide-react";
+import { LayoutDashboard, FolderKanban, FileText, Tag, MessageSquare, Settings, LogOut, Inbox, Image, CalendarCheck, User } from "lucide-react";
 import { cn } from "@portfolio/ui";
 import { api } from "@/lib/api";
 
@@ -14,7 +14,6 @@ const NAV = [
   { href: "/testimonials", label: "Testimonials", icon: MessageSquare },
   { href: "/leads", label: "Leads", icon: Inbox },
   { href: "/bookings", label: "Bookings", icon: CalendarCheck },
-  { href: "/services", label: "Services", icon: Layers },
   { href: "/about", label: "About", icon: User },
   { href: "/media", label: "Media", icon: Image },
   { href: "/settings", label: "Settings", icon: Settings },
