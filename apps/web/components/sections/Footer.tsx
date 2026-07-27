@@ -3,7 +3,7 @@ import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { defaultFooter, type FooterContent } from "@/lib/placeholder-content";
 import { BookingButton } from "./BookingButton";
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+import { SERVER_API as API } from "@/lib/api-url";
 
 function SquareBullet() {
   return <span className="inline-block h-1.5 w-1.5 shrink-0 bg-panel-muted" aria-hidden="true" />;

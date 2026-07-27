@@ -25,4 +25,5 @@ WORKDIR /repo
 ENV NODE_ENV=production
 COPY --from=build /repo /repo
 EXPOSE 4000
-CMD ["node", "apps/api/dist/index.js"]
+# Run migrations then start — safe to run deploy on every boot (idempotent)
+CMD ["sh", "-c", "cd packages/db && npx prisma migrate deploy && cd /repo && node apps/api/dist/index.js"]

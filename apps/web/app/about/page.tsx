@@ -44,7 +44,7 @@ export default async function AboutPage() {
   let config: Record<string, string> = {};
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000"}/api/site-config`,
+      `${process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000"}/api/site-config`,
       { next: { revalidate: 300 } }
     );
     if (res.ok) {

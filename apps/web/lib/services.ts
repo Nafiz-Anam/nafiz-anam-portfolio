@@ -1,7 +1,6 @@
 import type { Service, ServiceContentJson } from "@portfolio/types";
 import { getServiceBySlug as getStaticService, SERVICE_PAGES, type ServicePageData } from "./service-pages";
-
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+import { SERVER_API as API } from "./api-url";
 
 async function fetchJson<T>(path: string): Promise<T | null> {
   try {

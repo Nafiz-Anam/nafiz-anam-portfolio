@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 import { SERVICE_PAGES } from "@/lib/service-pages";
+import { SERVER_API as API } from "@/lib/api-url";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 async function getPublishedSlugs(
   path: string,

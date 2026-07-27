@@ -1,6 +1,5 @@
 import type { ProjectListResult, ProjectSingleResult } from "@portfolio/types";
-
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+import { SERVER_API as API } from "./api-url";
 
 async function fetchJson<T>(path: string, revalidate = 60): Promise<T | null> {
   try {

@@ -34,7 +34,7 @@ import { ContactSection } from "@/components/sections/ContactSection";
 import { Footer } from "@/components/sections/Footer";
 import type { Testimonial } from "@portfolio/types";
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+import { SERVER_API as API } from "@/lib/api-url";
 
 async function getFeaturedTestimonials(): Promise<Testimonial[]> {
   try {

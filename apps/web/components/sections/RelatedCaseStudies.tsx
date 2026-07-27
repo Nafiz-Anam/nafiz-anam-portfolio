@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ProjectListItem } from "@portfolio/types";
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+import { SERVER_API as API } from "@/lib/api-url";
 
 async function getLatestProjects(): Promise<ProjectListItem[]> {
   try {
