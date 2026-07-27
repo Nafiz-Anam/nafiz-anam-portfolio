@@ -36,7 +36,7 @@ export async function Footer() {
 
   return (
     <footer className="dark bg-texture-lines bg-surface px-6 pb-24 pt-8 lg:px-16">
-      <div className="mx-auto max-w-[1800px] overflow-hidden rounded-[5px] border border-panel-foreground bg-panel bg-texture-lines-panel p-10 text-panel-foreground sm:p-16">
+      <div className="mx-auto max-w-[1800px] overflow-hidden rounded-[5px] border border-panel-foreground bg-panel p-10 text-panel-foreground sm:p-16">
         <div className="grid grid-cols-1 gap-14 sm:grid-cols-[1fr_auto]">
           <div className="flex flex-col justify-between gap-10">
             <p className="font-sans text-7xl font-bold leading-none tracking-tight sm:text-8xl">
@@ -96,6 +96,15 @@ export async function Footer() {
               />
             </div>
           </div>
+        </div>
+
+        <div className="mt-10 border-t border-panel-foreground/[0.07] pt-6 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-panel-muted">
+            © {new Date().getFullYear()} Nafiz Anam. All rights reserved.
+          </p>
+          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-panel-muted">
+            Designed & built by Nafiz Anam
+          </p>
         </div>
       </div>
     </footer>

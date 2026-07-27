@@ -42,31 +42,124 @@ body {
 }
 
 .bg-texture-lines {
+  position: relative;
+  isolation: isolate;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* Lines pinned to viewport so every section shares the same column grid */
+.bg-texture-lines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  pointer-events: none;
+  z-index: -1;
   background-image: repeating-linear-gradient(
     90deg,
-    hsl(var(--foreground) / 0.12) 0px,
-    hsl(var(--foreground) / 0.12) 1px,
+    hsl(var(--foreground) / 0.07) 0px,
+    hsl(var(--foreground) / 0.07) 1px,
     transparent 1px,
     transparent 13px,
-    hsl(var(--foreground) / 0.12) 13px,
-    hsl(var(--foreground) / 0.12) 14px,
+    hsl(var(--foreground) / 0.07) 13px,
+    hsl(var(--foreground) / 0.07) 14px,
     transparent 14px,
-    transparent 160px
+    transparent calc((100vw - 3rem) / 8)
   );
   background-attachment: fixed;
+  background-position-x: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .bg-texture-lines::after {
+    left: 4rem;
+    right: 4rem;
+    background-image:
+      linear-gradient(to left,
+        hsl(var(--foreground) / 0.07) 0px,
+        hsl(var(--foreground) / 0.07) 1px,
+        transparent 1px,
+        transparent 13px,
+        hsl(var(--foreground) / 0.07) 13px,
+        hsl(var(--foreground) / 0.07) 14px,
+        transparent 14px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        hsl(var(--foreground) / 0.07) 0px,
+        hsl(var(--foreground) / 0.07) 1px,
+        transparent 1px,
+        transparent 13px,
+        hsl(var(--foreground) / 0.07) 13px,
+        hsl(var(--foreground) / 0.07) 14px,
+        transparent 14px,
+        transparent calc((100vw - 8rem) / 8)
+      );
+    /* scroll = element-relative (right double line at pseudo-element edge) */
+    /* fixed  = viewport-relative (column grid aligned to content bounds) */
+    background-attachment: scroll, fixed;
+    background-position-x: 0, 4rem;
+  }
 }
 
 .bg-texture-lines-panel {
+  position: relative;
+  isolation: isolate;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+.bg-texture-lines-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  pointer-events: none;
+  z-index: -1;
   background-image: repeating-linear-gradient(
     90deg,
-    hsl(var(--panel-foreground) / 0.06) 0px,
-    hsl(var(--panel-foreground) / 0.06) 1px,
+    hsl(var(--panel-foreground) / 0.05) 0px,
+    hsl(var(--panel-foreground) / 0.05) 1px,
     transparent 1px,
     transparent 13px,
-    hsl(var(--panel-foreground) / 0.06) 13px,
-    hsl(var(--panel-foreground) / 0.06) 14px,
+    hsl(var(--panel-foreground) / 0.05) 13px,
+    hsl(var(--panel-foreground) / 0.05) 14px,
     transparent 14px,
-    transparent 160px
+    transparent calc((100vw - 3rem) / 8)
   );
   background-attachment: fixed;
+  background-position-x: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .bg-texture-lines-panel::after {
+    left: 4rem;
+    right: 4rem;
+    background-image:
+      linear-gradient(to left,
+        hsl(var(--panel-foreground) / 0.05) 0px,
+        hsl(var(--panel-foreground) / 0.05) 1px,
+        transparent 1px,
+        transparent 13px,
+        hsl(var(--panel-foreground) / 0.05) 13px,
+        hsl(var(--panel-foreground) / 0.05) 14px,
+        transparent 14px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        hsl(var(--panel-foreground) / 0.05) 0px,
+        hsl(var(--panel-foreground) / 0.05) 1px,
+        transparent 1px,
+        transparent 13px,
+        hsl(var(--panel-foreground) / 0.05) 13px,
+        hsl(var(--panel-foreground) / 0.05) 14px,
+        transparent 14px,
+        transparent calc((100vw - 8rem) / 8)
+      );
+    background-attachment: scroll, fixed;
+    background-position-x: 0, 4rem;
+  }
 }

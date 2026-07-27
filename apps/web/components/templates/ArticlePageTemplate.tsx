@@ -661,7 +661,7 @@ function RelatedCard({ article }: { article: RelatedArticle }) {
 
 function RelatedArticles({ articles }: { articles: RelatedArticle[] }) {
   return (
-    <section className="bg-panel bg-texture-lines-panel px-6 py-24 text-panel-foreground lg:px-16">
+    <section className="bg-panel px-6 py-24 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="mb-14">
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
@@ -694,7 +694,7 @@ function RelatedArticles({ articles }: { articles: RelatedArticle[] }) {
 ═══════════════════════════════════════════════════════════ */
 function ArticleCTA() {
   return (
-    <section className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16">
+    <section className="dark bg-background px-6 py-28 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="flex flex-col items-center gap-8 text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
@@ -736,7 +736,7 @@ function ArticleCTA() {
 export function ArticlePageTemplate({ article }: { article: ArticleData }) {
   return (
     <>
-      <div className="dark bg-texture-lines bg-background text-foreground">
+      <div className="dark bg-background text-foreground">
         <ArticleHero
           category={article.category}
           title={article.title}

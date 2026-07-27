@@ -404,7 +404,7 @@ function ProjectOverview({
 ═══════════════════════════════════════════════════════════ */
 function TheSolution({ solution }: Pick<CaseStudyData, "solution">) {
   return (
-    <section className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16">
+    <section className="bg-panel px-6 py-28 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         {/* Header */}
         <Reveal className="mb-20 max-w-[800px]">
@@ -815,7 +815,7 @@ function MetricCard({ metric, index }: { metric: CaseStudyMetric; index: number 
 
 function ResultsImpact({ results }: Pick<CaseStudyData, "results">) {
   return (
-    <section className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16">
+    <section className="dark bg-background px-6 py-28 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         {/* Header */}
         <Reveal className="mb-20">
@@ -946,7 +946,7 @@ function RelatedProjects({
   relatedProjects,
 }: Pick<CaseStudyData, "relatedProjects">) {
   return (
-    <section className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16">
+    <section className="bg-panel px-6 py-28 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="mb-14">
           <SectionLabel>Related Work</SectionLabel>
@@ -991,7 +991,7 @@ function RelatedProjects({
 ═══════════════════════════════════════════════════════════ */
 function CaseStudyCTA() {
   return (
-    <section className="dark bg-texture-lines bg-background px-6 py-32 text-foreground lg:px-16">
+    <section className="dark bg-background px-6 py-32 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="flex flex-col items-center gap-8 text-center">
           <SectionLabel>Start a Project</SectionLabel>
@@ -1037,7 +1037,7 @@ export function CaseStudyPageTemplate({
   return (
     <>
       {/* Hero — dark */}
-      <div className="dark bg-texture-lines bg-background text-foreground">
+      <div className="dark bg-background text-foreground">
         <CaseStudyHero
           industry={caseStudy.industry}
           clientType={caseStudy.clientType}

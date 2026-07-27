@@ -88,8 +88,8 @@ function StepCard({ number, title, description, icon }: (typeof STEPS)[number]) 
       className="relative flex flex-1 flex-col gap-6 border-r border-panel-foreground/[0.07] px-7 py-10 last:border-r-0"
       animate={{ y: hovered ? -2 : 0 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       {/* orange accent top line */}
       <div
@@ -128,7 +128,7 @@ function StepCard({ number, title, description, icon }: (typeof STEPS)[number]) 
 
 export function HowWeBuild() {
   return (
-    <section id="about" className="dark bg-panel bg-texture-lines-panel text-panel-foreground">
+    <section id="about" className="dark bg-panel text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 py-24 lg:px-16">
 
         {/* Top: portrait + copy */}

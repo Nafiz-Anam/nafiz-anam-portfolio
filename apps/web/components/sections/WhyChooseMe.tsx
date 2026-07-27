@@ -141,7 +141,7 @@ export function WhyChooseMe() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.07]"
+          className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-panel"
         >
           {PRINCIPLES.map((p, i) => (
             <PrincipleRow

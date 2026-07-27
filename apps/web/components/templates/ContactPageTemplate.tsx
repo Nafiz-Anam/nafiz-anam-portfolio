@@ -43,7 +43,7 @@ function ContactHero() {
   return (
     <section className="px-6 pb-28 pt-24 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
-        <div className="mx-auto max-w-[1000px]">
+        <div className="max-w-[1000px]">
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
