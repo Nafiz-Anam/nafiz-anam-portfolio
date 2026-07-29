@@ -23,8 +23,8 @@ export const clipReveal: Variants = {
 
 // ─── General fade-up (non-text) ────────────────────────────────────────────
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 56, scale: 0.97 },
-  show:   { opacity: 1, y: 0,  scale: 1, transition: { duration: dur.md, ease: ease.out } },
+  hidden: { opacity: 0, y: 40 },
+  show:   { opacity: 1, y: 0, transition: { duration: dur.md, ease: ease.out } },
 };
 
 export const fadeLeft: Variants = {
@@ -49,9 +49,9 @@ export const stagger = (staggerChildren = 0.1, delayChildren = 0): Variants => (
 });
 
 export const staggerItem: Variants = {
-  hidden: { opacity: 0, y: 40, scale: 0.96 },
-  show:   { opacity: 1, y: 0,  scale: 1, transition: { duration: dur.sm, ease: ease.out } },
+  hidden: { opacity: 0, y: 32 },
+  show:   { opacity: 1, y: 0, transition: { duration: dur.sm, ease: ease.out } },
 };
 
 // ─── whileInView defaults ─────────────────────────────────────────────────
-export const inView = { once: true, margin: "-60px" };
+export const inView = { once: true, margin: "0px" };

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { SectionReveal, titleVariants, bodyVariants, cardVariants } from "@/components/ui/SectionReveal";
 
 const PRINCIPLES = [
@@ -43,32 +42,14 @@ function PrincipleRow({
   body,
   isLast,
 }: (typeof PRINCIPLES)[number] & { isLast: boolean }) {
-  const [hovered, setHovered] = useState(false);
-
   return (
-    <div
-      className="relative transition-colors duration-[250ms]"
-      style={{
-        backgroundColor: hovered
-          ? "hsl(var(--panel-foreground) / 0.025)"
-          : "transparent",
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
+    <div className="group relative transition-colors duration-[250ms] hover:bg-panel-foreground/[0.025]">
       {/* 3-column principle row */}
       <div className="flex flex-col gap-5 px-10 py-14 lg:flex-row lg:items-baseline lg:gap-0">
 
         {/* LEFT — oversized editorial number */}
         <div className="shrink-0 lg:w-[15%]">
-          <span
-            className="select-none font-mono text-[120px] font-bold leading-none transition-colors duration-[250ms] lg:text-[140px]"
-            style={{
-              color: hovered
-                ? "hsl(var(--accent) / 0.18)"
-                : "hsl(var(--panel-foreground) / 0.07)",
-            }}
-          >
+          <span className="select-none font-mono text-[120px] font-bold leading-none text-panel-foreground/[0.07] transition-colors duration-[250ms] group-hover:text-accent/[0.18] lg:text-[140px]">
             {number}
           </span>
         </div>
@@ -92,12 +73,7 @@ function PrincipleRow({
       {/* animated orange sweep line */}
       {!isLast && (
         <div className="relative mx-10 h-px bg-panel-foreground/[0.06]">
-          <motion.div
-            className="absolute inset-0 origin-left bg-accent"
-            initial={false}
-            animate={{ scaleX: hovered ? 1 : 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          />
+          <div className="absolute inset-0 origin-left scale-x-0 bg-accent transition-transform duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100" />
         </div>
       )}
     </div>

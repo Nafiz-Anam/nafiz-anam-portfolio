@@ -1,7 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { SectionReveal } from "@/components/ui/SectionReveal";
+
+const statVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } },
+};
 
 const STATS = [
   {
@@ -36,30 +41,16 @@ const STATS = [
   },
 ] as const;
 
-function StatItem({ value, label, caption, index }: { value: string; label: string; caption: string; index: number }) {
-  const [hovered, setHovered] = useState(false);
-
+function StatItem({ value, label, caption }: { value: string; label: string; caption: string }) {
   return (
     <motion.div
-      className="relative flex flex-1 flex-col justify-center px-6 py-10 lg:px-8"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: index * 0.14 }}
-      style={{
-        transform: hovered ? "translateY(-3px)" : "translateY(0px)",
-        boxShadow: hovered ? "0 12px 32px rgba(0,0,0,0.10)" : "none",
-        transition: "transform 200ms ease-out, box-shadow 200ms ease-out",
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      variants={statVariants}
+      whileHover={{ y: -3 }}
+      className="group relative flex flex-1 flex-col justify-center px-6 py-10 transition-shadow duration-200 hover:shadow-[0_12px_32px_rgba(0,0,0,0.10)] lg:px-8"
     >
       <p
-        className="whitespace-nowrap font-bold leading-none tracking-tight transition-colors duration-150"
-        style={{
-          fontSize: "clamp(18px, 2.2vw, 36px)",
-          color: hovered ? "hsl(var(--accent))" : "hsl(var(--panel-foreground))",
-        }}
+        className="whitespace-nowrap font-bold leading-none tracking-tight text-panel-foreground transition-colors duration-150 group-hover:text-accent"
+        style={{ fontSize: "clamp(18px, 2.2vw, 36px)" }}
       >
         {value}
       </p>
@@ -78,11 +69,15 @@ export function AuthoritySnapshot() {
     <section className="px-6 pb-24 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <div className="overflow-hidden rounded-[5px] bg-panel">
-          <div className="flex flex-col divide-y divide-panel-foreground/[0.07] sm:flex-row sm:divide-x sm:divide-y-0">
-            {STATS.map((stat, i) => (
-              <StatItem key={stat.label} {...stat} index={i} />
+          <SectionReveal
+            className="flex flex-col divide-y divide-panel-foreground/[0.07] sm:flex-row sm:divide-x sm:divide-y-0"
+            stagger={0.14}
+            margin="-40px"
+          >
+            {STATS.map((stat) => (
+              <StatItem key={stat.label} {...stat} />
             ))}
-          </div>
+          </SectionReveal>
         </div>
       </div>
     </section>

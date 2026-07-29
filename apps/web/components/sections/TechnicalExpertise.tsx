@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { SectionReveal, titleVariants, bodyVariants, cardVariants } from "@/components/ui/SectionReveal";
 
 const CAPABILITIES = [
   {
@@ -80,30 +80,17 @@ function CapabilityRow({
   icon,
   isLast,
 }: (typeof CAPABILITIES)[number] & { isLast: boolean }) {
-  const [hovered, setHovered] = useState(false);
-
   return (
     <>
-      <div
-        className="relative transition-colors duration-[250ms]"
-        style={{ backgroundColor: hovered ? "hsl(var(--panel-foreground) / 0.025)" : "transparent" }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
+      <div className="group relative transition-colors duration-[250ms] hover:bg-panel-foreground/[0.025]">
         {/* left orange accent bar */}
-        <div
-          className="absolute inset-y-0 left-0 w-[2px] transition-all duration-[250ms]"
-          style={{ backgroundColor: hovered ? "hsl(var(--accent))" : "transparent" }}
-        />
+        <div className="absolute inset-y-0 left-0 w-[2px] bg-transparent transition-all duration-[250ms] group-hover:bg-accent" />
 
         <div className="flex flex-col gap-6 px-10 py-11 lg:flex-row lg:items-start lg:gap-0">
 
           {/* left: icon + title + description */}
           <div className="flex shrink-0 gap-4 lg:w-[38%] lg:pr-14">
-            <span
-              className="mt-0.5 shrink-0 transition-colors duration-[250ms]"
-              style={{ color: hovered ? "hsl(var(--accent))" : "hsl(var(--panel-foreground) / 0.4)" }}
-            >
+            <span className="mt-0.5 shrink-0 text-panel-foreground/40 transition-colors duration-[250ms] group-hover:text-accent">
               {icon}
             </span>
             <div className="flex flex-col gap-1.5">
@@ -121,16 +108,7 @@ function CapabilityRow({
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border px-3 py-1.5 text-[11px] font-medium leading-none transition-all duration-[250ms]"
-                style={{
-                  backgroundColor: hovered
-                    ? "hsl(var(--panel-foreground) / 0.07)"
-                    : "hsl(var(--panel-foreground) / 0.04)",
-                  borderColor: hovered
-                    ? "hsl(var(--panel-foreground) / 0.20)"
-                    : "hsl(var(--panel-foreground) / 0.10)",
-                  color: "hsl(var(--panel-foreground) / 0.65)",
-                }}
+                className="rounded-full border border-panel-foreground/10 bg-panel-foreground/[0.04] px-3 py-1.5 text-[11px] font-medium leading-none text-panel-foreground/65 transition-all duration-[250ms] group-hover:border-panel-foreground/20 group-hover:bg-panel-foreground/[0.07]"
               >
                 {tag}
               </span>
@@ -156,43 +134,34 @@ export function TechnicalExpertise() {
       <div className="mx-auto max-w-[1800px]">
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-          className="mb-20 flex flex-col items-center gap-5 text-center"
-        >
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+        <SectionReveal className="mb-20 flex flex-col items-center gap-5 text-center" stagger={0.14}>
+          <motion.p variants={bodyVariants} className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
             Technical Expertise
-          </p>
-          <h2 className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-            Modern Technologies.{" "}
-            <span className="font-serif italic text-accent">Practical Experience.</span>
-          </h2>
-          <p className="max-w-[640px] text-[15px] leading-relaxed text-foreground/55">
+          </motion.p>
+          <div style={{ overflow: "hidden" }}>
+            <motion.h2 variants={titleVariants} className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+              Modern Technologies.{" "}
+              <span className="font-serif italic text-accent">Practical Experience.</span>
+            </motion.h2>
+          </div>
+          <motion.p variants={bodyVariants} className="max-w-[640px] text-[15px] leading-relaxed text-foreground/55">
             Over the past seven years, I've worked across frontend, backend, cloud
             infrastructure, AI automation, and enterprise systems—choosing technologies
             based on business requirements rather than trends.
-          </p>
-        </motion.div>
+          </motion.p>
+        </SectionReveal>
 
-        {/* Capability matrix */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="overflow-hidden rounded-[5px] bg-panel"
-        >
+        {/* Capability matrix — rows stagger in */}
+        <SectionReveal className="overflow-hidden rounded-[5px] bg-panel" stagger={0.09} delay={0.05}>
           {CAPABILITIES.map((cap, i) => (
-            <CapabilityRow
-              key={cap.title}
-              {...cap}
-              isLast={i === CAPABILITIES.length - 1}
-            />
+            <motion.div key={cap.title} variants={cardVariants}>
+              <CapabilityRow
+                {...cap}
+                isLast={i === CAPABILITIES.length - 1}
+              />
+            </motion.div>
           ))}
-        </motion.div>
+        </SectionReveal>
 
       </div>
     </section>

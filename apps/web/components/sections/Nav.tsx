@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@portfolio/ui";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { BookingButton } from "./BookingButton";
@@ -82,47 +82,51 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                   </svg>
                 </a>
 
-                <div
-                  className={`absolute left-1/2 top-full z-50 w-[300px] -translate-x-1/2 pt-3 transition-all duration-[200ms] ${
-                    servicesOpen
-                      ? "pointer-events-auto translate-y-0 opacity-100"
-                      : "pointer-events-none -translate-y-1 opacity-0"
-                  }`}
-                >
-                  <div className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.10] bg-panel shadow-xl">
-                    <div className="border-b border-panel-foreground/[0.08] px-5 py-3.5">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
-                        Services
-                      </p>
-                    </div>
+                <AnimatePresence>
+                  {servicesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                      transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute left-1/2 top-full z-50 w-[300px] -translate-x-1/2 pt-3"
+                    >
+                      <div className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.10] bg-panel shadow-xl">
+                        <div className="border-b border-panel-foreground/[0.08] px-5 py-3.5">
+                          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
+                            Services
+                          </p>
+                        </div>
 
-                    <div className="flex flex-col py-2">
-                      {SERVICE_LINKS.map((s) => (
-                        <a
-                          key={s.href}
-                          href={s.href}
-                          className="group flex items-center justify-between px-5 py-3 transition-colors duration-150 hover:bg-panel-foreground/[0.05]"
-                        >
-                          <span className="text-[13px] font-medium text-panel-foreground/75 transition-colors duration-150 group-hover:text-panel-foreground">
-                            {s.label}
-                          </span>
-                          <span className="translate-x-0 text-panel-foreground/25 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-accent">
-                            →
-                          </span>
-                        </a>
-                      ))}
-                    </div>
+                        <div className="flex flex-col py-2">
+                          {SERVICE_LINKS.map((s) => (
+                            <a
+                              key={s.href}
+                              href={s.href}
+                              className="group flex items-center justify-between px-5 py-3 transition-colors duration-150 hover:bg-panel-foreground/[0.05]"
+                            >
+                              <span className="text-[13px] font-medium text-panel-foreground/75 transition-colors duration-150 group-hover:text-panel-foreground">
+                                {s.label}
+                              </span>
+                              <span className="translate-x-0 text-panel-foreground/25 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-accent">
+                                →
+                              </span>
+                            </a>
+                          ))}
+                        </div>
 
-                    <div className="border-t border-panel-foreground/[0.08] px-5 py-3">
-                      <a
-                        href="/services"
-                        className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent transition-opacity hover:opacity-75"
-                      >
-                        View All Services →
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                        <div className="border-t border-panel-foreground/[0.08] px-5 py-3">
+                          <a
+                            href="/services"
+                            className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent transition-opacity hover:opacity-75"
+                          >
+                            View All Services →
+                          </a>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ) : (
               <a

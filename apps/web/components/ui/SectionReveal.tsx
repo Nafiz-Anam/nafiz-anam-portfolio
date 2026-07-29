@@ -24,7 +24,7 @@ export function SectionReveal({
   as: Tag = "div",
   stagger = 0.13,
   delay = 0,
-  margin = "-80px",
+  margin = "0px",
 }: SectionRevealProps) {
   const Wrapper = motion[Tag];
   return (
@@ -58,9 +58,9 @@ export const bodyVariants = {
 };
 
 export const cardVariants = {
-  hidden: { opacity: 0, y: 56, scale: 0.94 },
-  show:   { opacity: 1, y: 0, scale: 1,
-            transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, y: 40 },
+  show:   { opacity: 1, y: 0,
+            transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export const lineVariants = {

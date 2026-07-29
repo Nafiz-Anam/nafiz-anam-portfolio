@@ -41,6 +41,14 @@ body {
   color: hsl(var(--foreground));
 }
 
+/* While Lenis is actively scrolling, a stationary cursor crosses row/card
+   boundaries — block pointer-events so :hover can't toggle mid-scroll
+   (box-shadow/border-color/background-color transitions repaint on every
+   toggle, which is what caused scroll jitter under the pointer). */
+html.is-scrolling body * {
+  pointer-events: none !important;
+}
+
 .bg-texture-lines {
   position: relative;
   isolation: isolate;
@@ -48,7 +56,7 @@ body {
     url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
-/* Lines pinned to viewport so every section shares the same column grid */
+/* Column grid lines — scroll-relative so browser can composite on GPU */
 .bg-texture-lines::after {
   content: '';
   position: absolute;
@@ -68,8 +76,8 @@ body {
     transparent 14px,
     transparent calc((100vw - 3rem) / 8)
   );
-  background-attachment: fixed;
-  background-position-x: 1.5rem;
+  background-attachment: scroll;
+  background-position-x: 0;
 }
 
 @media (min-width: 1024px) {
@@ -97,10 +105,8 @@ body {
         transparent 14px,
         transparent calc((100vw - 8rem) / 8)
       );
-    /* scroll = element-relative (right double line at pseudo-element edge) */
-    /* fixed  = viewport-relative (column grid aligned to content bounds) */
-    background-attachment: scroll, fixed;
-    background-position-x: 0, 4rem;
+    background-attachment: scroll, scroll;
+    background-position-x: 0, 0;
   }
 }
 
@@ -130,8 +136,8 @@ body {
     transparent 14px,
     transparent calc((100vw - 3rem) / 8)
   );
-  background-attachment: fixed;
-  background-position-x: 1.5rem;
+  background-attachment: scroll;
+  background-position-x: 0;
 }
 
 @media (min-width: 1024px) {
@@ -159,7 +165,7 @@ body {
         transparent 14px,
         transparent calc((100vw - 8rem) / 8)
       );
-    background-attachment: scroll, fixed;
-    background-position-x: 0, 4rem;
+    background-attachment: scroll, scroll;
+    background-position-x: 0, 0;
   }
 }

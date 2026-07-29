@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
 function WordReveal({ children, className, delay = 0 }: { children: string; className?: string; delay?: number }) {
@@ -117,7 +117,7 @@ function HeadingReveal() {
           >{w}</motion.span>
         </span>
       ))}
-      <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
+      <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", paddingTop: "0.12em", marginTop: "-0.12em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
         <motion.span
           className="font-serif italic"
           style={{ display: "inline-block", color: "hsl(var(--accent))" }}
@@ -131,41 +131,22 @@ function HeadingReveal() {
 }
 
 function StepCard({ number, title, description, icon, index }: (typeof STEPS)[number] & { index: number }) {
-  const [hovered, setHovered] = useState(false);
-
   return (
     <motion.div
-      className="relative flex flex-1 flex-col gap-6 border-r border-panel-foreground/[0.07] px-7 py-10 last:border-r-0"
+      className="group relative flex flex-1 flex-col gap-6 border-r border-panel-foreground/[0.07] px-7 py-10 transition-colors duration-200 hover:bg-panel-foreground/[0.03] last:border-r-0"
       initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
       whileInView={{ clipPath: "inset(0 0 0% 0)", opacity: 1 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
-      style={{
-        backgroundColor: hovered ? "hsl(var(--panel-foreground) / 0.03)" : "transparent",
-        transition: "background-color 200ms",
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       {/* orange accent top line */}
-      <div
-        className="absolute inset-x-0 top-0 h-[2px] rounded-full transition-all duration-250"
-        style={{
-          backgroundColor: hovered ? "hsl(var(--accent))" : "transparent",
-        }}
-      />
+      <div className="absolute inset-x-0 top-0 h-[2px] rounded-full bg-transparent transition-all duration-250 group-hover:bg-accent" />
 
       <div className="flex items-start justify-between">
-        <span
-          className="font-mono text-[11px] font-bold tracking-[0.14em] transition-colors duration-250"
-          style={{ color: hovered ? "hsl(var(--accent))" : "hsl(var(--panel-foreground) / 0.3)" }}
-        >
+        <span className="font-mono text-[11px] font-bold tracking-[0.14em] text-panel-foreground/30 transition-colors duration-250 group-hover:text-accent">
           {number}
         </span>
-        <span
-          className="transition-colors duration-250"
-          style={{ color: hovered ? "hsl(var(--accent))" : "hsl(var(--panel-foreground) / 0.4)" }}
-        >
+        <span className="text-panel-foreground/40 transition-colors duration-250 group-hover:text-accent">
           {icon}
         </span>
       </div>

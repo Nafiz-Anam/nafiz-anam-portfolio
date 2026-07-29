@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { SectionReveal, titleVariants, bodyVariants, cardVariants } from "@/components/ui/SectionReveal";
-import { useState } from "react";
 
 const SERVICES = [
   {
@@ -79,35 +78,16 @@ const SERVICES = [
 ] as const;
 
 function ServiceCard({ title, description, icon }: (typeof SERVICES)[number]) {
-  const [hovered, setHovered] = useState(false);
-
   return (
     <motion.div
-      className="group relative flex flex-col gap-7 rounded-[5px] border bg-panel p-10"
-      animate={{
-        y: hovered ? -4 : 0,
-        boxShadow: hovered
-          ? "0 16px 40px rgba(0,0,0,0.12)"
-          : "0 0px 0px rgba(0,0,0,0)",
-      }}
-      style={{
-        borderColor: hovered ? "hsl(var(--accent))" : "hsl(var(--panel-foreground) / 0.1)",
-      }}
+      className="group relative flex flex-col gap-7 rounded-[5px] border border-panel-foreground/10 bg-panel p-10 transition-[box-shadow,border-color] duration-250 hover:border-accent hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)]"
+      whileHover={{ y: -4 }}
       transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
     >
       {/* icon */}
-      <motion.span
-        className="block w-fit"
-        animate={{
-          y: hovered ? -3 : 0,
-          color: hovered ? "hsl(var(--accent))" : "hsl(var(--panel-foreground) / 0.5)",
-        }}
-        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      >
+      <span className="block w-fit -translate-y-0 text-panel-foreground/50 transition-[color,transform] duration-250 group-hover:-translate-y-[3px] group-hover:text-accent">
         {icon}
-      </motion.span>
+      </span>
 
       <div className="flex flex-col gap-4">
         <p className="text-[18px] font-bold leading-snug tracking-tight text-panel-foreground">
@@ -121,12 +101,9 @@ function ServiceCard({ title, description, icon }: (typeof SERVICES)[number]) {
       {/* learn more */}
       <div className="mt-auto flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-panel-foreground/35">
         <span>Learn More</span>
-        <motion.span
-          animate={{ x: hovered ? 4 : 0 }}
-          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <span className="inline-block translate-x-0 transition-transform duration-250 group-hover:translate-x-1">
           →
-        </motion.span>
+        </span>
       </div>
     </motion.div>
   );

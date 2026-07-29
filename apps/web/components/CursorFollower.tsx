@@ -11,6 +11,8 @@ export function CursorFollower() {
   const sx = useSpring(cx, { stiffness: 120, damping: 18, mass: 0.6 });
   const sy = useSpring(cy, { stiffness: 120, damping: 18, mass: 0.6 });
 
+  const hoveringRef = useRef(false);
+
   useEffect(() => {
     const move = (e: MouseEvent) => {
       cx.set(e.clientX);
@@ -20,7 +22,11 @@ export function CursorFollower() {
 
     const over = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
-      setHoveringLink(!!(t.closest("a, button, [role='button']")));
+      const now = !!(t.closest("a, button, [role='button']"));
+      if (now !== hoveringRef.current) {
+        hoveringRef.current = now;
+        setHoveringLink(now);
+      }
     };
 
     window.addEventListener("mousemove", move);
