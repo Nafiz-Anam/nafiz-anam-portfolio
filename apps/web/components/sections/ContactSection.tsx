@@ -17,7 +17,14 @@ const contactSchema = z.object({
 const fieldClassName =
   "rounded-[5px] border border-foreground/10 bg-surface px-5 py-4 text-[14px] text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-1 focus:ring-accent transition-colors duration-250";
 
-const categoryOptions = ["Web Design", "Development", "Branding", "Consulting"];
+const categoryOptions = [
+  "Custom Software Development",
+  "SaaS Product Engineering",
+  "AI Automation",
+  "Technical Consulting",
+  "Cloud & DevOps",
+  "Engineering Leadership",
+];
 const budgetOptions = ["< $5k", "$5k – $15k", "$15k – $30k", "$30k+"];
 
 export function ContactSection() {

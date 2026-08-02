@@ -1,17 +1,17 @@
 import Link from "next/link";
-import { Button } from "@portfolio/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { ProjectCard } from "./ProjectCard";
+import { SERVER_API as API } from "@/lib/api-url";
 import type { Project } from "@portfolio/types";
 
 async function getPublishedProjects(): Promise<Project[]> {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/projects?published=true`,
-      { next: { revalidate: 60 } }
-    );
+    const res = await fetch(`${API}/api/projects?limit=6`, {
+      next: { revalidate: 60, tags: ["projects"] },
+    });
     if (!res.ok) return [];
-    return res.json();
+    const data = await res.json() as { projects: Project[] };
+    return data.projects ?? [];
   } catch {
     return [];
   }

@@ -103,8 +103,8 @@ export default async function HomePage() {
         <AuthoritySnapshot />
       </div>
       <WorkGrid />
-      <HowWeBuild />
       <Services />
+      <HowWeBuild />
       <WhyChooseMe />
       <TechnicalExpertise />
       <Testimonials testimonials={testimonials} />

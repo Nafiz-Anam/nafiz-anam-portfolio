@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { Button } from "@portfolio/ui";
 import { ArrowUpLeft, ArrowUpRight } from "lucide-react";
 import { SectionReveal, titleVariants, bodyVariants } from "@/components/ui/SectionReveal";
 import { Reveal } from "@/components/ui/Reveal";
@@ -38,8 +38,8 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                 variants={titleVariants}
                 className="text-5xl font-bold leading-none sm:text-6xl"
               >
-                <span className="font-serif italic text-accent">Happy</span>{" "}
-                <span className="font-sans text-foreground">Words.</span>
+                <span className="font-serif italic text-accent">Client</span>{" "}
+                <span className="font-sans text-foreground">Results.</span>
               </motion.h2>
             </div>
           </SectionReveal>
@@ -130,9 +130,12 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
           </Reveal>
 
           <div className="flex justify-end lg:col-start-2 lg:row-start-3">
-            <Button className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
+            <Link
+              href="/testimonials"
+              className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
+            >
               Read all reviews
-            </Button>
+            </Link>
           </div>
         </div>
       </div>

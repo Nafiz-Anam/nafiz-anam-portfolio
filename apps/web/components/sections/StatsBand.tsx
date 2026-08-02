@@ -9,13 +9,28 @@ const logoTiles = [
   {
     key: "diamond",
     node: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 2l10 10-10 10L2 12z" strokeLinejoin="round" />
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
+        <path d="M12 2l10 10-10 10L2 12z" />
       </svg>
     ),
   },
-  { key: "kanin", node: <span className="font-sans font-black uppercase tracking-tight">KANIN</span> },
-  { key: "loveum", node: <span className="font-sans font-extrabold uppercase tracking-tight">LOVEUM</span> },
+  {
+    key: "cross",
+    node: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <path d="M12 2v20M2 12h20" />
+      </svg>
+    ),
+  },
+  {
+    key: "circle",
+    node: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="12" cy="12" r="9" />
+        <circle cx="12" cy="12" r="3" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+  },
   {
     key: "s-icon",
     node: (
@@ -24,12 +39,19 @@ const logoTiles = [
       </svg>
     ),
   },
-  { key: "goven", node: <span className="font-serif font-bold">GoVen</span> },
+  {
+    key: "hex",
+    node: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
+        <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5" />
+      </svg>
+    ),
+  },
   {
     key: "ribbon",
     node: (
-      <svg width="30" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" strokeWidth="2.4" className="text-accent">
-        <path d="M2 4c6 0 6 6 12 6s6-6 12-6M2 16c6 0 6-6 12-6s6 6 12 6" strokeLinecap="round" />
+      <svg width="30" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" strokeWidth="2.4" className="text-accent" strokeLinecap="round">
+        <path d="M2 4c6 0 6 6 12 6s6-6 12-6M2 16c6 0 6-6 12-6s6 6 12 6" />
       </svg>
     ),
   },

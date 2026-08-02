@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionReveal, titleVariants, bodyVariants, cardVariants } from "@/components/ui/SectionReveal";
 
 const SERVICES = [
   {
     title: "Custom Software Development",
+    href: "/services/custom-software-development",
     description:
       "Build tailored web platforms, enterprise applications, and business systems designed specifically around your workflows and long-term goals.",
     icon: (
@@ -18,6 +20,7 @@ const SERVICES = [
   },
   {
     title: "SaaS Product Engineering",
+    href: "/services/saas-product-engineering",
     description:
       "Transform ideas into scalable SaaS products with modern architecture, secure infrastructure, and production-ready engineering.",
     icon: (
@@ -30,6 +33,7 @@ const SERVICES = [
   },
   {
     title: "AI Automation & Business Systems",
+    href: "/services/ai-automation-business-systems",
     description:
       "Automate repetitive workflows, integrate AI capabilities, and streamline operations to improve productivity and efficiency.",
     icon: (
@@ -43,6 +47,7 @@ const SERVICES = [
   },
   {
     title: "Technical Consulting & Architecture",
+    href: "/services/technical-consulting-architecture",
     description:
       "Receive expert guidance on software architecture, technology decisions, scalability planning, code quality, and technical strategy.",
     icon: (
@@ -54,6 +59,7 @@ const SERVICES = [
   },
   {
     title: "Cloud Infrastructure & DevOps",
+    href: "/services/cloud-infrastructure-devops",
     description:
       "Deploy secure, scalable cloud environments with CI/CD pipelines, monitoring, containerization, and reliable infrastructure.",
     icon: (
@@ -64,6 +70,7 @@ const SERVICES = [
   },
   {
     title: "Engineering Leadership",
+    href: "/services/engineering-leadership",
     description:
       "Support growing teams with technical leadership, product planning, engineering processes, mentoring, and strategic execution.",
     icon: (
@@ -77,35 +84,33 @@ const SERVICES = [
   },
 ] as const;
 
-function ServiceCard({ title, description, icon }: (typeof SERVICES)[number]) {
+function ServiceCard({ title, description, icon, href }: (typeof SERVICES)[number]) {
   return (
-    <motion.div
-      className="group relative flex flex-col gap-7 rounded-[5px] border border-panel-foreground/10 bg-panel p-10 transition-[box-shadow,border-color] duration-250 hover:border-accent hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)]"
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-    >
-      {/* icon */}
-      <span className="block w-fit -translate-y-0 text-panel-foreground/50 transition-[color,transform] duration-250 group-hover:-translate-y-[3px] group-hover:text-accent">
-        {icon}
-      </span>
-
-      <div className="flex flex-col gap-4">
-        <p className="text-[18px] font-bold leading-snug tracking-tight text-panel-foreground">
-          {title}
-        </p>
-        <p className="text-[13px] leading-[1.8] text-panel-foreground/50">
-          {description}
-        </p>
-      </div>
-
-      {/* learn more */}
-      <div className="mt-auto flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-panel-foreground/35">
-        <span>Learn More</span>
-        <span className="inline-block translate-x-0 transition-transform duration-250 group-hover:translate-x-1">
-          →
+    <Link href={href} className="block h-full">
+      <motion.div
+        className="group relative flex h-full flex-col gap-7 rounded-[5px] border border-panel-foreground/10 bg-panel p-10 transition-[box-shadow,border-color] duration-250 hover:border-accent hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)]"
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <span className="block w-fit text-panel-foreground/50 transition-[color,transform] duration-250 group-hover:-translate-y-[3px] group-hover:text-accent">
+          {icon}
         </span>
-      </div>
-    </motion.div>
+
+        <div className="flex flex-col gap-4">
+          <p className="text-[18px] font-bold leading-snug tracking-tight text-panel-foreground">
+            {title}
+          </p>
+          <p className="text-[13px] leading-[1.8] text-panel-foreground/50">
+            {description}
+          </p>
+        </div>
+
+        <div className="mt-auto flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-panel-foreground/35">
+          <span>Learn More</span>
+          <span className="inline-block translate-x-0 transition-transform duration-250 group-hover:translate-x-1">→</span>
+        </div>
+      </motion.div>
+    </Link>
   );
 }
 

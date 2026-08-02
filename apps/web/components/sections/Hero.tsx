@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { defaultHero, type HeroContent } from "@/lib/placeholder-content";
@@ -114,11 +115,17 @@ export function Hero({
           </motion.p>
 
           <motion.div
-            className="flex justify-end"
+            className="flex items-center justify-end gap-6"
             initial={{ opacity: 0, y: 16 }}
             animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
             transition={{ duration: dur.sm, ease: ease.out, delay: 0.78 }}
           >
+            <Link
+              href="/case-studies"
+              className="text-[11px] font-bold uppercase tracking-widest text-panel-muted transition-colors duration-200 hover:text-panel-foreground"
+            >
+              View case studies →
+            </Link>
             <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
               {merged.ctaLabel}
             </BookingButton>
