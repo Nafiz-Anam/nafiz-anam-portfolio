@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
+
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
 import { Testimonials } from "@/components/sections/Testimonials";
@@ -42,8 +45,45 @@ async function getAllTestimonials(): Promise<Testimonial[]> {
 export default async function TestimonialsPage() {
   const testimonials = await getAllTestimonials();
 
+  const testimonialsSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ItemList",
+        "@id": `${SITE_URL}/testimonials#itemlist`,
+        name: "Client Testimonials — Nafiz Anam",
+        description: "What founders and engineering teams say about working with Nafiz Anam.",
+        numberOfItems: testimonials.length,
+        itemListElement: testimonials.map((t, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Review",
+            author: { "@type": "Person", name: t.name },
+            reviewBody: t.quote,
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: t.rating,
+              bestRating: 5,
+              worstRating: 1,
+            },
+            itemReviewed: { "@id": `${SITE_URL}/#person` },
+          },
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Testimonials", item: `${SITE_URL}/testimonials` },
+        ],
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(testimonialsSchema) }} />
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
 

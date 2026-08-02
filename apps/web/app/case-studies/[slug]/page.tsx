@@ -79,16 +79,30 @@ export default async function CaseStudyPage({ params }: Props) {
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
   const caseStudySchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: project.seoTitle || project.title,
-    description: project.seoDescription || project.excerpt,
-    image: project.ogImage || project.coverImageUrl || undefined,
-    datePublished: project.publishedAt ?? project.createdAt,
-    dateModified: project.updatedAt,
-    author: { "@type": "Person", name: "Nafiz Anam", url: SITE_URL },
-    publisher: { "@type": "Person", name: "Nafiz Anam", url: SITE_URL },
-    url: `${SITE_URL}/case-studies/${project.slug}`,
-    keywords: project.tags.join(", "),
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${SITE_URL}/case-studies/${project.slug}#article`,
+        headline: project.seoTitle || project.title,
+        description: project.seoDescription || project.excerpt,
+        ...(project.ogImage || project.coverImageUrl ? { image: project.ogImage || project.coverImageUrl } : {}),
+        datePublished: project.publishedAt ?? project.createdAt,
+        dateModified: project.updatedAt,
+        author: { "@id": `${SITE_URL}/#person` },
+        publisher: { "@id": `${SITE_URL}/#organization` },
+        url: `${SITE_URL}/case-studies/${project.slug}`,
+        isPartOf: { "@id": `${SITE_URL}/case-studies#collectionpage` },
+        ...(project.tags.length > 0 ? { keywords: project.tags.join(", ") } : {}),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Case Studies", item: `${SITE_URL}/case-studies` },
+          { "@type": "ListItem", position: 3, name: project.title, item: `${SITE_URL}/case-studies/${project.slug}` },
+        ],
+      },
+    ],
   };
 
   return (

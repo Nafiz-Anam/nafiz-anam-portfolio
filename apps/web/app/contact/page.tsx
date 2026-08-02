@@ -1,4 +1,28 @@
 import type { Metadata } from "next";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
+
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ContactPage",
+      "@id": `${SITE_URL}/contact#contactpage`,
+      url: `${SITE_URL}/contact`,
+      name: "Contact — Nafiz Anam",
+      description: "Start a conversation about your software project. Nafiz Anam works with founders, startups, and businesses to build scalable, maintainable software solutions.",
+      mainEntity: { "@id": `${SITE_URL}/#person` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Contact", item: `${SITE_URL}/contact` },
+      ],
+    },
+  ],
+};
+
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
 import { ContactPageTemplate } from "@/components/templates/ContactPageTemplate";
@@ -42,6 +66,7 @@ export default async function ContactPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }} />
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
       </div>

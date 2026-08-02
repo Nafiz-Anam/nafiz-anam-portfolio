@@ -87,18 +87,32 @@ export default async function InsightDetailPage({ params }: Props) {
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.seoTitle || post.title,
-    description: post.seoDescription || post.excerpt,
-    image: post.ogImage || post.coverImageUrl || undefined,
-    datePublished: post.publishedAt ?? post.createdAt,
-    dateModified: post.updatedAt,
-    author: { "@type": "Person", name: post.authorName, url: SITE_URL },
-    publisher: { "@type": "Person", name: "Nafiz Anam", url: SITE_URL },
-    url: `${SITE_URL}/insights/${post.slug}`,
-    keywords: post.tags.join(", "),
-    articleSection: post.category || undefined,
-    wordCount: post.readTimeMinutes ? post.readTimeMinutes * 200 : undefined,
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${SITE_URL}/insights/${post.slug}#blogposting`,
+        headline: post.seoTitle || post.title,
+        description: post.seoDescription || post.excerpt,
+        ...(post.ogImage || post.coverImageUrl ? { image: post.ogImage || post.coverImageUrl } : {}),
+        datePublished: post.publishedAt ?? post.createdAt,
+        dateModified: post.updatedAt,
+        author: { "@id": `${SITE_URL}/#person` },
+        publisher: { "@id": `${SITE_URL}/#organization` },
+        url: `${SITE_URL}/insights/${post.slug}`,
+        isPartOf: { "@id": `${SITE_URL}/insights#blog` },
+        ...(post.category ? { articleSection: post.category } : {}),
+        ...(post.tags.length > 0 ? { keywords: post.tags.join(", ") } : {}),
+        ...(post.readTimeMinutes ? { wordCount: post.readTimeMinutes * 200 } : {}),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Insights", item: `${SITE_URL}/insights` },
+          { "@type": "ListItem", position: 3, name: post.title, item: `${SITE_URL}/insights/${post.slug}` },
+        ],
+      },
+    ],
   };
 
   return (

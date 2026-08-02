@@ -1,5 +1,25 @@
 import type { Metadata } from "next";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
+
+const homeSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": `${SITE_URL}/#profilepage`,
+      url: SITE_URL,
+      name: "Nafiz Anam — Lead Software Engineer & Founder",
+      description: "I help founders and businesses design, build, and scale reliable software. Available for consulting, architecture reviews, and full-cycle product engineering.",
+      mainEntity: { "@id": `${SITE_URL}/#person` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL }],
+    },
+  ],
+};
+
 export const metadata: Metadata = {
   title: "Nafiz Anam — Lead Software Engineer & Founder",
   description:
@@ -76,6 +96,7 @@ export default async function HomePage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
         <Hero availability={config.availability_status ?? null} data={heroData} />

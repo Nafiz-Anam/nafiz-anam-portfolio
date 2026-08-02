@@ -37,13 +37,49 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
+
 export default async function ServicePage({ params }: Props) {
   const { slug } = await params;
   const service = await getServicePageData(slug);
   if (!service) notFound();
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${SITE_URL}/services/${service.slug}#service`,
+        name: service.metaTitle.replace(" — Nafiz Anam", ""),
+        description: service.metaDescription,
+        url: `${SITE_URL}/services/${service.slug}`,
+        provider: { "@id": `${SITE_URL}/#person` },
+        serviceType: service.tagline,
+        areaServed: "Worldwide",
+        ...(service.technologies.length > 0 ? { keywords: service.technologies.join(", ") } : {}),
+      },
+      ...(service.faqs.length > 0 ? [{
+        "@type": "FAQPage",
+        mainEntity: service.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }] : []),
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
+          { "@type": "ListItem", position: 3, name: service.metaTitle.replace(" — Nafiz Anam", ""), item: `${SITE_URL}/services/${service.slug}` },
+        ],
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
       </div>
