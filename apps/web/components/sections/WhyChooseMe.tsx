@@ -104,7 +104,7 @@ export function WhyChooseMe() {
           </motion.p>
         </SectionReveal>
 
-        <SectionReveal className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-panel" stagger={0.1} delay={0.05}>
+        <SectionReveal className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-background" stagger={0.1} delay={0.05}>
           {PRINCIPLES.map((p, i) => (
             <motion.div key={p.number} variants={cardVariants}>
               <PrincipleRow {...p} isLast={i === PRINCIPLES.length - 1} />

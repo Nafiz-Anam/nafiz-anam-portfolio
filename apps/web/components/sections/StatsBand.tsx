@@ -36,9 +36,9 @@ const logoTiles = [
 ];
 
 const STAT_DEFAULTS = [
-  { value: "7+",  label: "Years Experience" },
-  { value: "40+", label: "Projects Delivered" },
-  { value: "20+", label: "Happy Clients" },
+  { value: "7+",   label: "Years Experience" },
+  { value: "100+", label: "Projects Delivered" },
+  { value: "5",    label: "Countries Served" },
 ];
 
 async function getSiteConfig(): Promise<Record<string, string>> {
@@ -98,9 +98,9 @@ export async function StatsBand() {
             className="h-[320px] w-[320px] rounded-[5px] object-cover"
           />
           <p className="self-center text-left text-[28px] leading-relaxed text-panel-foreground sm:text-[30px]">
-            My multidisciplinary approach blends design precision with engineering excellence,
-            delivering solutions that stand out in competitive landscapes. I&apos;m driven by the
-            passion to craft experiences that create lasting impact through thoughtful interaction.
+            I build software that businesses can depend on — reliable systems, scalable architecture,
+            and engineering decisions grounded in real business outcomes. Seven years building
+            production software across startups, enterprises, and my own ventures.
           </p>
         </Reveal>
 
@@ -108,7 +108,7 @@ export async function StatsBand() {
           {resolvedLogoTiles.map((logo) => (
             <div
               key={logo.key}
-              className="flex h-24 items-center justify-center bg-[#F9F3EF] px-4 text-center text-xl text-panel-foreground"
+              className="flex h-24 items-center justify-center bg-panel px-4 text-center text-xl text-panel-foreground"
             >
               {logo.node}
             </div>
@@ -117,7 +117,7 @@ export async function StatsBand() {
 
         <div className="mt-[2px] grid grid-cols-3 gap-[2px] bg-panel-foreground/10 sm:grid-cols-6">
           {stats.map((stat) => (
-            <div key={stat.label} className="col-span-1 flex items-baseline gap-3 bg-[#F9F3EF] px-6 py-8 sm:col-span-2">
+            <div key={stat.label} className="col-span-1 flex items-baseline gap-3 bg-[hsl(var(--warm-tile))] px-6 py-8 sm:col-span-2">
               <Counter value={stat.value} className="text-[68px] font-bold leading-none text-panel-foreground" />
               <p className="text-base text-panel-muted">{stat.label}</p>
             </div>

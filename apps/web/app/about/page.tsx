@@ -40,6 +40,19 @@ function tryParseJSON<T>(value: string | undefined): T | undefined {
   }
 }
 
+const aboutFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    { "@type": "Question", name: "What industries do you work with?", acceptedAnswer: { "@type": "Answer", text: "I've worked across fintech, logistics, agriculture, e-commerce, education, and enterprise SaaS. Industry context matters less than the underlying problem: most software challenges—architecture, scalability, team structure, technical debt—are fundamentally similar across verticals." } },
+    { "@type": "Question", name: "Do you work with startups?", acceptedAnswer: { "@type": "Answer", text: "Yes. Early-stage startups benefit most from senior-level thinking applied with speed. I help founders avoid expensive architectural mistakes early, prioritize features that actually matter, and build systems that can scale without requiring a full rewrite at Series A." } },
+    { "@type": "Question", name: "Do you work with agencies?", acceptedAnswer: { "@type": "Answer", text: "Yes, on a selective basis. I work with agencies that need senior technical leadership for specific client projects—particularly those involving architecture reviews, scalability challenges, or complex system integrations." } },
+    { "@type": "Question", name: "Can you join an existing engineering team?", acceptedAnswer: { "@type": "Answer", text: "Yes. I've embedded into multiple existing teams as a senior engineer and technical lead. I focus on raising code quality, improving architecture practices, unblocking delivery bottlenecks, and mentoring team members without disrupting existing momentum." } },
+    { "@type": "Question", name: "Can you lead an engineering team?", acceptedAnswer: { "@type": "Answer", text: "Yes. My current role at Grain Marketplace includes engineering leadership responsibilities. Through Agilo IT, I've also provided fractional CTO and technical leadership services to several businesses during critical growth stages." } },
+    { "@type": "Question", name: "How do projects typically begin?", acceptedAnswer: { "@type": "Answer", text: "Every engagement starts with a discovery call to understand the business problem, current technical state, and desired outcomes. From there I propose an engagement scope—whether that's a one-time architecture review, a fixed-scope build, or an ongoing technical partnership." } },
+  ],
+};
+
 export default async function AboutPage() {
   let config: Record<string, string> = {};
   try {
@@ -63,6 +76,7 @@ export default async function AboutPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutFaqSchema) }} />
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
         <AboutHero />

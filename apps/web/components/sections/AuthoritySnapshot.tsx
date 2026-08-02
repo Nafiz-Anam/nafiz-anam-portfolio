@@ -12,7 +12,7 @@ const STATS = [
   {
     value: "7+",
     label: "Years of Experience",
-    caption: "Building production software since 2019",
+    caption: "Building production software since 2017",
   },
   {
     value: "100+",

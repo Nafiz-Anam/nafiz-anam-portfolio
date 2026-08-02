@@ -454,6 +454,7 @@ function ProjectInquiryForm() {
                         { value: "integration", label: "System Integration" },
                         { value: "other", label: "Other" },
                       ]}
+                      buttonClassName={selectClass}
                     />
                   </FormField>
 
@@ -472,6 +473,7 @@ function ProjectInquiryForm() {
                           { value: "100k-plus", label: "$100,000+" },
                           { value: "undecided", label: "Not sure yet" },
                         ]}
+                        buttonClassName={selectClass}
                       />
                     </FormField>
                     <FormField label="Desired Timeline (Optional)">
@@ -486,6 +488,7 @@ function ProjectInquiryForm() {
                           { value: "6mo-plus", label: "6+ months" },
                           { value: "flexible", label: "Flexible" },
                         ]}
+                        buttonClassName={selectClass}
                       />
                     </FormField>
                   </div>
@@ -517,6 +520,7 @@ function ProjectInquiryForm() {
                         { value: "video", label: "Video Call" },
                         { value: "phone", label: "Phone" },
                       ]}
+                      buttonClassName={selectClass}
                     />
                   </FormField>
 

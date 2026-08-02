@@ -6,7 +6,7 @@ import { useState } from "react";
 const STATS = [
   { value: "7+", label: "Years Experience" },
   { value: "100+", label: "Projects Delivered" },
-  { value: "3+", label: "Countries Served" },
+  { value: "5", label: "Countries Served" },
   { value: "Lead", label: "Software Engineer" },
   { value: "2", label: "Companies Founded" },
   { value: "80+", label: "Students Mentored" },

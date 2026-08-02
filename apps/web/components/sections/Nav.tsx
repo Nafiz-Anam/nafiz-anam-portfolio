@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@portfolio/ui";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -17,6 +18,7 @@ const SERVICE_LINKS = [
 ] as const;
 
 export function Nav({ data = defaultNav }: { data?: NavContent }) {
+  const pathname = usePathname();
   const [servicesOpen, setServicesOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
@@ -65,7 +67,8 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
               >
                 <a
                   href={link.href}
-                  className="flex items-center gap-1.5 transition-colors hover:text-foreground"
+                  aria-current={pathname.startsWith("/services") ? "page" : undefined}
+                  className="flex items-center gap-1.5 transition-colors hover:text-foreground aria-[current=page]:text-foreground"
                 >
                   {link.label}
                   <svg
@@ -132,7 +135,8 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
               <a
                 key={link.href}
                 href={link.href}
-                className="transition-colors hover:text-foreground"
+                aria-current={pathname === link.href ? "page" : undefined}
+                className="transition-colors hover:text-foreground aria-[current=page]:text-foreground"
               >
                 {link.label}
               </a>

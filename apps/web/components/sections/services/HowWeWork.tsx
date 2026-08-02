@@ -7,7 +7,7 @@ const STEPS = [
     number: "01",
     title: "Discovery",
     description:
-      "We start with a deep conversation about the business—not the technology. What problem are we solving? Who are the users? What does success look like in six months? This shapes everything that follows.",
+      "I start with a deep conversation about the business—not the technology. What problem are we solving? Who are the users? What does success look like in six months? This shapes everything that follows.",
   },
   {
     number: "02",
@@ -56,7 +56,7 @@ export function HowWeWork() {
           className="mb-20 flex flex-col items-center gap-5 text-center"
         >
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
-            How We Work
+            How I Work
           </p>
           <h2 className="max-w-[620px] text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
             A Process Built Around{" "}
@@ -79,7 +79,7 @@ export function HowWeWork() {
           {STEPS.map((step) => (
             <div
               key={step.number}
-              className="flex flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-panel p-10"
+              className="flex flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-panel-foreground/[0.04] p-10"
             >
               <p
                 className="font-mono text-[42px] font-bold leading-none"

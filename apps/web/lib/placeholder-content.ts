@@ -6,8 +6,6 @@ export interface NavContent {
 export const defaultNav: NavContent = {
   brand: "Nafiz Anam",
   links: [
-    { label: "Intro", href: "#intro" },
-    { label: "Work", href: "#work" },
     { label: "Services", href: "/services" },
     { label: "Case Studies", href: "/case-studies" },
     { label: "Insights", href: "/insights" },
@@ -30,14 +28,14 @@ export interface HeroContent {
 }
 
 export const defaultHero: HeroContent = {
-  tags: ["/design", "/art direction", "/vibe coding"],
-  headlineLine1: "Design &",
-  headlineLine2Serif: "development",
+  tags: ["/software engineering", "/system architecture", "/product engineering"],
+  headlineLine1: "Software &",
+  headlineLine2Serif: "architecture",
   headlineLine2Sans: "Partner",
   index: "/01",
   name: "Nafiz Anam",
   pitch:
-    "Crafting digital experiences where pixel-perfect visuals meet flawless interaction. UX Engineer obsessed with the details that elevate good interfaces into exceptional products. Design meets engineering, seamlessly.",
+    "Lead Software Engineer and Founder helping businesses design, build, and scale reliable software. I bridge business strategy and engineering execution — from system architecture to production-ready products.",
   ctaLabel: "Book a free call",
   photoUrl: "/Nafiz-Anam.jpg",
 };
@@ -65,9 +63,9 @@ export interface PlaceholderStat {
 }
 
 export const placeholderStats: PlaceholderStat[] = [
-  { value: "7k+", label: "Reviews" },
-  { value: "1k", label: "Completed tasks" },
-  { value: "90", label: "Brand partners" },
+  { value: "7+",   label: "Years Experience" },
+  { value: "100+", label: "Projects Delivered" },
+  { value: "5",    label: "Countries Served" },
 ];
 
 export const placeholderLogos: string[] = ["KANIN", "LOVEUM", "GOVEN", "RITE", "ZOU"];
@@ -118,11 +116,11 @@ export interface FooterContent {
 
 export const defaultFooter: FooterContent = {
   brand: "Nafiz Anam",
-  email: "hello@example.com",
+  email: "ashiqur.marketer@gmail.com",
   socials: [
-    { label: "GitHub", href: "https://github.com" },
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "Twitter", href: "https://twitter.com" },
+    { label: "GitHub", href: "https://github.com/nafizanam" },
+    { label: "LinkedIn", href: "https://linkedin.com/in/nafizanam" },
+    { label: "Twitter", href: "https://twitter.com/nafizanam" },
   ],
   pages: [
     { label: "Case Studies", href: "/case-studies" },

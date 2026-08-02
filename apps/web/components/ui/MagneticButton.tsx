@@ -22,14 +22,14 @@ export function MagneticButton({
   onClick,
   type,
 }: MagneticButtonProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 200, damping: 18, mass: 0.6 });
   const sy = useSpring(y, { stiffness: 200, damping: 18, mass: 0.6 });
 
-  function handleMove(e: React.MouseEvent<HTMLDivElement>) {
+  function handleMove(e: React.MouseEvent<HTMLElement>) {
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -52,18 +52,16 @@ export function MagneticButton({
     </motion.div>
   );
 
-  const props = {
+  const baseProps = {
     ref,
     className,
     onMouseMove: handleMove,
     onMouseLeave: handleLeave,
     style: { display: "inline-block" },
-    ...(href ? { href } : {}),
     ...(onClick ? { onClick } : {}),
-    ...(type ? { type } : {}),
   };
 
-  if (Tag === "a") return <a {...props as React.AnchorHTMLAttributes<HTMLAnchorElement>} href={href}>{inner}</a>;
-  if (Tag === "button") return <button {...props as React.ButtonHTMLAttributes<HTMLButtonElement>}>{inner}</button>;
-  return <div {...props as React.HTMLAttributes<HTMLDivElement>}>{inner}</div>;
+  if (Tag === "a") return <a {...(baseProps as React.AnchorHTMLAttributes<HTMLAnchorElement>)} href={href}>{inner}</a>;
+  if (Tag === "button") return <button {...(baseProps as React.ButtonHTMLAttributes<HTMLButtonElement>)} type={type ?? "button"}>{inner}</button>;
+  return <div {...(baseProps as React.HTMLAttributes<HTMLDivElement>)}>{inner}</div>;
 }

@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { defaultHero, type HeroContent } from "@/lib/placeholder-content";
 import { BookingButton } from "./BookingButton";
-import { MagneticButton } from "@/components/ui/MagneticButton";
 import { ease, dur } from "@/lib/motion";
 import { onIntroDone } from "@/lib/intro-signal";
 
@@ -120,11 +119,9 @@ export function Hero({
             animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
             transition={{ duration: dur.sm, ease: ease.out, delay: 0.78 }}
           >
-            <MagneticButton strength={0.4}>
-              <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
-                {merged.ctaLabel}
-              </BookingButton>
-            </MagneticButton>
+            <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+              {merged.ctaLabel}
+            </BookingButton>
           </motion.div>
         </div>
 

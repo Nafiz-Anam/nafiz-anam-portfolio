@@ -104,11 +104,11 @@ const STEPS = [
 function HeadingReveal() {
   const ref = useRef<HTMLHeadingElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
-  const words = ["How", "We"];
+  const words = ["How", "I"];
   return (
-    <h2 ref={ref} className="text-5xl font-bold leading-[1.1] tracking-tight text-panel-foreground sm:text-6xl">
+    <h2 ref={ref} className="text-5xl font-bold tracking-tight text-panel-foreground sm:text-6xl" style={{ lineHeight: 1.1 }}>
       {words.map((w, i) => (
-        <span key={w} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", marginRight: "0.25em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
+        <span key={w} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", lineHeight: 1.4, marginRight: "0.25em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
           <motion.span
             style={{ display: "inline-block" }}
             initial={{ y: "110%", opacity: 0 }}
@@ -117,10 +117,10 @@ function HeadingReveal() {
           >{w}</motion.span>
         </span>
       ))}
-      <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", paddingTop: "0.12em", marginTop: "-0.12em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
+      <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", lineHeight: 1.4, paddingRight: "0.15em", marginRight: "-0.15em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
         <motion.span
           className="font-serif italic"
-          style={{ display: "inline-block", color: "hsl(var(--accent))" }}
+          style={{ display: "inline-block", color: "hsl(var(--accent))", letterSpacing: "normal" }}
           initial={{ y: "110%", opacity: 0 }}
           animate={inView ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.19 }}
@@ -165,7 +165,7 @@ function StepCard({ number, title, description, icon, index }: (typeof STEPS)[nu
 
 export function HowWeBuild() {
   return (
-    <section id="about" className="dark bg-panel text-panel-foreground">
+    <section id="process" className="dark bg-panel text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 py-24 lg:px-16">
 
         {/* Top: portrait + copy */}
@@ -203,7 +203,7 @@ export function HowWeBuild() {
         </div>
 
         {/* Bottom: 6-step process */}
-        <div className="mt-20 overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-panel">
+        <div className="mt-20 overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-background">
           <div className="flex flex-col sm:flex-row">
             {STEPS.map((step, i) => (
               <StepCard key={step.number} {...step} index={i} />

@@ -38,6 +38,12 @@ const MANAGED_KEYS: { key: string; label: string; description: string; type?: "u
     type: "text",
   },
   {
+    key: "facebook_url",
+    label: "Facebook URL",
+    description: "Your Facebook page — shown in footer socials.",
+    type: "url",
+  },
+  {
     key: "linkedin_url",
     label: "LinkedIn URL",
     description: "Your LinkedIn profile — shown in footer socials.",
@@ -177,7 +183,7 @@ const MANAGED_KEYS: { key: string; label: string; description: string; type?: "u
   },
 ];
 
-const GENERAL_KEYS = ["availability_status", "contact_email", "linkedin_url", "github_url", "twitter_url"];
+const GENERAL_KEYS = ["availability_status", "contact_email", "facebook_url", "linkedin_url", "github_url", "twitter_url"];
 const HERO_KEYS = [
   "footer_photo_url", "hero_headline_1", "hero_headline_2_serif", "hero_headline_2_sans",
   "hero_name", "hero_pitch", "hero_photo_url", "hero_tags",

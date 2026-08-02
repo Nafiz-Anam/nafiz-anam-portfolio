@@ -77,10 +77,59 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: "Nafiz Anam",
+      url: SITE_URL,
+      jobTitle: "Lead Software Engineer & Founder",
+      description:
+        "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+      sameAs: [
+        "https://github.com/nafizanam",
+        "https://linkedin.com/in/nafizanam",
+        "https://twitter.com/nafizanam",
+      ],
+      knowsAbout: [
+        "Software Architecture",
+        "React",
+        "Next.js",
+        "Node.js",
+        "TypeScript",
+        "SaaS",
+        "Cloud Infrastructure",
+        "AI Automation",
+      ],
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Agilo IT",
+      url: SITE_URL,
+      founder: { "@id": `${SITE_URL}/#person` },
+      description: "Software consultancy specializing in custom software development, SaaS engineering, and technical leadership.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "Nafiz Anam",
+      publisher: { "@id": `${SITE_URL}/#person` },
+    },
+  ],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfair.variable} ${jakarta.variable} ${jetbrains.variable} font-sans`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <GoogleAnalytics />
         <ThemeProvider>
           <PageIntro />

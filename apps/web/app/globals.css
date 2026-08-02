@@ -19,6 +19,7 @@
   --panel: 240 35% 8%;          /* inverted card — navy #0E0E1D */
   --panel-foreground: 240 20% 96%; /* cool off-white #F4F4F8 */
   --panel-muted: 240 15% 68%;
+  --warm-tile: 30 43% 96%;     /* warm cream stat tile #F9F3EF */
 }
 
 .dark {
@@ -31,9 +32,9 @@
   --accent-foreground: 0 0% 100%;
   --primary: 27 41% 95%;
   --primary-foreground: 240 35% 8%;
-  --panel: 240 20% 96%;        /* cool off-white #F4F4F8 — matches navy family */
-  --panel-foreground: 240 35% 8%; /* text on panel — navy #0E0E1D */
-  --panel-muted: 240 10% 35%;
+  --panel: 240 22% 18%;        /* elevated dark navy card — one step above --surface, no light inversion */
+  --panel-foreground: 240 20% 95%; /* cool off-white text on dark panel */
+  --panel-muted: 240 12% 65%;
 }
 
 body {

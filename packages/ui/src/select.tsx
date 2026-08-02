@@ -22,6 +22,7 @@ export interface SelectProps {
   name?: string;
   disabled?: boolean;
   className?: string;
+  buttonClassName?: string;
 }
 
 export function Select({
@@ -32,6 +33,7 @@ export function Select({
   name,
   disabled,
   className,
+  buttonClassName,
 }: SelectProps) {
   const [open, setOpen] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -65,7 +67,8 @@ export function Select({
           "flex w-full items-center justify-between rounded-md border border-border bg-background px-3 py-2 text-sm outline-none transition-colors",
           "hover:border-accent/60 focus-visible:ring-1 focus-visible:ring-accent",
           "disabled:cursor-not-allowed disabled:opacity-50",
-          !selected && "text-muted-foreground"
+          !selected && "text-muted-foreground",
+          buttonClassName
         )}
       >
         <span className="truncate">{selected ? selected.label : placeholder}</span>

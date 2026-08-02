@@ -105,6 +105,7 @@ export function ContactSection() {
                   onChange={setCategory}
                   placeholder="Category"
                   options={categoryOptions.map((o) => ({ value: o, label: o }))}
+                  buttonClassName={fieldClassName}
                 />
                 <Select
                   name="budget"
@@ -112,6 +113,7 @@ export function ContactSection() {
                   onChange={setBudget}
                   placeholder="Budget Range"
                   options={budgetOptions.map((o) => ({ value: o, label: o }))}
+                  buttonClassName={fieldClassName}
                 />
               </div>
               <textarea name="message" placeholder="Tell me about your project..." rows={6} className={fieldClassName} />
