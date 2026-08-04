@@ -116,7 +116,7 @@ export default async function InsightDetailPage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="dark min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
       {isPreview && (
@@ -132,10 +132,11 @@ export default async function InsightDetailPage({ params }: Props) {
 
       <article className="relative">
         {/* Hero */}
-        <div className="mx-auto max-w-4xl px-6 pb-10 pt-14 lg:px-8">
+        <div className="dark bg-texture-lines bg-background pb-10 pt-14 text-foreground">
+        <div className="mx-auto max-w-[1600px] px-6 lg:px-20">
           <Link
             href="/insights"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-foreground/40 transition-colors hover:text-foreground"
           >
             <ArrowLeft size={12} /> All insights
           </Link>
@@ -147,7 +148,7 @@ export default async function InsightDetailPage({ params }: Props) {
               </span>
             )}
             {post.tags.slice(0, 4).map((t) => (
-              <span key={t} className="rounded-full border border-border bg-card px-2.5 py-0.5 text-[11px] text-muted-foreground">
+              <span key={t} className="rounded-full border border-foreground/[0.08] bg-foreground/[0.03] px-2.5 py-0.5 text-[11px] text-foreground/40">
                 #{t}
               </span>
             ))}
@@ -156,23 +157,23 @@ export default async function InsightDetailPage({ params }: Props) {
           <h1 className="mt-6 text-[2rem] font-bold leading-[1.3] tracking-tight sm:text-[2.75rem] sm:leading-[1.25]">
             {post.title}
           </h1>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
+          <p className="mt-4 text-lg leading-relaxed text-foreground">{post.excerpt}</p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-4 rounded-xl border border-border/60 bg-card/40 px-4 py-3.5">
+          <div className="mt-7 flex flex-wrap items-center gap-4 rounded-xl border border-foreground/[0.08] bg-foreground/[0.03] px-4 py-3.5">
             <div className="flex items-center gap-2.5">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-foreground">
                 {initials}
               </div>
               <div>
                 <div className="text-sm font-semibold">{post.authorName}</div>
-                <div className="text-[11px] text-muted-foreground">Lead Software Engineer</div>
+                <div className="text-[11px] text-foreground/40">Lead Software Engineer</div>
               </div>
             </div>
             <div className="ml-auto flex items-center gap-5">
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1.5 text-xs text-foreground/40">
                 <Calendar size={12} /> {formatDate(post.publishedAt)}
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1.5 text-xs text-foreground/40">
                 <Clock size={12} /> {post.readTimeMinutes} min read
               </div>
             </div>
@@ -180,15 +181,17 @@ export default async function InsightDetailPage({ params }: Props) {
         </div>
 
         {post.coverImageUrl && (
-          <div className="mx-auto max-w-4xl px-6 pb-10 lg:px-8">
-            <div className="overflow-hidden rounded-2xl border border-border">
+          <div className="mx-auto max-w-[1600px] px-6 pt-10 lg:px-20">
+            <div className="overflow-hidden rounded-2xl border border-foreground/[0.08]">
               <Image src={post.coverImageUrl} alt={post.title} width={1200} height={630} className="h-auto w-full object-cover" priority />
             </div>
           </div>
         )}
+        </div>
 
         {/* Content + TOC */}
-        <div className="mx-auto max-w-4xl px-6 pb-20 lg:px-8">
+        <div className="dark bg-texture-lines-panel bg-panel py-20 text-panel-foreground">
+        <div className="mx-auto max-w-[1600px] px-6 lg:px-20">
           <div className="lg:flex lg:gap-12">
             {/* Article body */}
             <div className="min-w-0 lg:flex-1">
@@ -199,15 +202,15 @@ export default async function InsightDetailPage({ params }: Props) {
 
               {/* Prev / Next */}
               {(prev || next) && (
-                <div className="mt-12 border-t border-border pt-8">
-                  <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Continue reading</p>
+                <div className="mt-12 border-t border-panel-foreground/[0.08] pt-8">
+                  <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-panel-foreground/40">Continue reading</p>
                   <div className="grid gap-3 sm:grid-cols-2">
                     {prev ? (
                       <Link
                         href={`/insights/${prev.slug}`}
-                        className="flex flex-col gap-1.5 rounded-xl border border-border bg-card/60 p-4 transition-all hover:-translate-y-0.5 hover:border-accent/40"
+                        className="flex flex-col gap-1.5 rounded-xl border border-panel-foreground/[0.08] bg-background p-4 transition-all hover:-translate-y-0.5 hover:border-accent/40"
                       >
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground hover:text-accent">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-panel-foreground/40 hover:text-accent">
                           <ChevronLeft size={12} /> Previous
                         </span>
                         <span className="text-sm font-semibold leading-snug line-clamp-2">{prev.title}</span>
@@ -216,9 +219,9 @@ export default async function InsightDetailPage({ params }: Props) {
                     {next ? (
                       <Link
                         href={`/insights/${next.slug}`}
-                        className="flex flex-col items-end gap-1.5 rounded-xl border border-border bg-card/60 p-4 text-right transition-all hover:-translate-y-0.5 hover:border-accent/40"
+                        className="flex flex-col items-end gap-1.5 rounded-xl border border-panel-foreground/[0.08] bg-background p-4 text-right transition-all hover:-translate-y-0.5 hover:border-accent/40"
                       >
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground hover:text-accent">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-panel-foreground/40 hover:text-accent">
                           Next <ChevronRight size={12} />
                         </span>
                         <span className="text-sm font-semibold leading-snug line-clamp-2">{next.title}</span>
@@ -232,14 +235,14 @@ export default async function InsightDetailPage({ params }: Props) {
             {/* Sticky TOC */}
             {toc.length > 0 && (
               <aside className="mt-10 hidden lg:mt-0 lg:block lg:w-[240px] lg:shrink-0">
-                <div className="sticky top-24 rounded-xl border border-border bg-card p-5">
-                  <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">On this page</p>
+                <div className="sticky top-24 rounded-xl border border-panel-foreground/[0.08] bg-background p-5">
+                  <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-panel-foreground">On this page</p>
                   <ul className="space-y-2">
                     {toc.map((item) => (
                       <li key={item.id}>
                         <a
                           href={`#${item.id}`}
-                          className="block text-[13px] text-muted-foreground transition-colors hover:text-foreground line-clamp-2"
+                          className="block text-[13px] text-panel-foreground/40 transition-colors hover:text-panel-foreground line-clamp-2"
                         >
                           {item.text}
                         </a>
@@ -250,6 +253,7 @@ export default async function InsightDetailPage({ params }: Props) {
               </aside>
             )}
           </div>
+        </div>
         </div>
       </article>
 

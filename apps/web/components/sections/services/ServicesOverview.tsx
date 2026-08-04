@@ -101,7 +101,7 @@ function ServiceCard({
 
   return (
     <motion.div
-      className="group relative flex flex-col gap-7 rounded-[5px] border bg-background p-10"
+      className="dark group relative flex flex-col gap-7 rounded-[5px] border bg-background p-10"
       animate={{
         y: hovered ? -3 : 0,
         boxShadow: hovered
@@ -153,7 +153,7 @@ function ServiceCard({
       {/* learn more */}
       <Link
         href={`/services/${slug}`}
-        className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-panel-foreground/30 hover:text-accent transition-colors duration-200"
+        className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-accent hover:opacity-75 transition-opacity duration-200"
       >
         <span>Learn More</span>
         <motion.span

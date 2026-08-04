@@ -82,7 +82,7 @@ export function FrequentlyRequested() {
           {PROJECTS.map((p, i) => (
             <div
               key={p.title}
-              className="group flex flex-col gap-4 rounded-[5px] border border-panel-foreground/[0.08] bg-panel-foreground/[0.04] px-8 py-9 transition-colors duration-[250ms] hover:border-panel-foreground/[0.14] hover:bg-panel-foreground/[0.06]"
+              className="dark group flex flex-col gap-4 rounded-[5px] border border-panel-foreground/[0.08] bg-background px-8 py-9 transition-colors duration-[250ms] hover:border-panel-foreground/[0.14]"
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent">
                 {String(i + 1).padStart(2, "0")}

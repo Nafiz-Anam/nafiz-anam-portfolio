@@ -21,7 +21,7 @@ function ArticleCard({ post }: { post: BlogListItem }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="group flex flex-col rounded-[5px] border border-panel-foreground/[0.08] bg-background transition-colors duration-200 hover:border-panel-foreground/[0.16]"
+      className="dark group flex flex-col rounded-[5px] border border-panel-foreground/[0.08] bg-background transition-colors duration-200 hover:border-panel-foreground/[0.16]"
     >
       <div className="overflow-hidden rounded-t-[5px]">
         {post.coverImageUrl ? (
@@ -138,7 +138,7 @@ export function ArticlesSection({
               placeholder="Search articles…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-[5px] border border-panel-foreground/10 bg-background/50 px-4 py-2.5 text-sm text-panel-foreground placeholder:text-panel-foreground/30 focus:outline-none focus:ring-1 focus:ring-accent sm:w-64"
+              className="dark w-full rounded-[5px] border border-panel-foreground/10 bg-background/50 px-4 py-2.5 text-sm text-panel-foreground placeholder:text-panel-foreground/30 focus:outline-none focus:ring-1 focus:ring-accent sm:w-64"
             />
           </div>
         </motion.div>

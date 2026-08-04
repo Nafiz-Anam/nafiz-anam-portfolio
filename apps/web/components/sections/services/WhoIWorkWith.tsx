@@ -122,7 +122,7 @@ export function WhoIWorkWith() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="overflow-hidden rounded-[5px] border border-foreground/[0.08]"
+          className="overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-panel"
         >
           {CLIENTS.map((c, i) => (
             <ClientRow

@@ -79,7 +79,7 @@ export function HowWeWork() {
           {STEPS.map((step) => (
             <div
               key={step.number}
-              className="flex flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-panel-foreground/[0.04] p-10"
+              className="dark flex flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-background p-10"
             >
               <p
                 className="font-mono text-[42px] font-bold leading-none"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@portfolio/ui";
@@ -21,8 +22,15 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
   const pathname = usePathname();
   const [servicesOpen, setServicesOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [menuPos, setMenuPos] = useState({ top: 0, left: 0 });
+  const [mounted, setMounted] = useState(false);
   const lastY = useRef(0);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     function onScroll() {
@@ -36,6 +44,10 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
 
   const openServices = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
+    if (triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      setMenuPos({ top: rect.bottom + 12, left: rect.left });
+    }
     setServicesOpen(true);
   };
   const closeServices = () => {
@@ -61,6 +73,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
             link.label === "Services" ? (
               <div
                 key={link.href}
+                ref={triggerRef}
                 className="relative"
                 onMouseEnter={openServices}
                 onMouseLeave={closeServices}
@@ -85,51 +98,63 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                   </svg>
                 </a>
 
-                <AnimatePresence>
-                  {servicesOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -6, scale: 0.97 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -6, scale: 0.97 }}
-                      transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute left-1/2 top-full z-50 w-[300px] -translate-x-1/2 pt-3"
-                    >
-                      <div className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.10] bg-panel shadow-xl">
-                        <div className="border-b border-panel-foreground/[0.08] px-5 py-3.5">
-                          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
-                            Services
-                          </p>
-                        </div>
+                {mounted &&
+                  createPortal(
+                    <AnimatePresence>
+                      {servicesOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                          transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                          onMouseEnter={openServices}
+                          onMouseLeave={closeServices}
+                          style={{
+                            position: "fixed",
+                            top: menuPos.top,
+                            left: menuPos.left,
+                            zIndex: 100,
+                          }}
+                          className="w-[300px]"
+                        >
+                          <div className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.10] bg-panel shadow-xl">
+                            <div className="border-b border-panel-foreground/[0.08] px-5 py-3.5">
+                              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
+                                Services
+                              </p>
+                            </div>
 
-                        <div className="flex flex-col py-2">
-                          {SERVICE_LINKS.map((s) => (
-                            <a
-                              key={s.href}
-                              href={s.href}
-                              className="group flex items-center justify-between px-5 py-3 transition-colors duration-150 hover:bg-panel-foreground/[0.05]"
-                            >
-                              <span className="text-[13px] font-medium text-panel-foreground/75 transition-colors duration-150 group-hover:text-panel-foreground">
-                                {s.label}
-                              </span>
-                              <span className="translate-x-0 text-panel-foreground/25 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-accent">
-                                →
-                              </span>
-                            </a>
-                          ))}
-                        </div>
+                            <div className="flex flex-col py-2">
+                              {SERVICE_LINKS.map((s) => (
+                                <a
+                                  key={s.href}
+                                  href={s.href}
+                                  className="group flex items-center justify-between px-5 py-3 transition-colors duration-150 hover:bg-panel-foreground/[0.05]"
+                                >
+                                  <span className="text-[13px] font-medium text-panel-foreground/75 transition-colors duration-150 group-hover:text-panel-foreground">
+                                    {s.label}
+                                  </span>
+                                  <span className="translate-x-0 text-panel-foreground/25 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-accent">
+                                    →
+                                  </span>
+                                </a>
+                              ))}
+                            </div>
 
-                        <div className="border-t border-panel-foreground/[0.08] px-5 py-3">
-                          <a
-                            href="/services"
-                            className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent transition-opacity hover:opacity-75"
-                          >
-                            View All Services →
-                          </a>
-                        </div>
-                      </div>
-                    </motion.div>
+                            <div className="border-t border-panel-foreground/[0.08] px-5 py-3">
+                              <a
+                                href="/services"
+                                className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent transition-opacity hover:opacity-75"
+                              >
+                                View All Services →
+                              </a>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>,
+                    document.body
                   )}
-                </AnimatePresence>
               </div>
             ) : (
               <a
