@@ -49,7 +49,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
       style={{ position: "sticky", top: 0, zIndex: 40 }}
     >
       <div className="mx-auto flex max-w-[1800px] items-center justify-between px-6 py-6 lg:px-16">
-        <a href="/" className="font-sans text-lg font-bold text-foreground">
+        <a href="/" className="font-sans text-2xl font-bold text-foreground">
           Nafiz{" "}
           <span className="font-serif italic" style={{ color: "hsl(13, 79%, 57%)" }}>
             Anam.

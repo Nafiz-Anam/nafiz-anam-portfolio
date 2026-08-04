@@ -32,7 +32,7 @@ export function PageIntro() {
         transition={{ duration: 0.2 }}
       >
         <motion.p
-          className="font-sans text-4xl font-bold tracking-tight text-white sm:text-6xl"
+          className="font-sans text-4xl font-bold text-white sm:text-6xl"
           initial={{ y: "110%" }}
           animate={{ y: "0%" }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}

@@ -109,6 +109,9 @@ export const placeholderTestimonials: PlaceholderTestimonial[] = [
 export interface FooterContent {
   brand: string;
   email: string;
+  whatsapp: string;
+  location: string;
+  locationUrl: string;
   socials: { label: string; href: string }[];
   pages: { label: string; href: string }[];
   photoUrl: string | null;
@@ -116,11 +119,14 @@ export interface FooterContent {
 
 export const defaultFooter: FooterContent = {
   brand: "Nafiz Anam",
-  email: "ashiqur.marketer@gmail.com",
+  email: "nafiz@agiloit.com",
+  whatsapp: "+880 1819-758093",
+  location: "Khulna, Bangladesh",
+  locationUrl: "https://maps.app.goo.gl/DXT66bC2RxYV9Mw77",
   socials: [
-    { label: "GitHub", href: "https://github.com/nafizanam" },
+    { label: "Facebook", href: "https://facebook.com/nafizanam" },
     { label: "LinkedIn", href: "https://linkedin.com/in/nafizanam" },
-    { label: "Twitter", href: "https://twitter.com/nafizanam" },
+    { label: "GitHub", href: "https://github.com/nafizanam" },
   ],
   pages: [
     { label: "Case Studies", href: "/case-studies" },

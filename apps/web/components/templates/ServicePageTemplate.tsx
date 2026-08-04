@@ -136,7 +136,7 @@ function ProblemRow({
         className="relative transition-colors duration-[250ms]"
         style={{
           backgroundColor: hovered
-            ? "hsl(var(--panel-foreground) / 0.028)"
+            ? "hsl(var(--foreground) / 0.028)"
             : "transparent",
         }}
         onMouseEnter={() => setHovered(true)}
@@ -153,19 +153,19 @@ function ProblemRow({
             className="shrink-0 text-[17px] font-bold tracking-tight transition-colors duration-[250ms] lg:w-[40%] lg:pr-12"
             style={{
               color: hovered
-                ? "hsl(var(--panel-foreground))"
-                : "hsl(var(--panel-foreground) / 0.82)",
+                ? "hsl(var(--foreground))"
+                : "hsl(var(--foreground) / 0.82)",
             }}
           >
             {title}
           </p>
-          <p className="text-[13px] leading-[1.85] text-panel-foreground/48 lg:w-[60%]">
+          <p className="text-[13px] leading-[1.85] text-foreground/48 lg:w-[60%]">
             {description}
           </p>
         </div>
       </div>
       {!isLast && (
-        <div className="mx-10 border-b border-panel-foreground/[0.07]" />
+        <div className="mx-10 border-b border-foreground/[0.07]" />
       )}
     </>
   );
@@ -187,7 +187,7 @@ function ProblemsSection({ problems }: Pick<ServicePageData, "problems">) {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.08]">
+        <Reveal delay={0.1} className="dark overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background">
           {problems.map((p, i) => (
             <ProblemRow key={p.title} {...p} isLast={i === problems.length - 1} />
           ))}
