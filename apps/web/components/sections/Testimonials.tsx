@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowUpLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { SectionReveal, titleVariants, bodyVariants } from "@/components/ui/SectionReveal";
 import { Reveal } from "@/components/ui/Reveal";
 import type { Testimonial } from "@portfolio/types";
@@ -51,39 +50,43 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
               aria-label="Previous testimonial"
               className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-accent-foreground transition-opacity hover:opacity-80"
             >
-              <ArrowUpLeft size={18} />
+              <ArrowLeft size={18} />
             </button>
             <button
               onClick={() => go(index + 1, 1)}
               aria-label="Next testimonial"
               className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-accent-foreground transition-opacity hover:opacity-80"
             >
-              <ArrowUpRight size={18} />
+              <ArrowRight size={18} />
             </button>
           </Reveal>
 
-          {/* Thumbnails */}
+          {/* Thumbnails — window of 3, sliding with the active testimonial */}
           <Reveal className="flex gap-4 self-end lg:col-start-1 lg:row-start-2" delay={0.15}>
             <div className="flex gap-4">
-              {testimonials.map((t, i) => (
-                <motion.button
-                  key={t.id}
-                  onClick={() => go(i, i > index ? 1 : -1)}
-                  aria-label={`Show testimonial from ${t.name}`}
-                  className="h-[160px] w-[150px] shrink-0 overflow-hidden rounded-[5px]"
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  animate={{ opacity: i === index % testimonials.length ? 1 : 0.45 }}
-                >
-                  {t.photoUrl ? (
-                    <Image src={t.photoUrl} alt={t.name} fill className="rounded-[5px] object-cover" sizes="150px" />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center rounded-[5px] bg-accent/20 text-2xl font-bold text-accent">
-                      {t.name.charAt(0).toUpperCase()}
-                    </div>
-                  )}
-                </motion.button>
-              ))}
+              {Array.from({ length: Math.min(3, testimonials.length) }, (_, slot) => {
+                const i = (index + slot) % testimonials.length;
+                const t = testimonials[i]!;
+                return (
+                  <motion.button
+                    key={t.id}
+                    onClick={() => go(i, slot === 0 ? -1 : 1)}
+                    aria-label={`Show testimonial from ${t.name}`}
+                    className="h-[160px] w-[150px] shrink-0 overflow-hidden rounded-[5px]"
+                    whileHover={{ scale: 1.03 }}
+                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    animate={{ opacity: slot === 0 ? 1 : 0.45 }}
+                  >
+                    {t.photoUrl ? (
+                      <Image src={t.photoUrl} alt={t.name} fill className="rounded-[5px] object-cover" sizes="150px" />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center rounded-[5px] bg-accent/20 text-2xl font-bold text-accent">
+                        {t.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                  </motion.button>
+                );
+              })}
             </div>
           </Reveal>
 
@@ -129,14 +132,6 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
             </AnimatePresence>
           </Reveal>
 
-          <div className="flex justify-end lg:col-start-2 lg:row-start-3">
-            <Link
-              href="/testimonials"
-              className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
-            >
-              Read all reviews
-            </Link>
-          </div>
         </div>
       </div>
     </section>

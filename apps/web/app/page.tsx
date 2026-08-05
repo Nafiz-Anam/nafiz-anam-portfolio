@@ -58,10 +58,14 @@ import { SERVER_API as API } from "@/lib/api-url";
 
 async function getFeaturedTestimonials(): Promise<Testimonial[]> {
   try {
-    const res = await fetch(`${API}/api/testimonials?featured=true`, { next: { revalidate: 300 } });
+    const res = await fetch(`${API}/api/testimonials`, { next: { revalidate: 300 } });
     if (!res.ok) return [];
     const data = await res.json() as { testimonials: Testimonial[] };
-    return data.testimonials ?? [];
+    const testimonials = data.testimonials ?? [];
+    // Slider showcases the 6 most recent testimonials.
+    return [...testimonials]
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .slice(0, 6);
   } catch {
     return [];
   }

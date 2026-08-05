@@ -8,18 +8,23 @@ import type { ProjectListItem } from "@portfolio/types";
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
+// Cycle image aspect ratio per card so column heights fall unevenly — masonry, not grid.
+const IMAGE_ASPECTS = ["aspect-[4/3]", "aspect-square", "aspect-[3/4]", "aspect-[16/10]"];
+
 function CaseStudyCard({ project, index }: { project: ProjectListItem; index: number }) {
+  const aspect = IMAGE_ASPECTS[index % IMAGE_ASPECTS.length];
+
   return (
     <motion.div
       layout
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
-      transition={{ duration: 0.35, ease: "easeOut", delay: (index % 2) * 0.05 }}
-      className="group flex flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background transition-colors duration-300 hover:border-foreground/[0.15]"
+      transition={{ duration: 0.35, ease: "easeOut", delay: (index % 3) * 0.05 }}
+      className="group mb-6 flex break-inside-avoid flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background transition-colors duration-300 hover:border-foreground/[0.15]"
     >
       {/* Image */}
-      <div className="relative h-[220px] overflow-hidden bg-foreground/[0.04]">
+      <div className={`relative ${aspect} overflow-hidden bg-foreground/[0.04]`}>
         {project.coverImageUrl ? (
           <img
             src={project.coverImageUrl}
@@ -177,7 +182,7 @@ export function CaseStudiesGrid({
           <p className="text-sm text-foreground/40">No case studies in this industry yet.</p>
         ) : (
           <AnimatePresence mode="popLayout">
-            <motion.div layout className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <motion.div layout className="columns-1 gap-6 sm:columns-2">
               {filtered.map((p, i) => (
                 <CaseStudyCard key={p.id} project={p} index={i} />
               ))}

@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Tag } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Calendar } from "lucide-react";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
+import { BookingButton } from "@/components/sections/BookingButton";
 import { draftMode } from "next/headers";
 import { fetchProject, fetchProjectList } from "@/lib/projects";
 import { sanitizeContent } from "@/lib/sanitize";
@@ -74,7 +75,7 @@ export default async function CaseStudyPage({ params }: Props) {
   if (!data) notFound();
 
   const { project, prev, next, related } = data;
-  const { processed, toc } = processHtml(project.contentHtml);
+  const { processed } = processHtml(project.contentHtml);
 
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
   const caseStudySchema = {
@@ -118,13 +119,13 @@ export default async function CaseStudyPage({ params }: Props) {
         <Nav />
       </div>
 
-      <article>
+      <article className="dark bg-texture-lines bg-background text-foreground">
         {/* Hero */}
-        <div className="dark bg-background px-6 pb-12 pt-14 lg:px-16">
-          <div className="mx-auto max-w-[1800px]">
+        <div className="px-6 pb-12 pt-14 lg:px-16">
+          <div className="mx-auto max-w-[1100px]">
             <Link
               href="/case-studies"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-foreground/50 transition-colors hover:text-foreground"
             >
               <ArrowLeft size={12} /> All case studies
             </Link>
@@ -136,12 +137,12 @@ export default async function CaseStudyPage({ params }: Props) {
                 </span>
               )}
               {project.year && (
-                <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1 text-xs text-foreground/50">
                   <Calendar size={11} /> {project.year}
                 </span>
               )}
               {project.tags.slice(0, 5).map((t) => (
-                <span key={t} className="rounded-full border border-border bg-card px-2.5 py-0.5 text-[11px] text-muted-foreground">
+                <span key={t} className="rounded-full border border-border bg-panel px-2.5 py-0.5 text-[11px] text-foreground/50">
                   {t}
                 </span>
               ))}
@@ -150,25 +151,45 @@ export default async function CaseStudyPage({ params }: Props) {
             <h1 className="mt-6 text-[2.25rem] font-bold leading-[1.2] tracking-tight sm:text-[3rem]">
               {project.title}
             </h1>
-            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">{project.excerpt}</p>
+            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-foreground/50">{project.excerpt}</p>
+
+            {project.tags.length > 0 && (
+              <p className="mt-6 text-sm text-foreground/50">
+                <span className="font-semibold text-foreground">Services We Provided — </span>
+                <span className="text-accent">{project.tags.join(", ")}</span>
+              </p>
+            )}
+
+            {/* CTAs */}
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#case-study-content"
+                className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
+              >
+                See How We Helped
+              </a>
+              <BookingButton className="rounded-[5px] border border-foreground/20 px-6 py-3 text-xs font-bold uppercase tracking-wide transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]">
+                Book an Appointment
+              </BookingButton>
+            </div>
 
             {/* Meta strip */}
-            <div className="mt-8 flex flex-wrap gap-6 rounded-xl border border-border/60 bg-card/40 px-6 py-4">
+            <div className="mt-10 flex flex-wrap gap-6 rounded-xl border border-border bg-panel px-6 py-4">
               {project.client && (
                 <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-muted-foreground">Client</p>
+                  <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-foreground/50">Client</p>
                   <p className="mt-1 text-sm font-semibold">{project.client}</p>
                 </div>
               )}
               {project.role && (
                 <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-muted-foreground">My Role</p>
-                  <p className="mt-1 text-sm font-medium text-muted-foreground">{project.role}</p>
+                  <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-foreground/50">My Role</p>
+                  <p className="mt-1 text-sm font-medium text-foreground/50">{project.role}</p>
                 </div>
               )}
               {project.outcome && (
                 <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-muted-foreground">Key Outcome</p>
+                  <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-foreground/50">Key Outcome</p>
                   <p className="mt-1 text-sm font-bold text-accent">{project.outcome}</p>
                 </div>
               )}
@@ -177,7 +198,7 @@ export default async function CaseStudyPage({ params }: Props) {
         </div>
 
         {project.coverImageUrl && (
-          <div className="dark bg-background px-6 pb-12 lg:px-16">
+          <div className="px-6 pb-12 lg:px-16">
             <div className="mx-auto max-w-[1800px]">
               <div className="overflow-hidden rounded-2xl border border-border">
                 <Image src={project.coverImageUrl} alt={project.title} width={1800} height={900} className="h-auto w-full object-cover" priority />
@@ -186,73 +207,76 @@ export default async function CaseStudyPage({ params }: Props) {
           </div>
         )}
 
-        {/* Content + TOC */}
+        {/* Content — single reading column */}
         {project.contentHtml && (
-          <div className="bg-background px-6 pb-20 lg:px-16">
-            <div className="mx-auto max-w-[1800px]">
-              <div className="lg:flex lg:gap-16">
-                <div className="min-w-0 lg:flex-1">
-                  <div
-                    className="prose prose-slate dark:prose-invert max-w-none text-base"
-                    dangerouslySetInnerHTML={{ __html: processed }}
-                  />
+          <div id="case-study-content" className="px-6 pb-20 lg:px-16" style={{ scrollMarginTop: "80px" }}>
+            <div className="mx-auto max-w-[820px]">
+              <div
+                className="prose max-w-none text-base"
+                dangerouslySetInnerHTML={{ __html: processed }}
+              />
 
-                  {/* Prev / Next */}
-                  {(prev || next) && (
-                    <div className="mt-12 border-t border-border pt-8">
-                      <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">More case studies</p>
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        {prev ? (
-                          <Link href={`/case-studies/${prev.slug}`} className="flex flex-col gap-1.5 rounded-xl border border-border bg-card/60 p-4 transition-all hover:-translate-y-0.5 hover:border-accent/40">
-                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                              <ChevronLeft size={12} /> Previous
-                            </span>
-                            <span className="text-sm font-semibold leading-snug line-clamp-2">{prev.title}</span>
-                          </Link>
-                        ) : <div />}
-                        {next ? (
-                          <Link href={`/case-studies/${next.slug}`} className="flex flex-col items-end gap-1.5 rounded-xl border border-border bg-card/60 p-4 text-right transition-all hover:-translate-y-0.5 hover:border-accent/40">
-                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                              Next <ChevronRight size={12} />
-                            </span>
-                            <span className="text-sm font-semibold leading-snug line-clamp-2">{next.title}</span>
-                          </Link>
-                        ) : <div />}
-                      </div>
-                    </div>
-                  )}
+              {/* Prev / Next */}
+              {(prev || next) && (
+                <div className="mt-12 border-t border-border pt-8">
+                  <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/50">More case studies</p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {prev ? (
+                      <Link href={`/case-studies/${prev.slug}`} className="flex flex-col gap-1.5 rounded-xl border border-border bg-panel p-4 transition-all hover:-translate-y-0.5 hover:border-accent/40">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground/50">
+                          <ChevronLeft size={12} /> Previous
+                        </span>
+                        <span className="text-sm font-semibold leading-snug line-clamp-2">{prev.title}</span>
+                      </Link>
+                    ) : <div />}
+                    {next ? (
+                      <Link href={`/case-studies/${next.slug}`} className="flex flex-col items-end gap-1.5 rounded-xl border border-border bg-panel p-4 text-right transition-all hover:-translate-y-0.5 hover:border-accent/40">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground/50">
+                          Next <ChevronRight size={12} />
+                        </span>
+                        <span className="text-sm font-semibold leading-snug line-clamp-2">{next.title}</span>
+                      </Link>
+                    ) : <div />}
+                  </div>
                 </div>
-
-                {toc.length > 0 && (
-                  <aside className="mt-10 hidden lg:mt-0 lg:block lg:w-[240px] lg:shrink-0">
-                    <div className="sticky top-24 rounded-xl border border-border bg-card p-5">
-                      <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">On this page</p>
-                      <ul className="space-y-2">
-                        {toc.map((item) => (
-                          <li key={item.id}>
-                            <a href={`#${item.id}`} className="block text-[13px] text-muted-foreground transition-colors hover:text-foreground line-clamp-2">
-                              {item.text}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </aside>
-                )}
-              </div>
+              )}
             </div>
           </div>
         )}
 
+        {/* Final CTA */}
+        <div className="border-t border-border/60 px-6 py-20 lg:px-16">
+          <div className="mx-auto flex max-w-[1800px] flex-col items-center gap-6 text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">Start a Project</p>
+            <h2 className="max-w-[640px] text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl">
+              Planning something similar?
+            </h2>
+            <p className="max-w-[520px] text-[15px] leading-[1.8] text-foreground/50">
+              Let's talk about your goals and how we can turn them into a scalable, production-ready system.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+                Book a Discovery Call
+              </BookingButton>
+              <Link
+                href="/contact"
+                className="rounded-[5px] border border-foreground/20 px-8 py-3.5 text-xs font-bold uppercase tracking-wide transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]"
+              >
+                Send a Message
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/* Related */}
         {related.length > 0 && (
-          <div className="dark bg-background px-6 pb-20 lg:px-16">
+          <div className="px-6 pb-20 lg:px-16">
             <div className="mx-auto max-w-[1800px]">
               <p className="mb-6 text-[10px] font-bold uppercase tracking-[0.22em] text-accent">Related Work</p>
               <div className="grid gap-5 sm:grid-cols-3">
                 {related.map((r) => (
                   <Link key={r.id} href={`/case-studies/${r.slug}`}
-                    className="group flex flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] transition-colors hover:border-foreground/[0.16]">
+                    className="group flex flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-panel transition-colors hover:border-foreground/[0.16]">
                     <div className="relative h-32 bg-foreground/[0.04]">
                       {r.coverImageUrl ? (
                         <Image src={r.coverImageUrl} alt={r.title} fill className="object-cover" sizes="300px" />
@@ -269,7 +293,7 @@ export default async function CaseStudyPage({ params }: Props) {
                     </div>
                     <div className="p-5">
                       <h4 className="text-[14px] font-bold leading-snug text-foreground group-hover:text-accent line-clamp-2">{r.title}</h4>
-                      {r.outcome && <p className="mt-2 text-[12px] text-muted-foreground line-clamp-1">{r.outcome}</p>}
+                      {r.outcome && <p className="mt-2 text-[12px] text-foreground/50 line-clamp-1">{r.outcome}</p>}
                     </div>
                   </Link>
                 ))}

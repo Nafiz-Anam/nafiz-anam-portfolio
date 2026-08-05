@@ -5,7 +5,6 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
 import { CaseStudiesHero } from "@/components/sections/case-studies/CaseStudiesHero";
-import { FeaturedCaseStudy } from "@/components/sections/case-studies/FeaturedCaseStudy";
 import { CaseStudiesGrid } from "@/components/sections/case-studies/CaseStudiesGrid";
 import { IndustriesServed } from "@/components/sections/case-studies/IndustriesServed";
 import { ProjectApproach } from "@/components/sections/case-studies/ProjectApproach";
@@ -73,9 +72,6 @@ export default async function CaseStudiesPage() {
       <div className="dark bg-texture-lines bg-background text-foreground">
         <Nav />
         <CaseStudiesHero />
-      </div>
-      <div className="dark">
-        <FeaturedCaseStudy />
       </div>
       <div className="dark">
         <CaseStudiesGrid projects={projects} industries={industries} total={total} initialLimit={12} />

@@ -130,7 +130,7 @@ const CAPABILITIES = [
 
 function WhoShouldReachOut() {
   return (
-    <section className="bg-background px-6 py-28 lg:px-16">
+    <section className="bg-texture-lines bg-background px-6 py-28 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="mb-16">
           <SectionLabel>Who This Is For</SectionLabel>
@@ -311,7 +311,7 @@ function ProjectInquiryForm() {
   };
 
   return (
-    <section id="inquiry" className="bg-background px-6 py-28 lg:px-16">
+    <section id="inquiry" className="bg-texture-lines bg-background px-6 py-28 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="mb-16">
           <SectionLabel>Project Inquiry</SectionLabel>
@@ -761,7 +761,7 @@ const STEPS = [
 
 function WhatHappensNext() {
   return (
-    <section className="bg-background px-6 py-28 lg:px-16">
+    <section className="bg-texture-lines bg-background px-6 py-28 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="mb-20">
           <SectionLabel>The Process</SectionLabel>
@@ -847,9 +847,9 @@ function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-background px-6 py-28 lg:px-16">
+    <section className="bg-texture-lines bg-background px-6 py-28 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
-        <Reveal className="mb-16">
+        <Reveal className="mb-16 flex flex-col items-center text-center">
           <SectionLabel>FAQ</SectionLabel>
           <h2
             className="mt-4 font-bold leading-[1.08] tracking-tight text-foreground"
@@ -924,7 +924,7 @@ function FAQ() {
 ═══════════════════════════════════════════════════════════ */
 function ContactFinalCTA() {
   return (
-    <section className="dark bg-texture-lines bg-background px-6 py-32 text-foreground lg:px-16">
+    <section className="px-6 py-32 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="flex flex-col items-center gap-8 text-center">
           <SectionLabel>Ready to Start?</SectionLabel>
@@ -963,35 +963,31 @@ function ContactFinalCTA() {
 ═══════════════════════════════════════════════════════════ */
 export function ContactPageTemplate({ config: _config = {} }: { config?: Record<string, string> }) {
   return (
-    <>
-      {/* Hero — dark */}
-      <div className="dark bg-texture-lines bg-background text-foreground">
+    <div className="dark bg-background text-foreground">
+      {/* Hero */}
+      <div className="bg-texture-lines">
         <ContactHero />
       </div>
 
-      {/* Who should reach out — light */}
+      {/* Who should reach out */}
       <WhoShouldReachOut />
 
-      {/* Form — light */}
-      <div className="border-t border-foreground/[0.06]">
-        <ProjectInquiryForm />
-      </div>
+      {/* Form */}
+      <ProjectInquiryForm />
 
       {/* Other ways to connect — dark panel */}
-      <div className="dark">
-        <OtherWaysToConnect />
-      </div>
+      <OtherWaysToConnect />
 
-      {/* What happens next — light */}
+      {/* What happens next */}
       <WhatHappensNext />
 
-      {/* FAQ — light */}
-      <div className="border-t border-foreground/[0.06]">
-        <FAQ />
-      </div>
+      {/* FAQ */}
+      <FAQ />
 
-      {/* Final CTA — dark */}
-      <ContactFinalCTA />
-    </>
+      {/* Final CTA */}
+      <div className="bg-texture-lines">
+        <ContactFinalCTA />
+      </div>
+    </div>
   );
 }

@@ -175,7 +175,7 @@ function CaseStudyHero({
             transition={{ duration: 0.45, ease: "easeOut", delay: 0.2 }}
             className="mb-20"
           >
-            <a href="#contact">
+            <a href="/contact">
               <Button className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
                 Discuss a Similar Project
               </Button>
@@ -815,7 +815,7 @@ function MetricCard({ metric, index }: { metric: CaseStudyMetric; index: number 
 
 function ResultsImpact({ results }: Pick<CaseStudyData, "results">) {
   return (
-    <section className="dark bg-background px-6 py-28 text-foreground lg:px-16">
+    <section className="bg-background px-6 py-28 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         {/* Header */}
         <Reveal className="mb-20">
@@ -991,7 +991,7 @@ function RelatedProjects({
 ═══════════════════════════════════════════════════════════ */
 function CaseStudyCTA() {
   return (
-    <section className="dark bg-background px-6 py-32 text-foreground lg:px-16">
+    <section className="bg-background px-6 py-32 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="flex flex-col items-center gap-8 text-center">
           <SectionLabel>Start a Project</SectionLabel>
@@ -1035,48 +1035,42 @@ export function CaseStudyPageTemplate({
   caseStudy: CaseStudyData;
 }) {
   return (
-    <>
-      {/* Hero — dark */}
-      <div className="dark bg-background text-foreground">
-        <CaseStudyHero
-          industry={caseStudy.industry}
-          clientType={caseStudy.clientType}
-          role={caseStudy.role}
-          timeline={caseStudy.timeline}
-          status={caseStudy.status}
-          title={caseStudy.title}
-          summary={caseStudy.summary}
-          heroImageSrc={caseStudy.heroImageSrc}
-        />
-      </div>
+    <div className="dark bg-background text-foreground">
+      {/* Hero */}
+      <CaseStudyHero
+        industry={caseStudy.industry}
+        clientType={caseStudy.clientType}
+        role={caseStudy.role}
+        timeline={caseStudy.timeline}
+        status={caseStudy.status}
+        title={caseStudy.title}
+        summary={caseStudy.summary}
+        heroImageSrc={caseStudy.heroImageSrc}
+      />
 
-      {/* Overview + Challenges — light */}
+      {/* Overview + Challenges */}
       <ProjectOverview
         overview={caseStudy.overview}
         challenges={caseStudy.challenges}
       />
 
-      {/* Solution — dark panel */}
-      <div className="dark">
-        <TheSolution solution={caseStudy.solution} />
-      </div>
+      {/* Solution — panel */}
+      <TheSolution solution={caseStudy.solution} />
 
-      {/* Architecture — light */}
+      {/* Architecture */}
       <ArchitectureSection architecture={caseStudy.architecture} />
 
-      {/* Features — light */}
+      {/* Features */}
       <KeyFeatures features={caseStudy.features} />
 
-      {/* Results — dark */}
+      {/* Results */}
       <ResultsImpact results={caseStudy.results} />
 
-      {/* Related projects — dark panel */}
-      <div className="dark">
-        <RelatedProjects relatedProjects={caseStudy.relatedProjects} />
-      </div>
+      {/* Related projects — panel */}
+      <RelatedProjects relatedProjects={caseStudy.relatedProjects} />
 
-      {/* Final CTA — dark */}
+      {/* Final CTA */}
       <CaseStudyCTA />
-    </>
+    </div>
   );
 }

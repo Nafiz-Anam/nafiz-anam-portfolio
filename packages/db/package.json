@@ -8,7 +8,11 @@
     "migrate:dev": "prisma migrate dev",
     "generate": "prisma generate",
     "studio": "prisma studio",
-    "seed": "tsx prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts",
+    "seed:projects": "tsx prisma/seed-projects.ts",
+    "seed:blogs": "tsx prisma/seed-blogs.ts",
+    "seed:testimonials": "tsx prisma/seed-testimonials.ts",
+    "seed:case-study-demo": "tsx prisma/seed-case-study-demo.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
