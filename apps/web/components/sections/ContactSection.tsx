@@ -19,13 +19,22 @@ const fieldClassName =
 
 const categoryOptions = [
   "Custom Software Development",
-  "SaaS Product Engineering",
-  "AI Automation",
-  "Technical Consulting",
-  "Cloud & DevOps",
-  "Engineering Leadership",
+  "SaaS Platform",
+  "AI & Automation",
+  "Cloud Infrastructure & DevOps",
+  "Technical Consulting & Architecture",
+  "Engineering Leadership & Team Scaling",
+  "System Integration",
+  "Other",
 ];
-const budgetOptions = ["< $5k", "$5k – $15k", "$15k – $30k", "$30k+"];
+const budgetOptions = [
+  "Under $10,000",
+  "$10,000 – $25,000",
+  "$25,000 – $50,000",
+  "$50,000 – $100,000",
+  "$100,000+",
+  "Not sure yet",
+];
 
 export function ContactSection() {
   const [error, setError] = useState<string | null>(null);

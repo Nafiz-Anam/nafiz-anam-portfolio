@@ -84,7 +84,7 @@ export function WhyChooseMe() {
   return (
     <section
       id="principles"
-      className="dark bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16"
+      className="dark bg-background bg-texture-lines px-6 py-28 text-panel-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
 

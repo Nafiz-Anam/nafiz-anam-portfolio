@@ -165,7 +165,7 @@ function StepCard({ number, title, description, icon, index }: (typeof STEPS)[nu
 
 export function HowWeBuild() {
   return (
-    <section id="process" className="dark bg-panel text-panel-foreground">
+    <section id="process" className="dark bg-surface bg-texture-lines text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 py-24 lg:px-16">
 
         {/* Top: portrait + copy */}

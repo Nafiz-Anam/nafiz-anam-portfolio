@@ -82,7 +82,7 @@ export function Select({
           role="listbox"
           className="absolute z-50 mt-1 w-full overflow-hidden rounded-md border border-border bg-background shadow-xl"
         >
-          <div className="max-h-60 overflow-y-auto p-1">
+          <div data-lenis-prevent className="scrollbar-thin max-h-60 overflow-y-auto overscroll-contain p-1">
             {options.map((opt) => (
               <button
                 key={opt.value}

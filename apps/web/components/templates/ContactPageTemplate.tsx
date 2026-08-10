@@ -130,7 +130,7 @@ const CAPABILITIES = [
 
 function WhoShouldReachOut() {
   return (
-    <section className="bg-texture-lines bg-background px-6 py-28 lg:px-16">
+    <section className="bg-texture-lines bg-surface px-6 py-28 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="mb-16">
           <SectionLabel>Who This Is For</SectionLabel>
@@ -212,7 +212,6 @@ interface FormState {
   budget: string;
   timeline: string;
   description: string;
-  contactMethod: string;
 }
 
 const INITIAL_FORM: FormState = {
@@ -224,7 +223,6 @@ const INITIAL_FORM: FormState = {
   budget: "",
   timeline: "",
   description: "",
-  contactMethod: "",
 };
 
 function FormField({
@@ -248,10 +246,10 @@ function FormField({
 }
 
 const inputClass =
-  "w-full rounded-[5px] border border-foreground/[0.10] bg-foreground/[0.02] px-5 py-4 text-[14px] text-foreground placeholder:text-foreground/22 transition-colors duration-150 focus:border-accent/50 focus:bg-foreground/[0.03] focus:outline-none";
+  "w-full rounded-[5px] border border-foreground/[0.10] bg-panel px-5 py-4 text-[14px] text-foreground placeholder:text-foreground/22 transition-colors duration-150 focus:border-accent/50 focus:outline-none";
 
 const selectClass =
-  "w-full appearance-none rounded-[5px] border border-foreground/[0.10] bg-foreground/[0.02] px-5 py-4 text-[14px] text-foreground transition-colors duration-150 focus:border-accent/50 focus:bg-foreground/[0.03] focus:outline-none";
+  "w-full appearance-none rounded-[5px] border border-foreground/[0.10] bg-panel px-5 py-4 text-[14px] text-foreground transition-colors duration-150 focus:border-accent/50 focus:outline-none";
 
 function SelectWrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -509,21 +507,6 @@ function ProjectInquiryForm() {
                     </div>
                   </FormField>
 
-                  {/* Preferred contact method */}
-                  <FormField label="Preferred Contact Method">
-                    <Select
-                      value={form.contactMethod}
-                      onChange={setField("contactMethod")}
-                      placeholder="Select a preference…"
-                      options={[
-                        { value: "email", label: "Email" },
-                        { value: "video", label: "Video Call" },
-                        { value: "phone", label: "Phone" },
-                      ]}
-                      buttonClassName={selectClass}
-                    />
-                  </FormField>
-
                   {/* Submit */}
                   <div className="pt-2">
                     <Button
@@ -543,7 +526,7 @@ function ProjectInquiryForm() {
 
           {/* Side panel */}
           <Reveal delay={0.1} className="flex flex-col gap-6">
-            <div className="rounded-[5px] border border-foreground/[0.08] bg-foreground/[0.02] p-7">
+            <div className="rounded-[5px] border border-foreground/[0.08] bg-background p-7">
               <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.18em] text-foreground/32">
                 Response Time
               </p>
@@ -552,7 +535,7 @@ function ProjectInquiryForm() {
               </p>
             </div>
 
-            <div className="rounded-[5px] border border-foreground/[0.08] bg-foreground/[0.02] p-7">
+            <div className="rounded-[5px] border border-foreground/[0.08] bg-background p-7">
               <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.18em] text-foreground/32">
                 Timezone
               </p>
@@ -561,7 +544,7 @@ function ProjectInquiryForm() {
               </p>
             </div>
 
-            <div className="rounded-[5px] border border-foreground/[0.08] bg-foreground/[0.02] p-7">
+            <div className="rounded-[5px] border border-foreground/[0.08] bg-background p-7">
               <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.18em] text-foreground/32">
                 Availability
               </p>
@@ -574,7 +557,7 @@ function ProjectInquiryForm() {
               </div>
             </div>
 
-            <div className="rounded-[5px] border border-foreground/[0.08] bg-foreground/[0.02] p-7">
+            <div className="rounded-[5px] border border-foreground/[0.08] bg-background p-7">
               <p className="mb-3 text-[9px] font-bold uppercase tracking-[0.18em] text-foreground/32">
                 Prefer a direct line?
               </p>
@@ -583,6 +566,20 @@ function ProjectInquiryForm() {
                 className="text-[13px] font-medium text-accent transition-opacity hover:opacity-75"
               >
                 hello@nafizanam.com
+              </a>
+            </div>
+
+            <div className="rounded-[5px] border border-foreground/[0.08] bg-background p-7">
+              <p className="mb-3 text-[9px] font-bold uppercase tracking-[0.18em] text-foreground/32">
+                WhatsApp
+              </p>
+              <a
+                href="https://wa.me/8801819758093"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[13px] font-medium text-accent transition-opacity hover:opacity-75"
+              >
+                +880 1819-758093
               </a>
             </div>
           </Reveal>
@@ -688,7 +685,7 @@ function ConnectCard({ icon, label, value, description }: { icon: React.ReactNod
 
 function OtherWaysToConnect() {
   return (
-    <section className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16">
+    <section className="bg-surface bg-texture-lines px-6 py-28 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="mb-16">
           <SectionLabel>Other Ways to Connect</SectionLabel>
@@ -847,7 +844,7 @@ function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-texture-lines bg-background px-6 py-28 lg:px-16">
+    <section className="bg-texture-lines bg-surface px-6 py-28 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="mb-16 flex flex-col items-center text-center">
           <SectionLabel>FAQ</SectionLabel>
