@@ -13,7 +13,7 @@ function formatDate(iso: Date | string | null) {
   return new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short" });
 }
 
-function ArticleCard({ post }: { post: BlogListItem }) {
+export function ArticleCard({ post }: { post: BlogListItem }) {
   return (
     <motion.article
       layout

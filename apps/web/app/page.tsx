@@ -14,6 +14,51 @@ const homeSchema = {
       mainEntity: { "@id": `${SITE_URL}/#person` },
     },
     {
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What does Nafiz Anam actually do?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "I work as a technology and product partner for growth-stage businesses and funded founders: diagnosing technical problems, making architecture and technology decisions, and leading or executing the fix, whether that's a custom build, a SaaS product, an AI automation system, or hands-on engineering leadership.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Who do you actually work with?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Mainly two kinds of clients: funded founders and startups scaling a product past its MVP, and growing businesses whose systems or processes have started limiting growth. If you're not sure you fit either, reach out anyway.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Is working with Agilo IT different from working with you directly?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No, they're the same thing. Agilo IT is the consultancy I founded, and it's how engagements get delivered, whether that's just me or a small team I bring in for a larger scope.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Do you take on smaller projects, or only large ones?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Project size varies with what's actually needed, not a fixed minimum. A focused technical consulting engagement and a full product build are both within scope, the right project matters more than fitting a specific size.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Where are you based, and do you work with international clients?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Based in Khulna, Bangladesh, and most clients are international, across Australia, Europe, and the US. Work is fully remote with flexible hours to overlap with your team's timezone.",
+          },
+        },
+      ],
+    },
+    {
       "@type": "BreadcrumbList",
       itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL }],
     },
@@ -51,6 +96,8 @@ import { WhyChooseMe } from "@/components/sections/WhyChooseMe";
 import { TechnicalExpertise } from "@/components/sections/TechnicalExpertise";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { LatestInsights } from "@/components/sections/LatestInsights";
+import { HomeFAQ } from "@/components/sections/HomeFAQ";
 import { Footer } from "@/components/sections/Footer";
 import type { Testimonial } from "@portfolio/types";
 
@@ -119,6 +166,8 @@ export default async function HomePage() {
       <TechnicalExpertise />
       <Testimonials testimonials={testimonials} />
       <ContactSection />
+      <LatestInsights />
+      <HomeFAQ />
       <Footer />
     </main>
   );
