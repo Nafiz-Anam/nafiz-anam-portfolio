@@ -5,7 +5,6 @@ import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@portfolio/ui";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { BookingButton } from "./BookingButton";
 import { defaultNav, type NavContent } from "@/lib/placeholder-content";
 
@@ -170,7 +169,6 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle />
           <BookingButton className="rounded-[5px] bg-accent px-5 py-2 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
             Book a free call
           </BookingButton>

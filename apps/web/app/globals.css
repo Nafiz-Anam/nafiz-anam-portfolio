@@ -19,6 +19,7 @@
   --panel: 240 35% 8%;          /* inverted card — navy #0E0E1D */
   --panel-foreground: 240 20% 96%; /* cool off-white #F4F4F8 */
   --panel-muted: 240 15% 68%;
+  --panel-tint-bg: 240 35% 8%;  /* full-bleed section base — stays #0E0E1D in both themes, unlike --panel */
   --warm-tile: 30 43% 96%;     /* warm cream stat tile #F9F3EF */
 }
 
@@ -204,14 +205,15 @@ html.is-scrolling body * {
    color underneath the translucent panel tint, so it's safe to use on a
    full-bleed <section> (a translucent-only background lets whatever is
    behind the section — e.g. the light-mode page background — show through).
-   Base is --panel, not --background: --panel is always dark navy in both
-   themes ("inverted card"), so this renders correctly even outside a
-   `.dark`-scoped ancestor — unlike --background, which flips to near-white
-   in light mode. */
+   Base is --panel-tint-bg, not --panel: --panel gets redefined per-theme to
+   an "elevated card" tone (lighter than the page background, for cards that
+   sit ON a dark surface), so a section using --panel directly would render
+   lighter than the true dark-navy card boxes it needs to match. --panel-tint-bg
+   holds that navy #0E0E1D constant in both themes. */
 .bg-panel-tint {
   position: relative;
   isolation: isolate;
-  background-color: hsl(var(--panel));
+  background-color: hsl(var(--panel-tint-bg));
   background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E"),
     linear-gradient(hsl(var(--panel-foreground) / 0.04), hsl(var(--panel-foreground) / 0.04));
