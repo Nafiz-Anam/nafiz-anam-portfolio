@@ -239,16 +239,16 @@ export default function SettingsPage() {
   const [calDisconnecting, setCalDisconnecting] = useState(false);
 
   useEffect(() => {
-    api.get<{ config: Record<string, string> }>("/api/site-config")
+    api.get<{ config: Record<string, string> }>("/site-config")
       .then((res) => setValues(res.data.config ?? {}))
       .catch((e: { message?: string }) => setError(e.message ?? "Failed to load."));
 
-    api.get("/api/google-calendar/status")
+    api.get("/google-calendar/status")
       .then((res) => setCalStatus(res.data))
       .catch(() => setCalStatus({ connected: false, email: null }))
       .finally(() => setCalLoading(false));
 
-    api.get<{ secrets: Record<string, string> }>("/api/site-secrets")
+    api.get<{ secrets: Record<string, string> }>("/site-secrets")
       .then((res) => setSecretValues(res.data.secrets ?? {}))
       .catch(() => {});
   }, []);
@@ -257,7 +257,7 @@ export default function SettingsPage() {
     if (!confirm("Disconnect Google Calendar? Booking slots will no longer check your availability.")) return;
     setCalDisconnecting(true);
     try {
-      await api.delete("/api/google-calendar/disconnect");
+      await api.delete("/google-calendar/disconnect");
       setCalStatus({ connected: false, email: null });
     } catch {
       alert("Failed to disconnect.");
@@ -269,7 +269,7 @@ export default function SettingsPage() {
   async function save(key: string, label: string) {
     setSaving((s) => ({ ...s, [key]: true }));
     try {
-      await api.put(`/api/site-config/${key}`, { value: values[key] ?? "", label });
+      await api.put(`/site-config/${key}`, { value: values[key] ?? "", label });
       setSaved((s) => ({ ...s, [key]: true }));
       setTimeout(() => setSaved((s) => ({ ...s, [key]: false })), 2000);
     } catch (e) {
@@ -283,7 +283,7 @@ export default function SettingsPage() {
   async function saveSecret(key: string) {
     setSecretSaving((s) => ({ ...s, [key]: true }));
     try {
-      await api.put(`/api/site-secrets/${key}`, { value: secretValues[key] ?? "" });
+      await api.put(`/site-secrets/${key}`, { value: secretValues[key] ?? "" });
       setSecretSaved((s) => ({ ...s, [key]: true }));
       setTimeout(() => setSecretSaved((s) => ({ ...s, [key]: false })), 2000);
     } catch (e) {
@@ -301,7 +301,7 @@ export default function SettingsPage() {
     if (pwNew.length < 8) { setPwError("New password must be at least 8 characters."); return; }
     setPwSaving(true);
     try {
-      await api.post("/api/auth/change-password", { currentPassword: pwCurrent, newPassword: pwNew });
+      await api.post("/auth/change-password", { currentPassword: pwCurrent, newPassword: pwNew });
       setPwSuccess(true);
       setPwCurrent(""); setPwNew(""); setPwConfirm("");
       setTimeout(() => setPwSuccess(false), 3000);
@@ -471,7 +471,7 @@ export default function SettingsPage() {
                 </div>
               ) : (
                 <a
-                  href={`${process.env.NEXT_PUBLIC_API_URL_CMS ?? "http://localhost:4000"}/api/google-calendar/connect`}
+                  href={`${process.env.NEXT_PUBLIC_API_URL_CMS ?? "http://localhost:4000"}/google-calendar/connect`}
                   className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90"
                 >
                   <ExternalLink size={14} />

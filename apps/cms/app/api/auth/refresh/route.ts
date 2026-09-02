@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: { message: "no refresh token" } }, { status: 401 });
   }
 
-  const apiRes = await fetch(`${API}/api/auth/refresh`, {
+  const apiRes = await fetch(`${API}/auth/refresh`, {
     method: "POST",
     headers: { Cookie: `portfolio_refresh=${refreshToken}` },
   });

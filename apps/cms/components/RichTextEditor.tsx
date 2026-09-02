@@ -57,7 +57,7 @@ function Toolbar({ editor }: { editor: Editor }) {
     const form = new FormData();
     form.append("file", file);
     try {
-      const { data } = await api.post<{ url?: string }>("/api/uploads/blog-image", form, {
+      const { data } = await api.post<{ url?: string }>("/media/blog-image", form, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       const url = data?.url;

@@ -31,7 +31,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get<Stats>("/api/stats")
+    api.get<Stats>("/stats")
       .then((res) => setStats(res.data))
       .catch(() => {})
       .finally(() => setLoading(false));

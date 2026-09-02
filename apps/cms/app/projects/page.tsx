@@ -24,7 +24,7 @@ export default function ProjectsPage() {
   async function load() {
     setLoading(true);
     try {
-      const res = await api.get<{ projects: ProjectListItem[] }>("/api/projects/admin/list", {
+      const res = await api.get<{ projects: ProjectListItem[] }>("/projects/admin/list", {
         params: { status, search, limit: 50 },
       });
       setProjects(res.data.projects ?? []);
@@ -46,7 +46,7 @@ export default function ProjectsPage() {
     if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
     setDeletingId(id);
     try {
-      await api.delete(`/api/projects/${id}`);
+      await api.delete(`/projects/${id}`);
       setProjects((p) => p.filter((x) => x.id !== id));
     } catch (e) {
       const err = e as { message?: string };

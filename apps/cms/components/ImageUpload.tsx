@@ -27,7 +27,7 @@ export function ImageUpload({ value, onChange, label, size = 160 }: ImageUploadP
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await api.post("/api/uploads", formData);
+      const res = await api.post("/media", formData);
       const media = mediaSchema.parse(res.data);
       onChange(media.url);
     } catch {

@@ -15,7 +15,7 @@ function escape(str: string) {
 export async function GET() {
   let posts: BlogListItem[] = [];
   try {
-    const res = await fetch(`${API}/api/blog?limit=50`, { next: { revalidate: 3600 } });
+    const res = await fetch(`${API}/blog?limit=50`, { next: { revalidate: 3600 } });
     if (res.ok) {
       const data = (await res.json()) as { posts: BlogListItem[] };
       posts = data.posts ?? [];

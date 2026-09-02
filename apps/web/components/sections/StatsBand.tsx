@@ -65,7 +65,7 @@ const STAT_DEFAULTS = [
 
 async function getSiteConfig(): Promise<Record<string, string>> {
   try {
-    const res = await fetch(`${API}/api/site-config`, { next: { revalidate: 300 } });
+    const res = await fetch(`${API}/site-config`, { next: { revalidate: 300 } });
     if (!res.ok) return {};
     const { config } = await res.json() as { config: Record<string, string> };
     return config ?? {};

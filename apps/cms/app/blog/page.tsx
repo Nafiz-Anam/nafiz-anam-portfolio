@@ -26,7 +26,7 @@ export default function BlogAdminPage() {
   async function load() {
     setLoading(true);
     try {
-      const res = await api.get<{ posts: AdminPost[] }>("/api/blog/admin/list", {
+      const res = await api.get<{ posts: AdminPost[] }>("/blog/admin/list", {
         params: { status, search, limit: 50 },
       });
       setPosts(res.data.posts ?? []);
@@ -49,7 +49,7 @@ export default function BlogAdminPage() {
     if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
     setDeletingId(id);
     try {
-      await api.delete(`/api/blog/${id}`);
+      await api.delete(`/blog/${id}`);
       setPosts((p) => p.filter((x) => x.id !== id));
     } catch (e) {
       const err = e as { message?: string };

@@ -14,7 +14,7 @@ export default function EditBlogPostPage() {
 
   useEffect(() => {
     let cancelled = false;
-    api.get<BlogPost>(`/api/blog/id/${id}`)
+    api.get<BlogPost>(`/blog/id/${id}`)
       .then((res) => {
         if (cancelled) return;
         const p = res.data;

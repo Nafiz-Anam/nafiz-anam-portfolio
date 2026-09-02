@@ -6,7 +6,7 @@ import type { Project } from "@portfolio/types";
 
 async function getPublishedProjects(): Promise<Project[]> {
   try {
-    const res = await fetch(`${API}/api/projects?limit=6`, {
+    const res = await fetch(`${API}/projects?limit=6`, {
       next: { revalidate: 60, tags: ["projects"] },
     });
     if (!res.ok) return [];

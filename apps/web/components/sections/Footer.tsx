@@ -15,7 +15,7 @@ const SOCIAL_ICONS: Record<string, typeof Facebook> = {
 
 async function getFooterData(): Promise<FooterContent> {
   try {
-    const res = await fetch(`${API}/api/site-config`, { next: { revalidate: 300 } });
+    const res = await fetch(`${API}/site-config`, { next: { revalidate: 300 } });
     if (!res.ok) return defaultFooter;
     const { config } = await res.json() as { config: Record<string, string> };
 

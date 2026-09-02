@@ -8,7 +8,7 @@ export const googleAuthRouter = Router();
 
 const CMS_URL = process.env.CORS_ORIGIN_CMS ?? "http://localhost:3001";
 
-/** GET /api/google-calendar/connect — admin-only, redirects to Google OAuth */
+/** GET /google-calendar/connect — admin-only, redirects to Google OAuth */
 googleAuthRouter.get("/connect", requireAuth, async (_req, res) => {
   const clientId = await getSetting("google_client_id", "GOOGLE_CLIENT_ID");
   if (!clientId) {
@@ -19,7 +19,7 @@ googleAuthRouter.get("/connect", requireAuth, async (_req, res) => {
   res.redirect(url);
 });
 
-/** GET /api/google-calendar/callback — Google redirects here after consent */
+/** GET /google-calendar/callback — Google redirects here after consent */
 googleAuthRouter.get("/callback", async (req, res) => {
   const { code, error } = req.query as { code?: string; error?: string };
   const redirectBase = `${CMS_URL}/settings`;
@@ -45,7 +45,7 @@ googleAuthRouter.get("/callback", async (req, res) => {
   }
 });
 
-/** GET /api/google-calendar/status — admin: is calendar connected? */
+/** GET /google-calendar/status — admin: is calendar connected? */
 googleAuthRouter.get("/status", requireAuth, async (_req, res) => {
   const token = await prisma.googleCalendarToken.findFirst({
     select: { email: true, updatedAt: true },
@@ -53,13 +53,13 @@ googleAuthRouter.get("/status", requireAuth, async (_req, res) => {
   res.json({ connected: !!token, email: token?.email ?? null, updatedAt: token?.updatedAt ?? null });
 });
 
-/** DELETE /api/google-calendar/disconnect — admin: remove stored token */
+/** DELETE /google-calendar/disconnect — admin: remove stored token */
 googleAuthRouter.delete("/disconnect", requireAuth, async (_req, res) => {
   await prisma.googleCalendarToken.deleteMany({});
   res.json({ connected: false });
 });
 
-/** GET /api/google-calendar/refresh-token — internal helper to get decrypted token */
+/** GET /google-calendar/refresh-token — internal helper to get decrypted token */
 export async function getStoredRefreshToken(): Promise<string | null> {
   const row = await prisma.googleCalendarToken.findFirst();
   if (!row) return null;

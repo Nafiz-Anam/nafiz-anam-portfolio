@@ -5,7 +5,7 @@ const API = process.env.INTERNAL_API_URL ?? "http://localhost:4000";
 export async function POST(req: NextRequest) {
   // Forward logout to Express (revokes refresh token in DB)
   const accessToken = req.cookies.get("portfolio_access")?.value;
-  await fetch(`${API}/api/auth/logout`, {
+  await fetch(`${API}/auth/logout`, {
     method: "POST",
     headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
   }).catch(() => {});

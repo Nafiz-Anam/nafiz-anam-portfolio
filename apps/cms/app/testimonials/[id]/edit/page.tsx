@@ -27,7 +27,7 @@ export default function EditTestimonialPage() {
 
   useEffect(() => {
     let cancelled = false;
-    api.get<Testimonial>(`/api/testimonials/${id}`)
+    api.get<Testimonial>(`/testimonials/${id}`)
       .then((res) => {
         if (cancelled) return;
         const d = res.data;
@@ -52,7 +52,7 @@ export default function EditTestimonialPage() {
     if (!quote.trim() || !name.trim()) { setError("Quote and name are required."); return; }
     setSaving(true);
     try {
-      await api.patch(`/api/testimonials/${id}`, { quote, name, role, company, photoUrl, rating, featured, published, sortOrder });
+      await api.patch(`/testimonials/${id}`, { quote, name, role, company, photoUrl, rating, featured, published, sortOrder });
       router.push("/testimonials");
     } catch (err) {
       const e = err as { message?: string };

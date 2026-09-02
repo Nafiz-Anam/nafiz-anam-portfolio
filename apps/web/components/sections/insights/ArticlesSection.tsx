@@ -102,7 +102,7 @@ export function ArticlesSection({
     setLoadingMore(true);
     try {
       const nextPage = page + 1;
-      const res = await fetch(`${API}/api/blog?page=${nextPage}&limit=${initialLimit}`);
+      const res = await fetch(`${API}/blog?page=${nextPage}&limit=${initialLimit}`);
       const data = await res.json() as { posts: BlogListItem[] };
       setPosts((prev) => [...prev, ...(data.posts ?? [])]);
       setPage(nextPage);

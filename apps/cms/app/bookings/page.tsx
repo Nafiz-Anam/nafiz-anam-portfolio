@@ -55,7 +55,7 @@ function RescheduleModal({
     setSaving(true);
     setError(null);
     try {
-      const res = await api.patch<{ booking: Booking }>(`/api/booking/${booking.id}/reschedule`, {
+      const res = await api.patch<{ booking: Booking }>(`/booking/${booking.id}/reschedule`, {
         scheduledAt: iso,
         timezone: booking.timezone,
       });
@@ -142,7 +142,7 @@ export default function BookingsPage() {
     const params: Record<string, unknown> = { page: p, limit: LIMIT };
     if (f !== "all") params.status = f;
     api
-      .get<{ bookings: Booking[]; total: number; totalPages: number }>("/api/booking", { params })
+      .get<{ bookings: Booking[]; total: number; totalPages: number }>("/booking", { params })
       .then((res) => {
         setBookings(res.data.bookings ?? []);
         setTotal(res.data.total ?? 0);
@@ -160,7 +160,7 @@ export default function BookingsPage() {
     if (!confirm("Cancel this booking? The Google Calendar event will be deleted.")) return;
     setCancelling(id);
     try {
-      await api.delete(`/api/booking/${id}`);
+      await api.delete(`/booking/${id}`);
       setBookings((prev) =>
         prev.map((b) => (b.id === id ? { ...b, status: "cancelled" as const } : b))
       );

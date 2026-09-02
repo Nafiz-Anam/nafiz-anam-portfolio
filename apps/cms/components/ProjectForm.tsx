@@ -84,10 +84,10 @@ export function ProjectForm({
     try {
       const payload = { ...values, status, slug: values.slug || slugify(values.title) };
       if (mode === "create") {
-        const res = await api.post<{ id: string }>("/api/projects", payload);
+        const res = await api.post<{ id: string }>("/projects", payload);
         router.push(status === "published" ? "/projects" : `/projects/${res.data.id}/edit`);
       } else {
-        await api.patch(`/api/projects/${id}`, payload);
+        await api.patch(`/projects/${id}`, payload);
         router.push("/projects");
       }
     } catch (e) {

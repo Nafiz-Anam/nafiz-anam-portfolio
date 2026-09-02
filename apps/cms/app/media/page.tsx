@@ -33,7 +33,7 @@ export default function MediaPage() {
   async function load() {
     setLoading(true);
     try {
-      const res = await api.get<{ media: Media[] }>("/uploads");
+      const res = await api.get<{ media: Media[] }>("/media");
       setMedia(res.data.media ?? []);
     } catch (e) {
       const err = e as { message?: string };
@@ -69,7 +69,7 @@ export default function MediaPage() {
     if (!confirm("Delete this image? Cannot be undone.")) return;
     setDeletingId(id);
     try {
-      await api.delete(`/api/uploads/${id}`);
+      await api.delete(`/media/${id}`);
       setMedia((prev) => prev.filter((m) => m.id !== id));
     } catch (err) {
       const e = err as { message?: string };

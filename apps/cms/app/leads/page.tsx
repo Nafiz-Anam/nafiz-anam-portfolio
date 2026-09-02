@@ -37,7 +37,7 @@ export default function LeadsPage() {
   async function load(p = page) {
     setLoading(true);
     try {
-      const res = await api.get<{ leads: ContactLead[]; total: number; totalPages: number }>("/api/contact", {
+      const res = await api.get<{ leads: ContactLead[]; total: number; totalPages: number }>("/contact", {
         params: { status, page: p, limit: LIMIT },
       });
       setLeads(res.data.leads ?? []);
@@ -61,7 +61,7 @@ export default function LeadsPage() {
   async function handleStatusChange(id: string, newStatus: ContactLead["status"]) {
     setUpdatingId(id);
     try {
-      const res = await api.patch<ContactLead>(`/api/contact/${id}/status`, { status: newStatus });
+      const res = await api.patch<ContactLead>(`/contact/${id}/status`, { status: newStatus });
       setLeads((prev) => prev.map((l) => (l.id === id ? res.data : l)));
     } catch (e) {
       const err = e as { message?: string };
@@ -75,7 +75,7 @@ export default function LeadsPage() {
     if (!confirm(`Delete lead from "${name}"? Cannot be undone.`)) return;
     setDeletingId(id);
     try {
-      await api.delete(`/api/contact/${id}`);
+      await api.delete(`/contact/${id}`);
       setLeads((prev) => prev.filter((l) => l.id !== id));
     } catch (e) {
       const err = e as { message?: string };

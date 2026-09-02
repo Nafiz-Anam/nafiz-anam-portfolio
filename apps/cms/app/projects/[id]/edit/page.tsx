@@ -14,7 +14,7 @@ export default function EditProjectPage() {
 
   useEffect(() => {
     let cancelled = false;
-    api.get<Project>(`/api/projects/id/${id}`)
+    api.get<Project>(`/projects/id/${id}`)
       .then((res) => {
         if (cancelled) return;
         const p = res.data;

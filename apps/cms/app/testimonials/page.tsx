@@ -14,7 +14,7 @@ export default function TestimonialsPage() {
 
   async function load() {
     try {
-      const res = await api.get<{ testimonials: Testimonial[] }>("/api/testimonials/admin/list");
+      const res = await api.get<{ testimonials: Testimonial[] }>("/testimonials/admin/list");
       setTestimonials(res.data.testimonials ?? []);
     } catch (e) {
       const err = e as { message?: string };
@@ -28,7 +28,7 @@ export default function TestimonialsPage() {
 
   async function togglePublished(t: Testimonial) {
     try {
-      const res = await api.patch<Testimonial>(`/api/testimonials/${t.id}`, { published: !t.published });
+      const res = await api.patch<Testimonial>(`/testimonials/${t.id}`, { published: !t.published });
       setTestimonials((prev) => prev.map((x) => (x.id === t.id ? res.data : x)));
     } catch (e) {
       const err = e as { message?: string };
@@ -38,7 +38,7 @@ export default function TestimonialsPage() {
 
   async function toggleFeatured(t: Testimonial) {
     try {
-      const res = await api.patch<Testimonial>(`/api/testimonials/${t.id}`, { featured: !t.featured });
+      const res = await api.patch<Testimonial>(`/testimonials/${t.id}`, { featured: !t.featured });
       setTestimonials((prev) => prev.map((x) => (x.id === t.id ? res.data : x)));
     } catch (e) {
       const err = e as { message?: string };
@@ -50,7 +50,7 @@ export default function TestimonialsPage() {
     if (!confirm(`Delete testimonial from "${name}"?`)) return;
     setDeletingId(id);
     try {
-      await api.delete(`/api/testimonials/${id}`);
+      await api.delete(`/testimonials/${id}`);
       setTestimonials((prev) => prev.filter((x) => x.id !== id));
     } catch (e) {
       const err = e as { message?: string };

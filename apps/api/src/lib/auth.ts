@@ -64,12 +64,12 @@ export function setAuthCookies(res: Response, accessToken: string, refreshToken:
     httpOnly: true,
     secure,
     sameSite: "lax",
-    path: "/api/auth/refresh",
+    path: "/auth/refresh",
     maxAge: REFRESH_COOKIE_MAX_AGE_MS,
   });
 }
 
 export function clearAuthCookies(res: Response) {
   res.clearCookie(ACCESS_COOKIE_NAME);
-  res.clearCookie(REFRESH_COOKIE_NAME, { path: "/api/auth/refresh" });
+  res.clearCookie(REFRESH_COOKIE_NAME, { path: "/auth/refresh" });
 }

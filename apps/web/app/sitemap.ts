@@ -9,7 +9,7 @@ async function getPublishedSlugs(
   key: "projects" | "posts"
 ): Promise<{ slug: string; updatedAt: string }[]> {
   try {
-    const res = await fetch(`${API}/api/${path}?limit=500`, {
+    const res = await fetch(`${API}/${path}?limit=500`, {
       next: { revalidate: 3600 },
     });
     if (!res.ok) return [];
@@ -25,7 +25,7 @@ async function getPublishedSlugs(
 
 async function getServiceSlugs(): Promise<{ slug: string; updatedAt: string }[]> {
   try {
-    const res = await fetch(`${API}/api/services?limit=100`, { next: { revalidate: 3600 } });
+    const res = await fetch(`${API}/services?limit=100`, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error();
     const data = (await res.json()) as { services?: { slug: string; updatedAt: string }[] };
     if (data.services?.length) return data.services;

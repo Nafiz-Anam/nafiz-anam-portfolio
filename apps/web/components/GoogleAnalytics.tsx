@@ -3,7 +3,7 @@ import { SERVER_API } from "@/lib/api-url";
 
 async function getGaMeasurementId(): Promise<string | undefined> {
   try {
-    const res = await fetch(`${SERVER_API}/api/site-config`, { next: { revalidate: 300 } });
+    const res = await fetch(`${SERVER_API}/site-config`, { next: { revalidate: 300 } });
     if (!res.ok) return undefined;
     const data = await res.json() as { config: Record<string, string> };
     return data.config?.ga_measurement_id || undefined;

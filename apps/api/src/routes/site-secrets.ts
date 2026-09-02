@@ -6,7 +6,7 @@ import { encrypt, decrypt } from "../lib/crypto";
 
 export const siteSecretsRouter = Router();
 
-// Admin-only: unlike /api/site-config, these values are sensitive (SMTP creds, OAuth secrets).
+// Admin-only: unlike /site-config, these values are sensitive (SMTP creds, OAuth secrets).
 siteSecretsRouter.get("/", requireAuth, async (_req, res) => {
   const rows = await prisma.siteSecret.findMany();
   const secrets = Object.fromEntries(rows.map((r) => [r.key, decrypt(r.value)]));

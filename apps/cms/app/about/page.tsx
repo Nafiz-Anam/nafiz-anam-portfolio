@@ -45,7 +45,7 @@ export default function AboutPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get<{ config: Record<string, string> }>("/api/site-config")
+    api.get<{ config: Record<string, string> }>("/site-config")
       .then((res) => {
         const config = res.data.config ?? {};
         const initial: Record<string, string> = {};
@@ -80,7 +80,7 @@ export default function AboutPage() {
     if (!validateJson(key, text)) return;
     setSaving((s) => ({ ...s, [key]: true }));
     try {
-      await api.put(`/api/site-config/${key}`, { value: text, label });
+      await api.put(`/site-config/${key}`, { value: text, label });
       setSaved((s) => ({ ...s, [key]: true }));
       setTimeout(() => setSaved((s) => ({ ...s, [key]: false })), 2000);
     } catch (e) {

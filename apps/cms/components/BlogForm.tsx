@@ -72,7 +72,7 @@ export function BlogForm({
   }, [values.title, slugTouched]);
 
   useEffect(() => {
-    api.get<{ categories: BlogCategory[] }>("/api/blog-categories").then((res) => {
+    api.get<{ categories: BlogCategory[] }>("/blog-categories").then((res) => {
       setCategories(res.data.categories ?? []);
       if (!values.category && res.data.categories.length > 0) {
         setValues((v) => ({ ...v, category: res.data.categories[0]?.name ?? "" }));
@@ -98,10 +98,10 @@ export function BlogForm({
     try {
       const payload = { ...values, status, slug: values.slug || slugify(values.title) };
       if (mode === "create") {
-        const res = await api.post<{ id: string }>("/api/blog", payload);
+        const res = await api.post<{ id: string }>("/blog", payload);
         router.push(status === "published" ? "/blog" : `/blog/${res.data.id}/edit`);
       } else {
-        await api.patch(`/api/blog/${id}`, payload);
+        await api.patch(`/blog/${id}`, payload);
         router.push("/blog");
       }
     } catch (e) {

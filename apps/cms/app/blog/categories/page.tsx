@@ -17,7 +17,7 @@ export default function BlogCategoriesPage() {
 
   async function load() {
     try {
-      const res = await api.get<{ categories: BlogCategory[] }>("/api/blog-categories");
+      const res = await api.get<{ categories: BlogCategory[] }>("/blog-categories");
       setCategories(res.data.categories ?? []);
     } catch (e) {
       const err = e as { message?: string };
@@ -33,7 +33,7 @@ export default function BlogCategoriesPage() {
     if (!newName.trim()) return;
     setAdding(true);
     try {
-      const res = await api.post<BlogCategory>("/api/blog-categories", { name: newName.trim() });
+      const res = await api.post<BlogCategory>("/blog-categories", { name: newName.trim() });
       setCategories((c) => [...c, res.data]);
       setNewName("");
     } catch (e) {
@@ -47,7 +47,7 @@ export default function BlogCategoriesPage() {
   async function handleRename(id: string) {
     if (!editName.trim()) return;
     try {
-      const res = await api.patch<BlogCategory>(`/api/blog-categories/${id}`, { name: editName.trim() });
+      const res = await api.patch<BlogCategory>(`/blog-categories/${id}`, { name: editName.trim() });
       setCategories((c) => c.map((x) => (x.id === id ? res.data : x)));
       setEditingId(null);
     } catch (e) {
@@ -59,7 +59,7 @@ export default function BlogCategoriesPage() {
   async function handleDelete(id: string, name: string) {
     if (!confirm(`Delete category "${name}"? Posts in this category won't be deleted.`)) return;
     try {
-      await api.delete(`/api/blog-categories/${id}`);
+      await api.delete(`/blog-categories/${id}`);
       setCategories((c) => c.filter((x) => x.id !== id));
     } catch (e) {
       const err = e as { message?: string };

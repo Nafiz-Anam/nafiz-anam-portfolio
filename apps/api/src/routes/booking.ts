@@ -118,7 +118,7 @@ function buildSlots(
   return slots;
 }
 
-/** GET /api/booking/config — public: returns calendar config so web can shade disabled days */
+/** GET /booking/config — public: returns calendar config so web can shade disabled days */
 bookingRouter.get("/config", async (_req, res) => {
   const settings = await getBookingSettings();
   res.json({
@@ -131,7 +131,7 @@ bookingRouter.get("/config", async (_req, res) => {
   });
 });
 
-/** GET /api/booking/slots?date=YYYY-MM-DD */
+/** GET /booking/slots?date=YYYY-MM-DD */
 bookingRouter.get("/slots", async (req, res) => {
   const { date } = req.query as { date?: string };
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
@@ -159,7 +159,7 @@ bookingRouter.get("/slots", async (req, res) => {
   res.json({ date, slots: slots.map((s) => ({ start: s.start.toISOString(), end: s.end.toISOString(), label: s.label })) });
 });
 
-/** POST /api/booking — public: create a booking (rate limited: 3/hr per IP) */
+/** POST /booking — public: create a booking (rate limited: 3/hr per IP) */
 bookingRouter.post("/", bookingLimit, async (req, res) => {
   const parsed = createBookingSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -233,7 +233,7 @@ bookingRouter.post("/", bookingLimit, async (req, res) => {
   res.status(201).json({ booking: { ...booking, googleEventId: googleEventId ?? null } });
 });
 
-/** GET /api/booking — admin: list bookings with pagination */
+/** GET /booking — admin: list bookings with pagination */
 bookingRouter.get("/", requireAuth, async (req, res) => {
   const { status } = req.query as { status?: string };
   const page = Math.max(1, Number(req.query.page) || 1);
@@ -247,7 +247,7 @@ bookingRouter.get("/", requireAuth, async (req, res) => {
   res.json({ bookings, total, page, totalPages: Math.ceil(total / limit) });
 });
 
-/** PATCH /api/booking/:id/reschedule — admin: move booking to new time */
+/** PATCH /booking/:id/reschedule — admin: move booking to new time */
 bookingRouter.patch("/:id/reschedule", requireAuth, async (req, res) => {
   const { scheduledAt, timezone } = req.body as { scheduledAt?: string; timezone?: string };
   if (!scheduledAt) {
@@ -309,7 +309,7 @@ bookingRouter.patch("/:id/reschedule", requireAuth, async (req, res) => {
   res.json({ booking: updated });
 });
 
-/** DELETE /api/booking/:id — admin: cancel booking */
+/** DELETE /booking/:id — admin: cancel booking */
 bookingRouter.delete("/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
   const booking = await prisma.booking.findUnique({ where: { id } });

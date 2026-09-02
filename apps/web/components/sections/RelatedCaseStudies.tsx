@@ -5,7 +5,7 @@ import { SERVER_API as API } from "@/lib/api-url";
 
 async function getLatestProjects(): Promise<ProjectListItem[]> {
   try {
-    const res = await fetch(`${API}/api/projects?limit=3`, { next: { revalidate: 300 } });
+    const res = await fetch(`${API}/projects?limit=3`, { next: { revalidate: 300 } });
     if (!res.ok) return [];
     const data = await res.json() as { projects: ProjectListItem[] };
     return data.projects?.slice(0, 3) ?? [];

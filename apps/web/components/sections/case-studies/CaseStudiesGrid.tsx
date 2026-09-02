@@ -113,7 +113,7 @@ export function CaseStudiesGrid({
     setLoadingMore(true);
     try {
       const nextPage = page + 1;
-      const res = await fetch(`${API}/api/projects?page=${nextPage}&limit=${initialLimit}`);
+      const res = await fetch(`${API}/projects?page=${nextPage}&limit=${initialLimit}`);
       const data = await res.json() as { projects: ProjectListItem[] };
       setProjects((prev) => [...prev, ...(data.projects ?? [])]);
       setPage(nextPage);

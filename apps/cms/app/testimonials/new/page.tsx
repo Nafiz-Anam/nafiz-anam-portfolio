@@ -28,7 +28,7 @@ export default function NewTestimonialPage() {
     if (!quote.trim() || !name.trim()) { setError("Quote and name are required."); return; }
     setSaving(true);
     try {
-      await api.post("/api/testimonials", { quote, name, role, company, photoUrl, rating, featured, published, sortOrder });
+      await api.post("/testimonials", { quote, name, role, company, photoUrl, rating, featured, published, sortOrder });
       router.push("/testimonials");
     } catch (err) {
       const e = err as { message?: string };

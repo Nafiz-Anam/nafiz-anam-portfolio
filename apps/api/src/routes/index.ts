@@ -19,7 +19,7 @@ export const apiRouter = Router();
 apiRouter.use("/health", healthRouter);
 apiRouter.use("/projects", projectsRouter);
 apiRouter.use("/auth", authRouter);
-apiRouter.use("/uploads", uploadsRouter);
+apiRouter.use("/media", uploadsRouter);
 apiRouter.use("/blog", blogRouter);
 apiRouter.use("/blog-categories", blogCategoriesRouter);
 apiRouter.use("/testimonials", testimonialsRouter);
