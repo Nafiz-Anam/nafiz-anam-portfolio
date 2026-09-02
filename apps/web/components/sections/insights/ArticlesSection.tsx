@@ -21,7 +21,7 @@ function ArticleCard({ post }: { post: BlogListItem }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="dark group flex flex-col rounded-[5px] border border-panel-foreground/[0.08] bg-background transition-colors duration-200 hover:border-panel-foreground/[0.16]"
+      className="dark group flex flex-col rounded-[5px] border border-panel-foreground/[0.08] bg-background transition-colors duration-200 hover:border-accent/60"
     >
       <Link href={`/insights/${post.slug}`} className="block overflow-hidden rounded-t-[5px]">
         {post.coverImageUrl ? (
@@ -33,8 +33,16 @@ function ArticleCard({ post }: { post: BlogListItem }) {
             />
           </div>
         ) : (
-          <div className="aspect-[16/9] bg-gradient-to-br from-accent/20 via-accent/5 to-background flex items-center justify-center">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-panel-foreground/30">{post.category}</span>
+          <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-accent/20 via-accent/5 to-background flex items-center justify-center">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(hsl(var(--panel-foreground) / 0.03) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--panel-foreground) / 0.03) 1px, transparent 1px)",
+                backgroundSize: "40px 40px",
+              }}
+            />
+            <span className="relative font-mono text-[10px] uppercase tracking-wider text-panel-foreground/30">{post.category}</span>
           </div>
         )}
       </Link>
@@ -118,7 +126,7 @@ export function ArticlesSection({
   return (
     <section
       id="insights"
-      className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16"
+      className="dark bg-surface bg-texture-lines px-6 py-28 text-panel-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
         <motion.div
