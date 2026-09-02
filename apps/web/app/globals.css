@@ -171,6 +171,35 @@ html.is-scrolling body * {
   }
 }
 
+/* Self-contained column grid for a card nested inside a padded section —
+   columns sized off the card's own width (%) instead of 100vw, so it stays
+   aligned regardless of how far the card is inset from the viewport edge. */
+.bg-texture-lines-inset {
+  position: relative;
+  isolation: isolate;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+.bg-texture-lines-inset::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: repeating-linear-gradient(
+    90deg,
+    hsl(var(--panel-foreground) / 0.05) 0px,
+    hsl(var(--panel-foreground) / 0.05) 1px,
+    transparent 1px,
+    transparent 13px,
+    hsl(var(--panel-foreground) / 0.05) 13px,
+    hsl(var(--panel-foreground) / 0.05) 14px,
+    transparent 14px,
+    transparent calc(100% / 8)
+  );
+}
+
 .scrollbar-thin {
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--foreground) / 0.2) transparent;

@@ -33,7 +33,7 @@ export function CaseStudiesHero() {
         className="mt-8 flex max-w-[680px] flex-col gap-8 sm:flex-row sm:items-end sm:justify-between"
       >
         <p className="text-[16px] leading-[1.85] text-foreground/55">
-          Every project here represents a distinct business challenge — each requiring careful
+          Every project here represents a distinct business challenge, each requiring careful
           engineering strategy, scalable architecture, and close collaboration with stakeholders.
           The measure of success is not the technology used, but the business outcomes delivered.
         </p>

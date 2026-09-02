@@ -3,7 +3,7 @@ import { SERVER_API as API } from "./api-url";
 
 async function fetchJson<T>(path: string, revalidate = 60): Promise<T | null> {
   try {
-    const res = await fetch(`${API}/api${path}`, { next: { revalidate } });
+    const res = await fetch(`${API}${path}`, { next: { revalidate } });
     if (!res.ok) return null;
     return res.json() as Promise<T>;
   } catch {

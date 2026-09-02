@@ -115,7 +115,7 @@ export function ArticlesSection({
 
   return (
     <section
-      id="articles"
+      id="insights"
       className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
@@ -124,48 +124,53 @@ export function ArticlesSection({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, ease: "easeOut" }}
-          className="mb-14 flex flex-col gap-5"
+          className="mb-10 flex flex-col gap-5"
         >
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">Browse by Topic</p>
-              <h2 className="mt-2 text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
-                Latest <span className="font-serif italic text-accent">Articles</span>
-              </h2>
-            </div>
-            <input
-              type="search"
-              placeholder="Search articles…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="dark w-full rounded-[5px] border border-panel-foreground/10 bg-background/50 px-4 py-2.5 text-sm text-panel-foreground placeholder:text-panel-foreground/30 focus:outline-none focus:ring-1 focus:ring-accent sm:w-64"
-            />
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">Browse by Topic</p>
+            <h2 className="mt-2 text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
+              Latest <span className="font-serif italic text-accent">Insights</span>
+            </h2>
           </div>
         </motion.div>
 
-        {allCategories.length > 1 && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
-            className="mb-14 flex flex-wrap gap-2"
-          >
-            {allCategories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`rounded-full border px-4 py-1.5 text-[12px] font-semibold tracking-wide transition-all duration-150 ${
-                  activeCategory === cat
-                    ? "border-accent bg-accent text-accent-foreground"
-                    : "border-panel-foreground/[0.12] bg-transparent text-panel-foreground/50 hover:border-panel-foreground/[0.24] hover:text-panel-foreground"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </motion.div>
-        )}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
+          className="mb-6 flex flex-wrap gap-2"
+        >
+          {allCategories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`rounded-full border px-4 py-1.5 text-[12px] font-semibold tracking-wide transition-all duration-150 ${
+                activeCategory === cat
+                  ? "border-accent bg-accent text-accent-foreground"
+                  : "border-panel-foreground/[0.12] bg-transparent text-panel-foreground/50 hover:border-panel-foreground/[0.24] hover:text-panel-foreground"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.45, ease: "easeOut", delay: 0.12 }}
+          className="mb-14 flex justify-end"
+        >
+          <input
+            type="search"
+            placeholder="Search articles…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="dark w-full rounded-[5px] border border-panel-foreground/10 bg-background/50 px-4 py-2.5 text-sm text-panel-foreground placeholder:text-panel-foreground/30 focus:outline-none focus:ring-1 focus:ring-accent sm:w-64"
+          />
+        </motion.div>
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -179,8 +184,19 @@ export function ArticlesSection({
             {filtered.length > 0 ? (
               filtered.map((post) => <ArticleCard key={post.slug} post={post} />)
             ) : (
-              <div className="col-span-full py-20 text-center text-[14px] text-panel-foreground/32">
-                No articles in this category yet. Check back soon.
+              <div className="col-span-full flex flex-col items-center gap-6 py-20 text-center">
+                <p className="max-w-[480px] text-[14px] leading-[1.85] text-panel-foreground/45">
+                  The first article is on its way. In the meantime, if you have
+                  a specific question about architecture, engineering
+                  leadership, or scaling a technical team, reach out directly.
+                  I read every message myself.
+                </p>
+                <Link
+                  href="/contact"
+                  className="rounded-[5px] bg-accent px-7 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
+                >
+                  Get in Touch
+                </Link>
               </div>
             )}
           </motion.div>

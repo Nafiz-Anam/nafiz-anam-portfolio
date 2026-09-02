@@ -5,7 +5,7 @@ import { BookingButton } from "@/components/sections/BookingButton";
 
 export function CaseStudiesCTA() {
   return (
-    <section className="bg-panel py-32 text-panel-foreground">
+    <section className="bg-texture-lines bg-background py-32 text-foreground">
       <div className="mx-auto max-w-[1800px] px-6 lg:px-16">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
@@ -26,13 +26,13 @@ export function CaseStudiesCTA() {
             </h2>
             <p className="max-w-[560px] text-[16px] leading-[1.85] text-panel-foreground/55">
               Let&apos;s talk about your project. A 30-minute discovery call is enough to
-              understand the problem, identify the risks, and map a path forward — with no
+              understand the problem, identify the risks, and map a path forward, with no
               obligation and no sales pitch.
             </p>
 
             {/* trust signals */}
             <div className="mt-2 flex flex-wrap gap-6">
-              {["No obligation", "Free 30-min call", "Clear next steps", "Fast response"].map((signal) => (
+              {["No obligation", "Free 30-minute call", "Clear next steps", "Fast response"].map((signal) => (
                 <div key={signal} className="flex items-center gap-2">
                   <div
                     className="h-1.5 w-1.5 rounded-full"

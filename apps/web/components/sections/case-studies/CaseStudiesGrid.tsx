@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import type { ProjectListItem } from "@portfolio/types";
+import { BookingButton } from "@/components/sections/BookingButton";
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
@@ -149,7 +150,7 @@ export function CaseStudiesGrid({
             </p>
             <input
               type="search"
-              placeholder="Search projects…"
+              placeholder="Search projects..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full rounded-[5px] border border-foreground/10 bg-foreground/5 px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:ring-1 focus:ring-accent sm:w-64"
@@ -177,7 +178,16 @@ export function CaseStudiesGrid({
         )}
 
         {projects.length === 0 ? (
-          <p className="text-sm text-foreground/40">No case studies published yet.</p>
+          <div className="flex flex-col items-center gap-6 py-20 text-center">
+            <p className="max-w-[480px] text-[14px] leading-[1.85] text-foreground/45">
+              The first published case study is in progress. In the meantime, book a
+              discovery call and I&apos;ll walk you through relevant project examples
+              directly, this page will have the details published soon.
+            </p>
+            <BookingButton className="rounded-[5px] bg-accent px-7 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+              Book Discovery Call
+            </BookingButton>
+          </div>
         ) : filtered.length === 0 ? (
           <p className="text-sm text-foreground/40">No case studies in this industry yet.</p>
         ) : (

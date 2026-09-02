@@ -61,8 +61,8 @@ const CAPABILITIES = [
   },
   {
     group: "AI & Automation",
-    description: "Intelligent systems that compound business value.",
-    tags: ["OpenAI", "Claude", "LangChain", "RAG", "Vector Databases", "AI Agents", "MCP", "Workflow Automation"],
+    description: "Intelligent systems that reduce manual business overhead.",
+    tags: ["OpenAI", "Claude", "LangChain", "AWS", "AI Agents", "MCP", "Workflow Automation"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 0 2h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1 0-2h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2z" />
@@ -83,8 +83,8 @@ const CAPABILITIES = [
   },
   {
     group: "Architecture & Leadership",
-    description: "System design and team leadership at scale.",
-    tags: ["Microservices", "Event-Driven", "Domain-Driven Design", "System Design", "Code Reviews", "Mentoring", "Scalability"],
+    description: "System design and leadership at scale.",
+    tags: ["Microservices", "Event-Driven Design", "Domain-Driven Design", "System Design", "Code Reviews", "Mentoring", "Scalability"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="3" />
@@ -165,7 +165,7 @@ function CapabilityRow({
 
 export function TechCapabilities() {
   return (
-    <section className="bg-panel py-28 text-panel-foreground">
+    <section className="bg-texture-lines bg-surface py-28 text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 lg:px-16">
 
         <motion.div

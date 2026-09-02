@@ -9,26 +9,27 @@ import { CaseStudiesGrid } from "@/components/sections/case-studies/CaseStudiesG
 import { IndustriesServed } from "@/components/sections/case-studies/IndustriesServed";
 import { ProjectApproach } from "@/components/sections/case-studies/ProjectApproach";
 import { TechCapabilities } from "@/components/sections/case-studies/TechCapabilities";
-import { OutcomesStrip } from "@/components/sections/case-studies/OutcomesStrip";
 import { CaseStudiesCTA } from "@/components/sections/case-studies/CaseStudiesCTA";
 import { fetchProjectList } from "@/lib/projects";
 
+const TITLE = "Case Studies | Nafiz Anam — Real Projects, Measurable Business Outcomes";
+const DESCRIPTION =
+  "Selected engagements where I've helped businesses solve real technical problems and hit measurable business outcomes.";
+
 export const metadata: Metadata = {
-  title: "Case Studies",
-  description:
-    "Real engineering challenges, measurable business outcomes. Explore how Nafiz Anam has led complex software projects from strategy to production across healthcare, logistics, finance, and more.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: "/case-studies" },
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "Case Studies — Nafiz Anam",
-    description:
-      "Real engineering challenges, measurable business outcomes. Explore how Nafiz Anam has led complex software projects from strategy to production across healthcare, logistics, finance, and more.",
+    title: "Case Studies | Nafiz Anam",
+    description: DESCRIPTION,
     url: "/case-studies",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Case Studies — Nafiz Anam",
-    description:
-      "Real engineering challenges, measurable business outcomes. Explore how Nafiz Anam has led complex software projects from strategy to production across healthcare, logistics, finance, and more.",
+    title: "Case Studies | Nafiz Anam",
+    description: DESCRIPTION,
   },
 };
 
@@ -43,7 +44,7 @@ export default async function CaseStudiesPage() {
         "@id": `${SITE_URL}/case-studies#collectionpage`,
         url: `${SITE_URL}/case-studies`,
         name: "Case Studies — Nafiz Anam",
-        description: "Real engineering challenges, measurable business outcomes. Explore how Nafiz Anam has led complex software projects from strategy to production.",
+        description: DESCRIPTION,
         author: { "@id": `${SITE_URL}/#person` },
         hasPart: projects.map((p) => ({
           "@type": "Article",
@@ -82,9 +83,6 @@ export default async function CaseStudiesPage() {
       </div>
       <div className="dark">
         <TechCapabilities />
-      </div>
-      <div className="dark">
-        <OutcomesStrip />
       </div>
       <div className="dark">
         <CaseStudiesCTA />

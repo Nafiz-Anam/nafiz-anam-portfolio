@@ -3,14 +3,21 @@
 import { motion } from "framer-motion";
 import { BookingButton } from "@/components/sections/BookingButton";
 
-const STATS = [
-  { value: "50+", label: "Articles Published" },
-  { value: "8", label: "Topic Categories" },
-  { value: "4", label: "Content Series" },
-  { value: "15k+", label: "Monthly Readers" },
-] as const;
+export function InsightsHero({
+  articlesPublished,
+  topicCount,
+  avgReadTime,
+}: {
+  articlesPublished: number;
+  topicCount: number;
+  avgReadTime: string;
+}) {
+  const STATS = [
+    { value: String(articlesPublished), label: "Articles Published" },
+    { value: String(topicCount), label: "Topic Categories" },
+    { value: avgReadTime, label: "Avg. Read Time" },
+  ] as const;
 
-export function InsightsHero() {
   return (
     <section className="px-6 pb-28 pt-32 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
@@ -38,9 +45,10 @@ export function InsightsHero() {
                 </span>
               </h1>
               <p className="max-w-[520px] text-[16px] leading-[1.85] text-foreground/52">
-                I share practical lessons from building software products,
-                scaling systems, leading engineering teams, and helping
-                businesses solve complex technical challenges.
+                I write about the lessons I&apos;ve picked up building software
+                products, scaling systems, leading engineering teams, and
+                solving real technical problems for the businesses I work
+                with.
               </p>
             </motion.div>
 
@@ -51,10 +59,10 @@ export function InsightsHero() {
               className="flex flex-wrap gap-4"
             >
               <a
-                href="#articles"
+                href="#insights"
                 className="rounded-[5px] bg-accent px-7 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
               >
-                Explore Articles
+                Browse Topics
               </a>
               <BookingButton className="rounded-[5px] border border-foreground/20 px-7 py-3 text-xs font-bold uppercase tracking-wide text-foreground transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]">
                 Book Discovery Call

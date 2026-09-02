@@ -8,50 +8,50 @@ const STEPS = [
     number: "01",
     title: "Discovery",
     description:
-      "Before writing a single line of code, I invest time understanding the business — its goals, constraints, existing systems, and the people it serves. This is where strategy begins.",
-    detail: "Stakeholder interviews · Requirements mapping · Risk identification · Scope definition",
+      "Before writing a single line of code, I invest time understanding the business, its goals, constraints, existing systems, and the people it serves. This is where strategy begins.",
+    detail: "Stakeholder Interviews · Requirements Mapping · Risk Identification · Scope Definition",
   },
   {
     number: "02",
     title: "Product Strategy",
     description:
-      "With business goals defined, I translate them into a product roadmap — prioritizing features by impact, defining the MVP, and creating a technical vision that aligns the whole team.",
-    detail: "MVP definition · Roadmap planning · Feature prioritization · Success metrics",
+      "With business goals defined, I translate them into a product roadmap, prioritizing features by impact, defining the MVP, and creating a technical vision that aligns the whole team.",
+    detail: "MVP Definition · Roadmap Planning · Feature Prioritization · Success Metrics",
   },
   {
     number: "03",
     title: "Architecture",
     description:
-      "Every technical decision at this stage has a 5-year consequence. I design systems for the business you're becoming, not just the business you are today.",
-    detail: "System design · Tech stack selection · Data modeling · API contracts · Security posture",
+      "Every technical decision at this stage has a five-year consequence. I design systems for the business you're becoming, not just the business you are today.",
+    detail: "System Design · Tech Stack Selection · Data Modeling · API Contracts · Security Posture",
   },
   {
     number: "04",
     title: "Engineering",
     description:
-      "Clean, maintainable code with rigorous review culture, agile sprints, and continuous communication — delivered iteratively so you can validate progress, not just trust a timeline.",
-    detail: "Agile sprints · Code reviews · Documentation · Feature flagging · Continuous delivery",
+      "Clean, maintainable code with rigorous review culture, agile sprints, and continuous communication, delivered iteratively so you can validate progress, not just trust a timeline.",
+    detail: "Agile Sprints · Code Review · Documentation · Feature Flagging · Continuous Delivery",
   },
   {
     number: "05",
     title: "Testing",
     description:
-      "Comprehensive testing that matches the risk profile of your product — unit, integration, end-to-end, performance, and security testing before anything ships to real users.",
-    detail: "Unit & integration tests · E2E testing · Load testing · Security audits · Accessibility",
+      "Comprehensive testing that matches the risk profile of your product: unit, integration, end-to-end, performance, and security testing before anything ships to real users.",
+    detail: "Unit & Integration Tests · E2E Testing · Load Testing · Security Audits · Accessibility",
   },
   {
     number: "06",
     title: "Deployment",
     description:
       "Production is where it matters. CI/CD pipelines, zero-downtime deployments, observability dashboards, and rollback plans ensure launches are events you celebrate, not fear.",
-    detail: "CI/CD pipelines · Infrastructure-as-code · Monitoring & alerting · Zero-downtime deploys",
+    detail: "CI/CD Pipelines · Infrastructure as Code · Monitoring & Alerting · Zero-downtime Deploys",
   },
   {
     number: "07",
     title: "Continuous Improvement",
     description:
-      "Shipping v1 is the beginning. I stay close to the metrics, user feedback, and evolving business requirements — iterating to maximize the compounding value of what we built.",
-    detail: "Performance optimization · Feature iteration · Technical debt management · Team support",
+      "Shipping it is the beginning. I stay close to the metrics, user feedback, and evolving business requirements, iterating to maximize the compounding value of what we built.",
+    detail: "Performance Optimization · Feature Iteration · Technical Debt Management · Team Support",
   },
 ] as const;
 
@@ -155,12 +155,12 @@ export function ProjectApproach() {
             <span className="font-serif italic text-accent">Every Project.</span>
           </h2>
           <p className="max-w-[560px] text-[15px] leading-[1.85] text-foreground/50">
-            A structured, repeatable process built from over 100 engagements — designed to
+            A structured, repeatable process built from over 100 engagements, designed to
             reduce risk, maximize alignment, and ship software that actually works in production.
           </p>
         </motion.div>
 
-        <div className="overflow-hidden rounded-[5px] bg-panel">
+        <div className="overflow-hidden rounded-[5px] bg-texture-lines-inset bg-surface">
           {STEPS.map((step, i) => (
             <StepRow key={step.number} {...step} isLast={i === STEPS.length - 1} />
           ))}

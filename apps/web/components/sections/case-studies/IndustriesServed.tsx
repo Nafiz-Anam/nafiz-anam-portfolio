@@ -19,17 +19,17 @@ const INDUSTRIES = [
 
 export function IndustriesServed() {
   return (
-    <section className="bg-panel py-24 text-panel-foreground">
+    <section className="bg-texture-lines bg-surface py-24 text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 lg:px-16">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, ease: "easeOut" }}
-          className="grid grid-cols-1 items-start gap-16 sm:grid-cols-[300px_1fr]"
+          className="grid grid-cols-1 items-start gap-16 sm:grid-cols-[2fr_3fr]"
         >
           {/* Left label */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 lg:sticky lg:top-24">
             <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
               Industries Served
             </p>
