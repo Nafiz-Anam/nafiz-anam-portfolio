@@ -9,8 +9,8 @@ const SERVICES = [
     slug: "custom-software-development",
     title: "Custom Software Development",
     description:
-      "Tailored web platforms, enterprise applications, and business systems designed around your workflows and long-term goals.",
-    outcome: "Reduced operational complexity. Software your team actually uses.",
+      "Your business runs on spreadsheets, manual handoffs, or three tools that don't talk to each other. I build the system that fits how you actually operate, instead of forcing your operations to fit a generic tool.",
+    outcome: "One system built around how your business actually runs.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -23,8 +23,8 @@ const SERVICES = [
     slug: "saas-product-engineering",
     title: "SaaS Product Engineering",
     description:
-      "Transform ideas into scalable SaaS products with modern architecture, secure infrastructure, and production-ready engineering from day one.",
-    outcome: "A product that can grow from 10 users to 10,000 without a rewrite.",
+      "Your MVP works, until real users show up and it doesn't. I take a validated product from \"it works\" to \"it can survive its own growth,\" with the architecture and infrastructure to match.",
+    outcome: "A product that survives its own growth.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
@@ -34,11 +34,24 @@ const SERVICES = [
     ),
   },
   {
+    slug: "technical-consulting-architecture",
+    title: "Technical Consulting & Architecture",
+    description:
+      "You're about to make a technology decision you don't fully trust, and there's no one senior enough in the room to catch a mistake before it's expensive. I'm that second opinion, before you commit budget, not after.",
+    outcome: "A second opinion before the expensive mistake, not after.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+      </svg>
+    ),
+  },
+  {
     slug: "ai-automation-business-systems",
     title: "AI Automation & Business Systems",
     description:
-      "Automate repetitive workflows, integrate AI capabilities, and streamline operations so your team focuses on high-value work.",
-    outcome: "Hours of manual work eliminated. Better decisions through data.",
+      "Your team spends hours a week on work a computer should be doing. I automate the repetitive parts of your operation, and I'll tell you honestly when AI isn't actually the right tool for the job.",
+    outcome: "Hours of manual work removed, honestly, not oversold.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2a4 4 0 0 1 4 4v1h1a3 3 0 0 1 0 6h-1v1a4 4 0 0 1-8 0v-1H7a3 3 0 0 1 0-6h1V6a4 4 0 0 1 4-4z" />
@@ -49,24 +62,11 @@ const SERVICES = [
     ),
   },
   {
-    slug: "technical-consulting-architecture",
-    title: "Technical Consulting & Architecture",
-    description:
-      "Expert guidance on software architecture, technology decisions, scalability planning, code quality, and long-term technical strategy.",
-    outcome: "Confidence in your technical direction before committing resources.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
-      </svg>
-    ),
-  },
-  {
     slug: "cloud-infrastructure-devops",
     title: "Cloud Infrastructure & DevOps",
     description:
-      "Secure, scalable cloud environments with CI/CD pipelines, containerization, monitoring, and reliable production infrastructure.",
-    outcome: "Systems that stay up. Deployments that happen in minutes, not days.",
+      "Deployments are stressful, downtime happens, and nobody's fully sure what breaks if a server goes down. I build infrastructure that's boring in the best way: reliable, monitored, and recoverable.",
+    outcome: "Infrastructure that's boring in the best way.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
@@ -77,8 +77,8 @@ const SERVICES = [
     slug: "engineering-leadership",
     title: "Engineering Leadership",
     description:
-      "Fractional CTO, technical leadership, engineering process improvement, mentoring, and strategic execution for growing teams.",
-    outcome: "A team that ships faster, with higher quality and less rework.",
+      "Your team is shipping, but nobody senior is setting direction or catching the architecture mistakes before they become expensive. I provide that judgment on a fractional basis, the leadership of a CTO without the full-time hire.",
+    outcome: "CTO-level judgment, without the full-time hire.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -185,14 +185,9 @@ export function ServicesOverview() {
             What I Do
           </p>
           <h2 className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
-            Six Disciplines.{" "}
-            <span className="font-serif italic text-accent">One Partner.</span>
+            Six Ways{" "}
+            <span className="font-serif italic text-accent">I Get Involved</span>
           </h2>
-          <p className="max-w-[560px] text-[15px] leading-[1.85] text-panel-foreground/52">
-            From architecture to deployment, product strategy to engineering leadership—
-            I work across the full software lifecycle so you don't need to coordinate
-            multiple vendors.
-          </p>
         </motion.div>
 
         <motion.div

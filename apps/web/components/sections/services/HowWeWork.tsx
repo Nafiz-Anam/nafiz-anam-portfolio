@@ -5,39 +5,39 @@ import { motion } from "framer-motion";
 const STEPS = [
   {
     number: "01",
-    title: "Discovery",
+    title: "Diagnose",
     description:
-      "I start with a deep conversation about the business—not the technology. What problem are we solving? Who are the users? What does success look like in six months? This shapes everything that follows.",
+      "Before anything gets built, I want to understand the actual problem: what's costing you money, time, or growth right now, and why previous attempts to fix it, if there were any, didn't stick.",
   },
   {
     number: "02",
-    title: "Strategy",
+    title: "Decide",
     description:
-      "With clear business context, we define a technical strategy: what to build, in what order, with what constraints. Priorities are set around business impact, not technical interest.",
+      "Together we settle the direction: what gets built, what doesn't, and why. This is the step most failed projects skipped.",
   },
   {
     number: "03",
-    title: "Architecture",
+    title: "Architect",
     description:
-      "Before any code is written, the system design is documented. Data models, API contracts, infrastructure decisions, and scalability considerations are resolved upfront to prevent costly rewrites later.",
+      "The technical foundation gets designed for where the business is going, not just where it is today. Reversing this decision later is expensive, so it's worth getting right early.",
   },
   {
     number: "04",
-    title: "Development",
+    title: "Build",
     description:
-      "Engineering begins with quality standards established from day one. Code reviews, automated testing, and clear delivery milestones ensure the build stays on track and the codebase remains maintainable.",
+      "Development happens in short, visible iterations, with code review and testing built in, so you're never waiting weeks to find out if something works.",
   },
   {
     number: "05",
-    title: "Deployment",
+    title: "Ship",
     description:
-      "Production deployment is handled with care—CI/CD pipelines, monitoring, rollback plans, and infrastructure hardening. The goal is a system that is reliable on day one, not just functional.",
+      "Deployment gets the same rigor as the build: monitored, reversible, and boring, which is exactly what you want from a launch.",
   },
   {
     number: "06",
-    title: "Long-Term Partnership",
+    title: "Stay",
     description:
-      "The work doesn't end at launch. I stay involved as a technical partner—reviewing performance, planning new features, and ensuring the system continues to evolve with the business.",
+      "I don't disappear after launch. Systems need an owner, and I stay involved as the business, and the software, keeps evolving.",
   },
 ] as const;
 
@@ -59,13 +59,9 @@ export function HowWeWork() {
             How I Work
           </p>
           <h2 className="max-w-[620px] text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
-            A Process Built Around{" "}
-            <span className="font-serif italic text-accent">Outcomes</span>
+            From First Call{" "}
+            <span className="font-serif italic text-accent">to Long-Term Partner</span>
           </h2>
-          <p className="max-w-[540px] text-[15px] leading-[1.85] text-panel-foreground/52">
-            Every engagement follows a structured process that keeps business goals at
-            the centre of every technical decision.
-          </p>
         </motion.div>
 
         {/* Steps grid */}

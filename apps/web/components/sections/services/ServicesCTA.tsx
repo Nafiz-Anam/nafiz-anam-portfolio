@@ -17,14 +17,14 @@ export function ServicesCTA() {
             className="max-w-[720px] font-bold leading-[1.0] tracking-tight text-panel-foreground"
             style={{ fontSize: "clamp(38px, 5.5vw, 70px)" }}
           >
-            Let's Build Something{" "}
+            Let's Find the Actual Problem.{" "}
             <span className="font-serif italic text-accent">
-              Great Together.
+              Then Fix It.
             </span>
           </h2>
           <p className="max-w-[500px] text-[15px] leading-[1.85] text-panel-foreground/55">
-            The first conversation is free and there's no obligation. Tell me what
-            you're building and we'll figure out if I'm the right partner for it.
+            Book a 30-minute discovery call. No pitch, no pressure, just a real
+            conversation about what's going on and whether I'm the right person to help.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-4">
             <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
@@ -34,7 +34,7 @@ export function ServicesCTA() {
               href="/case-studies"
               className="rounded-[5px] border border-panel-foreground/20 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-widest text-panel-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
             >
-              View My Work
+              View Case Studies
             </Link>
           </div>
         </Reveal>

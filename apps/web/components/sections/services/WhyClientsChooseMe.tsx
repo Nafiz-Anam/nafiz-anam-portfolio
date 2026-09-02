@@ -6,28 +6,28 @@ import { useState } from "react";
 const REASONS = [
   {
     number: "01",
-    title: "Business-First Thinking",
-    body: "Technology decisions are always subordinate to business objectives. I don't recommend what's interesting—I recommend what solves the problem. This keeps projects on budget, on time, and aligned with commercial reality.",
+    title: "I'll Tell You What You Don't Want to Hear",
+    body: "If the right fix isn't a new build, I'll say so, even when that means a smaller invoice for me.",
   },
   {
     number: "02",
-    title: "Scalable Architecture",
-    body: "Systems designed to grow don't require a full rewrite every eighteen months. I invest in architecture upfront so that adding features, handling more users, and onboarding new engineers all become progressively easier, not harder.",
+    title: "Architecture That Doesn't Need a Rewrite in a Year",
+    body: "Growth-ready systems from the start, not something retrofitted after it breaks under real usage.",
   },
   {
     number: "03",
-    title: "Clear Communication",
-    body: "I translate technical complexity into language that business stakeholders can use to make good decisions. There are no knowledge monopolies, no unexplained jargon, and no technical debt hidden behind unclear status updates.",
+    title: "Plain Language, Not Jargon",
+    body: "Every technical decision gets explained in terms you can actually evaluate, whether or not you have a technical background.",
   },
   {
     number: "04",
-    title: "Long-Term Support",
-    body: "Most software partnerships end at launch. Mine don't. I stay accountable for the systems I build and available to evolve them as the business grows. A working product on day one is the beginning, not the goal.",
+    title: "Accountability Past Launch",
+    body: "A working product a month after launch is the starting line, not the finish line, and I stay on the hook for it.",
   },
   {
     number: "05",
-    title: "Engineering Leadership",
-    body: "Beyond writing and reviewing code, I raise the bar for the teams I work with. Processes improve, quality standards rise, and engineers become better at their craft. The value compounds beyond the immediate project.",
+    title: "I've Made These Calls Before",
+    body: "As an engineer, a technical lead, and a founder. That combination, not just the code itself, is what you're actually paying for.",
   },
 ] as const;
 
@@ -113,9 +113,9 @@ export function WhyClientsChooseMe() {
             Why Clients Work With Me
           </p>
           <h2 className="max-w-[660px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-            Not Just an Engineer.{" "}
+            Judgment,{" "}
             <span className="font-serif italic text-accent">
-              A Technical Partner.
+              Not Just Execution
             </span>
           </h2>
         </motion.div>
@@ -125,7 +125,7 @@ export function WhyClientsChooseMe() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-panel"
+          className="overflow-hidden rounded-[5px] bg-texture-lines-inset bg-surface"
         >
           {REASONS.map((r, i) => (
             <ReasonRow

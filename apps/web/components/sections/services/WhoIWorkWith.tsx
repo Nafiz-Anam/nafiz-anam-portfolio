@@ -5,34 +5,19 @@ import { useState } from "react";
 
 const CLIENTS = [
   {
-    type: "Startups",
+    type: "Funded Founders & Startups",
     description:
-      "Early-stage founders who need senior technical judgment without a full-time CTO. I help validate architecture decisions, avoid expensive early mistakes, and build a foundation that can grow.",
+      "You have funding and a real product, or a real idea behind it, and you need someone who can make the technical calls, not just execute the ones you've already made. I work as a technical lead or architecture partner from early build through scale.",
   },
   {
     type: "Growing Businesses",
     description:
-      "Companies that have proven their market fit and need to scale their systems without breaking what works. I focus on reliability, performance, and sustainable engineering practices.",
+      "Your business runs, but your systems don't keep up. Whether that's manual processes, disconnected tools, or a legacy platform you've outgrown, I design and build what removes the bottleneck, with an eye on where the business is headed, not just where it is now.",
   },
   {
-    type: "Agencies",
+    type: "Product & Engineering Teams",
     description:
-      "Digital agencies that need senior technical leadership for complex client builds. I embed as a technical partner, handling architecture and engineering decisions that go beyond the agency's core capability.",
-  },
-  {
-    type: "Enterprise Teams",
-    description:
-      "Larger organizations modernizing legacy systems, integrating new technology, or building internal tools. I bring an outsider's perspective with the technical depth to navigate complex environments.",
-  },
-  {
-    type: "Founders",
-    description:
-      "Non-technical or semi-technical founders who need a trusted engineering partner from day one. I translate business requirements into technical decisions and keep the roadmap aligned with commercial goals.",
-  },
-  {
-    type: "Product Teams",
-    description:
-      "Product managers and engineering leads who need architectural guidance, a senior technical voice, or someone to unblock a critical delivery. I integrate into existing teams without adding friction.",
+      "You have a team that's shipping, but a specific decision, a system, or a piece of architecture needs a senior second opinion before it goes further. I step in for exactly that, without adding permanent headcount.",
   },
 ] as const;
 
@@ -110,9 +95,9 @@ export function WhoIWorkWith() {
             Who I Work With
           </p>
           <h2 className="max-w-[640px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-            Built for Businesses That{" "}
+            Two Kinds of Clients,{" "}
             <span className="font-serif italic text-accent">
-              Take Software Seriously
+              One Underlying Problem
             </span>
           </h2>
         </motion.div>
@@ -122,7 +107,7 @@ export function WhoIWorkWith() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-panel"
+          className="overflow-hidden rounded-[5px] bg-texture-lines-inset bg-surface"
         >
           {CLIENTS.map((c, i) => (
             <ClientRow

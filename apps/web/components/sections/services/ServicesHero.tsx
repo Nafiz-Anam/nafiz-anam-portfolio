@@ -17,67 +17,39 @@ export function ServicesHero() {
           Services
         </motion.p>
 
-        <div className="grid grid-cols-1 gap-20 lg:grid-cols-[1fr_400px] lg:items-end">
-          {/* Left */}
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.1, ease: "easeOut" }}
-            className="flex flex-col gap-12"
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.1, ease: "easeOut" }}
+          className="flex flex-col gap-12"
+        >
+          <h1
+            className="max-w-[900px] font-bold leading-[1.0] tracking-tight"
+            style={{ fontSize: "clamp(42px, 6vw, 84px)" }}
           >
-            <h1
-              className="font-bold leading-[1.0] tracking-tight"
-              style={{ fontSize: "clamp(42px, 6vw, 84px)" }}
+            Most Technology Problems{" "}
+            <span className="font-serif italic text-accent">Start Before the Code.</span>
+          </h1>
+
+          <p className="max-w-[560px] text-[16px] leading-[1.85] text-foreground/55">
+            By the time something breaks, in your product, your operations, or your
+            growth, the real cause is usually a decision made months earlier: the wrong
+            architecture, the wrong priority, or no senior judgment in the room at all.
+            My services start with finding that cause, then fixing it.
+          </p>
+
+          <div className="flex flex-wrap gap-4">
+            <BookingButton className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+              Book Discovery Call
+            </BookingButton>
+            <Link
+              href="/case-studies"
+              className="rounded-[5px] border border-foreground/20 bg-transparent px-9 py-4 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
             >
-              Engineering Services{" "}
-              <span className="font-serif italic text-accent">Built Around</span>
-              <br className="hidden sm:block" />
-              {" "}Business Goals.
-            </h1>
-
-            <p className="max-w-[560px] text-[16px] leading-[1.85] text-foreground/55">
-              Every engagement starts with understanding what the business actually needs—
-              not what technology is trending. I partner with founders, product teams, and
-              engineering organizations to design and build software that solves real
-              problems and delivers long-term value.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <BookingButton className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
-                Book Discovery Call
-              </BookingButton>
-              <Link
-                href="/case-studies"
-                className="rounded-[5px] border border-foreground/20 bg-transparent px-9 py-4 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
-              >
-                View Case Studies
-              </Link>
-            </div>
-          </motion.div>
-
-          {/* Right: stat column */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="flex flex-col divide-y divide-foreground/[0.08] rounded-[5px] border border-foreground/[0.08] bg-panel p-10 text-panel-foreground"
-          >
-            {[
-              { value: "7+", label: "Years Engineering" },
-              { value: "100+", label: "Projects Delivered" },
-              { value: "6", label: "Service Disciplines" },
-            ].map(({ value, label }) => (
-              <div key={label} className="flex items-baseline justify-between py-6 first:pt-0 last:pb-0">
-                <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-panel-foreground/45">
-                  {label}
-                </p>
-                <p className="text-[28px] font-bold leading-none tracking-tight text-panel-foreground">
-                  {value}
-                </p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+              View Case Studies
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

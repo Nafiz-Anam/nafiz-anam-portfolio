@@ -9,22 +9,26 @@ import { FrequentlyRequested } from "@/components/sections/services/FrequentlyRe
 import { ServicesFAQ } from "@/components/sections/services/ServicesFAQ";
 import { ServicesCTA } from "@/components/sections/services/ServicesCTA";
 
+const TITLE = "Services | Nafiz Anam — Technology & Product Partner";
+const DESCRIPTION =
+  "Diagnosing and solving the technical bottlenecks holding growth-stage businesses and funded founders back, not just building whatever's requested.";
+
 export const metadata = {
-  title: "Services",
-  description:
-    "Engineering services built around business goals. Custom software development, SaaS engineering, AI automation, cloud infrastructure, and technical leadership.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: "/services" },
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "Services — Nafiz Anam",
-    description:
-      "Engineering services built around business goals. Custom software development, SaaS engineering, AI automation, cloud infrastructure, and technical leadership.",
+    title: "Services | Nafiz Anam",
+    description: DESCRIPTION,
     url: "/services",
+    images: [{ url: "/Nafiz_Anam_Business_Growth_Services.png", width: 1536, height: 1024 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Services — Nafiz Anam",
-    description:
-      "Engineering services built around business goals. Custom software development, SaaS engineering, AI automation, cloud infrastructure, and technical leadership.",
+    title: "Services | Nafiz Anam",
+    description: DESCRIPTION,
+    images: ["/Nafiz_Anam_Business_Growth_Services.png"],
   },
 };
 
@@ -37,20 +41,19 @@ const servicesFaqSchema = {
     "@type": "CollectionPage",
     "@id": `${SITE_URL}/services#collectionpage`,
     url: `${SITE_URL}/services`,
-    name: "Services — Nafiz Anam",
-    description: "Engineering services built around business goals. Custom software development, SaaS engineering, AI automation, cloud infrastructure, and technical leadership.",
+    name: TITLE,
+    description: DESCRIPTION,
     provider: { "@id": `${SITE_URL}/#person` },
   },
   {
     "@type": "FAQPage",
     mainEntity: [
-    { "@type": "Question", name: "How do engagements typically start?", acceptedAnswer: { "@type": "Answer", text: "Every project begins with a no-commitment discovery call. We talk through the business problem, current technical state, timeline, and budget. I'll then outline a proposed engagement scope. There's no obligation to proceed—the call exists to determine fit." } },
-    { "@type": "Question", name: "Do you work on a fixed-price or hourly basis?", acceptedAnswer: { "@type": "Answer", text: "Both, depending on the project. Fixed-price works well for well-defined scopes. Hourly or retainer arrangements suit ongoing consulting, architecture reviews, and long-term partnerships where the scope evolves over time." } },
-    { "@type": "Question", name: "Can you work within our existing team?", acceptedAnswer: { "@type": "Answer", text: "Yes. I embed into existing teams regularly. I adapt to your workflow—whether that's Jira, Linear, Slack, or a daily standup. The goal is to add value immediately without disrupting what's already working." } },
-    { "@type": "Question", name: "What's your availability?", acceptedAnswer: { "@type": "Answer", text: "Availability varies by engagement. For full-project builds, I take on one primary client at a time to ensure focus. For consulting and advisory roles, I can work with multiple clients concurrently. Book a call to discuss current availability." } },
-    { "@type": "Question", name: "How do you handle projects that require a full team?", acceptedAnswer: { "@type": "Answer", text: "For larger projects that require more than one engineer, I can bring in trusted collaborators from my network—designers, frontend developers, and backend engineers I've worked with before. I remain the technical lead and single point of accountability throughout." } },
-    { "@type": "Question", name: "What happens after the project launches?", acceptedAnswer: { "@type": "Answer", text: "I offer ongoing support, feature development, and technical advisory arrangements after launch. The preferred model is a long-term partnership rather than a handoff—software is never truly finished, and the best outcomes come from sustained engagement." } },
-    { "@type": "Question", name: "Do you sign NDAs and contracts?", acceptedAnswer: { "@type": "Answer", text: "Yes. I sign NDAs before any sensitive business discussion and work under formal contracts for all engagements. IP ownership, confidentiality, payment terms, and delivery milestones are documented clearly before work begins." } },
+    { "@type": "Question", name: "How does an engagement actually start?", acceptedAnswer: { "@type": "Answer", text: "With a conversation about the problem, not a sales pitch. I ask questions until I understand what's actually going on, and only then do we talk about scope." } },
+    { "@type": "Question", name: "Do you charge fixed price or hourly?", acceptedAnswer: { "@type": "Answer", text: "Most engagements are scoped and fixed-price once we've agreed on what we're building. Ongoing technical leadership or advisory work runs as a monthly retainer instead." } },
+    { "@type": "Question", name: "Can you work alongside our existing team?", acceptedAnswer: { "@type": "Answer", text: "Yes, regularly. I can come in as a technical lead, an architecture reviewer, or the senior voice a team doesn't currently have." } },
+    { "@type": "Question", name: "What if the project needs more than one engineer?", acceptedAnswer: { "@type": "Answer", text: "I bring in vetted engineers through Agilo IT when the work needs more hands, while staying the technical lead accountable for the outcome." } },
+    { "@type": "Question", name: "What happens once the project ships?", acceptedAnswer: { "@type": "Answer", text: "Depends on what you need. Some clients move to an ongoing retainer, others prefer a clean handoff with full documentation. We agree on it before launch, not after." } },
+    { "@type": "Question", name: "Do you sign NDAs?", acceptedAnswer: { "@type": "Answer", text: "Yes, always, and I'm happy to work from yours or provide mine." } },
     ],
   },
   {

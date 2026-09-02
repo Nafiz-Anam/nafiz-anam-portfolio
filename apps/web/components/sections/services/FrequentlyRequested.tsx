@@ -4,44 +4,34 @@ import { motion } from "framer-motion";
 
 const PROJECTS = [
   {
-    title: "Marketplace Platforms",
+    title: "Marketplace & Two-Sided Platforms",
     description:
-      "Two-sided marketplaces connecting buyers and sellers with payment processing, review systems, and real-time inventory.",
+      "Connecting buyers and sellers, with payments, reviews, and inventory handled properly from the start.",
   },
   {
-    title: "ERP Systems",
+    title: "SaaS Products & Internal Tools",
     description:
-      "Enterprise resource planning systems that unify inventory, finance, HR, and operations into a single source of truth.",
+      "From a first paying customer to a platform that can support thousands of them.",
   },
   {
-    title: "CRM Systems",
+    title: "AI-Powered Automation",
     description:
-      "Custom customer relationship management tools built around specific sales workflows and data requirements.",
+      "Removing manual, repetitive work from a business's day-to-day operations.",
   },
   {
-    title: "SaaS Products",
+    title: "ERP & CRM Systems",
     description:
-      "Multi-tenant SaaS platforms with subscription billing, role-based access, and scalable architecture.",
+      "Custom-built around how your team actually sells and operates, not a generic template.",
   },
   {
-    title: "AI Applications",
+    title: "Legacy System Modernization",
     description:
-      "AI-powered tools including chatbots, document processing, RAG pipelines, workflow automation, and intelligent search.",
-  },
-  {
-    title: "Internal Business Tools",
-    description:
-      "Custom dashboards, admin panels, reporting systems, and operational tools that replace slow spreadsheet workflows.",
+      "Replacing or rebuilding the systems a growing business has outgrown, without a risky big-bang rewrite.",
   },
   {
     title: "Mobile Applications",
     description:
-      "Cross-platform mobile apps with shared backend infrastructure, offline support, and native device integrations.",
-  },
-  {
-    title: "Enterprise Software",
-    description:
-      "Large-scale systems serving thousands of users with complex permissions, audit trails, integrations, and compliance requirements.",
+      "Cross-platform apps built for real-world performance, not just a demo.",
   },
 ] as const;
 
@@ -63,12 +53,12 @@ export function FrequentlyRequested() {
             Frequently Requested
           </p>
           <h2 className="max-w-[640px] text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
-            The Types of Projects{" "}
-            <span className="font-serif italic text-accent">I Build Often</span>
+            What This{" "}
+            <span className="font-serif italic text-accent">Usually Looks Like</span>
           </h2>
           <p className="max-w-[520px] text-[15px] leading-[1.85] text-panel-foreground/52">
-            These are the most common engagements. If your project doesn't fit neatly
-            into one of these—reach out anyway. Complex requirements are welcome.
+            If your project doesn't fit neatly into one of these, reach out anyway.
+            Most of the interesting work doesn't fit a template.
           </p>
         </motion.div>
 
@@ -77,7 +67,7 @@ export function FrequentlyRequested() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
           {PROJECTS.map((p, i) => (
             <div
