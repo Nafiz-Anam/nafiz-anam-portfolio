@@ -391,30 +391,37 @@ function FAQSection({ faqs }: Pick<ServicePageData, "faqs">) {
 /* ═══════════════════════════════════════════════════════════
    SECTION 8 — Final CTA
 ═══════════════════════════════════════════════════════════ */
-function CTASection({ tagline }: Pick<ServicePageData, "tagline">) {
+function CTASection({
+  ctaEyebrow,
+  ctaHeadline,
+  ctaHeadlineAccent,
+  ctaDescription,
+}: Pick<ServicePageData, "ctaEyebrow" | "ctaHeadline" | "ctaHeadlineAccent" | "ctaDescription">) {
   return (
     <section className="dark overflow-hidden bg-texture-lines-inset bg-surface px-6 py-36 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="flex flex-col items-center gap-8 text-center">
-          <SectionLabel>Ready to Build?</SectionLabel>
+          <SectionLabel>{ctaEyebrow}</SectionLabel>
           <h2
             className="max-w-[680px] font-bold leading-[1.0] tracking-tight text-panel-foreground"
             style={{ fontSize: "clamp(36px, 5vw, 68px)" }}
           >
-            Let's Build Something{" "}
-            <span className="font-serif italic text-accent">Great Together.</span>
+            {ctaHeadline}{" "}
+            <span className="font-serif italic text-accent">{ctaHeadlineAccent}</span>
           </h2>
           <p className="max-w-[480px] text-[15px] leading-[1.85] text-panel-foreground/52">
-            The first conversation is free and there's no obligation. Tell me about
-            your project and we'll figure out if we're the right fit.
+            {ctaDescription}
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-4">
             <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
               Book Discovery Call
             </BookingButton>
-            <BookingButton className="rounded-[5px] border border-panel-foreground/20 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-widest text-panel-foreground transition-colors duration-250 hover:border-accent hover:text-accent">
-              Schedule Consultation
-            </BookingButton>
+            <a
+              href="/case-studies"
+              className="rounded-[5px] border border-panel-foreground/20 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-widest text-panel-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
+            >
+              View Case Studies
+            </a>
           </div>
         </Reveal>
       </div>
@@ -440,7 +447,12 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
       <IdealForSection idealFor={data.idealFor} />
       <TechSection technologies={data.technologies} />
       <FAQSection faqs={data.faqs} />
-      <CTASection tagline={data.tagline} />
+      <CTASection
+        ctaEyebrow={data.ctaEyebrow}
+        ctaHeadline={data.ctaHeadline}
+        ctaHeadlineAccent={data.ctaHeadlineAccent}
+        ctaDescription={data.ctaDescription}
+      />
     </>
   );
 }

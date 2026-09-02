@@ -13,6 +13,10 @@ export interface ServicePageData {
   idealFor: { type: string; description: string }[];
   technologies: string[];
   faqs: { q: string; a: string }[];
+  ctaEyebrow: string;
+  ctaHeadline: string;
+  ctaHeadlineAccent: string;
+  ctaDescription: string;
 }
 
 export const SERVICE_PAGES: ServicePageData[] = [
@@ -184,80 +188,86 @@ export const SERVICE_PAGES: ServicePageData[] = [
         a: "You do, entirely. Full source code and documentation are handed over, no licensing strings attached.",
       },
     ],
+    ctaEyebrow: "LET'S TALK",
+    ctaHeadline: "Let's Build Software",
+    ctaHeadlineAccent: "That Actually Fits.",
+    ctaDescription:
+      "The first conversation is free, with no obligation. Tell me about the problem, and I'll tell you honestly what it'll take to solve it.",
   },
 
   {
     slug: "saas-product-engineering",
-    metaTitle: "SaaS Product Engineering — Nafiz Anam",
+    metaTitle: "SaaS Product Engineering | Nafiz Anam — Technology & Product Partner",
     metaDescription:
-      "Transform your SaaS idea into a scalable, production-ready product with modern architecture and engineering built for growth.",
+      "Building SaaS products with the architecture decisions that let you scale from beta to thousands of paying users, without an expensive rebuild.",
+    metaImage: "/Nafiz_Anam_SaaS_Product_Engineering_Service.png",
     tagline: "SaaS Product Engineering",
-    headline: "From Idea to Product,",
-    headlineAccent: "Built to Scale.",
+    headline: "Most SaaS Products Fail",
+    headlineAccent: "on Architecture, Not the Idea.",
     description:
-      "Most SaaS products fail not because of the idea, but because the engineering underneath can't support growth. I build SaaS products with the architecture decisions that allow you to scale from beta to thousands of paying users without an expensive rebuild.",
+      "A SaaS product that works for ten users and one that works for ten thousand are built differently from day one. I engineer for the second one from the start, so growth doesn't force a rebuild you didn't budget for.",
     problems: [
       {
         title: "No Technical Co-Founder",
         description:
-          "You have a validated business idea but no engineering leadership to bring it to life. Hiring a full-time CTO is premature—but building without senior technical oversight is expensive.",
+          "You have a real business idea and validated demand, but no one senior enough to lead the engineering. Hiring a full-time CTO before you need one is expensive, and often premature.",
       },
       {
-        title: "MVP That Can't Be Productionized",
+        title: "An MVP That Can't Be Productionized",
         description:
-          "An early-stage product built for speed now has architectural problems that make every new feature harder and every bug more damaging to customer trust.",
+          "What got you your first users was never meant to survive real traffic. Rebuilding it properly, without stopping the business, is its own kind of hard.",
       },
       {
-        title: "Scaling Pains",
+        title: "Scaling Pain",
         description:
-          "The product works at small scale but slows down, breaks, or becomes unreliable as user volumes grow—creating churn at exactly the wrong moment.",
+          "The product worked fine at a small scale and starts breaking, slowing down, or becoming unreliable as usage grows, right when churn is most expensive.",
       },
       {
         title: "Multi-Tenancy Done Wrong",
         description:
-          "Customer data isolation, per-account billing, and permission management are complex to retrofit. Getting them wrong creates security and compliance exposure.",
+          "Customer data isolation, per-account billing, and permission management are complicated to retrofit. Getting them wrong creates security and compliance exposure.",
       },
       {
-        title: "No Engineering Processes",
+        title: "No Engineering Process",
         description:
-          "Code is shipping but quality is declining. There are no code reviews, no automated tests, and no deployment safety nets—just growing technical debt.",
+          "Code ships fast, but quality is declining. No code reviews, no automated tests, no deployment safety nets, just growing technical debt.",
       },
     ],
     deliverables: [
       {
         title: "Multi-Tenant Architecture",
         description:
-          "Secure, scalable data isolation between customer accounts with per-tenant customization capability built in from day one.",
+          "Secure, scalable data isolation between customer accounts, built in from the start, not bolted on later.",
       },
       {
         title: "Subscription Billing Integration",
         description:
-          "Stripe or equivalent billing with plan management, usage limits, trial periods, and upgrade/downgrade flows.",
+          "Stripe or your payment provider of choice, integrated properly: upgrades, downgrades, trials, and dunning handled correctly.",
       },
       {
         title: "Authentication & Authorization",
         description:
-          "Secure user auth with role-based access control, SSO support, and multi-user organization management.",
+          "Secure sign-up and login, with role-based access control that scales as your customer base and their teams grow.",
       },
       {
-        title: "Admin Dashboard",
+        title: "An Admin Dashboard",
         description:
-          "Internal admin panel for customer management, feature flags, usage monitoring, and operational control.",
+          "Internal tooling for customer support, usage monitoring, and operational visibility, not just the customer-facing product.",
       },
       {
-        title: "CI/CD Pipeline",
+        title: "A CI/CD Pipeline",
         description:
-          "Automated testing, preview environments, and zero-downtime deployment pipelines so your team ships with confidence.",
+          "Automated testing and deployment infrastructure, so shipping new features doesn't mean holding your breath.",
       },
       {
         title: "Analytics & Monitoring",
         description:
-          "Application performance monitoring, error tracking, and usage analytics so you understand how customers use the product.",
+          "Real visibility into how the product performs and how customers actually use it.",
       },
       {
         title: "API & Webhook System",
         description:
-          "Public API and webhook infrastructure so enterprise customers can integrate your product into their existing workflows.",
+          "Public API and webhook infrastructure, so enterprise customers can integrate your product into their existing workflows.",
       },
     ],
     process: [
@@ -265,163 +275,169 @@ export const SERVICE_PAGES: ServicePageData[] = [
         number: "01",
         title: "Discovery",
         description:
-          "Define the product vision, target customer, core workflows, and commercial model before any technical decisions are made.",
+          "Understanding the business model, the users, and what \"success\" actually looks like before any architecture decisions get made.",
       },
       {
         number: "02",
         title: "Product Architecture",
         description:
-          "Data model design, multi-tenancy strategy, API structure, and infrastructure planning aligned with growth expectations.",
+          "Designing the technical foundation for where the product is going, multi-tenancy, billing, and scale included from the start.",
       },
       {
         number: "03",
         title: "Core Build",
         description:
-          "Authentication, billing, core feature set, and admin infrastructure built and validated with real user feedback.",
+          "Building the primary product experience in visible, reviewable iterations.",
       },
       {
         number: "04",
         title: "Iteration",
         description:
-          "Feature expansion driven by user data, prioritized by business impact, delivered in structured two-week cycles.",
+          "Refining based on real usage and early customer feedback, not assumptions made before launch.",
       },
       {
         number: "05",
         title: "Performance Hardening",
         description:
-          "Load testing, database optimization, caching strategy, and infrastructure scaling before growth campaigns.",
+          "Load testing, query optimization, and infrastructure tuning before growth exposes weaknesses.",
       },
       {
         number: "06",
         title: "Launch",
         description:
-          "Production deployment with monitoring, alerting, rollback procedures, and go-to-market technical readiness.",
+          "Production deployment with monitoring, alerting, rollback procedures, and a go-to-market technical readiness check.",
       },
       {
         number: "07",
         title: "Growth Partnership",
         description:
-          "Ongoing engineering partnership as the product scales—new features, performance improvements, and technical strategy.",
+          "Ongoing engineering partnership as the product scales: new features, performance improvements, and technical strategy.",
       },
     ],
     idealFor: [
       {
         type: "Non-Technical Founders",
         description:
-          "Founders with a validated product idea who need a trusted technical partner to lead the engineering from architecture through launch.",
+          "Have a validated product idea and need a trusted technical partner to lead the engineering from architecture through launch.",
       },
       {
         type: "Early-Stage Startups",
         description:
-          "Startups that have raised initial funding and need to build a production-grade product without the overhead of assembling a full engineering team.",
+          "Have raised initial funding and need to build a production-grade product without the overhead of assembling a full engineering team.",
       },
       {
         type: "Startups Outgrowing Their MVP",
         description:
-          "Products with early traction that need architectural investment to handle growth without becoming unreliable or unmaintainable.",
+          "Have early traction, and need architectural investment before growth turns into instability.",
       },
       {
-        type: "Product Teams with Capacity Gaps",
+        type: "Product Teams With Capacity Gaps",
         description:
-          "Engineering teams that need a senior technical contributor for a specific platform initiative or major feature push.",
+          "Need a senior technical contributor for a specific platform initiative or major feature push, without a permanent hire.",
       },
     ],
     technologies: [
-      "Next.js", "React", "TypeScript", "Node.js", "NestJS", "PostgreSQL",
-      "Redis", "Stripe", "AWS", "Docker", "Kubernetes", "Prisma",
-      "GitHub Actions", "Vercel", "Tailwind CSS",
+      "React", "Next.js", "TypeScript", "Node.js", "NestJS", "PostgreSQL",
+      "Redis", "Prisma", "GraphQL", "AWS", "Docker", "Kubernetes",
+      "Tailwind CSS",
     ],
     faqs: [
       {
-        q: "Can you build a SaaS from scratch?",
-        a: "Yes. I've taken multiple SaaS products from initial concept through production launch. This includes architecture, backend, frontend, billing integration, admin tooling, and deployment infrastructure.",
+        q: "Can you build a SaaS product from scratch?",
+        a: "Yes, this is a large part of what I do: taking a validated idea from zero to a production-ready product, architecture, billing, and infrastructure included.",
       },
       {
         q: "Do you work with early-stage startups?",
-        a: "Yes. Early-stage is often where senior technical involvement has the highest return—avoiding architectural mistakes upfront saves months of expensive remediation later.",
+        a: "Yes, regularly, including pre-revenue teams with a validated idea and enough funding or runway to invest in getting the architecture right the first time.",
       },
       {
-        q: "Can you build on our existing codebase?",
-        a: "Yes. I assess the current codebase first and provide an honest view of what works, what needs improvement, and what should be rebuilt. I work incrementally to avoid disrupting active users.",
+        q: "Can you build on top of an existing codebase?",
+        a: "Yes. I don't default to a rebuild. If your existing product has a solid foundation, I'll extend it. If the architecture is genuinely the problem, I'll tell you that directly, and we'll talk through what a rebuild would actually take.",
       },
       {
         q: "How do you handle product decisions?",
-        a: "I contribute technical input to product decisions but defer to the product owner on priorities. My role is to make the technical constraints and trade-offs visible so you can make informed decisions.",
+        a: "I bring a technical perspective to product tradeoffs, what's expensive to build, what's risky to scale, what's worth deferring, but the product vision and priorities stay yours. I'm a partner in the decision, not the decision-maker.",
       },
       {
         q: "Can you help us raise funding?",
-        a: "Indirectly. A well-architected, reliable product demonstrates engineering maturity to investors. I can also provide technical documentation and architecture diagrams that support due diligence processes.",
+        a: "Not directly, that's outside what I do. What I can do is make sure the product itself, and the technical story behind it, holds up to investor scrutiny.",
       },
     ],
+    ctaEyebrow: "LET'S TALK",
+    ctaHeadline: "Let's Build Something",
+    ctaHeadlineAccent: "That Can Actually Scale.",
+    ctaDescription:
+      "The first conversation is free, with no obligation. Tell me about the product, and I'll tell you honestly what it'll take to build it right.",
   },
 
   {
     slug: "ai-automation-business-systems",
-    metaTitle: "AI Automation & Business Systems — Nafiz Anam",
+    metaTitle: "AI Automation & Business Systems | Nafiz Anam — Technology & Product Partner",
     metaDescription:
-      "Intelligent workflow automation, AI integrations, and business systems that eliminate manual work and improve operational efficiency.",
+      "Removing the repetitive, manual work quietly capping your team's capacity, with AI systems built into how your business actually operates.",
+    metaImage: "/Nafiz_Anam_AI_Automation_Services.png",
     tagline: "AI Automation & Business Systems",
-    headline: "Automate What Slows",
-    headlineAccent: "Your Business Down.",
+    headline: "Your Team Isn't the Bottleneck.",
+    headlineAccent: "The Manual Work Is.",
     description:
-      "AI is not about replacing people—it's about eliminating the repetitive, low-value work that prevents your team from focusing on what matters. I design and build AI-powered systems that integrate into your existing workflows and deliver measurable operational improvements.",
+      "AI isn't about replacing people, it's about removing the repetitive, low-value work that keeps your best people from doing the work that actually matters. I design and build automation systems that integrate into how your business already operates, and deliver measurable operational improvement, not a chatbot demo.",
     problems: [
       {
         title: "Repetitive Manual Work at Scale",
         description:
-          "Your team spends hours on tasks that follow predictable patterns—data entry, document processing, email triage, report generation—that modern AI can handle reliably.",
+          "Your team spends hours on tasks that follow predictable patterns: data entry, document processing, email triage, report generation. Modern AI can handle most of it.",
       },
       {
         title: "Data Siloed Across Disconnected Tools",
         description:
-          "Information lives in different systems that don't talk to each other. Decisions require manual data gathering from multiple sources, introducing delays and errors.",
+          "Information lives in different systems that don't talk to each other. Decisions require manually pulling data from multiple sources before anyone can act.",
       },
       {
         title: "Slow Response to Business Signals",
         description:
-          "Important events—a high-value lead, a support escalation, an inventory threshold—are noticed hours or days late because no system is monitoring for them proactively.",
+          "A high-value lead, a support escalation, an inventory threshold, gets noticed hours or days late because no system is monitoring for it proactively.",
       },
       {
-        title: "Knowledge Not Captured or Accessible",
+        title: "Knowledge Locked in People's Heads",
         description:
-          "Institutional knowledge lives in documents, emails, and people's heads. Teams ask the same questions repeatedly because information is hard to find.",
+          "Institutional knowledge lives in documents, emails, and individual memory. Teams answer the same questions repeatedly because the information is hard to find.",
       },
       {
         title: "High Labor Cost for Low-Value Tasks",
         description:
-          "Talented people are being paid to do work that could be automated, making the business less competitive and the team less engaged.",
+          "Skilled people are being paid to do work that could be automated, making the business less competitive and the team less engaged.",
       },
     ],
     deliverables: [
       {
         title: "Workflow Automation Systems",
         description:
-          "End-to-end automation of multi-step business processes with conditional logic, error handling, and human-in-the-loop review steps where needed.",
+          "End-to-end automation for the multi-step processes eating up your team's time, built around how the work actually happens, not a generic template.",
       },
       {
         title: "AI Document Processing",
         description:
-          "Automated extraction, classification, and processing of contracts, invoices, reports, and other business documents at scale.",
+          "Automated extraction, classification, and processing of contracts, invoices, forms, and other unstructured documents.",
       },
       {
-        title: "RAG Knowledge Systems",
+        title: "Knowledge Systems (RAG)",
         description:
-          "Retrieval-Augmented Generation systems that let your team query internal knowledge, documentation, and data in natural language.",
+          "Systems that make institutional knowledge searchable and answerable, instead of buried in documents, spreadsheets, and individual inboxes.",
       },
       {
         title: "AI Agent Pipelines",
         description:
-          "Multi-step AI agents that make decisions, use tools, and complete complex tasks autonomously within defined boundaries.",
+          "Multi-step agents that handle tasks end to end, not just answer isolated questions.",
       },
       {
         title: "System Integrations",
         description:
-          "Connections between your existing tools—CRM, ERP, communication platforms—so data flows automatically without manual transfer.",
+          "Connecting your existing tools, CRM, ERP, or internal databases, so automated workflows work across your actual stack, not in isolation.",
       },
       {
         title: "Monitoring & Observability",
         description:
-          "Dashboards and alerting for automated system performance, error rates, processing volumes, and business impact metrics.",
+          "Dashboards and alerting for automated systems, so you always know what's processing, what's catching errors, and what business impact it's actually having.",
       },
     ],
     process: [
@@ -429,25 +445,25 @@ export const SERVICE_PAGES: ServicePageData[] = [
         number: "01",
         title: "Workflow Audit",
         description:
-          "Map current workflows, identify automation opportunities, and quantify the time and cost impact of each candidate process.",
+          "Mapping the manual processes actually costing your team time, before recommending a single tool.",
       },
       {
         number: "02",
         title: "ROI Prioritization",
         description:
-          "Rank automation opportunities by business impact and implementation complexity. Start with quick wins that build momentum.",
+          "Ranking automation opportunities by business impact and implementation complexity, starting with quick wins that build momentum.",
       },
       {
         number: "03",
         title: "System Design",
         description:
-          "Architecture design for the automation system including data flows, error handling, human review checkpoints, and integration points.",
+          "Architecture designed for the automation system itself: data flows, error handling, human checkpoints, and integration points.",
       },
       {
         number: "04",
         title: "Build & Integrate",
         description:
-          "Development of automation systems with integration into existing tools, testing against real business scenarios, and edge case handling.",
+          "Development of the automation system with integration into your existing tools, tested against real business scenarios and edge cases.",
       },
       {
         number: "05",
@@ -472,120 +488,126 @@ export const SERVICE_PAGES: ServicePageData[] = [
       {
         type: "Operations-Heavy Businesses",
         description:
-          "Companies with high-volume, repetitive operational work where automation provides immediate cost reduction and quality improvement.",
+          "Running processes that consume significant staff time on repetitive, rules-based work.",
       },
       {
         type: "Knowledge-Intensive Organizations",
         description:
-          "Businesses where institutional knowledge is trapped in documents, emails, or people's memory—and needs to be made accessible at scale.",
+          "Information is scattered across documents, tools, and individual expertise, and finding the right answer takes too long.",
       },
       {
         type: "Startups Scaling Operations",
         description:
-          "Early-stage companies that need to scale output without scaling headcount proportionally—using AI to multiply team leverage.",
+          "Need to scale output without scaling headcount proportionally, using automation to multiply team leverage.",
       },
       {
-        type: "Businesses with Disconnected Tools",
+        type: "Businesses With Disconnected Tools",
         description:
-          "Organizations running multiple software systems that don't integrate, causing manual data transfer, duplication, and delays.",
+          "Running multiple software systems that don't integrate, causing manual data transfer, duplication, and delays.",
       },
     ],
     technologies: [
-      "OpenAI", "Claude", "LangChain", "LlamaIndex", "Model Context Protocol",
-      "RAG Pipelines", "Vector Databases", "Pinecone", "pgvector",
-      "n8n", "Zapier", "Node.js", "Python", "PostgreSQL", "AWS Lambda",
+      "OpenAI", "Claude", "LangChain", "Model Context Protocol",
+      "RAG Pipelines", "Vector Databases", "AI Agents", "n8n",
+      "Workflow Automation",
     ],
     faqs: [
       {
         q: "Do I need to replace my existing tools?",
-        a: "No. AI automation works best when it enhances existing workflows and integrates with tools your team already uses. Replacement is rarely necessary and often counterproductive.",
+        a: "No. Most automation systems integrate with what you already use. The goal is connecting and automating your existing stack, not forcing a migration to new software.",
       },
       {
         q: "How accurate are AI automation systems?",
-        a: "Accuracy depends on the task and the data available. For structured tasks like document extraction and classification, accuracy above 95% is typical. For complex judgment tasks, I design human-in-the-loop checkpoints so the system flags low-confidence cases for review.",
+        a: "Depends on the task. Document processing and data extraction typically run very high in accuracy with proper validation built in. Anything that touches money, compliance, or customer-facing decisions gets a human checkpoint by design, not blind automation.",
       },
       {
-        q: "What if the AI makes a mistake?",
-        a: "All systems I build include error handling, audit logging, and human review mechanisms for edge cases. The goal is to automate the predictable cases and escalate the unpredictable ones—not to remove humans entirely.",
-      },
-      {
-        q: "How long does automation take to show ROI?",
-        a: "For high-volume workflows, measurable ROI typically appears within the first month of deployment. The discovery session includes a time-savings estimate so you know what to expect before any work begins.",
+        q: "What happens when the AI makes a mistake?",
+        a: "Every system I build includes error handling, confidence thresholds, and human review points for anything high-stakes. The goal is removing repetitive work, not removing accountability.",
       },
       {
         q: "Is my business data safe?",
-        a: "Yes. Data handling, storage, and transmission are designed with security and compliance in mind from day one. AI processing can be configured to run on-premise or in a private cloud if data sovereignty requirements demand it.",
+        a: "Yes. Data handling is designed around your existing security and compliance requirements, and I'll tell you plainly if a particular AI tool or integration isn't appropriate for sensitive data.",
+      },
+      {
+        q: "Can automation actually save us money, or is this just hype?",
+        a: "Depends entirely on the workflow. Some processes are genuinely well-suited to automation and pay for themselves quickly. Others aren't, and I'll tell you honestly when a manual process is still the right call.",
       },
     ],
+    ctaEyebrow: "LET'S TALK",
+    ctaHeadline: "Let's Automate",
+    ctaHeadlineAccent: "What's Actually Slowing You Down.",
+    ctaDescription:
+      "The first conversation is free, with no obligation. Tell me what's eating your team's time, and I'll tell you honestly whether automation is the right fix.",
   },
 
   {
     slug: "technical-consulting-architecture",
-    metaTitle: "Technical Consulting & Architecture — Nafiz Anam",
+    metaTitle: "Technical Consulting & Architecture | Nafiz Anam — Technology & Product Partner",
     metaDescription:
-      "Expert software architecture reviews, technology strategy, and technical advisory for founders and engineering teams.",
+      "Independent technical advisory that helps you make confident decisions about technology, architecture, and engineering strategy before you commit budget.",
+    metaImage: "/Nafiz_Anam_technical_Consulting_Architecture_Service.png",
     tagline: "Technical Consulting & Architecture",
-    headline: "Expert Guidance Before",
-    headlineAccent: "You Commit.",
+    headline: "The Most Expensive Decisions",
+    headlineAccent: "Are the Ones Made First.",
     description:
-      "The most expensive technical decisions are the ones made before the architecture is clear. I provide independent, experienced technical advisory that helps businesses make confident decisions about technology, architecture, and engineering strategy—before committing significant time or capital.",
+      "Architecture decisions made without enough expertise in the room are cheap to make and expensive to reverse. I provide independent, experienced technical advisory so you can make confident calls about technology, architecture, and engineering strategy, before committing real time or capital to the wrong direction.",
     problems: [
       {
         title: "Architecture Debt Slowing Delivery",
         description:
-          "Every new feature takes longer than expected because the underlying architecture wasn't designed for the current scale of the product. Teams spend more time working around the system than building on top of it.",
+          "Every new feature takes longer than it should, because the underlying architecture wasn't designed for the product's current scale. The team spends more time working around the system than building on top of it.",
       },
       {
         title: "Technology Decisions Made Without Expertise",
         description:
-          "Technology choices made under time pressure or without sufficient experience create long-term problems. Switching later is expensive.",
+          "Choices get made under time pressure or without enough senior experience in the room, and the consequences show up months later as expensive problems.",
       },
       {
-        title: "Engineering Team Moving Too Slowly",
+        title: "An Engineering Team Moving Too Slowly",
         description:
-          "The team is busy but delivery is slower than the business expects. The bottleneck is usually architectural—not individual effort.",
+          "Delivery is slower than the business expects, and the bottleneck is usually architectural, not effort.",
       },
       {
-        title: "Preparing for Scale",
+        title: "Preparing to Scale",
         description:
-          "Growth is coming but the current system wasn't built for it. Without a clear plan, scaling becomes a crisis instead of a milestone.",
+          "Growth is coming and the current system wasn't built for it. Without a clear plan, scaling becomes a crisis instead of a milestone.",
       },
       {
         title: "Due Diligence or Investment Preparation",
         description:
-          "Investors or acquirers need confidence in the technical foundation. An independent architecture assessment provides the evidence they need.",
+          "Investors or acquirers need confidence in the technical foundation. An independent assessment provides the evidence they're asking for.",
       },
     ],
     deliverables: [
       {
         title: "Architecture Review Report",
         description:
-          "A detailed assessment of the current system identifying strengths, risks, bottlenecks, and prioritized improvement recommendations.",
+          "A detailed assessment of the current system, identifying strengths, risks, bottlenecks, and prioritized improvement recommendations.",
       },
       {
         title: "Technology Stack Recommendations",
         description:
-          "Justified technology recommendations based on business requirements, team capabilities, and long-term product direction.",
+          "Justified technology choices based on your actual requirements, team capabilities, and long-term direction, not what's trending.",
       },
       {
-        title: "Scalability Roadmap",
+        title: "A Scalability Roadmap",
         description:
-          "A phased plan for evolving the system to handle projected growth with cost, effort, and risk estimates for each phase.",
+          "A phased plan for evolving the system to handle projected growth, with cost, effort, and risk estimates for each phase.",
       },
       {
         title: "Technical Due Diligence",
         description:
-          "Comprehensive codebase and architecture assessment for investor, acquirer, or board-level technical review.",
+          "A comprehensive codebase and architecture assessment for investor, acquirer, or board-level review.",
       },
       {
         title: "System Design Documents",
         description:
-          "Architecture diagrams, data flow documentation, and decision records that give the engineering team a shared technical foundation.",
+          "Architecture diagrams, data flow documentation, and decision records that give your engineering team a shared technical foundation.",
       },
       {
         title: "Ongoing Advisory",
         description:
-          "Regular availability for technical questions, architecture reviews of proposed changes, and strategic guidance as the product evolves.",
+          "Regular availability for technical questions, architecture reviews, and strategic guidance as the product evolves.",
       },
     ],
     process: [
@@ -593,7 +615,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
         number: "01",
         title: "Discovery",
         description:
-          "Understand the business context, current technical state, team structure, and the decisions that need to be made.",
+          "Understanding the business context behind the technical question: what's driving the need for a review, and what decisions it needs to inform.",
       },
       {
         number: "02",
@@ -605,7 +627,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
         number: "03",
         title: "Risk Identification",
         description:
-          "Catalogue of current technical risks organized by severity, likelihood, and business impact.",
+          "Cataloguing current technical risks, organized by severity, likelihood, and business impact.",
       },
       {
         number: "04",
@@ -617,145 +639,151 @@ export const SERVICE_PAGES: ServicePageData[] = [
         number: "05",
         title: "Roadmap Planning",
         description:
-          "Translation of recommendations into a phased implementation roadmap aligned with business priorities and engineering capacity.",
+          "Translating the recommendations into a phased implementation roadmap aligned with business priorities and engineering capacity.",
       },
       {
         number: "06",
         title: "Presentation",
         description:
-          "Findings presented to technical and non-technical stakeholders with a clear narrative from current state to target state.",
+          "Findings presented to technical and non-technical stakeholders, with a clear narrative from current state to target state.",
       },
       {
         number: "07",
         title: "Implementation Support",
         description:
-          "Optional ongoing advisory during implementation to ensure recommendations are executed correctly and adjusted as new information emerges.",
+          "Optional ongoing advisory during implementation, to make sure recommendations are executed correctly and adjusted as new information emerges.",
       },
     ],
     idealFor: [
       {
         type: "Founders Evaluating Technology Decisions",
         description:
-          "Non-technical or semi-technical founders who need expert input before committing to a technology stack, vendor, or architecture approach.",
+          "Weighing a major technical choice and need an experienced, independent perspective before committing.",
       },
       {
         type: "Engineering Teams at Architectural Crossroads",
         description:
-          "Teams facing a significant architectural decision—re-platforming, microservices migration, scaling strategy—who need experienced outside perspective.",
+          "Facing a decision about whether to extend the current system or invest in a significant redesign.",
       },
       {
         type: "Businesses Preparing for Investment",
         description:
-          "Companies undergoing technical due diligence who need an independent, credible assessment of their engineering foundation.",
+          "Need a credible, independent assessment of their technical foundation ahead of due diligence.",
       },
       {
         type: "CTOs & Technical Leaders",
         description:
-          "Technical leaders who want a senior peer review of architectural decisions, technology choices, or engineering strategy before committing.",
+          "Want a senior peer review of architectural decisions, technology choices, or engineering strategy before committing.",
       },
     ],
     technologies: [
-      "System Design", "Software Architecture", "Microservices", "Monolith",
-      "Event-Driven Architecture", "API Design", "Database Design",
-      "Cloud Architecture", "AWS", "Docker", "Kubernetes",
-      "Performance Engineering", "Security Review", "Scalability Planning",
+      "System Design", "Software Architecture", "Microservices",
+      "Security Review", "Cloud Infrastructure", "API Design",
+      "Database Design", "Cost Optimization", "Scalability Planning",
+      "Performance Engineering",
     ],
     faqs: [
       {
-        q: "What does a technical consulting engagement look like?",
-        a: "Most consulting engagements start with a fixed-scope architecture review (2–4 weeks), followed by an optional ongoing advisory arrangement. The review produces a written report with findings and recommendations that the team can act on independently.",
+        q: "What does a technical consulting engagement actually look like?",
+        a: "It usually starts with a structured assessment: reviewing your codebase, architecture, and infrastructure, and talking to your team. That's followed by a written report with prioritized recommendations, presented in a way both technical and non-technical stakeholders can act on.",
       },
       {
         q: "Do you need access to our codebase?",
-        a: "For a full architecture review, yes—read access to the codebase provides significantly more actionable findings than infrastructure documentation alone. All access is covered by NDA and I follow your security protocols.",
+        a: "Yes, for a proper architecture review. Access is scoped to what's needed for the engagement, and covered by an NDA before anything is shared.",
       },
       {
         q: "Can you work with our existing engineering team?",
-        a: "Yes. Most consulting engagements involve close collaboration with the internal team. I'm there to provide expertise and perspective, not to replace the team's judgment.",
+        a: "Yes, this is usually how it works best. I review, interview, and collaborate with your team directly rather than working in isolation, so recommendations reflect how the system actually works, not just what the code says.",
       },
       {
-        q: "What if we disagree with your recommendations?",
-        a: "Recommendations come with rationale, not mandates. If the team has strong reasons to take a different approach, I want to understand them. Good consulting is a conversation, not a prescription.",
+        q: "What if we disagree with your recommendation?",
+        a: "That's a normal part of the process. I'll explain my reasoning clearly and walk through the tradeoffs, but the decision is always yours. My job is to make sure it's an informed one.",
       },
       {
         q: "How quickly can you turn around an architecture review?",
-        a: "A focused architecture review typically takes 2–3 weeks from initial access to final report delivery, depending on codebase size and scope of the assessment.",
+        a: "Depends on the size of the codebase and system, but most reviews are completed within two to three weeks. Urgent due diligence timelines can usually be accommodated, just flag it upfront.",
       },
     ],
+    ctaEyebrow: "LET'S TALK",
+    ctaHeadline: "Get a Second Opinion",
+    ctaHeadlineAccent: "Before You Commit.",
+    ctaDescription:
+      "The first conversation is free, with no obligation. Tell me about the decision you're facing, and I'll tell you honestly whether an independent review would actually help.",
   },
 
   {
     slug: "cloud-infrastructure-devops",
-    metaTitle: "Cloud Infrastructure & DevOps — Nafiz Anam",
+    metaTitle: "Cloud Infrastructure & DevOps | Nafiz Anam — Technology & Product Partner",
     metaDescription:
-      "Secure, scalable cloud infrastructure, CI/CD pipelines, and DevOps engineering for production-ready software systems.",
+      "Cloud infrastructure that's boring in the best way: reliable, observable, and built to handle growth without the 2am page.",
+    metaImage: "/Nafiz_Anam_Cloud_Infrastructure_Devops_Services.png",
     tagline: "Cloud Infrastructure & DevOps",
-    headline: "Infrastructure That Stays",
-    headlineAccent: "Up and Scales.",
+    headline: "If You Can Feel Your Infrastructure,",
+    headlineAccent: "Something's Already Wrong.",
     description:
-      "Unreliable infrastructure is invisible until something breaks—and then it's all you can think about. I design and build cloud environments that are secure, observable, and built to handle growth, with deployment pipelines that let your team ship with confidence rather than anxiety.",
+      "Unreliable infrastructure is invisible until something breaks, and then it's all anyone can think about. I design and build cloud environments that are secure, observable, and built to handle growth, with deployment pipelines that let your team ship with confidence, not anxiety.",
     problems: [
       {
         title: "Slow, Unreliable Deployments",
         description:
-          "Deploying takes hours, requires careful manual steps, and occasionally breaks production. The team dreads releases instead of celebrating them.",
+          "Shipping takes hours, requires careful manual steps, and occasionally breaks production. The team dreads releases instead of shipping often.",
       },
       {
-        title: "No Observability into Production",
+        title: "No Observability Into Production",
         description:
-          "You find out about problems when customers report them. There's no monitoring, no alerting, and no visibility into what the system is doing until something fails.",
+          "You find out about problems when customers report them. There's no monitoring, no alerting, and no real visibility into what the system is actually doing.",
       },
       {
         title: "Security Gaps in Cloud Configuration",
         description:
-          "Infrastructure set up for speed rather than security—exposed services, over-permissioned roles, unencrypted storage, and no audit trail.",
+          "Infrastructure set up for speed rather than security: exposed services, over-permissioned access, unencrypted storage, and no audit trail.",
       },
       {
         title: "High and Unpredictable Cloud Costs",
         description:
-          "Cloud bills that grow faster than revenue, with no clear understanding of where the cost is coming from or how to control it.",
+          "Bills that grow faster than revenue, with no clear understanding of where the spend is actually coming from.",
       },
       {
         title: "No Disaster Recovery Plan",
         description:
-          "No documented backup strategy, no tested restore procedure, and no confidence that data would survive a catastrophic failure.",
+          "No documented backup strategy, no tested restore procedure, and no confidence the business could survive a catastrophic failure.",
       },
     ],
     deliverables: [
       {
         title: "CI/CD Pipeline",
         description:
-          "Automated build, test, and deployment pipelines with preview environments, staged rollouts, and zero-downtime deployment capability.",
+          "Automated build, test, and deployment pipelines with preview environments, staged rollouts, and zero-downtime deploys.",
       },
       {
         title: "Container Orchestration",
         description:
-          "Docker and Kubernetes (or managed equivalents) configuration for consistent, portable, and scalable application deployment.",
+          "Docker and Kubernetes, or a managed equivalent, configured for consistent, portable, and scalable application deployment.",
       },
       {
         title: "Infrastructure as Code",
         description:
-          "All infrastructure defined in code (Terraform, Pulumi, or CDK) so environments are reproducible, auditable, and version controlled.",
+          "All infrastructure defined in code, so environments are reproducible, auditable, and version controlled.",
       },
       {
         title: "Monitoring & Alerting",
         description:
-          "Application performance monitoring, log aggregation, error tracking, and alerting so issues are detected before customers notice.",
+          "Application performance monitoring, log aggregation, and alerting, so issues get caught before customers notice them.",
       },
       {
         title: "Security Hardening",
         description:
-          "Network security, IAM role minimization, secrets management, encryption at rest and in transit, and compliance baseline configuration.",
+          "Network security, least-privilege access, secrets management, encryption at rest and in transit, and baseline compliance configuration.",
       },
       {
         title: "Backup & Recovery",
         description:
-          "Automated database backups, tested restore procedures, and documented disaster recovery runbooks.",
+          "Automated backups, tested restore procedures, and documented disaster recovery runbooks.",
       },
       {
         title: "Cost Optimization",
         description:
-          "Right-sizing of compute resources, reserved capacity planning, and architectural recommendations that reduce cloud spend without sacrificing reliability.",
+          "Right-sizing compute resources, reserved capacity planning, and architectural recommendations that reduce cloud spend without sacrificing reliability.",
       },
     ],
     process: [
@@ -763,126 +791,131 @@ export const SERVICE_PAGES: ServicePageData[] = [
         number: "01",
         title: "Infrastructure Audit",
         description:
-          "Assessment of current cloud configuration, security posture, deployment process, and observability gaps.",
+          "Assessing the current setup for reliability, security, and cost, before recommending anything.",
       },
       {
         number: "02",
         title: "Architecture Design",
         description:
-          "Target infrastructure architecture designed for the application's scale requirements, security needs, and cost constraints.",
+          "Designing the target infrastructure, including provider choice, environment structure, and deployment strategy.",
       },
       {
         number: "03",
         title: "IaC Implementation",
         description:
-          "Infrastructure as Code implementation to make the target architecture reproducible, auditable, and manageable.",
+          "Rebuilding infrastructure as code, so it's reproducible and no longer dependent on manual configuration.",
       },
       {
         number: "04",
         title: "CI/CD Pipeline Build",
         description:
-          "Automated deployment pipeline with test gates, preview environments, and production safeguards.",
+          "Building automated pipelines for testing, building, and deploying code with minimal manual steps.",
       },
       {
         number: "05",
         title: "Security Hardening",
         description:
-          "Security configuration review and remediation: network policies, IAM, secrets management, and encryption.",
+          "Implementing access controls, encryption, and baseline security configuration across the environment.",
       },
       {
         number: "06",
         title: "Observability Setup",
         description:
-          "Monitoring, logging, error tracking, and alerting configured for production-level visibility.",
+          "Monitoring, error tracking, and alerting configured for production-level visibility.",
       },
       {
         number: "07",
         title: "Handover & Documentation",
         description:
-          "Runbooks, architecture documentation, and team training so your engineers can operate and extend the infrastructure confidently.",
+          "Runbooks, architecture documentation, and team training, so your engineers can operate and extend the infrastructure confidently.",
       },
     ],
     idealFor: [
       {
-        type: "Teams with Manual Deployments",
+        type: "Teams With Manual Deployments",
         description:
-          "Engineering teams where deployment is a manual, stressful process that creates bottlenecks and production risk.",
+          "Still shipping with manual steps, and it's slowing releases down and introducing risk.",
       },
       {
         type: "Startups Moving to Production",
         description:
-          "Early-stage products transitioning from a development environment to a production-grade system that needs to be reliable and secure.",
+          "Ready to launch and need infrastructure that can actually support real users, not just a demo.",
       },
       {
-        type: "Businesses with Infrastructure Security Concerns",
+        type: "Businesses With Infrastructure or Security Concerns",
         description:
-          "Organizations that have grown their cloud footprint without a consistent security model and need to establish a strong baseline.",
+          "Uncertain whether their current setup would hold up to scrutiny, or to an actual incident.",
       },
       {
         type: "Scaling Applications",
         description:
-          "Products experiencing growth that the current infrastructure wasn't designed to handle—performance degrading, costs rising, reliability declining.",
+          "Growing fast enough that the current infrastructure is becoming a genuine constraint.",
       },
     ],
     technologies: [
       "AWS", "Docker", "Kubernetes", "Terraform", "GitHub Actions",
-      "Nginx", "Traefik", "Cloudflare", "Linux", "Prometheus",
-      "Grafana", "Datadog", "Sentry", "Redis", "PostgreSQL",
+      "Nginx", "Cloudflare", "Linux", "PostgreSQL",
     ],
     faqs: [
       {
         q: "Do you work with AWS, GCP, or Azure?",
-        a: "Primarily AWS, which I know deeply. I can work with GCP and Azure for specific services or existing environments, but AWS is where I provide the highest-quality recommendations.",
+        a: "Yes, primarily AWS, though the underlying principles carry across providers. I'll recommend whichever fits your existing setup and team's familiarity, rather than defaulting to one.",
       },
       {
         q: "Can you improve our existing infrastructure without rebuilding it?",
-        a: "Yes. Most engagements are incremental improvements—adding CI/CD, improving security configuration, adding monitoring—rather than full rebuilds. I assess current state first and recommend changes in priority order.",
+        a: "Usually, yes. Most engagements start with hardening and improving what's already running rather than a full migration. A rebuild only gets recommended when it's genuinely the better call.",
       },
       {
         q: "Do you handle on-call and ongoing operations?",
-        a: "I handle the setup and documentation of on-call runbooks, but ongoing operations are typically handed back to your team. I remain available for advisory and incident support under a retainer arrangement if needed.",
+        a: "I can, as part of an ongoing retainer. For project-based engagements, I hand off with full documentation and training so your team can operate it confidently.",
       },
       {
         q: "How do you approach cloud cost optimization?",
-        a: "Cost optimization starts with understanding where money is being spent and why. Common wins include right-sizing compute, moving to reserved instances, eliminating unused resources, and architectural changes that reduce data transfer costs.",
+        a: "By looking at actual usage patterns first, not just switching instance sizes. Most cost problems come from architecture decisions, not pricing, so that's where the real savings usually are.",
       },
       {
         q: "What compliance standards do you work with?",
-        a: "I've worked with SOC 2, GDPR, and HIPAA compliance requirements. Infrastructure hardening is always done with relevant compliance requirements in mind from the start.",
+        a: "I've worked with general security best practices and standard data protection requirements. For a specific regulatory framework your business needs to meet, tell me upfront and I'll be direct about whether it's within my expertise or needs a specialist alongside me.",
       },
     ],
+    ctaEyebrow: "LET'S TALK",
+    ctaHeadline: "Let's Build Infrastructure",
+    ctaHeadlineAccent: "You Don't Have to Think About.",
+    ctaDescription:
+      "The first conversation is free, with no obligation. Tell me what's breaking or worrying you, and I'll tell you honestly what it would take to fix it.",
   },
 
   {
     slug: "engineering-leadership",
-    metaTitle: "Engineering Leadership — Nafiz Anam",
+    metaTitle: "Engineering Leadership | Nafiz Anam — Technology & Product Partner",
     metaDescription:
-      "Fractional CTO, technical leadership, and engineering culture improvement for growing software teams.",
+      "Fractional CTO and technical leadership for growing teams that need direction, standards, and mentoring, without a full-time senior hire.",
+    metaImage: "/Nafiz_Anam_Engineering_Leadership_Service.png",
     tagline: "Engineering Leadership",
-    headline: "Engineering Leadership",
-    headlineAccent: "When You Need It.",
+    headline: "Talented Engineers",
+    headlineAccent: "Still Need Someone Setting the Direction.",
     description:
-      "Great engineering teams don't happen by default—they're built through deliberate leadership, clear standards, and a culture of continuous improvement. I provide senior engineering leadership as a fractional CTO, technical lead, or embedded advisor to help teams deliver better software faster.",
+      "Great engineering teams don't happen by default, they're built through deliberate leadership, clear standards, and a culture of continuous improvement. I provide senior engineering leadership as a fractional CTO, technical lead, or embedded advisor, to help teams deliver better software, faster.",
     problems: [
       {
-        title: "Team Delivering Slower Than Business Expects",
+        title: "A Team Delivering Slower Than the Business Expects",
         description:
           "Sprints miss commitments, estimates are unreliable, and the backlog grows faster than the team can ship. The problem is usually process and architecture, not individual effort.",
       },
       {
         title: "Declining Code Quality Under Delivery Pressure",
         description:
-          "Short-term delivery pressure has accumulated technical debt that now slows every subsequent delivery. The team knows the codebase is fragile but doesn't have time to fix it.",
+          "Short-term delivery pressure has accumulated technical debt that now slows every subsequent release. The codebase is fragile, but nobody's had time to fix it.",
       },
       {
         title: "No Senior Technical Voice",
         description:
-          "The team is executing but no one is making architecture decisions, setting quality standards, or thinking about the system two years from now.",
+          "The team is executing, but no one is making architecture decisions, setting quality standards, or thinking about the system two years from now.",
       },
       {
         title: "Scaling the Engineering Team",
         description:
-          "Hiring more engineers without the right processes and culture in place makes delivery slower, not faster. Onboarding is inefficient and standards are inconsistent.",
+          "Hiring more engineers without the right process and culture in place makes delivery slower, not faster. Onboarding is inefficient and standards are inconsistent.",
       },
       {
         title: "Founder-Engineer Breakdown",
@@ -892,9 +925,9 @@ export const SERVICE_PAGES: ServicePageData[] = [
     ],
     deliverables: [
       {
-        title: "Technical Roadmap",
+        title: "A Technical Roadmap",
         description:
-          "A prioritized technical roadmap aligned with business goals, with clear milestones, capacity estimates, and risk identification.",
+          "A prioritized technical roadmap aligned with business goals, with clear milestones, estimates, and risk identification.",
       },
       {
         title: "Engineering Standards",
@@ -909,7 +942,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
       {
         title: "Team Mentoring",
         description:
-          "Regular 1:1s, code review feedback, and coaching that develops engineer capabilities and builds a culture of continuous improvement.",
+          "Regular one-on-ones, code review, and coaching that develops engineer capability and builds a culture of continuous improvement.",
       },
       {
         title: "Hiring Support",
@@ -919,7 +952,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
       {
         title: "Stakeholder Communication",
         description:
-          "Clear, honest communication of technical progress, blockers, and risks to non-technical stakeholders—eliminating the translation gap.",
+          "Clear, honest communication of technical progress, blockers, and risks to non-technical stakeholders, eliminating the translation gap.",
       },
     ],
     process: [
@@ -927,25 +960,25 @@ export const SERVICE_PAGES: ServicePageData[] = [
         number: "01",
         title: "Team Assessment",
         description:
-          "Understand current team structure, delivery processes, codebase quality, architectural state, and organizational dynamics.",
+          "Understanding the current team structure, delivery process, codebase quality, architectural state, and organizational dynamics.",
       },
       {
         number: "02",
         title: "Priority Identification",
         description:
-          "Identify the highest-leverage interventions: process changes, architectural improvements, or cultural shifts that will have the greatest impact.",
+          "Identifying the highest-leverage interventions: process changes, architectural improvements, or culture shifts that will have the greatest impact.",
       },
       {
         number: "03",
         title: "Standards Definition",
         description:
-          "Establish engineering standards for code quality, testing, deployment, and communication that the team can consistently work toward.",
+          "Establishing engineering standards for code quality, testing, deployment, and communication that the team can consistently work toward.",
       },
       {
         number: "04",
         title: "Process Improvement",
         description:
-          "Implement delivery processes—sprint planning, estimation, code review, retrospectives—that improve predictability and reduce waste.",
+          "Implementing delivery processes: sprint planning, estimation, code review, retrospectives, that improve predictability and reduce waste.",
       },
       {
         number: "05",
@@ -963,59 +996,64 @@ export const SERVICE_PAGES: ServicePageData[] = [
         number: "07",
         title: "Transition Planning",
         description:
-          "Documentation, knowledge transfer, and internal leadership development so the team sustains the improvement after the engagement ends.",
+          "Documentation, knowledge transfer, and internal leadership development, so the team sustains the improvement after the engagement ends.",
       },
     ],
     idealFor: [
       {
-        type: "Startups Without a CTO",
-        description:
-          "Early-stage companies that need senior engineering leadership but aren't ready to make a full-time CTO hire—or haven't found the right person yet.",
-      },
-      {
-        type: "Companies Between CTOs",
-        description:
-          "Organizations in a CTO transition who need experienced interim leadership to maintain direction and momentum during the gap.",
-      },
-      {
         type: "Founders Managing Engineering Directly",
         description:
-          "Technical or non-technical founders who are currently managing the engineering team themselves and need to offload technical leadership to focus on the business.",
+          "Currently the de facto technical leader, and need senior oversight without stepping back from the business.",
       },
       {
         type: "Engineering Teams Needing Structure",
         description:
-          "Teams that are capable individually but lack the processes, standards, and leadership to perform consistently as a unit.",
+          "Shipping code but missing the standards, process, or architecture governance that turns effort into predictable delivery.",
+      },
+      {
+        type: "Startups Scaling Their Team",
+        description:
+          "Growing the engineering headcount, and need leadership in place before growth outpaces process.",
+      },
+      {
+        type: "Businesses Between Technical Leaders",
+        description:
+          "Between a departed CTO and their next hire, and need continuity so delivery doesn't stall in the gap.",
       },
     ],
     technologies: [
       "Technical Leadership", "Engineering Management", "System Design",
-      "Architecture Review", "Code Review", "Agile", "Scrum", "Kanban",
-      "OKRs", "Technical Hiring", "Mentoring", "Engineering Culture",
-      "DevOps", "CI/CD", "Delivery Planning",
+      "Architecture Review", "Code Review", "Agile & Scrum",
+      "Technical Hiring", "Mentoring", "Engineering Culture", "CI/CD",
+      "Delivery Planning",
     ],
     faqs: [
       {
-        q: "What does a fractional CTO engagement look like?",
-        a: "Typically 1–3 days per week, with a mix of async and synchronous involvement. I join key team ceremonies, am available for async questions, lead architecture reviews, and have regular syncs with founders or leadership. The arrangement is flexible and adjusts to what the business needs.",
+        q: "What does a fractional CTO engagement actually look like?",
+        a: "Typically a set number of hours or days per week, covering architecture decisions, code review, team mentoring, and stakeholder communication. The exact mix depends on what the team actually needs, decided during discovery, not assumed upfront.",
       },
       {
-        q: "How quickly can you have an impact?",
-        a: "Most teams see measurable improvement in delivery predictability and code quality within the first 4–6 weeks. Cultural improvements take longer but compound over time.",
+        q: "How quickly can you join a team?",
+        a: "Usually within one to two weeks of agreeing on scope. The first two weeks are spent on assessment, understanding the team, codebase, and process, before making any changes.",
       },
       {
         q: "Can you help us hire engineers?",
-        a: "Yes. I design technical interview processes, assess candidates, and help define the hiring criteria that build a complementary team. I can also advise on compensation benchmarking and offer structure.",
+        a: "Yes. I can design the technical interview process, assess candidates, and help define the hiring criteria that actually match what the team needs, not just a generic job description.",
       },
       {
         q: "Do you replace the engineering manager?",
-        a: "No. I work alongside existing engineering managers and develop their capabilities rather than replacing them. My role is to provide senior technical perspective and leadership at a level above day-to-day management.",
+        a: "No, and this usually isn't a good fit if there's already strong technical leadership in place. This service fills the gap when there isn't one, or when that role needs experienced backup.",
       },
       {
         q: "What if we want to hire a full-time CTO later?",
-        a: "I actively support this transition. I document the architectural vision, technical standards, and leadership processes I've established so the incoming CTO can hit the ground running rather than starting from scratch.",
+        a: "That's a natural outcome of this working well. I'll help define the role, and often help find and evaluate the right hire, then hand off cleanly with full documentation and context.",
       },
     ],
+    ctaEyebrow: "LET'S TALK",
+    ctaHeadline: "Let's Give Your Team",
+    ctaHeadlineAccent: "the Direction It's Missing.",
+    ctaDescription:
+      "The first conversation is free, with no obligation. Tell me what's not working with the team, and I'll tell you honestly whether fractional leadership is the right fix.",
   },
 ];
 
