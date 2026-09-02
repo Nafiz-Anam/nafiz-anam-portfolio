@@ -23,7 +23,7 @@ function ArticleCard({ post }: { post: BlogListItem }) {
       transition={{ duration: 0.3, ease: "easeOut" }}
       className="dark group flex flex-col rounded-[5px] border border-panel-foreground/[0.08] bg-background transition-colors duration-200 hover:border-panel-foreground/[0.16]"
     >
-      <div className="overflow-hidden rounded-t-[5px]">
+      <Link href={`/insights/${post.slug}`} className="block overflow-hidden rounded-t-[5px]">
         {post.coverImageUrl ? (
           <div className="aspect-[16/9] overflow-hidden">
             <img
@@ -37,7 +37,7 @@ function ArticleCard({ post }: { post: BlogListItem }) {
             <span className="font-mono text-[10px] uppercase tracking-wider text-panel-foreground/30">{post.category}</span>
           </div>
         )}
-      </div>
+      </Link>
 
       <div className="flex flex-1 flex-col gap-4 p-7">
         <div className="flex items-center gap-3">
@@ -47,8 +47,10 @@ function ArticleCard({ post }: { post: BlogListItem }) {
         </div>
 
         <div className="flex flex-col gap-3">
-          <h3 className="text-[17px] font-bold leading-[1.25] tracking-tight text-panel-foreground transition-colors duration-150 group-hover:text-accent">
-            {post.title}
+          <h3 className="text-[17px] font-bold leading-[1.25] tracking-tight">
+            <Link href={`/insights/${post.slug}`} className="text-panel-foreground transition-colors duration-150 group-hover:text-accent">
+              {post.title}
+            </Link>
           </h3>
           <p className="text-[13px] leading-[1.8] text-panel-foreground/48">{post.excerpt}</p>
         </div>

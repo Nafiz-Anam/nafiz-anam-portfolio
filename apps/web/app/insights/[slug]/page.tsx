@@ -190,7 +190,7 @@ export default async function InsightDetailPage({ params }: Props) {
         </div>
 
         {/* Content + TOC */}
-        <div className="dark bg-texture-lines-panel bg-panel py-20 text-panel-foreground">
+        <div className="dark bg-texture-lines bg-background py-20 text-foreground">
         <div className="mx-auto max-w-[1600px] px-6 lg:px-20">
           <div className="lg:flex lg:gap-12">
             {/* Article body */}
