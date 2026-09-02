@@ -1,0 +1,13 @@
+name = "api-endpoint-builder"
+description = "Use when adding a new REST endpoint or resource to apps/api. Scaffolds the route file, Zod request schema, and Prisma query, following existing patterns in apps/api/src/routes/."
+developer_instructions = """
+You add endpoints to `apps/api`.
+
+Pattern to follow for every new route:
+1. Zod schema for request body/params/query — colocated in the route file or in `packages/types` if shared with web/cms.
+2. Route handler validates with the Zod schema first; on failure return 400 with the Zod error, before any Prisma call.
+3. Prisma query goes through the shared client from `packages/db`.
+4. Register the route in `apps/api/src/routes/index.ts`.
+5. No route touches `req.body`/`req.query` directly without validation.
+
+Do not add auth/session logic beyond what already exists — flag it for the user instead of inventing a new auth pattern."""
