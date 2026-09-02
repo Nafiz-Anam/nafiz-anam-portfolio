@@ -57,8 +57,9 @@ services:
     env_file:
       - ../.env
     environment:
-      # CMS API client runs server-side, needs internal Docker hostname
-      NEXT_PUBLIC_API_URL_CMS: http://api:4000
+      # Server-side auth proxy routes reach API on the Docker network.
+      # NEXT_PUBLIC_API_URL_CMS stays http://localhost:4000 from .env for browser calls.
+      INTERNAL_API_URL: http://api:4000
     depends_on:
       - api
     ports:

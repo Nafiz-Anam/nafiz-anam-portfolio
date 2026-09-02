@@ -62,7 +62,8 @@ services:
     env_file:
       - ../.env
     environment:
-      NEXT_PUBLIC_API_URL_CMS: http://api:4000
+      # Server-side auth proxy routes reach API on the Docker network
+      INTERNAL_API_URL: http://api:4000
       NODE_ENV: development
     depends_on:
       - api
