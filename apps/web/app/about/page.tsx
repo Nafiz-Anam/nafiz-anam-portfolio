@@ -5,27 +5,28 @@ import { FounderIntro } from "@/components/sections/about/FounderIntro";
 import { CareerTimeline } from "@/components/sections/about/CareerTimeline";
 import { LeadershipSection } from "@/components/sections/about/LeadershipSection";
 import { CoreValues } from "@/components/sections/about/CoreValues";
-import { CompaniesVentures } from "@/components/sections/about/CompaniesVentures";
-import { NumbersMatter } from "@/components/sections/about/NumbersMatter";
 import { FAQSection } from "@/components/sections/about/FAQSection";
 import { AboutCTA } from "@/components/sections/about/AboutCTA";
 
 export const metadata = {
-  title: "About",
+  title: "About Nafiz Anam | Technology & Product Partner",
   description:
-    "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+    "Software engineer, architect, and founder with seven years building products that scale. Here's how I got here, and how I think about the work.",
   alternates: { canonical: "/about" },
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "About — Nafiz Anam",
+    title: "About Nafiz Anam | Technology & Product Partner",
     description:
-      "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+      "Software engineer, architect, and founder with seven years building products that scale. Here's how I got here, and how I think about the work.",
     url: "/about",
+    images: [{ url: "/Nafiz_Anam_Software_Engineer_Founder_Architect.png", width: 1536, height: 1024 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "About — Nafiz Anam",
+    title: "About Nafiz Anam | Technology & Product Partner",
     description:
-      "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+      "Software engineer, architect, and founder with seven years building products that scale. Here's how I got here, and how I think about the work.",
+    images: ["/Nafiz_Anam_Software_Engineer_Founder_Architect.png"],
   },
 };
 
@@ -47,19 +48,17 @@ const aboutSchema = {
       "@type": "ProfilePage",
       "@id": `${SITE_URL}/about#profilepage`,
       url: `${SITE_URL}/about`,
-      name: "About — Nafiz Anam",
-      description: "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+      name: "About Nafiz Anam | Technology & Product Partner",
+      description: "Software engineer, architect, and founder with seven years building products that scale. Here's how I got here, and how I think about the work.",
       mainEntity: { "@id": `${SITE_URL}/#person` },
     },
     {
       "@type": "FAQPage",
       mainEntity: [
-        { "@type": "Question", name: "What industries do you work with?", acceptedAnswer: { "@type": "Answer", text: "I've worked across fintech, logistics, agriculture, e-commerce, education, and enterprise SaaS. Industry context matters less than the underlying problem: most software challenges—architecture, scalability, team structure, technical debt—are fundamentally similar across verticals." } },
-        { "@type": "Question", name: "Do you work with startups?", acceptedAnswer: { "@type": "Answer", text: "Yes. Early-stage startups benefit most from senior-level thinking applied with speed. I help founders avoid expensive architectural mistakes early, prioritize features that actually matter, and build systems that can scale without requiring a full rewrite at Series A." } },
-        { "@type": "Question", name: "Do you work with agencies?", acceptedAnswer: { "@type": "Answer", text: "Yes, on a selective basis. I work with agencies that need senior technical leadership for specific client projects—particularly those involving architecture reviews, scalability challenges, or complex system integrations." } },
-        { "@type": "Question", name: "Can you join an existing engineering team?", acceptedAnswer: { "@type": "Answer", text: "Yes. I've embedded into multiple existing teams as a senior engineer and technical lead. I focus on raising code quality, improving architecture practices, unblocking delivery bottlenecks, and mentoring team members without disrupting existing momentum." } },
-        { "@type": "Question", name: "Can you lead an engineering team?", acceptedAnswer: { "@type": "Answer", text: "Yes. My current role at Grain Marketplace includes engineering leadership responsibilities. Through Agilo IT, I've also provided fractional CTO and technical leadership services to several businesses during critical growth stages." } },
-        { "@type": "Question", name: "How do projects typically begin?", acceptedAnswer: { "@type": "Answer", text: "Every engagement starts with a discovery call to understand the business problem, current technical state, and desired outcomes. From there I propose an engagement scope—whether that's a one-time architecture review, a fixed-scope build, or an ongoing technical partnership." } },
+        { "@type": "Question", name: "Can you join an existing engineering team?", acceptedAnswer: { "@type": "Answer", text: "Yes. I regularly step into existing teams as a technical lead or senior contributor, working within their existing processes rather than replacing them." } },
+        { "@type": "Question", name: "Can you lead an engineering team?", acceptedAnswer: { "@type": "Answer", text: "Yes, that's often exactly the gap I'm brought in to fill: providing technical leadership for a team that's shipping, but doesn't yet have someone senior setting the direction." } },
+        { "@type": "Question", name: "What technologies do you specialize in?", acceptedAnswer: { "@type": "Answer", text: "I work primarily across modern web and cloud stacks: React and Next.js on the frontend, Node.js and related backend frameworks, and cloud infrastructure on AWS. The stack is always a means to an end though, chosen based on what the business actually needs, not what's trending." } },
+        { "@type": "Question", name: "How do projects typically begin?", acceptedAnswer: { "@type": "Answer", text: "With a conversation about the actual problem, not a spec. From there I can tell you honestly whether it's a technical consulting engagement, a build, or something else entirely." } },
       ],
     },
     {
@@ -89,8 +88,6 @@ export default async function AboutPage() {
 
   const milestones = tryParseJSON<Parameters<typeof CareerTimeline>[0]["milestones"]>(config["about_career_json"]);
   const values = tryParseJSON<Parameters<typeof CoreValues>[0]["values"]>(config["about_values_json"]);
-  const companies = tryParseJSON<Parameters<typeof CompaniesVentures>[0]["companies"]>(config["about_companies_json"]);
-  const stats = tryParseJSON<Parameters<typeof NumbersMatter>[0]["stats"]>(config["about_numbers_json"]);
   const faqs = tryParseJSON<Parameters<typeof FAQSection>[0]["faqs"]>(config["about_faqs_json"]);
 
   return (
@@ -104,8 +101,6 @@ export default async function AboutPage() {
       <CareerTimeline milestones={milestones} />
       <LeadershipSection />
       <CoreValues values={values} />
-      <CompaniesVentures companies={companies} />
-      <NumbersMatter stats={stats} />
       <FAQSection faqs={faqs} />
       <AboutCTA />
       <Footer />

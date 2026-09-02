@@ -5,32 +5,20 @@ import { useState } from "react";
 
 const FAQS = [
   {
-    q: "What industries do you work with?",
-    a: "I've worked across fintech, logistics, agriculture, e-commerce, education, and enterprise SaaS. Industry context matters less than the underlying problem: most software challenges—architecture, scalability, team structure, technical debt—are fundamentally similar across verticals.",
-  },
-  {
-    q: "Do you work with startups?",
-    a: "Yes. Early-stage startups benefit most from senior-level thinking applied with speed. I help founders avoid expensive architectural mistakes early, prioritize features that actually matter, and build systems that can scale without requiring a full rewrite at Series A.",
-  },
-  {
-    q: "Do you work with agencies?",
-    a: "Yes, on a selective basis. I work with agencies that need senior technical leadership for specific client projects—particularly those involving architecture reviews, scalability challenges, or complex system integrations.",
-  },
-  {
     q: "Can you join an existing engineering team?",
-    a: "Yes. I've embedded into multiple existing teams as a senior engineer and technical lead. I focus on raising code quality, improving architecture practices, unblocking delivery bottlenecks, and mentoring team members without disrupting existing momentum.",
+    a: "Yes. I regularly step into existing teams as a technical lead or senior contributor, working within their existing processes rather than replacing them.",
   },
   {
     q: "Can you lead an engineering team?",
-    a: "Yes. My current role at Grain Marketplace includes engineering leadership responsibilities. Through Agilo IT, I've also provided fractional CTO and technical leadership services to several businesses during critical growth stages.",
+    a: "Yes, that's often exactly the gap I'm brought in to fill: providing technical leadership for a team that's shipping, but doesn't yet have someone senior setting the direction.",
   },
   {
     q: "What technologies do you specialize in?",
-    a: "Frontend: React, Next.js, TypeScript. Backend: Node.js, NestJS, Laravel. Cloud: AWS, Docker, Kubernetes. Databases: PostgreSQL, MongoDB, Redis. AI & Automation: OpenAI, LangChain, Model Context Protocol, RAG pipelines. Technology choices are always driven by business requirements, not personal preference.",
+    a: "I work primarily across modern web and cloud stacks: React and Next.js on the frontend, Node.js and related backend frameworks, and cloud infrastructure on AWS. The stack is always a means to an end though, chosen based on what the business actually needs, not what's trending.",
   },
   {
     q: "How do projects typically begin?",
-    a: "Every engagement starts with a discovery call to understand the business problem, current technical state, and desired outcomes. From there I propose an engagement scope—whether that's a one-time architecture review, a fixed-scope build, or an ongoing technical partnership.",
+    a: "With a conversation about the actual problem, not a spec. From there I can tell you honestly whether it's a technical consulting engagement, a build, or something else entirely.",
   },
 ] as const;
 
@@ -38,17 +26,19 @@ function FAQItem({
   q,
   a,
   isLast,
+  open,
+  onToggle,
 }: {
   q: string;
   a: string;
   isLast: boolean;
+  open: boolean;
+  onToggle: () => void;
 }) {
-  const [open, setOpen] = useState(false);
-
   return (
     <div className={isLast ? "" : "border-b border-panel-foreground/[0.08]"}>
       <button
-        onClick={() => setOpen(!open)}
+        onClick={onToggle}
         className="flex w-full items-start justify-between gap-8 py-8 text-left"
       >
         <p className="text-[16px] font-bold leading-snug tracking-tight text-panel-foreground">
@@ -94,10 +84,11 @@ function FAQItem({
 
 export function FAQSection({ faqs: data }: { faqs?: typeof FAQS }) {
   const faqs = data ?? FAQS;
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   return (
     <section
       id="faq"
-      className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16"
+      className="dark bg-surface bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
         <motion.div
@@ -108,7 +99,7 @@ export function FAQSection({ faqs: data }: { faqs?: typeof FAQS }) {
           className="mb-20 flex flex-col items-center gap-5 text-center"
         >
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
-            FAQ
+            Common Questions
           </p>
           <h2 className="max-w-[560px] text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
             Common Questions,{" "}
@@ -124,7 +115,13 @@ export function FAQSection({ faqs: data }: { faqs?: typeof FAQS }) {
           className="mx-auto max-w-[860px]"
         >
           {faqs.map((faq, i) => (
-            <FAQItem key={faq.q} {...faq} isLast={i === faqs.length - 1} />
+            <FAQItem
+              key={faq.q}
+              {...faq}
+              isLast={i === faqs.length - 1}
+              open={openIndex === i}
+              onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+            />
           ))}
         </motion.div>
       </div>

@@ -5,27 +5,27 @@ import { motion } from "framer-motion";
 const PILLARS = [
   {
     heading: "Technical Leadership",
-    body: "Writing great code is the baseline. Leading teams toward better architecture, cleaner practices, and smarter decisions is where engineering maturity shows up. I work on the system of engineering, not just the code inside it.",
+    body: "Setting technical direction isn't about writing the most code. It's about making the calls that shape everything the team builds after: architecture, standards, and the tradeoffs nobody else wants to own.",
   },
   {
     heading: "Mentoring Engineers",
-    body: "The fastest way to scale an engineering culture is through people, not tooling. Mentoring junior and mid-level engineers creates leverage that no individual contributor can match on their own.",
+    body: "The engineers I've led remember the decisions we made together more than the code itself. Growing other engineers compounds. Writing every line yourself doesn't.",
   },
   {
     heading: "Architecture Thinking",
-    body: "Every significant technical decision has compounding consequences. Strong architecture prevents expensive rewrites, enables faster iteration, and reduces future risk. Time spent designing systems correctly upfront saves months of remediation later.",
+    body: "Every system I design starts with the assumption that requirements will change. The job isn't predicting the future correctly, it's building something that doesn't break when you inevitably get it wrong.",
   },
   {
     heading: "Product Thinking",
-    body: "Software engineers who understand business outcomes build better systems. Feature prioritization, architectural trade-offs, and delivery decisions all improve when engineering thinks in terms of outcomes—not outputs.",
+    body: "Clean, elegant code that solves the wrong problem is still the wrong outcome. Engineering decisions have to serve what the business actually needs, not just what's technically interesting.",
   },
   {
     heading: "Business Communication",
-    body: "Technical excellence loses its value when it cannot be explained to the people it affects. Translating complexity into clarity—for founders, product managers, and clients—is a core engineering responsibility.",
+    body: "Technical excellence has no value when it can't be explained to the people it affects. Translating complexity into clarity, for founders, product managers, and clients, is a core engineering responsibility.",
   },
   {
     heading: "Decision-Making Under Uncertainty",
-    body: "The hardest engineering decisions happen with incomplete information and limited time. Experienced leaders have frameworks for making defensible calls quickly and reversing them gracefully when the evidence changes.",
+    body: "The hardest engineering decisions happen with incomplete information and limited time. Experienced leaders have frameworks for making defensible calls quickly, and revisiting them gracefully when the evidence changes.",
   },
 ] as const;
 
@@ -36,7 +36,7 @@ export function LeadershipSection() {
       className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
-        <div className="grid grid-cols-1 gap-20 lg:grid-cols-[2fr_3fr] lg:items-start">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[3fr_4fr] lg:items-start">
 
           {/* Left — sticky heading */}
           <motion.div
@@ -47,13 +47,12 @@ export function LeadershipSection() {
             className="lg:sticky lg:top-24"
           >
             <p className="mb-8 text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
-              Leadership Beyond Code
+              How I Lead
             </p>
             <h2 className="text-[40px] font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-[52px]">
               Engineering{" "}
               <span className="font-serif italic text-accent">leadership</span>{" "}
-              is a discipline,
-              <br className="hidden sm:block" /> not a title.
+              is a discipline, not a title.
             </h2>
           </motion.div>
 

@@ -7,12 +7,12 @@ const VALUES = [
   {
     number: "01",
     title: "Business First",
-    body: "Technology is a means, not an end. Every decision—what to build, how to build it, what to delay—begins with the business objective. Good engineers ask why before they ask how.",
+    body: "Technology decisions start with the business problem, not the interesting technical challenge. The right solution is the one that serves the business, even when it's the less exciting one to build.",
   },
   {
     number: "02",
-    title: "Architecture Matters",
-    body: "Strong foundations enable everything that follows. Poorly designed systems slow down teams, create risk, and accumulate debt that eventually must be repaid with interest. The cost of getting it right upfront is always lower.",
+    title: "Design for the Long Run",
+    body: "Shortcuts don't disappear, they turn into interest. Every system your team depends on, and every corner cut to hit a deadline, eventually has to be repaid, usually with more time and money than it saved. The cost of getting it right upfront is almost always lower.",
   },
   {
     number: "03",
@@ -22,12 +22,12 @@ const VALUES = [
   {
     number: "04",
     title: "Communicate Clearly",
-    body: "Complexity that cannot be explained is a liability. Every technical decision should be communicated in a way that all stakeholders can understand, evaluate, and trust—regardless of their technical background.",
+    body: "Complexity that cannot be explained is a liability. Every technical decision should be explainable in a way that all stakeholders understand, evaluate, and trust, regardless of their technical background.",
   },
   {
     number: "05",
     title: "Never Stop Learning",
-    body: "The software industry evolves faster than any individual can track. Maintaining a genuine commitment to learning—not just following trends—separates engineers who grow from those who stagnate.",
+    body: "The software industry evolves faster than any individual can track. Maintaining a genuine commitment to learning, not just following trends, separates engineers who grow from those who stagnate.",
   },
   {
     number: "06",
@@ -81,7 +81,7 @@ function ValueRow({
 
         {/* RIGHT — body */}
         <div className="lg:w-[50%]">
-          <p className="max-w-[500px] text-[15px] leading-[1.9] text-foreground/50">
+          <p className="max-w-[500px] text-[15px] leading-[1.9] text-foreground/80">
             {body}
           </p>
         </div>
@@ -118,7 +118,7 @@ export function CoreValues({ values: data }: { values?: typeof VALUES }) {
           className="mb-20 flex flex-col items-center gap-5 text-center"
         >
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
-            Core Values
+            Principles
           </p>
           <h2 className="max-w-[640px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
             What Guides Every{" "}

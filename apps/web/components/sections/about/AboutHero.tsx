@@ -30,17 +30,19 @@ export function AboutHero() {
             <h1 className="max-w-[760px] font-bold leading-[1.0] tracking-tight"
               style={{ fontSize: "clamp(44px, 6.5vw, 88px)" }}
             >
-              Building Software That{" "}
+              Building Software
+              <br />
+              That{" "}
               <span className="font-serif italic text-accent">Businesses</span>
-              <br className="hidden sm:block" />
-              {" "}Can Depend On.
+              <br />
+              Can Depend On.
             </h1>
 
             <p className="max-w-[540px] text-[16px] leading-[1.85] text-foreground/55">
-              Lead Software Engineer, Software Architect, and Founder with seven years
-              building products that scale. I help businesses design, build, and grow
-              reliable software systems—from early-stage product decisions to
-              enterprise architecture.
+              Software engineer, architect, and founder with seven years building
+              products that scale. I help businesses design, build, and grow software
+              systems, from early-stage product decisions to enterprise-scale
+              architecture.
             </p>
 
             <div className="flex flex-wrap gap-4">

@@ -20,10 +20,9 @@ export function FounderIntro() {
               The Story
             </p>
             <h2 className="text-[40px] font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-[52px]">
-              Engineer.{" "}
-              <span className="font-serif italic text-accent">Founder.</span>
+              Engineer. Founder.
               <br />
-              Architect.
+              <span className="font-serif italic text-accent">Architect.</span>
             </h2>
           </motion.div>
 
@@ -36,24 +35,25 @@ export function FounderIntro() {
             className="flex flex-col gap-7"
           >
             <p className="text-[16px] leading-[1.9] text-panel-foreground/62">
-              My career began writing code. It evolved into designing systems. Then leading
-              teams. Then building companies. Each step added a new dimension to how I think
-              about software—not just as a technical discipline, but as a business function
-              that must earn its place through real outcomes.
+              My career began writing code. It evolved into designing systems, then leading
+              teams, then building companies of my own. Each step added a layer to how I
+              think about software: not just as a technical discipline, but as a business
+              function that has to earn its place through real outcomes.
             </p>
             <p className="text-[16px] leading-[1.9] text-panel-foreground/62">
               I founded Agilo IT to bring senior-level engineering leadership to businesses
-              that needed it without the overhead of a full-time hire. I co-founded
-              Servero.io to solve real operational problems through software. I built Agilo
-              Academy to develop the next generation of engineers. Through all of it, the
-              core question remained the same: what does this business actually need from
-              its technology?
+              that need it without the overhead of a full-time hire. I later co-founded
+              Syrona IT, the company behind Servero.io, a server-side Google Tag Manager
+              hosting platform that gives ecommerce brands reliable tracking infrastructure
+              for ad platforms like Facebook, Google, and TikTok. Through all of it, the
+              question hasn't changed: what does this business actually need from
+              technology?
             </p>
             <p className="text-[16px] leading-[1.9] text-panel-foreground/62">
-              Today I work as Lead Software Engineer at Grain Marketplace—leading
-              architecture, engineering standards, and product delivery—while continuing to
-              consult with founders, startups, and growth-stage companies on technical
-              strategy, system design, and scalable engineering.
+              Today, that means leading engineering at Grain Marketplace, Australia's grain
+              trading platform, while continuing to build Agilo IT and Syrona IT, and
+              consulting directly with founders and growing businesses on technical
+              strategy, system architecture, and hands-on engineering.
             </p>
           </motion.div>
 
