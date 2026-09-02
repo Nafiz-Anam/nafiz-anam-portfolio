@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { Button } from "@portfolio/ui";
 import type { ServicePageData } from "@/lib/service-pages";
 import { BookingButton } from "@/components/sections/BookingButton";
+import { Accordion } from "@/components/Accordion";
 
 /* ─── shared animation wrapper ─── */
 function Reveal({
@@ -187,7 +188,7 @@ function ProblemsSection({ problems }: Pick<ServicePageData, "problems">) {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="dark overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background">
+        <Reveal delay={0.1} className="dark overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-texture-lines-inset bg-surface">
           {problems.map((p, i) => (
             <ProblemRow key={p.title} {...p} isLast={i === problems.length - 1} />
           ))}
@@ -221,7 +222,11 @@ function DeliverablesSection({
           {deliverables.map((d, i) => (
             <div
               key={d.title}
-              className="group flex flex-col gap-4 rounded-[5px] border border-foreground/[0.08] bg-background px-8 py-9 transition-colors duration-[250ms] hover:border-foreground/[0.14] hover:bg-foreground/[0.03]"
+              className={`group flex flex-col gap-4 rounded-[5px] border border-foreground/[0.08] bg-background px-8 py-9 transition-colors duration-[250ms] hover:border-accent hover:bg-foreground/[0.03] ${
+                i === deliverables.length - 1 && deliverables.length % 3 === 1
+                  ? "sm:col-start-1 sm:col-span-2 sm:max-w-[calc(50%-0.5rem)] sm:mx-auto lg:col-start-2 lg:col-span-1 lg:max-w-none lg:mx-0"
+                  : ""
+              }`}
             >
               <div className="flex items-center gap-3">
                 <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-accent" />
@@ -248,7 +253,7 @@ function DeliverablesSection({
 ═══════════════════════════════════════════════════════════ */
 function ProcessSection({ process }: Pick<ServicePageData, "process">) {
   return (
-    <section className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16">
+    <section className="dark overflow-hidden bg-texture-lines-inset bg-surface px-6 py-28 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="mb-20 flex flex-col items-center gap-5 text-center">
           <SectionLabel>My Process</SectionLabel>
@@ -363,64 +368,6 @@ function TechSection({ technologies }: Pick<ServicePageData, "technologies">) {
 /* ═══════════════════════════════════════════════════════════
    SECTION 7 — FAQ
 ═══════════════════════════════════════════════════════════ */
-function FAQItem({
-  q,
-  a,
-  isLast,
-}: {
-  q: string;
-  a: string;
-  isLast: boolean;
-}) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div className={isLast ? "" : "border-b border-foreground/[0.08]"}>
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex w-full items-start justify-between gap-8 py-8 text-left"
-      >
-        <p className="text-[16px] font-bold leading-snug tracking-tight text-foreground">
-          {q}
-        </p>
-        <span
-          className="mt-0.5 shrink-0 text-accent transition-transform duration-[250ms]"
-          style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          >
-            <path d="M8 2v12M2 8h12" />
-          </svg>
-        </span>
-      </button>
-
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            key="answer"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <p className="pb-8 text-[14px] leading-[1.85] text-foreground/50">
-              {a}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 function FAQSection({ faqs }: Pick<ServicePageData, "faqs">) {
   return (
     <section className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16">
@@ -434,9 +381,7 @@ function FAQSection({ faqs }: Pick<ServicePageData, "faqs">) {
         </Reveal>
 
         <Reveal delay={0.1} className="mx-auto max-w-[860px]">
-          {faqs.map((faq, i) => (
-            <FAQItem key={faq.q} {...faq} isLast={i === faqs.length - 1} />
-          ))}
+          <Accordion items={faqs} />
         </Reveal>
       </div>
     </section>
@@ -448,7 +393,7 @@ function FAQSection({ faqs }: Pick<ServicePageData, "faqs">) {
 ═══════════════════════════════════════════════════════════ */
 function CTASection({ tagline }: Pick<ServicePageData, "tagline">) {
   return (
-    <section className="bg-panel bg-texture-lines-panel px-6 py-36 text-panel-foreground lg:px-16">
+    <section className="dark overflow-hidden bg-texture-lines-inset bg-surface px-6 py-36 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="flex flex-col items-center gap-8 text-center">
           <SectionLabel>Ready to Build?</SectionLabel>

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { Accordion } from "@/components/Accordion";
 
 const FAQS = [
   {
@@ -22,69 +22,7 @@ const FAQS = [
   },
 ] as const;
 
-function FAQItem({
-  q,
-  a,
-  isLast,
-  open,
-  onToggle,
-}: {
-  q: string;
-  a: string;
-  isLast: boolean;
-  open: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <div className={isLast ? "" : "border-b border-foreground/[0.08]"}>
-      <button
-        onClick={onToggle}
-        className="flex w-full items-start justify-between gap-8 py-8 text-left"
-      >
-        <p className="text-[16px] font-bold leading-snug tracking-tight text-foreground">
-          {q}
-        </p>
-        <span
-          className="mt-0.5 shrink-0 text-accent transition-transform duration-[250ms]"
-          style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          >
-            <path d="M8 2v12M2 8h12" />
-          </svg>
-        </span>
-      </button>
-
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            key="answer"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <p className="pb-8 text-[14px] leading-[1.85] text-foreground/50">
-              {a}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 export function InsightsFAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   return (
     <section
       id="faq"
@@ -114,15 +52,7 @@ export function InsightsFAQ() {
           transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
           className="mx-auto max-w-[860px]"
         >
-          {FAQS.map((faq, i) => (
-            <FAQItem
-              key={faq.q}
-              {...faq}
-              isLast={i === FAQS.length - 1}
-              open={openIndex === i}
-              onToggle={() => setOpenIndex(openIndex === i ? null : i)}
-            />
-          ))}
+          <Accordion items={FAQS} defaultOpenIndex={0} />
         </motion.div>
       </div>
     </section>

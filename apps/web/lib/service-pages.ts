@@ -2,6 +2,7 @@ export interface ServicePageData {
   slug: string;
   metaTitle: string;
   metaDescription: string;
+  metaImage?: string;
   tagline: string;
   headline: string;
   headlineAccent: string;
@@ -17,76 +18,77 @@ export interface ServicePageData {
 export const SERVICE_PAGES: ServicePageData[] = [
   {
     slug: "custom-software-development",
-    metaTitle: "Custom Software Development — Nafiz Anam",
+    metaTitle: "Custom Software Development | Nafiz Anam — Technology & Product Partner",
     metaDescription:
-      "Tailored web platforms, enterprise applications, and business systems built around your specific workflows and long-term goals.",
+      "Custom software built around how your business actually operates, not a generic template you have to work around.",
+    metaImage: "/Nafiz_Anam_Custom_Software_development_Service.png",
     tagline: "Custom Software Development",
-    headline: "Software Built for Your Business,",
-    headlineAccent: "Not Someone Else's.",
+    headline: "Stop Working Around Software",
+    headlineAccent: "That Wasn't Built for You.",
     description:
-      "Generic tools force your business to adapt to their limitations. Custom software works exactly the way your team works—and scales as your business grows. Every system I build starts with understanding your workflows, not a framework template.",
+      "Generic tools solve generic problems. When your business has specific requirements, a workaround becomes standard practice, and standard practice quietly becomes the ceiling on how far you can grow. Custom software removes that ceiling, built around how you actually operate, not how a template assumes you do.",
     problems: [
       {
         title: "Legacy Software Holding You Back",
         description:
-          "Outdated systems slow your team down, break frequently, and can't integrate with modern tools. Every workaround your team invents adds more technical debt and operational risk.",
+          "The system still technically works, but every change takes longer than it should, and nobody's fully sure what breaks if you touch it.",
       },
       {
-        title: "Manual Workflows at Scale",
+        title: "Manual Workarounds at Scale",
         description:
-          "Processes that worked at ten employees break at fifty. Spreadsheets, email chains, and disconnected tools create bottlenecks that prevent the business from operating efficiently.",
+          "What worked with ten employees breaks at fifty. Spreadsheets, side processes, and disconnected tools start costing more time than they save.",
       },
       {
-        title: "Off-the-Shelf Software Doesn't Fit",
+        title: "Off-the-Shelf Software That Doesn't Fit",
         description:
-          "Generic SaaS tools are built for the average use case. When your business has specific requirements, you spend more time working around the tool than using it.",
+          "Generic SaaS tools are built for the average case. When your business has specific requirements, you spend more time working around the tool than working with it.",
       },
       {
         title: "Systems That Can't Scale",
         description:
-          "Software built fast without architectural thought becomes a ceiling. Adding users, features, or data volumes causes performance issues and expensive refactors.",
+          "Software built without architectural thought becomes a ceiling. Adding users, features, or data volume creates performance problems and expensive rewrites.",
       },
       {
-        title: "Poor System Integration",
+        title: "Disconnected Systems",
         description:
-          "Disconnected tools mean data gets entered twice, reports take hours to compile, and teams operate with different versions of the truth.",
+          "Data gets entered twice, reports take hours to compile, and different tools end up telling different versions of the truth.",
       },
     ],
     deliverables: [
       {
-        title: "Scalable System Architecture",
+        title: "A System Architected to Scale",
         description:
-          "Systems designed to handle growth without requiring a full rebuild at the next inflection point.",
+          "Designed for where the business is going, not just where it is today.",
       },
       {
-        title: "Secure Backend & API",
+        title: "A Secure, Well-Built Backend",
         description:
-          "Production-grade backend with proper authentication, authorization, input validation, and security hardening.",
+          "Proper authentication, data protection, and APIs built to last.",
       },
       {
-        title: "Modern, Responsive UI",
+        title: "An Interface People Actually Want to Use",
         description:
-          "Clean, accessible interfaces built for the people who will use them daily—not just for the demo.",
+          "Clean, fast, and built around how your team actually works, not a generic dashboard template.",
       },
       {
-        title: "Cloud Deployment & Infrastructure",
+        title: "Reliable Cloud Infrastructure",
         description:
-          "Reliable hosting on AWS or equivalent, with CI/CD pipelines, environment management, and monitoring in place.",
+          "Deployment, environment management, and monitoring handled properly from day one.",
       },
       {
         title: "Automated Testing",
         description:
-          "Unit, integration, and end-to-end test coverage so that future changes don't break existing functionality.",
+          "So changes don't quietly break something that used to work.",
       },
       {
-        title: "Technical Documentation",
+        title: "Documentation That's Actually Useful",
         description:
-          "Architecture documentation, API references, and onboarding guides so your team and future engineers can work confidently in the codebase.",
+          "Clear enough that your team, or a future engineer, can pick up the codebase with confidence.",
       },
       {
-        title: "Long-Term Support",
+        title: "Support After Launch",
         description:
-          "Post-launch availability for bug fixes, feature additions, performance improvements, and ongoing technical advisory.",
+          "Bug fixes, small improvements, and technical advice as the business keeps evolving.",
       },
     ],
     process: [
@@ -94,92 +96,92 @@ export const SERVICE_PAGES: ServicePageData[] = [
         number: "01",
         title: "Discovery",
         description:
-          "Deep understanding of business requirements, existing systems, user workflows, and technical constraints before any design decisions are made.",
+          "Understanding the actual business problem before any technical discussion starts.",
       },
       {
         number: "02",
         title: "Planning",
         description:
-          "Project scope definition, feature prioritization, timeline estimation, and milestone planning aligned with business objectives.",
+          "Turning that understanding into a clear scope, timeline, and technical direction everyone agrees on.",
       },
       {
         number: "03",
         title: "Architecture",
         description:
-          "System design, data modeling, API design, infrastructure planning, and technology selection documented before development begins.",
+          "Designing the system's foundation, the decision that's expensive to get wrong and cheap to get right early.",
       },
       {
         number: "04",
         title: "Development",
         description:
-          "Iterative build with regular delivery milestones, code reviews, and continuous communication throughout the development cycle.",
+          "Building in visible, reviewable iterations, not disappearing for months and reappearing with a surprise.",
       },
       {
         number: "05",
         title: "QA & Testing",
         description:
-          "Comprehensive testing across functionality, performance, security, and user experience before any production release.",
+          "Functional, performance, and security testing before anything reaches a real user.",
       },
       {
         number: "06",
         title: "Launch",
         description:
-          "Production deployment with monitoring in place, rollback plans ready, and stakeholder sign-off at every step.",
+          "Production deployment with monitoring, rollback plans, and a clear go-live checklist.",
       },
       {
         number: "07",
         title: "Ongoing Support",
         description:
-          "Post-launch support, performance monitoring, iterative improvements, and technical advisory as the business evolves.",
+          "Staying involved after launch, not disappearing the day it ships.",
       },
     ],
     idealFor: [
       {
-        type: "Founders",
+        type: "Funded Founders & Startups",
         description:
-          "Non-technical or semi-technical founders who need a senior engineering partner to translate business requirements into a reliable, scalable product.",
+          "Building the first real version of a product, and it needs to be built to last past the MVP stage.",
       },
       {
-        type: "SMEs with Legacy Systems",
+        type: "Growing Businesses With Legacy Systems",
         description:
-          "Established businesses running on outdated software that limits growth, creates operational friction, or fails to integrate with modern tools.",
+          "Outgrowing what got them here, and needing software that matches where they're headed, not where they started.",
       },
       {
         type: "Operations-Heavy Businesses",
         description:
-          "Companies with complex internal workflows that rely on manual processes, spreadsheets, or fragmented tools that create bottlenecks at scale.",
+          "Running on manual processes that a properly built system would remove entirely.",
       },
       {
-        type: "Product Teams",
+        type: "Product & Engineering Teams",
         description:
-          "Internal product teams that need additional senior engineering capacity for a specific project, platform rebuild, or feature initiative.",
+          "Needing extra senior capacity, or a second opinion on a specific build, without adding permanent headcount.",
       },
     ],
     technologies: [
-      "React", "Next.js", "TypeScript", "Node.js", "NestJS", "Laravel",
-      "PostgreSQL", "MongoDB", "Redis", "AWS", "Docker", "Prisma",
-      "Tailwind CSS", "REST APIs", "GraphQL",
+      "React", "Next.js", "TypeScript", "Node.js", "Laravel", "PHP",
+      "PostgreSQL", "MongoDB", "AWS", "Docker", "Tailwind CSS", "Prisma",
+      "REST APIs", "GraphQL",
     ],
     faqs: [
       {
-        q: "How long does a custom software project take?",
-        a: "Timeline depends heavily on scope. A focused internal tool might take 6–10 weeks. A full platform with complex business logic typically ranges from 3–6 months. We define milestones clearly during the planning phase so you always know what's coming next.",
+        q: "How long does a custom software project typically take?",
+        a: "Depends entirely on scope. A focused internal tool might take four to six weeks. A full product build is usually measured in months. You'll get a real timeline as part of the proposal, not a guess upfront.",
       },
       {
         q: "How much does custom software development cost?",
-        a: "Projects typically range from $10,000 for a focused tool to $80,000+ for a full platform. Scope, complexity, and integrations are the main variables. I provide a detailed estimate after the discovery call—there are no surprise costs.",
+        a: "It scales with complexity and scope, not a flat rate. A focused tool costs less than a full product build, and the right project matters more to me than fitting a specific budget bracket. You'll get a clear number before any work starts, not an open-ended estimate.",
       },
       {
         q: "Can you work with our existing team?",
-        a: "Yes. I integrate into existing engineering teams as a senior developer or technical lead. I adapt to your workflow, tooling, and communication style without disrupting ongoing delivery.",
+        a: "Yes. I regularly work alongside in-house developers, either leading the technical direction or filling a specific gap in the team's capability.",
       },
       {
-        q: "Can you modernize existing software?",
-        a: "Yes. Legacy modernization is a common engagement. I assess the existing codebase, define a migration strategy that minimizes disruption, and modernize incrementally rather than replacing everything at once.",
+        q: "Can you modernize or extend existing software instead of rebuilding it?",
+        a: "Often, yes, and it's usually the better call. A full rebuild sounds appealing but isn't always necessary. I'll tell you honestly which one your situation actually needs.",
       },
       {
-        q: "Who owns the code after the project?",
-        a: "You do. All code, documentation, and intellectual property is transferred to you at project completion. I retain no ownership or licensing rights over anything built for your business.",
+        q: "Who owns the code after the project is done?",
+        a: "You do, entirely. Full source code and documentation are handed over, no licensing strings attached.",
       },
     ],
   },

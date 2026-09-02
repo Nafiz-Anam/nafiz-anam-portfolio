@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button, Select } from "@portfolio/ui";
 import { BookingButton } from "@/components/sections/BookingButton";
+import { Accordion } from "@/components/Accordion";
 import { api } from "@/lib/api";
 
 const CONTACT_EMAIL = "hi@nafizanam.com";
@@ -875,8 +876,6 @@ const FAQS = [
 ] as const;
 
 function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
   return (
     <section className="bg-texture-lines bg-surface px-6 py-28 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
@@ -891,60 +890,9 @@ function FAQ() {
           </h2>
         </Reveal>
 
-        <div className="mx-auto max-w-[860px]">
-          {FAQS.map((faq, i) => {
-            const isOpen = openIndex === i;
-            return (
-              <Reveal key={i} delay={0}>
-                <div className="border-b border-foreground/[0.07]">
-                  <button
-                    onClick={() => setOpenIndex(isOpen ? null : i)}
-                    className="flex w-full items-start justify-between gap-6 py-6 text-left"
-                  >
-                    <span
-                      className={`text-[15px] font-semibold leading-snug transition-colors duration-150 ${
-                        isOpen ? "text-foreground" : "text-foreground/70"
-                      }`}
-                    >
-                      {faq.q}
-                    </span>
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      className={`mt-1 shrink-0 text-foreground/35 transition-transform duration-250 ${
-                        isOpen ? "rotate-180 text-accent" : ""
-                      }`}
-                    >
-                      <path d="M2 5l5 5 5-5" />
-                    </svg>
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        key="content"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                      >
-                        <p className="pb-6 text-[14px] leading-[1.88] text-foreground/55">
-                          {faq.a}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
+        <Reveal delay={0.1} className="mx-auto max-w-[860px]">
+          <Accordion items={FAQS} variant="chevron" />
+        </Reveal>
       </div>
     </section>
   );
