@@ -1,0 +1,103 @@
+# Standalone prod compose for the Traefik-fronted VPS deploy.
+# Not a base+override pair with docker-compose.yml — this is the whole stack.
+# Deployed by .github/workflows/deploy.yml to /opt/portfolio/docker-compose.yml.
+# Requires the external `web` docker network (owned by the host's Traefik instance).
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-portfolio}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_DB:-portfolio}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-portfolio}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+  api:
+    image: ghcr.io/nafiz-anam/portfolio-api:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-portfolio}:${POSTGRES_PASSWORD:-changeme}@postgres:5432/${POSTGRES_DB:-portfolio}
+      UPLOAD_DIR: /repo/apps/api/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - api_uploads:/repo/apps/api/uploads
+    networks:
+      - internal
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.portfolio-api.rule=Host(`api.nafizanam.com`)"
+      - "traefik.http.routers.portfolio-api.entrypoints=websecure"
+      - "traefik.http.routers.portfolio-api.tls.certresolver=le"
+      - "traefik.http.services.portfolio-api.loadbalancer.server.port=4000"
+      - "traefik.http.routers.portfolio-api-http.rule=Host(`api.nafizanam.com`)"
+      - "traefik.http.routers.portfolio-api-http.entrypoints=web"
+      - "traefik.http.routers.portfolio-api-http.middlewares=redirect-to-https@file"
+
+  web:
+    image: ghcr.io/nafiz-anam/portfolio-web:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      INTERNAL_API_URL: http://api:4000
+    depends_on:
+      - api
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.portfolio-web.rule=Host(`v2.nafizanam.com`)"
+      - "traefik.http.routers.portfolio-web.entrypoints=websecure"
+      - "traefik.http.routers.portfolio-web.tls.certresolver=le"
+      - "traefik.http.services.portfolio-web.loadbalancer.server.port=3000"
+      - "traefik.http.routers.portfolio-web-http.rule=Host(`v2.nafizanam.com`)"
+      - "traefik.http.routers.portfolio-web-http.entrypoints=web"
+      - "traefik.http.routers.portfolio-web-http.middlewares=redirect-to-https@file"
+
+  cms:
+    image: ghcr.io/nafiz-anam/portfolio-cms:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      INTERNAL_API_URL: http://api:4000
+    depends_on:
+      - api
+    networks:
+      - internal
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.portfolio-cms.rule=Host(`cms.nafizanam.com`)"
+      - "traefik.http.routers.portfolio-cms.entrypoints=websecure"
+      - "traefik.http.routers.portfolio-cms.tls.certresolver=le"
+      - "traefik.http.services.portfolio-cms.loadbalancer.server.port=3001"
+      - "traefik.http.routers.portfolio-cms-http.rule=Host(`cms.nafizanam.com`)"
+      - "traefik.http.routers.portfolio-cms-http.entrypoints=web"
+      - "traefik.http.routers.portfolio-cms-http.middlewares=redirect-to-https@file"
+
+volumes:
+  pgdata:
+  api_uploads:
+
+networks:
+  internal:
+    driver: bridge
+  web:
+    external: true

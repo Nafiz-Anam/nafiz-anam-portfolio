@@ -1,0 +1,120 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, portfolio-vps]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: false
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push images
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+          REPO: ghcr.io/nafiz-anam/portfolio
+        run: |
+          set -e
+          docker build -f docker/api.Dockerfile -t "$REPO-api:$IMAGE_TAG" -t "$REPO-api:latest" .
+
+          docker build -f docker/web.Dockerfile \
+            --build-arg NEXT_PUBLIC_API_URL="${{ secrets.NEXT_PUBLIC_API_URL }}" \
+            --build-arg NEXT_PUBLIC_SITE_URL="${{ secrets.NEXT_PUBLIC_SITE_URL }}" \
+            --build-arg NEXT_PUBLIC_PREVIEW_SECRET="${{ secrets.REVALIDATE_SECRET }}" \
+            -t "$REPO-web:$IMAGE_TAG" -t "$REPO-web:latest" .
+
+          docker build -f docker/cms.Dockerfile \
+            --build-arg NEXT_PUBLIC_API_URL_CMS="${{ secrets.NEXT_PUBLIC_API_URL_CMS }}" \
+            -t "$REPO-cms:$IMAGE_TAG" -t "$REPO-cms:latest" .
+
+          docker push "$REPO-api:$IMAGE_TAG"   && docker push "$REPO-api:latest"
+          docker push "$REPO-web:$IMAGE_TAG"   && docker push "$REPO-web:latest"
+          docker push "$REPO-cms:$IMAGE_TAG"   && docker push "$REPO-cms:latest"
+
+      - name: Write .env from GitHub Secrets
+        working-directory: /opt/portfolio
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          CORS_ORIGIN_WEB: ${{ secrets.CORS_ORIGIN_WEB }}
+          CORS_ORIGIN_CMS: ${{ secrets.CORS_ORIGIN_CMS }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+          REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
+          REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
+          WEB_URL: ${{ secrets.WEB_URL }}
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          GOOGLE_REDIRECT_URI: ${{ secrets.GOOGLE_REDIRECT_URI }}
+          ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+          NEXT_PUBLIC_API_URL_CMS: ${{ secrets.NEXT_PUBLIC_API_URL_CMS }}
+        run: |
+          set -e
+          umask 077
+          cat > .env <<EOF
+          POSTGRES_USER=${POSTGRES_USER}
+          POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+          POSTGRES_DB=${POSTGRES_DB}
+          DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+
+          API_PORT=4000
+          CORS_ORIGIN_WEB=${CORS_ORIGIN_WEB}
+          CORS_ORIGIN_CMS=${CORS_ORIGIN_CMS}
+
+          ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
+          REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}
+          ACCESS_TOKEN_TTL=7d
+          REFRESH_TOKEN_TTL=30d
+
+          UPLOAD_DIR=/repo/apps/api/uploads
+          MAX_UPLOAD_MB=5
+
+          REVALIDATE_SECRET=${REVALIDATE_SECRET}
+          WEB_URL=${WEB_URL}
+
+          NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+          NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+          NEXT_PUBLIC_PREVIEW_SECRET=${REVALIDATE_SECRET}
+
+          GOOGLE_REDIRECT_URI=${GOOGLE_REDIRECT_URI}
+
+          ENCRYPTION_KEY=${ENCRYPTION_KEY}
+
+          BOOKING_TIMEZONE=Europe/London
+          BOOKING_SLOT_MINS=30
+          BOOKING_START_HOUR=9
+          BOOKING_END_HOUR=18
+          BOOKING_BUFFER_MINS=15
+
+          NEXT_PUBLIC_API_URL_CMS=${NEXT_PUBLIC_API_URL_CMS}
+          EOF
+          chmod 600 .env
+
+      - name: Deploy
+        working-directory: /opt/portfolio
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          set -e
+          cp -f "$GITHUB_WORKSPACE/docker/docker-compose.ghcr.yml" docker-compose.yml
+          docker compose pull
+          docker compose up -d --remove-orphans
+          docker image prune -f

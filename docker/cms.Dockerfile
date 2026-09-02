@@ -14,6 +14,8 @@ COPY packages/types packages/types
 COPY packages/config packages/config
 COPY apps/cms apps/cms
 ENV NEXT_TELEMETRY_DISABLED=1
+ARG NEXT_PUBLIC_API_URL_CMS
+ENV NEXT_PUBLIC_API_URL_CMS=$NEXT_PUBLIC_API_URL_CMS
 RUN cd /repo/apps/cms && /repo/node_modules/.bin/next build
 
 FROM node:20-alpine AS runner

@@ -1,9 +1,9 @@
 import { Router } from "express";
 import rateLimit from "express-rate-limit";
-import nodemailer from "nodemailer";
 import { prisma } from "@portfolio/db";
 import { createContactLeadSchema, updateContactLeadStatusSchema } from "@portfolio/types";
 import { requireAuth } from "../middleware/requireAuth";
+import { getMailTransport, getNotifyEmail } from "../lib/mail";
 
 export const contactRouter = Router();
 
@@ -15,17 +15,6 @@ const submitLimit = rateLimit({
   message: { error: { message: "Too many submissions. Try again in an hour.", code: "RATE_LIMITED" } },
 });
 
-function buildTransporter() {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return null;
-  return nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: Number(SMTP_PORT ?? 587),
-    secure: Number(SMTP_PORT ?? 587) === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
-}
-
 async function sendLeadNotification(lead: {
   name: string;
   email: string;
@@ -33,14 +22,13 @@ async function sendLeadNotification(lead: {
   budget: string;
   message: string;
 }) {
-  const notifyEmail = process.env.NOTIFY_EMAIL;
-  const fromEmail = process.env.SMTP_FROM ?? process.env.SMTP_USER;
-  const transporter = buildTransporter();
-  if (!transporter || !notifyEmail) {
+  const notifyEmail = await getNotifyEmail();
+  const mail = await getMailTransport();
+  if (!mail || !notifyEmail) {
     return;
   }
-  await transporter.sendMail({
-    from: `"Portfolio Contact" <${fromEmail}>`,
+  await mail.transporter.sendMail({
+    from: `"Portfolio Contact" <${mail.from}>`,
     to: notifyEmail,
     replyTo: lead.email,
     subject: `New lead: ${lead.name} — ${lead.category}`,

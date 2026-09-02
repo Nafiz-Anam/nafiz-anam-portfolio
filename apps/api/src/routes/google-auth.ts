@@ -2,18 +2,20 @@ import { Router } from "express";
 import { prisma } from "@portfolio/db";
 import { requireAuth } from "../middleware/requireAuth";
 import { getAuthUrl, exchangeCode, encrypt, decrypt } from "../lib/googleCalendar";
+import { getSetting } from "../lib/settings";
 
 export const googleAuthRouter = Router();
 
 const CMS_URL = process.env.CORS_ORIGIN_CMS ?? "http://localhost:3001";
 
 /** GET /api/google-calendar/connect — admin-only, redirects to Google OAuth */
-googleAuthRouter.get("/connect", requireAuth, (_req, res) => {
-  if (!process.env.GOOGLE_CLIENT_ID) {
+googleAuthRouter.get("/connect", requireAuth, async (_req, res) => {
+  const clientId = await getSetting("google_client_id", "GOOGLE_CLIENT_ID");
+  if (!clientId) {
     res.status(503).json({ error: { message: "Google Calendar not configured" } });
     return;
   }
-  const url = getAuthUrl("portfolio-admin");
+  const url = await getAuthUrl("portfolio-admin");
   res.redirect(url);
 });
 

@@ -14,6 +14,12 @@ COPY packages/types packages/types
 COPY packages/config packages/config
 COPY apps/web apps/web
 ENV NEXT_TELEMETRY_DISABLED=1
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_PREVIEW_SECRET
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL \
+    NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
+    NEXT_PUBLIC_PREVIEW_SECRET=$NEXT_PUBLIC_PREVIEW_SECRET
 RUN cd /repo/apps/web && /repo/node_modules/.bin/next build
 
 FROM node:20-alpine AS runner

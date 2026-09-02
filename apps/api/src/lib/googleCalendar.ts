@@ -1,46 +1,16 @@
 import { google, calendar_v3 } from "googleapis";
-import crypto from "node:crypto";
+import { getSetting } from "./settings";
 
-const ALGO = "aes-256-gcm";
-const IV_LEN = 16;
-const TAG_LEN = 16;
+export { encrypt, decrypt } from "./crypto";
 
-function getEncryptionKey(): Buffer {
-  const hex = process.env.ENCRYPTION_KEY ?? "";
-  if (hex.length !== 64) throw new Error("ENCRYPTION_KEY must be a 32-byte hex string (64 chars)");
-  return Buffer.from(hex, "hex");
+export async function makeOAuth2Client() {
+  const clientId = await getSetting("google_client_id", "GOOGLE_CLIENT_ID");
+  const clientSecret = await getSetting("google_client_secret", "GOOGLE_CLIENT_SECRET");
+  return new google.auth.OAuth2(clientId, clientSecret, process.env.GOOGLE_REDIRECT_URI);
 }
 
-export function encrypt(plain: string): string {
-  const key = getEncryptionKey();
-  const iv = crypto.randomBytes(IV_LEN);
-  const cipher = crypto.createCipheriv(ALGO, key, iv);
-  const encrypted = Buffer.concat([cipher.update(plain, "utf8"), cipher.final()]);
-  const tag = cipher.getAuthTag();
-  return Buffer.concat([iv, tag, encrypted]).toString("base64");
-}
-
-export function decrypt(ciphertext: string): string {
-  const key = getEncryptionKey();
-  const buf = Buffer.from(ciphertext, "base64");
-  const iv = buf.subarray(0, IV_LEN);
-  const tag = buf.subarray(IV_LEN, IV_LEN + TAG_LEN);
-  const encrypted = buf.subarray(IV_LEN + TAG_LEN);
-  const decipher = crypto.createDecipheriv(ALGO, key, iv);
-  decipher.setAuthTag(tag);
-  return decipher.update(encrypted) + decipher.final("utf8");
-}
-
-export function makeOAuth2Client() {
-  return new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
-    process.env.GOOGLE_REDIRECT_URI
-  );
-}
-
-export function getAuthUrl(state: string): string {
-  const oauth2 = makeOAuth2Client();
+export async function getAuthUrl(state: string): Promise<string> {
+  const oauth2 = await makeOAuth2Client();
   return oauth2.generateAuthUrl({
     access_type: "offline",
     prompt: "consent",
@@ -54,7 +24,7 @@ export function getAuthUrl(state: string): string {
 }
 
 export async function exchangeCode(code: string): Promise<{ refreshToken: string; email: string }> {
-  const oauth2 = makeOAuth2Client();
+  const oauth2 = await makeOAuth2Client();
   const { tokens } = await oauth2.getToken(code);
   if (!tokens.refresh_token) throw new Error("No refresh token — user must re-authorise with prompt=consent");
   oauth2.setCredentials(tokens);
@@ -64,7 +34,7 @@ export async function exchangeCode(code: string): Promise<{ refreshToken: string
 }
 
 export async function getCalendarClient(refreshToken: string): Promise<calendar_v3.Calendar> {
-  const oauth2 = makeOAuth2Client();
+  const oauth2 = await makeOAuth2Client();
   oauth2.setCredentials({ refresh_token: refreshToken });
   return google.calendar({ version: "v3", auth: oauth2 });
 }

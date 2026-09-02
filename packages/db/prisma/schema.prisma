@@ -15,6 +15,12 @@ model SiteConfig {
   updatedAt DateTime @updatedAt
 }
 
+model SiteSecret {
+  key       String   @id
+  value     String   // AES-256-GCM encrypted
+  updatedAt DateTime @updatedAt
+}
+
 model Project {
   id             String    @id @default(cuid())
   title          String

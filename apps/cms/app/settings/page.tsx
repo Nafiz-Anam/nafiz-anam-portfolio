@@ -181,9 +181,26 @@ const MANAGED_KEYS: { key: string; label: string; description: string; type?: "u
     description: "Client name shown in homepage logo strip (slot 6).",
     type: "text",
   },
+  {
+    key: "ga_measurement_id",
+    label: "Google Analytics Measurement ID",
+    description: "e.g. \"G-XXXXXXXXXX\". Leave blank to disable analytics.",
+    type: "text",
+  },
 ];
 
-const GENERAL_KEYS = ["availability_status", "contact_email", "facebook_url", "linkedin_url", "github_url", "twitter_url"];
+const SECRET_KEYS: { key: string; label: string; description: string; type?: "text" | "password" }[] = [
+  { key: "smtp_host", label: "SMTP Host", description: "e.g. smtp.gmail.com", type: "text" },
+  { key: "smtp_port", label: "SMTP Port", description: "Usually 587 (TLS) or 465 (SSL).", type: "text" },
+  { key: "smtp_user", label: "SMTP User", description: "Login username for your SMTP provider.", type: "text" },
+  { key: "smtp_pass", label: "SMTP Password", description: "App password or API key for your SMTP provider.", type: "password" },
+  { key: "smtp_from", label: "SMTP From Address", description: "Sender address for outgoing mail. Defaults to SMTP User if blank.", type: "text" },
+  { key: "notify_email", label: "Notify Email", description: "Where new contact-form leads and bookings are emailed.", type: "text" },
+  { key: "google_client_id", label: "Google OAuth Client ID", description: "From Google Cloud Console credentials.", type: "text" },
+  { key: "google_client_secret", label: "Google OAuth Client Secret", description: "From Google Cloud Console credentials.", type: "password" },
+];
+
+const GENERAL_KEYS = ["availability_status", "contact_email", "facebook_url", "linkedin_url", "github_url", "twitter_url", "ga_measurement_id"];
 const HERO_KEYS = [
   "footer_photo_url", "hero_headline_1", "hero_headline_2_serif", "hero_headline_2_sans",
   "hero_name", "hero_pitch", "hero_photo_url", "hero_tags",
@@ -191,7 +208,7 @@ const HERO_KEYS = [
   "client_logo_1", "client_logo_2", "client_logo_3", "client_logo_4", "client_logo_5", "client_logo_6",
 ];
 
-type Tab = "general" | "hero" | "booking" | "account";
+type Tab = "general" | "hero" | "booking" | "integrations" | "account";
 
 export default function SettingsPage() {
   const [tab, setTab] = useState<Tab>("general");
@@ -199,6 +216,12 @@ export default function SettingsPage() {
   const [saved, setSaved] = useState<Record<string, boolean>>({});
   const [saving, setSaving] = useState<Record<string, boolean>>({});
   const [error, setError] = useState<string | null>(null);
+
+  // Integrations (secrets) state
+  const [secretValues, setSecretValues] = useState<Record<string, string>>({});
+  const [secretSaved, setSecretSaved] = useState<Record<string, boolean>>({});
+  const [secretSaving, setSecretSaving] = useState<Record<string, boolean>>({});
+  const [revealed, setRevealed] = useState<Record<string, boolean>>({});
 
   // Password change state
   const [pwCurrent, setPwCurrent] = useState("");
@@ -224,6 +247,10 @@ export default function SettingsPage() {
       .then((res) => setCalStatus(res.data))
       .catch(() => setCalStatus({ connected: false, email: null }))
       .finally(() => setCalLoading(false));
+
+    api.get<{ secrets: Record<string, string> }>("/api/site-secrets")
+      .then((res) => setSecretValues(res.data.secrets ?? {}))
+      .catch(() => {});
   }, []);
 
   async function disconnectGoogleCalendar() {
@@ -250,6 +277,20 @@ export default function SettingsPage() {
       alert(err.message ?? "Save failed.");
     } finally {
       setSaving((s) => ({ ...s, [key]: false }));
+    }
+  }
+
+  async function saveSecret(key: string) {
+    setSecretSaving((s) => ({ ...s, [key]: true }));
+    try {
+      await api.put(`/api/site-secrets/${key}`, { value: secretValues[key] ?? "" });
+      setSecretSaved((s) => ({ ...s, [key]: true }));
+      setTimeout(() => setSecretSaved((s) => ({ ...s, [key]: false })), 2000);
+    } catch (e) {
+      const err = e as { message?: string };
+      alert(err.message ?? "Save failed.");
+    } finally {
+      setSecretSaving((s) => ({ ...s, [key]: false }));
     }
   }
 
@@ -310,10 +351,51 @@ export default function SettingsPage() {
     );
   }
 
+  function renderSecretField({ key, label, description, type }: typeof SECRET_KEYS[number]) {
+    const isPassword = type === "password";
+    const show = revealed[key] ?? false;
+    return (
+      <div key={key} className="rounded-xl border border-border bg-muted/20 p-5">
+        <div className="mb-3">
+          <p className="text-sm font-semibold">{label}</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <input
+              type={isPassword && !show ? "password" : "text"}
+              value={secretValues[key] ?? ""}
+              onChange={(e) => setSecretValues((v) => ({ ...v, [key]: e.target.value }))}
+              onKeyDown={(e) => { if (e.key === "Enter") saveSecret(key); }}
+              className="w-full rounded-md border border-border bg-background px-3 py-2 pr-9 text-sm outline-none focus:ring-1 focus:ring-accent"
+            />
+            {isPassword && (
+              <button
+                type="button"
+                onClick={() => setRevealed((r) => ({ ...r, [key]: !show }))}
+                className="absolute right-2.5 top-2.5 text-muted-foreground"
+              >
+                {show ? <EyeOff size={14} /> : <Eye size={14} />}
+              </button>
+            )}
+          </div>
+          <button
+            onClick={() => saveSecret(key)}
+            disabled={secretSaving[key]}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-accent text-accent-foreground hover:bg-accent/90 disabled:opacity-50"
+          >
+            {secretSaved[key] ? <Check size={15} /> : <Save size={15} />}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const tabs: { id: Tab; label: string }[] = [
     { id: "general", label: "General" },
     { id: "hero", label: "Hero" },
     { id: "booking", label: "Booking" },
+    { id: "integrations", label: "Integrations" },
     { id: "account", label: "Account" },
   ];
 
@@ -546,6 +628,29 @@ export default function SettingsPage() {
                 </div>
               </div>
             </div>
+          </>
+        )}
+
+        {/* Integrations tab */}
+        {tab === "integrations" && (
+          <>
+            <div className="rounded-xl border border-border bg-muted/20 p-5">
+              <p className="text-sm font-semibold">Email (SMTP)</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Used for contact-form lead notifications and booking confirmation emails.
+                Leave blank to disable — the contact form still saves to the database either way.
+              </p>
+            </div>
+            {SECRET_KEYS.filter((k) => k.key.startsWith("smtp_") || k.key === "notify_email").map(renderSecretField)}
+
+            <div className="rounded-xl border border-border bg-muted/20 p-5">
+              <p className="text-sm font-semibold">Google OAuth</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Client credentials for the Google Calendar connection above. Leave blank and the
+                booking feature stays disabled.
+              </p>
+            </div>
+            {SECRET_KEYS.filter((k) => k.key.startsWith("google_")).map(renderSecretField)}
           </>
         )}
 

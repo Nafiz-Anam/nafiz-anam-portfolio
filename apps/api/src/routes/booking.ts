@@ -6,7 +6,7 @@ import { createBookingSchema } from "@portfolio/types";
 import { requireAuth } from "../middleware/requireAuth";
 import { getStoredRefreshToken, getStoredEmail } from "./google-auth";
 import { getFreeBusy, createCalendarEvent, deleteCalendarEvent } from "../lib/googleCalendar";
-import nodemailer from "nodemailer";
+import { getMailTransport, getNotifyEmail } from "../lib/mail";
 
 export const bookingRouter = Router();
 
@@ -349,8 +349,8 @@ async function sendConfirmationEmail(params: {
   durationMins: number;
   timezone: string;
 }) {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM } = process.env;
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return;
+  const mail = await getMailTransport();
+  if (!mail) return;
 
   const dateStr = params.scheduledAt.toLocaleString("en-GB", {
     dateStyle: "full",
@@ -358,15 +358,8 @@ async function sendConfirmationEmail(params: {
     timeZone: params.timezone,
   });
 
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT ? Number(SMTP_PORT) : 587,
-    secure: false,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
-
-  await transporter.sendMail({  // caller wraps in .catch()
-    from: SMTP_FROM ?? SMTP_USER,
+  await mail.transporter.sendMail({  // caller wraps in .catch()
+    from: mail.from,
     to: params.email,
     subject: `Your discovery call is confirmed — ${dateStr}`,
     text: [
@@ -393,23 +386,17 @@ async function notifyOwnerNewBooking(params: {
   durationMins: number;
   timezone: string;
 }) {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM, NOTIFY_EMAIL } = process.env;
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !NOTIFY_EMAIL) return;
+  const notifyEmail = await getNotifyEmail();
+  const mail = await getMailTransport();
+  if (!mail || !notifyEmail) return;
 
   const dateStr = params.scheduledAt.toLocaleString("en-GB", {
     dateStyle: "full", timeStyle: "short", timeZone: params.timezone,
   });
 
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT ? Number(SMTP_PORT) : 587,
-    secure: false,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
-
-  await transporter.sendMail({
-    from: SMTP_FROM ?? SMTP_USER,
-    to: NOTIFY_EMAIL,
+  await mail.transporter.sendMail({
+    from: mail.from,
+    to: notifyEmail,
     subject: `New booking — ${params.name} · ${dateStr}`,
     text: [
       `New discovery call booked.`,
@@ -430,22 +417,15 @@ async function sendCancellationEmail(params: {
   durationMins: number;
   timezone: string;
 }) {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM } = process.env;
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return;
+  const mail = await getMailTransport();
+  if (!mail) return;
 
   const dateStr = params.scheduledAt.toLocaleString("en-GB", {
     dateStyle: "full", timeStyle: "short", timeZone: params.timezone,
   });
 
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT ? Number(SMTP_PORT) : 587,
-    secure: false,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
-
-  await transporter.sendMail({
-    from: SMTP_FROM ?? SMTP_USER,
+  await mail.transporter.sendMail({
+    from: mail.from,
     to: params.email,
     subject: `Your discovery call on ${dateStr} has been cancelled`,
     text: [
@@ -468,19 +448,13 @@ async function sendRescheduleEmail(params: {
   durationMins: number;
   timezone: string;
 }) {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM } = process.env;
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return;
+  const mail = await getMailTransport();
+  if (!mail) return;
 
   const fmt = (d: Date) => d.toLocaleString("en-GB", { dateStyle: "full", timeStyle: "short", timeZone: params.timezone });
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT ? Number(SMTP_PORT) : 587,
-    secure: false,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
 
-  await transporter.sendMail({
-    from: SMTP_FROM ?? SMTP_USER,
+  await mail.transporter.sendMail({
+    from: mail.from,
     to: params.email,
     subject: `Your discovery call has been rescheduled — ${fmt(params.newScheduledAt)}`,
     text: [
