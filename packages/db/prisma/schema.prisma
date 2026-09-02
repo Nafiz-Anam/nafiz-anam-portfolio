@@ -119,9 +119,12 @@ model BlogCategory {
 model ContactLead {
   id        String   @id @default(cuid())
   name      String
+  company   String?
   email     String
-  category  String
-  budget    String
+  phone     String?
+  category  String?
+  budget    String?
+  timeline  String?
   message   String
   status    String   @default("new")
   createdAt DateTime @default(now())

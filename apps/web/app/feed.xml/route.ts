@@ -47,7 +47,7 @@ export async function GET() {
     <link>${SITE_URL}/insights</link>
     <description>Practical engineering insights, architecture lessons, and technical leadership perspectives.</description>
     <language>en-us</language>
-    <managingEditor>nafiz@agiloit.com (Nafiz Anam)</managingEditor>
+    <managingEditor>hi@nafizanam.com (Nafiz Anam)</managingEditor>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 ${items}

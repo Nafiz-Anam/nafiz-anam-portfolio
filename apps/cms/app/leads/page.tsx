@@ -153,9 +153,10 @@ export default function LeadsPage() {
                     <td className="px-4 py-3">
                       <div className="font-semibold">{lead.name}</div>
                       <div className="text-xs text-muted-foreground">{lead.email}</div>
+                      {lead.company && <div className="text-xs text-muted-foreground">{lead.company}</div>}
                     </td>
-                    <td className="px-4 py-3 text-muted-foreground">{lead.category}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{lead.budget}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{lead.category || "—"}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{lead.budget || "—"}</td>
                     <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                       <Select
                         value={lead.status}
@@ -195,9 +196,17 @@ export default function LeadsPage() {
                   {expanded === lead.id && (
                     <tr key={`${lead.id}-expanded`} className="border-b border-border/60 bg-muted/10">
                       <td colSpan={6} className="px-6 py-4">
-                        <div className="flex flex-col gap-1">
-                          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Message</p>
-                          <p className="text-sm leading-relaxed whitespace-pre-wrap text-foreground/80">{lead.message}</p>
+                        <div className="flex flex-col gap-3">
+                          {(lead.phone || lead.timeline) && (
+                            <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
+                              {lead.phone && <span><strong className="text-foreground/70">Phone:</strong> {lead.phone}</span>}
+                              {lead.timeline && <span><strong className="text-foreground/70">Timeline:</strong> {lead.timeline}</span>}
+                            </div>
+                          )}
+                          <div className="flex flex-col gap-1">
+                            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Message</p>
+                            <p className="text-sm leading-relaxed whitespace-pre-wrap text-foreground/80">{lead.message}</p>
+                          </div>
                           <a
                             href={`mailto:${lead.email}?subject=Re: Your inquiry`}
                             className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground hover:opacity-90"

@@ -22,5 +22,5 @@ export async function getMailTransport(): Promise<{ transporter: nodemailer.Tran
 }
 
 export async function getNotifyEmail(): Promise<string | undefined> {
-  return getSetting("notify_email", "NOTIFY_EMAIL");
+  return (await getSetting("notify_email", "NOTIFY_EMAIL")) ?? "hi@nafizanam.com";
 }

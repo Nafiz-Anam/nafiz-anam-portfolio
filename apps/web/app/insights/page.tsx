@@ -16,14 +16,12 @@ export const metadata = {
     description:
       "Practical engineering insights, architecture lessons, and technical leadership perspectives from Lead Software Engineer and Founder Nafiz Anam.",
     url: "/insights",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Insights — Nafiz Anam",
     description:
       "Practical engineering insights, architecture lessons, and technical leadership perspectives from Lead Software Engineer and Founder Nafiz Anam.",
-    images: ["/opengraph-image"],
   },
 };
 

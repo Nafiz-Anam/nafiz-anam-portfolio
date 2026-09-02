@@ -4,6 +4,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button, Select } from "@portfolio/ui";
 import { BookingButton } from "@/components/sections/BookingButton";
+import { api } from "@/lib/api";
+
+const CONTACT_EMAIL = "hi@nafizanam.com";
 
 /* ─── Shared Reveal ─── */
 function Reveal({
@@ -60,8 +63,9 @@ function ContactHero() {
             className="mb-8 font-bold leading-[1.04] tracking-tight text-foreground"
             style={{ fontSize: "clamp(38px, 6vw, 86px)" }}
           >
-            Let's Build Something{" "}
-            <span className="font-serif italic text-accent">Exceptional.</span>
+            Tell Me What's
+            <br />
+            <span className="font-serif italic text-accent">Not Working.</span>
           </motion.h1>
 
           <motion.p
@@ -70,9 +74,10 @@ function ContactHero() {
             transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
             className="mb-14 max-w-[640px] text-[18px] leading-[1.8] text-foreground/52"
           >
-            Whether you're building a new product, modernizing existing software,
-            scaling your engineering team, or looking for a trusted technical
-            partner — I'd love to hear about your project.
+            Whether it's a product that can't handle growth, a system held
+            together with workarounds, or a decision you don't want to get
+            wrong on your own, I'd like to hear what's actually going on
+            before we talk about the fix.
           </motion.p>
 
           <motion.div
@@ -81,15 +86,13 @@ function ContactHero() {
             transition={{ duration: 0.45, ease: "easeOut", delay: 0.16 }}
             className="flex flex-wrap gap-4"
           >
-            <a href="#inquiry">
-              <Button className="rounded-[5px] bg-accent px-8 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
-                Schedule a Discovery Call
-              </Button>
-            </a>
-            <a href="mailto:hello@nafizanam.com">
+            <BookingButton className="rounded-[5px] bg-accent px-8 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
+              Schedule a Discovery Call
+            </BookingButton>
+            <a href={`mailto:${CONTACT_EMAIL}`}>
               <Button
                 variant="outline"
-                className="rounded-[5px] border-foreground/20 px-8 py-4 text-xs font-bold uppercase tracking-wide hover:border-foreground/40 hover:bg-foreground/[0.03]"
+                className="h-auto rounded-[5px] border-foreground/20 px-8 py-4 text-xs font-bold uppercase tracking-wide hover:border-foreground/40 hover:bg-foreground/[0.03]"
               >
                 Send an Email
               </Button>
@@ -105,12 +108,11 @@ function ContactHero() {
    SECTION 2 — Who Should Reach Out
 ═══════════════════════════════════════════════════════════ */
 const WHO_LIST = [
-  "Founders validating an MVP or early-stage product",
-  "Startups building custom software from scratch",
-  "Businesses modernizing legacy systems",
-  "Agencies needing senior technical leadership",
-  "Companies scaling engineering teams",
-  "Organisations pursuing digital transformation",
+  "Funded startups scaling a product past MVP",
+  "Founders validating an early-stage idea who need it built right the first time",
+  "Growing businesses whose manual processes or legacy systems are limiting growth",
+  "Companies that need senior technical leadership without hiring a full-time CTO",
+  "Agencies or teams needing an experienced partner for a complex build",
 ] as const;
 
 const CAPABILITIES = [
@@ -122,7 +124,6 @@ const CAPABILITIES = [
   "Engineering Leadership",
   "System Integrations",
   "Product Strategy",
-  "Digital Transformation",
   "Technical Consulting",
   "Custom Software",
   "Team Scaling",
@@ -178,7 +179,7 @@ function WhoShouldReachOut() {
                 {CAPABILITIES.map((cap) => (
                   <span
                     key={cap}
-                    className="rounded-[3px] border border-foreground/[0.10] bg-foreground/[0.03] px-4 py-2 text-[12px] font-medium text-foreground/60 transition-colors duration-150 hover:border-accent/30 hover:bg-accent/[0.05] hover:text-foreground/80"
+                    className="rounded-[3px] border border-foreground/[0.10] bg-background px-4 py-2 text-[12px] font-medium text-foreground/70 transition-colors duration-150 hover:border-accent/30 hover:bg-accent/10 hover:text-foreground/90"
                   >
                     {cap}
                   </span>
@@ -189,7 +190,7 @@ function WhoShouldReachOut() {
             <div className="rounded-[5px] border border-accent/15 bg-accent/[0.04] p-7">
               <p className="text-[13px] leading-[1.85] text-foreground/60">
                 Not sure if your project fits? Reach out anyway. If I'm not
-                the right fit, I'll tell you honestly — and point you in the
+                the right fit, I'll tell you honestly, and point you in the
                 right direction.
               </p>
             </div>
@@ -271,9 +272,41 @@ function SelectWrapper({ children }: { children: React.ReactNode }) {
   );
 }
 
+const PROJECT_TYPE_OPTIONS = [
+  { value: "new-mvp", label: "New product / MVP build" },
+  { value: "scaling", label: "Scaling an existing product" },
+  { value: "legacy", label: "Fixing or modernizing legacy systems" },
+  { value: "automation", label: "Automation & AI integration" },
+  { value: "consulting", label: "Technical consulting / second opinion" },
+  { value: "retainer", label: "Ongoing technical leadership (retainer)" },
+  { value: "other", label: "Something else" },
+];
+
+const BUDGET_OPTIONS = [
+  { value: "under-10k", label: "Under $10,000" },
+  { value: "10-25k", label: "$10,000 – $25,000" },
+  { value: "25-50k", label: "$25,000 – $50,000" },
+  { value: "50-100k", label: "$50,000 – $100,000" },
+  { value: "100k-plus", label: "$100,000+" },
+  { value: "undecided", label: "Not sure yet" },
+];
+
+const TIMELINE_OPTIONS = [
+  { value: "asap", label: "ASAP / within a month" },
+  { value: "1-3mo", label: "1–3 months" },
+  { value: "3-6mo", label: "3–6 months" },
+  { value: "flexible", label: "Flexible, still exploring" },
+];
+
+function labelFor(options: readonly { value: string; label: string }[], value: string) {
+  return options.find((o) => o.value === value)?.label ?? value;
+}
+
 function ProjectInquiryForm() {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<FormState>>({});
 
   const set = (field: keyof FormState) => (
@@ -298,14 +331,33 @@ function ProjectInquiryForm() {
     return errs;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      await api.post("/contact", {
+        name: form.name.trim(),
+        company: form.company.trim() || null,
+        email: form.email.trim(),
+        phone: form.phone.trim() || null,
+        category: form.projectType ? labelFor(PROJECT_TYPE_OPTIONS, form.projectType) : null,
+        budget: form.budget ? labelFor(BUDGET_OPTIONS, form.budget) : null,
+        timeline: form.timeline ? labelFor(TIMELINE_OPTIONS, form.timeline) : null,
+        message: form.description.trim(),
+      });
+      setSubmitted(true);
+    } catch (err) {
+      const message = (err as { message?: string })?.message;
+      setSubmitError(message || "Something went wrong. Please try again or email me directly.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -364,7 +416,7 @@ function ProjectInquiryForm() {
                       I'll review your inquiry and be in touch within one
                       business day. Check your inbox — I reply from{" "}
                       <span className="font-medium text-foreground/75">
-                        hello@nafizanam.com
+                        {CONTACT_EMAIL}
                       </span>
                       .
                     </p>
@@ -442,16 +494,7 @@ function ProjectInquiryForm() {
                       value={form.projectType}
                       onChange={setField("projectType")}
                       placeholder="Select a project type…"
-                      options={[
-                        { value: "custom-software", label: "Custom Software Development" },
-                        { value: "saas", label: "SaaS Platform" },
-                        { value: "ai-automation", label: "AI & Automation" },
-                        { value: "cloud-devops", label: "Cloud Infrastructure & DevOps" },
-                        { value: "consulting", label: "Technical Consulting & Architecture" },
-                        { value: "team-scaling", label: "Engineering Leadership & Team Scaling" },
-                        { value: "integration", label: "System Integration" },
-                        { value: "other", label: "Other" },
-                      ]}
+                      options={PROJECT_TYPE_OPTIONS}
                       buttonClassName={selectClass}
                     />
                   </FormField>
@@ -463,14 +506,7 @@ function ProjectInquiryForm() {
                         value={form.budget}
                         onChange={setField("budget")}
                         placeholder="Select a range…"
-                        options={[
-                          { value: "under-10k", label: "Under $10,000" },
-                          { value: "10-25k", label: "$10,000 – $25,000" },
-                          { value: "25-50k", label: "$25,000 – $50,000" },
-                          { value: "50-100k", label: "$50,000 – $100,000" },
-                          { value: "100k-plus", label: "$100,000+" },
-                          { value: "undecided", label: "Not sure yet" },
-                        ]}
+                        options={BUDGET_OPTIONS}
                         buttonClassName={selectClass}
                       />
                     </FormField>
@@ -479,13 +515,7 @@ function ProjectInquiryForm() {
                         value={form.timeline}
                         onChange={setField("timeline")}
                         placeholder="Select a timeline…"
-                        options={[
-                          { value: "asap", label: "As soon as possible" },
-                          { value: "1-3mo", label: "1 – 3 months" },
-                          { value: "3-6mo", label: "3 – 6 months" },
-                          { value: "6mo-plus", label: "6+ months" },
-                          { value: "flexible", label: "Flexible" },
-                        ]}
+                        options={TIMELINE_OPTIONS}
                         buttonClassName={selectClass}
                       />
                     </FormField>
@@ -496,7 +526,7 @@ function ProjectInquiryForm() {
                     <div>
                       <textarea
                         rows={6}
-                        placeholder="Tell me about your project — the problem you're solving, where you are now, and what success looks like…"
+                        placeholder="Tell me about your project, the problem you're solving, where you are now, and what success looks like."
                         value={form.description}
                         onChange={set("description")}
                         className={`${inputClass} resize-none ${errors.description ? "border-red-400/50" : ""}`}
@@ -509,11 +539,15 @@ function ProjectInquiryForm() {
 
                   {/* Submit */}
                   <div className="pt-2">
+                    {submitError && (
+                      <p className="mb-4 text-[13px] text-red-500/90">{submitError}</p>
+                    )}
                     <Button
                       type="submit"
-                      className="w-full rounded-[5px] bg-accent py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90 sm:w-auto sm:px-12"
+                      disabled={submitting}
+                      className="w-full rounded-[5px] bg-accent py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90 disabled:opacity-60 sm:w-auto sm:px-12"
                     >
-                      Send Inquiry
+                      {submitting ? "Sending…" : "Send Inquiry"}
                     </Button>
                     <p className="mt-4 text-[11px] leading-[1.7] text-foreground/28">
                       No spam. No commitment. I'll respond within one business day.
@@ -562,10 +596,10 @@ function ProjectInquiryForm() {
                 Prefer a direct line?
               </p>
               <a
-                href="mailto:hello@nafizanam.com"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="text-[13px] font-medium text-accent transition-opacity hover:opacity-75"
               >
-                hello@nafizanam.com
+                {CONTACT_EMAIL}
               </a>
             </div>
 
@@ -595,8 +629,8 @@ function ProjectInquiryForm() {
 const CONNECT_ITEMS = [
   {
     label: "Email",
-    value: "hello@nafizanam.com",
-    href: "mailto:hello@nafizanam.com",
+    value: "hi@nafizanam.com",
+    href: "mailto:hi@nafizanam.com",
     description: "Best for detailed project briefs",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
@@ -609,7 +643,7 @@ const CONNECT_ITEMS = [
     label: "LinkedIn",
     value: "linkedin.com/in/nafizanam",
     href: "https://linkedin.com/in/nafizanam",
-    description: "Professional profile & endorsements",
+    description: "Professional background and how others describe working with me",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -621,7 +655,7 @@ const CONNECT_ITEMS = [
     label: "GitHub",
     value: "github.com/nafizanam",
     href: "https://github.com/nafizanam",
-    description: "Open source work & code samples",
+    description: "Technical background, for anyone who wants to look under the hood",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
         <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
@@ -629,7 +663,7 @@ const CONNECT_ITEMS = [
     ),
   },
   {
-    label: "Google Calendar",
+    label: "Booking Calendar",
     value: "Book a 30-min call",
     href: "https://calendar.google.com/calendar/appointments",
     description: "Pick a time that works for you",
@@ -643,7 +677,7 @@ const CONNECT_ITEMS = [
   },
   {
     label: "Location",
-    value: "Dhaka, Bangladesh",
+    value: "Khulna, Bangladesh",
     href: null,
     description: "Available for remote engagements worldwide",
     icon: (
@@ -669,7 +703,7 @@ const CONNECT_ITEMS = [
 
 function ConnectCard({ icon, label, value, description }: { icon: React.ReactNode; label: string; value: string; description: string }) {
   return (
-    <div className="flex h-full flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-panel p-7 shadow-sm transition-all duration-200 hover:border-accent/40 hover:shadow-md">
+    <div className="flex h-full flex-col gap-5 rounded-[5px] border border-panel-foreground/[0.08] bg-background p-7 shadow-sm transition-all duration-200 hover:border-accent/40 hover:shadow-md">
       <div className="text-panel-foreground/40">{icon}</div>
       <div className="flex flex-col gap-1">
         <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-panel-foreground/30">{label}</p>
@@ -700,7 +734,7 @@ function OtherWaysToConnect() {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CONNECT_ITEMS.map((item, i) => {
-            if (item.label === "Google Calendar") {
+            if (item.label === "Booking Calendar") {
               return (
                 <Reveal key={item.label} delay={(i % 3) * 0.06}>
                   <BookingButton className="block h-full w-full text-left">
@@ -734,25 +768,25 @@ const STEPS = [
     number: "01",
     title: "Initial Review",
     description:
-      "I'll review your inquiry within one business day and follow up with any initial questions.",
+      "I review every inquiry within one business day and follow up with any questions before we talk, so we start the conversation with the right context.",
   },
   {
     number: "02",
     title: "Discovery Conversation",
     description:
-      "We'll have a focused 30–45 minute conversation about your goals, challenges, constraints, and requirements.",
+      "A focused 30-45 minute conversation about what's actually going on: your goals, constraints, and what's not working.",
   },
   {
     number: "03",
     title: "Proposal & Roadmap",
     description:
-      "You'll receive a clear proposal covering recommended approach, scope, timeline, and investment.",
+      "You'll get a clear proposal: the approach I'd take, the scope, the timeline, and the investment required.",
   },
   {
     number: "04",
     title: "Engineering Partnership",
     description:
-      "Once aligned, we begin. You'll have a dedicated technical partner from day one through long-term delivery.",
+      "Once we're aligned, we start. You'll have a dedicated technical partner from day one, not a contractor waiting for instructions.",
   },
 ] as const;
 
@@ -808,35 +842,35 @@ function WhatHappensNext() {
 const FAQS = [
   {
     q: "What types of projects do you work on?",
-    a: "Custom software, SaaS platforms, AI and automation systems, enterprise integrations, cloud infrastructure, and technical leadership. I've delivered projects across healthcare, logistics, finance, education, and enterprise sectors.",
+    a: "Mostly two kinds: SaaS products that need to scale past their MVP, and operating businesses whose manual processes or legacy systems have started limiting growth. If your project doesn't fit either, reach out anyway. I'll tell you honestly if I'm the right fit.",
   },
   {
     q: "Do you work with international clients?",
-    a: "Yes — fully remote-capable with experience working with clients across North America, Europe, the Middle East, and Asia. I'm flexible with timezone overlap and async-first communication.",
+    a: "Yes. Most of my clients are outside Bangladesh, across Australia, Europe, and the US. I work GMT+6, with flexible hours to overlap with your team.",
   },
   {
     q: "Can you join an existing development team?",
-    a: "Absolutely. I work well in embedded roles — as a senior engineer, tech lead, or architect on existing teams. This includes code reviews, architecture guidance, or hands-on delivery alongside your team.",
+    a: "Yes. I regularly work alongside in-house teams as a technical lead or architecture partner, not just as an outside contractor. That can mean reviewing decisions, unblocking a specific problem, or taking ongoing technical ownership.",
   },
   {
     q: "Do you sign NDAs?",
-    a: "Yes, standard practice before discussing any proprietary project details. NDAs are signed before technical specifics are shared.",
+    a: "Yes, standard practice for any project with real detail to protect. I'm happy to sign yours or provide mine.",
   },
   {
     q: "Do you provide ongoing maintenance?",
-    a: "Yes. Retainer agreements for maintenance, monitoring, feature development, and ongoing technical support are available after project delivery.",
+    a: "Yes, either as part of the original engagement or as an ongoing retainer once the initial build or fix is delivered. Software that's actively used needs an owner, not a one-time delivery.",
   },
   {
     q: "What is the typical project timeline?",
-    a: "MVPs typically run 8–16 weeks. Complex enterprise systems range from 6–12 months. The exact timeline is established during the discovery conversation based on scope and constraints.",
+    a: "It depends on the problem, not a fixed package. A focused fix might take a few weeks. A full product build or system migration is usually measured in months. You'll get a real timeline in the proposal, not before.",
   },
   {
     q: "How quickly do you respond to inquiries?",
-    a: "Within one business day for all inquiries. Discovery calls are typically scheduled within 3–5 business days of initial contact.",
+    a: "Within one business day, usually faster.",
   },
   {
     q: "Can you help with existing software?",
-    a: "Yes — audits, architecture reviews, performance optimisation, refactoring, or adding new features to existing codebases. Many engagements begin with an assessment of what already exists.",
+    a: "Yes, this is a large part of the work. Reviewing, fixing, or extending an existing system is often more valuable than starting over, and I'll tell you if a rebuild is genuinely the better call.",
   },
 ] as const;
 
@@ -929,12 +963,12 @@ function ContactFinalCTA() {
             className="max-w-[760px] font-bold leading-[1.04] tracking-tight text-foreground"
             style={{ fontSize: "clamp(30px, 4.5vw, 66px)" }}
           >
-            Every great product starts with{" "}
+            Every real fix starts with{" "}
             <span className="font-serif italic text-accent">a conversation.</span>
           </h2>
           <p className="max-w-[520px] text-[16px] leading-[1.88] text-foreground/48">
-            Whether you have a detailed specification or just an early idea,
-            let's discuss how we can turn it into a scalable, reliable product.
+            Whether you already know exactly what's wrong, or just know that
+            something is, let's talk about it before we talk about the solution.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
@@ -943,7 +977,7 @@ function ContactFinalCTA() {
             <a href="/case-studies">
               <Button
                 variant="outline"
-                className="rounded-[5px] border-foreground/20 px-10 py-4 text-xs font-bold uppercase tracking-wide hover:border-foreground/40 hover:bg-foreground/[0.03]"
+                className="h-auto rounded-[5px] border-foreground/20 px-10 py-4 text-xs font-bold uppercase tracking-wide hover:border-foreground/40 hover:bg-foreground/[0.03]"
               >
                 Explore Case Studies
               </Button>

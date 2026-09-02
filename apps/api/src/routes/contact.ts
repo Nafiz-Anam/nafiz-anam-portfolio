@@ -17,9 +17,12 @@ const submitLimit = rateLimit({
 
 async function sendLeadNotification(lead: {
   name: string;
+  company?: string | null;
   email: string;
-  category: string;
-  budget: string;
+  phone?: string | null;
+  category?: string | null;
+  budget?: string | null;
+  timeline?: string | null;
   message: string;
 }) {
   const notifyEmail = await getNotifyEmail();
@@ -27,25 +30,30 @@ async function sendLeadNotification(lead: {
   if (!mail || !notifyEmail) {
     return;
   }
+  const rows: [string, string | null | undefined][] = [
+    ["Name", lead.name],
+    ["Company", lead.company],
+    ["Email", lead.email],
+    ["Phone", lead.phone],
+    ["Project Type", lead.category],
+    ["Budget", lead.budget],
+    ["Timeline", lead.timeline],
+  ];
+  const present = rows.filter(([, v]) => v);
+
   await mail.transporter.sendMail({
     from: `"Portfolio Contact" <${mail.from}>`,
     to: notifyEmail,
     replyTo: lead.email,
-    subject: `New lead: ${lead.name} — ${lead.category}`,
+    subject: `New lead: ${lead.name}${lead.category ? ` — ${lead.category}` : ""}`,
     text: [
-      `Name: ${lead.name}`,
-      `Email: ${lead.email}`,
-      `Category: ${lead.category}`,
-      `Budget: ${lead.budget}`,
+      ...present.map(([k, v]) => `${k}: ${v}`),
       ``,
       `Message:`,
       lead.message,
     ].join("\n"),
     html: `
-      <p><strong>Name:</strong> ${lead.name}</p>
-      <p><strong>Email:</strong> <a href="mailto:${lead.email}">${lead.email}</a></p>
-      <p><strong>Category:</strong> ${lead.category}</p>
-      <p><strong>Budget:</strong> ${lead.budget}</p>
+      ${present.map(([k, v]) => `<p><strong>${k}:</strong> ${k === "Email" ? `<a href="mailto:${v}">${v}</a>` : v}</p>`).join("\n      ")}
       <hr/>
       <p><strong>Message:</strong></p>
       <p style="white-space:pre-wrap">${lead.message}</p>

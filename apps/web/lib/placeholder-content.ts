@@ -27,14 +27,14 @@ export interface HeroContent {
 }
 
 export const defaultHero: HeroContent = {
-  tags: ["/software engineering", "/system architecture", "/product engineering"],
-  headlineLine1: "Software &",
-  headlineLine2Serif: "architecture",
+  tags: ["/technology strategy", "/software architecture", "/product engineering"],
+  headlineLine1: "Technology &",
+  headlineLine2Serif: "Product",
   headlineLine2Sans: "Partner",
   index: "/01",
   name: "Nafiz Anam",
   pitch:
-    "Lead Software Engineer and Founder helping businesses design, build, and scale reliable software. I bridge business strategy and engineering execution — from system architecture to production-ready products.",
+    "I work alongside founders and growing teams to solve complex technology challenges, shape practical solutions, and turn ambitious ideas into products and systems that can support the next stage of the business.",
   ctaLabel: "Book a free call",
   photoUrl: "/Nafiz-Anam.jpg",
 };
@@ -118,7 +118,7 @@ export interface FooterContent {
 
 export const defaultFooter: FooterContent = {
   brand: "Nafiz Anam",
-  email: "nafiz@agiloit.com",
+  email: "hi@nafizanam.com",
   whatsapp: "+880 1819-758093",
   location: "Khulna, Bangladesh",
   locationUrl: "https://maps.app.goo.gl/DXT66bC2RxYV9Mw77",

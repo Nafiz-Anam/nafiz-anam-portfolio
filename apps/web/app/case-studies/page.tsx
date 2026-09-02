@@ -23,14 +23,12 @@ export const metadata: Metadata = {
     description:
       "Real engineering challenges, measurable business outcomes. Explore how Nafiz Anam has led complex software projects from strategy to production across healthcare, logistics, finance, and more.",
     url: "/case-studies",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Case Studies — Nafiz Anam",
     description:
       "Real engineering challenges, measurable business outcomes. Explore how Nafiz Anam has led complex software projects from strategy to production across healthcare, logistics, finance, and more.",
-    images: ["/opengraph-image"],
   },
 };
 

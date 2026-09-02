@@ -20,14 +20,12 @@ export const metadata = {
     description:
       "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
     url: "/about",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "About — Nafiz Anam",
     description:
       "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
-    images: ["/opengraph-image"],
   },
 };
 

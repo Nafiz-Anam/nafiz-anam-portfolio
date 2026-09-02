@@ -19,14 +19,12 @@ export const metadata = {
     description:
       "Engineering services built around business goals. Custom software development, SaaS engineering, AI automation, cloud infrastructure, and technical leadership.",
     url: "/services",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Services — Nafiz Anam",
     description:
       "Engineering services built around business goals. Custom software development, SaaS engineering, AI automation, cloud infrastructure, and technical leadership.",
-    images: ["/opengraph-image"],
   },
 };
 
