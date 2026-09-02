@@ -32,7 +32,10 @@ export async function WorkGrid() {
         </Reveal>
 
         {projects.length === 0 ? (
-          <p className="mt-14 text-sm text-muted-foreground">No projects published yet.</p>
+          <p className="mt-14 max-w-lg text-sm text-muted-foreground">
+            The first case study is on its way. In the meantime, book a call and I&apos;ll walk you
+            through relevant project examples directly.
+          </p>
         ) : (
           <div className="mt-14 flex flex-col gap-5">
             {(p(0) || p(1)) && (
@@ -88,7 +91,7 @@ export async function WorkGrid() {
             href="/case-studies"
             className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90"
           >
-            See all works
+            See All Works
           </Link>
         </div>
       </div>

@@ -3,11 +3,18 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Facebook, Linkedin, Github, Star } from "lucide-react";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
-import { defaultHero, type HeroContent } from "@/lib/placeholder-content";
+import { defaultHero, defaultFooter, type HeroContent } from "@/lib/placeholder-content";
 import { BookingButton } from "./BookingButton";
 import { ease, dur } from "@/lib/motion";
 import { onIntroDone } from "@/lib/intro-signal";
+
+const SOCIAL_ICONS: Record<string, typeof Facebook> = {
+  Facebook: Facebook,
+  LinkedIn: Linkedin,
+  GitHub: Github,
+};
 
 function useReady() {
   const [ready, setReady] = useState(false);
@@ -66,11 +73,34 @@ export function Hero({
         </h1>
 
         <motion.div
-          className="flex flex-col items-end gap-3 pt-4 sm:pt-6"
+          className="flex flex-col items-end gap-5 pt-4 sm:pt-6"
           initial={{ opacity: 0, x: 24 }}
           animate={ready ? { opacity: 1, x: 0 } : { opacity: 0, x: 24 }}
           transition={{ duration: dur.md, ease: ease.out, delay: 0.45 }}
         >
+          {/* Trust badge */}
+          <div className="flex flex-col items-end gap-4">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-16 bg-foreground/60" />
+              <div className="flex gap-0.5 text-accent">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-accent text-accent" />
+                ))}
+              </div>
+            </div>
+            <div className="flex -space-x-3">
+              {["A", "N", "J", "M"].map((letter) => (
+                <div
+                  key={letter}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-background bg-accent/20 text-sm font-bold text-accent"
+                >
+                  {letter}
+                </div>
+              ))}
+            </div>
+            <p className="text-sm font-bold text-foreground">359+ Worldwide Trusted Clients</p>
+          </div>
+
           <div className="flex gap-6 text-sm font-medium text-accent/80">
             {merged.tags.map((tag) => <span key={tag}>{tag}</span>)}
           </div>
@@ -85,7 +115,7 @@ export function Hero({
 
       {/* ── Panel card ── */}
       <motion.div
-        className="mt-16 grid grid-cols-1 items-center gap-16 rounded-[5px] bg-panel p-10 text-panel-foreground sm:grid-cols-[1fr_auto] sm:p-14"
+        className="mt-16 grid grid-cols-1 items-center gap-16 rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04] p-10 text-panel-foreground sm:grid-cols-[1fr_auto] sm:p-14"
         initial={{ opacity: 0, y: 64, scale: 0.96 }}
         animate={ready ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 64, scale: 0.96 }}
         transition={{ duration: dur.lg, ease: ease.out, delay: 0.28 }}
@@ -106,7 +136,7 @@ export function Hero({
           </div>
 
           <motion.p
-            className="max-w-md text-base leading-[1.8] text-panel-muted"
+            className="max-w-[605px] text-base leading-[1.8] text-panel-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: dur.md, ease: ease.out, delay: 0.65 }}
@@ -115,20 +145,40 @@ export function Hero({
           </motion.p>
 
           <motion.div
-            className="flex items-center justify-end gap-6"
+            className="flex items-center justify-between gap-6"
             initial={{ opacity: 0, y: 16 }}
             animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-            transition={{ duration: dur.sm, ease: ease.out, delay: 0.78 }}
+            transition={{ duration: dur.sm, ease: ease.out, delay: 0.72 }}
           >
-            <Link
-              href="/case-studies"
-              className="text-[11px] font-bold uppercase tracking-widest text-panel-muted transition-colors duration-200 hover:text-panel-foreground"
-            >
-              View case studies →
-            </Link>
-            <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
-              {merged.ctaLabel}
-            </BookingButton>
+            <div className="flex items-center gap-4">
+              {(merged.socials ?? defaultFooter.socials).map((social) => {
+                const Icon = SOCIAL_ICONS[social.label];
+                return (
+                  <a
+                    key={social.href}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-panel-muted/30 text-panel-muted transition-colors duration-200 hover:border-accent hover:text-accent"
+                  >
+                    {Icon ? <Icon className="h-4 w-4" /> : social.label[0]}
+                  </a>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center gap-6">
+              <Link
+                href="/case-studies"
+                className="text-[11px] font-bold uppercase tracking-widest text-panel-muted transition-colors duration-200 hover:text-panel-foreground"
+              >
+                View case studies →
+              </Link>
+              <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+                {merged.ctaLabel}
+              </BookingButton>
+            </div>
           </motion.div>
         </div>
 

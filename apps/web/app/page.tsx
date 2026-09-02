@@ -9,8 +9,8 @@ const homeSchema = {
       "@type": "ProfilePage",
       "@id": `${SITE_URL}/#profilepage`,
       url: SITE_URL,
-      name: "Nafiz Anam — Lead Software Engineer & Founder",
-      description: "I help founders and businesses design, build, and scale reliable software. Available for consulting, architecture reviews, and full-cycle product engineering.",
+      name: "Nafiz Anam | Technology & Product Partner",
+      description: "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
       mainEntity: { "@id": `${SITE_URL}/#person` },
     },
     {
@@ -21,23 +21,23 @@ const homeSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Nafiz Anam — Lead Software Engineer & Founder",
+  title: "Nafiz Anam | Technology & Product Partner",
   description:
-    "I help founders and businesses design, build, and scale reliable software. Available for consulting, architecture reviews, and full-cycle product engineering.",
+    "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Nafiz Anam — Lead Software Engineer & Founder",
+    title: "Nafiz Anam | Technology & Product Partner",
     description:
-      "I help founders and businesses design, build, and scale reliable software. Available for consulting, architecture reviews, and full-cycle product engineering.",
+      "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
     url: "/",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+    images: [{ url: "/Nafiz_Anam_Software_Engineer.png", width: 1536, height: 1024 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nafiz Anam — Lead Software Engineer & Founder",
+    title: "Nafiz Anam | Technology & Product Partner",
     description:
-      "I help founders and businesses design, build, and scale reliable software. Available for consulting, architecture reviews, and full-cycle product engineering.",
-    images: ["/opengraph-image"],
+      "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
+    images: ["/Nafiz_Anam_Software_Engineer.png"],
   },
 };
 
@@ -88,6 +88,11 @@ export default async function HomePage() {
     getSiteConfig(),
   ]);
 
+  const heroSocials: { label: string; href: string }[] = [];
+  if (config.facebook_url) heroSocials.push({ label: "Facebook", href: config.facebook_url });
+  if (config.linkedin_url) heroSocials.push({ label: "LinkedIn", href: config.linkedin_url });
+  if (config.github_url)   heroSocials.push({ label: "GitHub",   href: config.github_url });
+
   const heroData = {
     tags: config.hero_tags ? config.hero_tags.split("|").map((t) => t.trim()) : undefined,
     headlineLine1: config.hero_headline_1 || undefined,
@@ -96,6 +101,7 @@ export default async function HomePage() {
     name: config.hero_name || undefined,
     pitch: config.hero_pitch || undefined,
     photoUrl: config.hero_photo_url || undefined,
+    socials: heroSocials.length > 0 ? heroSocials : undefined,
   };
 
   return (

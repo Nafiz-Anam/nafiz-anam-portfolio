@@ -32,11 +32,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Nafiz Anam — Lead Software Engineer & Founder",
+    default: "Nafiz Anam | Technology & Product Partner",
     template: "%s — Nafiz Anam",
   },
   description:
-    "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products. Available for consulting and project engagements.",
+    "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
   keywords: [
     "software engineer",
     "software architect",
@@ -54,16 +54,16 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE_URL,
     siteName: "Nafiz Anam",
-    title: "Nafiz Anam — Lead Software Engineer & Founder",
+    title: "Nafiz Anam | Technology & Product Partner",
     description:
-      "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+      "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Nafiz Anam" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nafiz Anam — Lead Software Engineer & Founder",
+    title: "Nafiz Anam | Technology & Product Partner",
     description:
-      "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+      "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
     images: ["/opengraph-image"],
   },
   robots: {
@@ -85,13 +85,23 @@ const jsonLd = {
       "@id": `${SITE_URL}/#person`,
       name: "Nafiz Anam",
       url: SITE_URL,
-      jobTitle: "Lead Software Engineer & Founder",
+      jobTitle: "Technology & Product Partner",
       description:
-        "Lead Software Engineer, Software Architect, and Founder helping businesses design, build, and scale reliable software products.",
+        "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
+      email: "mailto:hi@nafizanam.com",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Khulna",
+        addressCountry: "Bangladesh",
+      },
+      worksFor: [
+        { "@id": `${SITE_URL}/#organization` },
+        { "@id": `${SITE_URL}/#organization-syrona` },
+      ],
       sameAs: [
-        "https://github.com/nafizanam",
-        "https://linkedin.com/in/nafizanam",
-        "https://twitter.com/nafizanam",
+        "https://www.linkedin.com/in/kazinafizanam/",
+        "https://github.com/Nafiz-Anam",
+        "https://www.facebook.com/anamnafiz",
       ],
       knowsAbout: [
         "Software Architecture",
@@ -110,7 +120,14 @@ const jsonLd = {
       name: "Agilo IT",
       url: SITE_URL,
       founder: { "@id": `${SITE_URL}/#person` },
-      description: "Software consultancy specializing in custom software development, SaaS engineering, and technical leadership.",
+      description: "Software consultancy delivering custom software development, SaaS product engineering, AI automation, and technical consulting.",
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization-syrona`,
+      name: "Syrona IT",
+      founder: { "@id": `${SITE_URL}/#person` },
+      description: "Company behind Servero.io, a server-side Google Tag Manager hosting platform for ecommerce brands.",
     },
     {
       "@type": "WebSite",

@@ -200,6 +200,72 @@ html.is-scrolling body * {
   );
 }
 
+/* Same grid as .bg-texture-lines-panel, but with an actual solid dark base
+   color underneath the translucent panel tint, so it's safe to use on a
+   full-bleed <section> (a translucent-only background lets whatever is
+   behind the section — e.g. the light-mode page background — show through). */
+.bg-panel-tint {
+  position: relative;
+  isolation: isolate;
+  background-color: hsl(var(--background));
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E"),
+    linear-gradient(hsl(var(--panel-foreground) / 0.04), hsl(var(--panel-foreground) / 0.04));
+}
+
+.bg-panel-tint::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  pointer-events: none;
+  z-index: -1;
+  background-image: repeating-linear-gradient(
+    90deg,
+    hsl(var(--panel-foreground) / 0.05) 0px,
+    hsl(var(--panel-foreground) / 0.05) 1px,
+    transparent 1px,
+    transparent 13px,
+    hsl(var(--panel-foreground) / 0.05) 13px,
+    hsl(var(--panel-foreground) / 0.05) 14px,
+    transparent 14px,
+    transparent calc((100vw - 3rem) / 8)
+  );
+  background-attachment: scroll;
+  background-position-x: 0;
+}
+
+@media (min-width: 1024px) {
+  .bg-panel-tint::after {
+    left: 4rem;
+    right: 4rem;
+    background-image:
+      linear-gradient(to left,
+        hsl(var(--panel-foreground) / 0.05) 0px,
+        hsl(var(--panel-foreground) / 0.05) 1px,
+        transparent 1px,
+        transparent 13px,
+        hsl(var(--panel-foreground) / 0.05) 13px,
+        hsl(var(--panel-foreground) / 0.05) 14px,
+        transparent 14px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        hsl(var(--panel-foreground) / 0.05) 0px,
+        hsl(var(--panel-foreground) / 0.05) 1px,
+        transparent 1px,
+        transparent 13px,
+        hsl(var(--panel-foreground) / 0.05) 13px,
+        hsl(var(--panel-foreground) / 0.05) 14px,
+        transparent 14px,
+        transparent calc((100vw - 8rem) / 8)
+      );
+    background-attachment: scroll, scroll;
+    background-position-x: 0, 0;
+  }
+}
+
 .scrollbar-thin {
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--foreground) / 0.2) transparent;

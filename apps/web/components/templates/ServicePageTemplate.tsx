@@ -188,7 +188,7 @@ function ProblemsSection({ problems }: Pick<ServicePageData, "problems">) {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="dark overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-texture-lines-inset bg-surface">
+        <Reveal delay={0.1} className="dark overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-panel-foreground/[0.03]">
           {problems.map((p, i) => (
             <ProblemRow key={p.title} {...p} isLast={i === problems.length - 1} />
           ))}
@@ -253,7 +253,7 @@ function DeliverablesSection({
 ═══════════════════════════════════════════════════════════ */
 function ProcessSection({ process }: Pick<ServicePageData, "process">) {
   return (
-    <section className="dark overflow-hidden bg-texture-lines-inset bg-surface px-6 py-28 text-panel-foreground lg:px-16">
+    <section className="dark overflow-hidden bg-texture-lines-panel bg-surface px-6 py-28 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="mb-20 flex flex-col items-center gap-5 text-center">
           <SectionLabel>My Process</SectionLabel>
@@ -398,7 +398,7 @@ function CTASection({
   ctaDescription,
 }: Pick<ServicePageData, "ctaEyebrow" | "ctaHeadline" | "ctaHeadlineAccent" | "ctaDescription">) {
   return (
-    <section className="dark overflow-hidden bg-texture-lines-inset bg-surface px-6 py-36 text-panel-foreground lg:px-16">
+    <section className="dark overflow-hidden bg-texture-lines-panel bg-surface px-6 py-36 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="flex flex-col items-center gap-8 text-center">
           <SectionLabel>{ctaEyebrow}</SectionLabel>

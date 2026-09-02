@@ -24,18 +24,19 @@ export interface HeroContent {
   pitch: string;
   ctaLabel: string;
   photoUrl: string | null;
+  socials?: { label: string; href: string }[];
 }
 
 export const defaultHero: HeroContent = {
-  tags: ["/technology strategy", "/software architecture", "/product engineering"],
+  tags: ["Technology Strategy", "Software Architecture", "Product Engineering"],
   headlineLine1: "Technology &",
   headlineLine2Serif: "Product",
   headlineLine2Sans: "Partner",
   index: "/01",
   name: "Nafiz Anam",
   pitch:
-    "I work alongside founders and growing teams to solve complex technology challenges, shape practical solutions, and turn ambitious ideas into products and systems that can support the next stage of the business.",
-  ctaLabel: "Book a free call",
+    "Bad software rarely starts with bad code. It starts with a decision nobody senior enough was in the room to make. I'm the person founders and growing businesses bring in before that happens, or to fix it after it already has.",
+  ctaLabel: "Book a Free Call",
   photoUrl: "/Nafiz-Anam.jpg",
 };
 
@@ -123,9 +124,9 @@ export const defaultFooter: FooterContent = {
   location: "Khulna, Bangladesh",
   locationUrl: "https://maps.app.goo.gl/DXT66bC2RxYV9Mw77",
   socials: [
-    { label: "Facebook", href: "https://facebook.com/nafizanam" },
-    { label: "LinkedIn", href: "https://linkedin.com/in/nafizanam" },
-    { label: "GitHub", href: "https://github.com/nafizanam" },
+    { label: "Facebook", href: "https://www.facebook.com/anamnafiz" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/kazinafizanam/" },
+    { label: "GitHub", href: "https://github.com/Nafiz-Anam" },
   ],
   pages: [
     { label: "Case Studies", href: "/case-studies" },

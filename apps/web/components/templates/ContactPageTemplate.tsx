@@ -642,8 +642,8 @@ const CONNECT_ITEMS = [
   },
   {
     label: "LinkedIn",
-    value: "linkedin.com/in/nafizanam",
-    href: "https://linkedin.com/in/nafizanam",
+    value: "linkedin.com/in/kazinafizanam",
+    href: "https://www.linkedin.com/in/kazinafizanam/",
     description: "Professional background and how others describe working with me",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
@@ -654,8 +654,8 @@ const CONNECT_ITEMS = [
   },
   {
     label: "GitHub",
-    value: "github.com/nafizanam",
-    href: "https://github.com/nafizanam",
+    value: "github.com/Nafiz-Anam",
+    href: "https://github.com/Nafiz-Anam",
     description: "Technical background, for anyone who wants to look under the hood",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">

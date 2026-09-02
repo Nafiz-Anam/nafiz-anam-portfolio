@@ -30,7 +30,7 @@ const STEPS = [
     number: "01",
     title: "Discovery",
     description:
-      "Understand business goals, users, technical challenges, and project scope before writing any code.",
+      "Understanding the actual problem before any technical decision gets made.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="11" cy="11" r="8" />
@@ -42,7 +42,7 @@ const STEPS = [
     number: "02",
     title: "Architecture",
     description:
-      "Design scalable system architecture, define the technology stack, and create a long-term technical roadmap.",
+      "Designing the technical foundation for where the business is going.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="7" height="7" />
@@ -56,7 +56,7 @@ const STEPS = [
     number: "03",
     title: "Development",
     description:
-      "Build production-ready software with clean code, agile iterations, and continuous collaboration.",
+      "Building in visible, reviewable iterations.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="16 18 22 12 16 6" />
@@ -68,7 +68,7 @@ const STEPS = [
     number: "04",
     title: "Quality Assurance",
     description:
-      "Perform testing, optimization, security checks, and performance improvements before release.",
+      "Testing that matches the risk profile of what's being built.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -80,7 +80,7 @@ const STEPS = [
     number: "05",
     title: "Deployment",
     description:
-      "Deploy reliable infrastructure with CI/CD, cloud services, monitoring, and scalable environments.",
+      "Production releases handled with the same care as everything before them.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
@@ -91,7 +91,7 @@ const STEPS = [
     number: "06",
     title: "Growth & Support",
     description:
-      "Provide continuous improvements, maintenance, feature expansion, and technical guidance as the product evolves.",
+      "Staying involved as the business, and the software, keeps evolving.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
@@ -146,7 +146,7 @@ function StepCard({ number, title, description, icon, index }: (typeof STEPS)[nu
         <span className="font-mono text-[11px] font-bold tracking-[0.14em] text-panel-foreground/30 transition-colors duration-250 group-hover:text-accent">
           {number}
         </span>
-        <span className="text-panel-foreground/40 transition-colors duration-250 group-hover:text-accent">
+        <span className="text-accent transition-colors duration-250">
           {icon}
         </span>
       </div>
@@ -165,7 +165,7 @@ function StepCard({ number, title, description, icon, index }: (typeof STEPS)[nu
 
 export function HowWeBuild() {
   return (
-    <section id="process" className="dark bg-surface bg-texture-lines text-panel-foreground">
+    <section id="process" className="dark border-y border-panel-foreground/10 bg-panel-tint text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 py-24 lg:px-16">
 
         {/* Top: portrait + copy */}
@@ -187,9 +187,9 @@ export function HowWeBuild() {
             <div className="flex flex-col gap-3">
               <WordReveal
                 delay={0}
-                className="text-[11px] font-bold uppercase tracking-[0.18em] text-panel-foreground/40"
+                className="text-[11px] font-bold uppercase tracking-[0.18em] text-accent"
               >
-                From strategy to scalable software.
+                From strategy to scalable software
               </WordReveal>
               <HeadingReveal />
             </div>
@@ -197,13 +197,13 @@ export function HowWeBuild() {
               delay={0.3}
               className="max-w-xl text-[17px] leading-[1.85] text-panel-foreground/60"
             >
-              Every successful software product begins with understanding the business, not the technology. My process is built around clear communication, thoughtful architecture, iterative development, and long-term partnership—ensuring every decision supports real business outcomes.
+              Every product starts with understanding the business, not the technology. Before any code gets written, I want to know what success actually looks like, what's already been tried, and where the real constraints are. That discipline carries through every stage that follows, from the first architecture decision to the system you're still running years later.
             </WordReveal>
           </div>
         </div>
 
         {/* Bottom: 6-step process */}
-        <div className="mt-20 overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-background">
+        <div className="mt-20 overflow-hidden rounded-[5px] border border-panel-foreground/[0.07]">
           <div className="flex flex-col sm:flex-row">
             {STEPS.map((step, i) => (
               <StepCard key={step.number} {...step} index={i} />

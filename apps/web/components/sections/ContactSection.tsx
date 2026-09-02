@@ -75,7 +75,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="dark bg-texture-lines bg-surface px-6 py-32 text-foreground lg:px-16">
+    <section id="contact" className="dark bg-texture-lines bg-background px-6 py-32 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <Reveal className="flex flex-col items-center gap-5 text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
@@ -86,8 +86,8 @@ export function ContactSection() {
             <span className="font-serif italic text-accent">Connected</span>
           </h2>
           <p className="max-w-[520px] text-[15px] leading-[1.85] text-foreground/55">
-            Whether you have a project in mind or want to explore how we might work together,
-            I&apos;d love to hear from you.
+            Whether you have a project in mind or just want to talk through a problem,
+            I&apos;d like to hear about it.
           </p>
         </Reveal>
 
@@ -113,8 +113,8 @@ export function ContactSection() {
               className="mt-14 flex flex-col gap-5 rounded-[5px] bg-background p-8 sm:p-12"
             >
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                <input name="name" placeholder="Full Name" className={fieldClassName} />
-                <input name="email" type="email" placeholder="Email Address" className={fieldClassName} />
+                <input name="name" placeholder="Name" className={fieldClassName} />
+                <input name="email" type="email" placeholder="Email" className={fieldClassName} />
                 <Select
                   name="category"
                   value={category}

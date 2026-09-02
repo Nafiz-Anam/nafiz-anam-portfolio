@@ -7,7 +7,7 @@ const CAPABILITIES = [
   {
     title: "Frontend Engineering",
     description: "Designing fast, accessible and scalable user interfaces.",
-    tags: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "HTML5", "CSS3"],
+    tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vue.js", "React Native"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -16,9 +16,9 @@ const CAPABILITIES = [
     ),
   },
   {
-    title: "Backend Engineering",
+    title: "Backend Technology",
     description: "Building secure APIs and scalable business logic.",
-    tags: ["Node.js", "NestJS", "Express.js", "Laravel", "PHP", "REST APIs", "GraphQL"],
+    tags: ["Node.js", "NestJS", "Express", "Laravel", "PHP", "GraphQL"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M22 12H2" />
@@ -30,7 +30,7 @@ const CAPABILITIES = [
   {
     title: "Cloud Infrastructure",
     description: "Deploying reliable, secure and scalable production environments.",
-    tags: ["AWS", "Docker", "Kubernetes", "GitHub Actions", "CI/CD", "Linux", "Nginx", "Traefik", "Cloudflare"],
+    tags: ["AWS", "Docker", "Kubernetes", "Nginx", "Cloudflare"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
@@ -40,7 +40,7 @@ const CAPABILITIES = [
   {
     title: "Data Engineering",
     description: "Designing efficient and scalable data architectures.",
-    tags: ["PostgreSQL", "MongoDB", "Redis", "MySQL", "Prisma", "Drizzle ORM"],
+    tags: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Prisma"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <ellipse cx="12" cy="5" rx="9" ry="3" />
@@ -52,7 +52,7 @@ const CAPABILITIES = [
   {
     title: "AI & Automation",
     description: "Building intelligent workflows and AI-powered business solutions.",
-    tags: ["OpenAI", "Claude", "LangChain", "Model Context Protocol", "Retrieval-Augmented Generation", "Vector Databases", "AI Agents", "Workflow Automation"],
+    tags: ["OpenAI", "Claude", "LangChain", "AI Agents", "Workflow Automation"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 0 2h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1 0-2h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2z" />
@@ -63,7 +63,7 @@ const CAPABILITIES = [
   {
     title: "Architecture & Leadership",
     description: "Leading engineering teams and designing scalable software systems.",
-    tags: ["Software Architecture", "System Design", "Scalability", "Microservices", "Event-Driven Architecture", "Performance", "Security", "Technical Leadership", "Code Reviews", "Mentoring"],
+    tags: ["System Design", "Microservices", "Code Reviews", "Mentoring", "Scalability"],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="3" />
@@ -145,14 +145,13 @@ export function TechnicalExpertise() {
             </motion.h2>
           </div>
           <motion.p variants={bodyVariants} className="max-w-[640px] text-[15px] leading-relaxed text-foreground/55">
-            Over the past seven years, I've worked across frontend, backend, cloud
-            infrastructure, AI automation, and enterprise systems—choosing technologies
-            based on business requirements rather than trends.
+            Technology choices get made based on business requirements, not trends.
+            Every tool below has shipped in a real production environment.
           </motion.p>
         </SectionReveal>
 
         {/* Capability matrix — rows stagger in */}
-        <SectionReveal className="overflow-hidden rounded-[5px] bg-panel" stagger={0.09} delay={0.05}>
+        <SectionReveal className="overflow-hidden rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04]" stagger={0.09} delay={0.05}>
           {CAPABILITIES.map((cap, i) => (
             <motion.div key={cap.title} variants={cardVariants}>
               <CapabilityRow

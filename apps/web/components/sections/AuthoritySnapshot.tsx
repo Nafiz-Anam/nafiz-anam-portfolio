@@ -12,17 +12,17 @@ const STATS = [
   {
     value: "7+",
     label: "Years of Experience",
-    caption: "Building production software since 2017",
+    caption: "Building production software since 2019",
   },
   {
-    value: "100+",
+    value: "800+",
     label: "Projects Delivered",
-    caption: "Web, SaaS & enterprise systems",
+    caption: "Web, SaaS, and enterprise systems shipped",
   },
   {
     value: "Lead",
     label: "Software Engineer",
-    caption: "Leading engineering teams and architecture",
+    caption: "Leading engineering at GrainX, Australia",
   },
   {
     value: "Founder",
@@ -31,8 +31,8 @@ const STATS = [
   },
   {
     value: "Co-Founder",
-    label: "Servero.io",
-    caption: "Server-side tracking platform",
+    label: "Syrona IT",
+    caption: "Company behind Servero.io tracking platform",
   },
   {
     value: "Global",
@@ -68,7 +68,7 @@ export function AuthoritySnapshot() {
   return (
     <section className="px-6 pb-24 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
-        <div className="overflow-hidden rounded-[5px] bg-panel">
+        <div className="overflow-hidden rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04]">
           <SectionReveal
             className="flex flex-col divide-y divide-panel-foreground/[0.07] sm:flex-row sm:divide-x sm:divide-y-0"
             stagger={0.14}

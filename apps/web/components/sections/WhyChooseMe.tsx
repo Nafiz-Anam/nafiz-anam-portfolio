@@ -7,32 +7,32 @@ const PRINCIPLES = [
   {
     number: "01",
     title: "Business Before Technology",
-    body: "Technology should never drive the solution. Every architectural decision begins with understanding business objectives, user needs, and long-term goals. The right tool is the one that serves the business—not the one that's most interesting to build with.",
+    body: "Every architectural decision starts with the business objective, not the most interesting technical approach. The right tool is the one that serves the business, not the one that's most exciting to build with.",
   },
   {
     number: "02",
     title: "Architecture Before Implementation",
-    body: "Strong foundations reduce technical debt, improve scalability, and allow software to evolve without expensive rewrites. Time spent designing systems correctly upfront saves months of remediation later.",
+    body: "Strong foundations reduce technical debt and let software evolve without expensive rewrites later. Time spent designing correctly upfront saves months of rework.",
   },
   {
     number: "03",
     title: "Communicate With Clarity",
-    body: "Clear communication between stakeholders, founders, designers, and engineers creates better products and stronger long-term partnerships. Technical decisions need to be understood by everyone they affect—not just the people who made them.",
+    body: "Technical decisions need to be understood by everyone they affect, not just the people who made them. Clarity between founders, designers, and engineers produces better products.",
   },
   {
     number: "04",
     title: "Build for the Long Term",
-    body: "Maintainability, performance, security, and scalability are considered from day one—not added later. Software that is easy to change is software that can continue delivering value as the business evolves.",
+    body: "Maintainability, performance, and scalability get considered from day one, not added later once they've already become a problem.",
   },
   {
     number: "05",
     title: "Own the Outcome",
-    body: "Success isn't measured by shipping code. It's measured by how effectively the software solves real business problems after launch. I stay accountable to results, not just deliverables.",
+    body: "Success isn't measured by what shipped. It's measured by whether the software kept solving the business problem after launch.",
   },
   {
     number: "06",
     title: "Continuous Improvement",
-    body: "Every product can evolve. Every release is an opportunity to learn, optimize, and deliver more value to users. Good engineering culture treats improvement as a discipline, not an afterthought.",
+    body: "Every release is a chance to learn and improve. Good engineering treats that as a discipline, not an afterthought.",
   },
 ] as const;
 
@@ -99,12 +99,12 @@ export function WhyChooseMe() {
             </motion.h2>
           </div>
           <motion.p variants={bodyVariants} className="max-w-[580px] text-[15px] leading-[1.85] text-panel-foreground/50">
-            Great software is built on thoughtful decisions, not just technical expertise.
-            These principles guide every project—from the first conversation to long-term product growth.
+            Great software is built on thoughtful decisions, not just technical skill.
+            These principles apply to every engagement, from the first conversation to long-term product growth.
           </motion.p>
         </SectionReveal>
 
-        <SectionReveal className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-background" stagger={0.1} delay={0.05}>
+        <SectionReveal className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-panel-tint" stagger={0.1} delay={0.05}>
           {PRINCIPLES.map((p, i) => (
             <motion.div key={p.number} variants={cardVariants}>
               <PrincipleRow {...p} isLast={i === PRINCIPLES.length - 1} />
