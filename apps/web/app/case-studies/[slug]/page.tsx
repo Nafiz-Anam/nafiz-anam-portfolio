@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ChevronLeft, ChevronRight, Calendar } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
 import { BookingButton } from "@/components/sections/BookingButton";
@@ -136,11 +136,6 @@ export default async function CaseStudyPage({ params }: Props) {
                   {project.industry}
                 </span>
               )}
-              {project.year && (
-                <span className="flex items-center gap-1 text-xs text-foreground/50">
-                  <Calendar size={11} /> {project.year}
-                </span>
-              )}
               {project.tags.slice(0, 5).map((t) => (
                 <span key={t} className="rounded-full border border-border bg-panel px-2.5 py-0.5 text-[11px] text-foreground/50">
                   {t}
@@ -151,7 +146,7 @@ export default async function CaseStudyPage({ params }: Props) {
             <h1 className="mt-6 text-[2.25rem] font-bold leading-[1.2] tracking-tight sm:text-[3rem]">
               {project.title}
             </h1>
-            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-foreground/50">{project.excerpt}</p>
+            <p className="mt-4 w-full text-lg leading-relaxed text-white">{project.excerpt}</p>
 
             {project.tags.length > 0 && (
               <p className="mt-6 text-sm text-foreground/50">
