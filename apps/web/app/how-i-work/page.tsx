@@ -26,13 +26,13 @@ export const metadata: Metadata = {
     title: "How I Work | Nafiz Anam",
     description: DESCRIPTION,
     url: "/how-i-work",
-    images: [{ url: "/Nafiz_Anam_Software_Engineer.png", width: 1536, height: 1024 }],
+    images: [{ url: "/Nafiz_Anam_How_I_Work.png", width: 1731, height: 909 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "How I Work | Nafiz Anam",
     description: DESCRIPTION,
-    images: ["/Nafiz_Anam_Software_Engineer.png"],
+    images: ["/Nafiz_Anam_How_I_Work.png"],
   },
 };
 
