@@ -147,7 +147,7 @@ export async function StatsBand() {
         </div>
 
         <div className="mt-10 flex justify-end">
-          <BookingButton className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+          <BookingButton location="stats_band" className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
             Book a free call
           </BookingButton>
         </div>

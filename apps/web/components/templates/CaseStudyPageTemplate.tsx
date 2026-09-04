@@ -1008,7 +1008,7 @@ function CaseStudyCTA() {
             production and long-term success.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+            <BookingButton location="case_study_final_cta" className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
               Book Discovery Call
             </BookingButton>
             <a href="/services">

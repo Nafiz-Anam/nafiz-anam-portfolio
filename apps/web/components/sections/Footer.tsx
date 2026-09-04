@@ -4,6 +4,7 @@ import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { defaultFooter, type FooterContent } from "@/lib/placeholder-content";
 import { BookingButton } from "./BookingButton";
 import { TextHoverEffect } from "@/components/ui/TextHoverEffect";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 import { SERVER_API as API } from "@/lib/api-url";
 
@@ -76,8 +77,10 @@ export async function Footer() {
                   {data.socials.map((social) => {
                     const Icon = SOCIAL_ICONS[social.label];
                     return (
-                      <a
+                      <TrackedLink
                         key={social.href}
+                        event="social_link_click"
+                        eventParams={{ platform: social.label }}
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -85,7 +88,7 @@ export async function Footer() {
                         className="flex h-9 w-9 items-center justify-center rounded-full border border-panel-muted/30 text-panel-muted transition-colors duration-200 hover:border-accent hover:text-accent"
                       >
                         {Icon ? <Icon className="h-4 w-4" /> : social.label[0]}
-                      </a>
+                      </TrackedLink>
                     );
                   })}
                 </div>
@@ -96,14 +99,18 @@ export async function Footer() {
           <div className="flex flex-1 items-end justify-end gap-4 sm:w-[480px]">
             <div className="flex h-full flex-col justify-between gap-6">
               <div className="flex flex-col gap-3">
-                <a
+                <TrackedLink
+                  event="email_click"
+                  eventParams={{ location: "footer" }}
                   href={`mailto:${data.email}`}
                   className="inline-flex items-center gap-2 text-sm text-panel-muted transition-colors duration-200 hover:text-panel-foreground"
                 >
                   <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
                   {data.email}
-                </a>
-                <a
+                </TrackedLink>
+                <TrackedLink
+                  event="whatsapp_click"
+                  eventParams={{ location: "footer" }}
                   href={`https://wa.me/${data.whatsapp.replace(/\D/g, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -111,7 +118,7 @@ export async function Footer() {
                 >
                   <MessageCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
                   {data.whatsapp}
-                </a>
+                </TrackedLink>
                 <a
                   href={data.locationUrl}
                   target="_blank"
@@ -123,7 +130,7 @@ export async function Footer() {
                 </a>
               </div>
 
-              <BookingButton className="relative z-20 w-fit shrink-0 rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+              <BookingButton location="footer" className="relative z-20 w-fit shrink-0 rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
                 Book a free call
               </BookingButton>
             </div>

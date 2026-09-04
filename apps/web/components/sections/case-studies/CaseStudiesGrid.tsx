@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import type { ProjectListItem } from "@portfolio/types";
 import { BookingButton } from "@/components/sections/BookingButton";
 import { CaseStudiesPagination } from "./CaseStudiesPagination";
+import { trackEvent } from "@/lib/analytics";
 
 // Cycle image aspect ratio per card so column heights fall unevenly — masonry, not grid.
 const IMAGE_ASPECTS = ["aspect-[4/3]", "aspect-square", "aspect-[3/4]", "aspect-[16/10]"];
@@ -23,7 +24,11 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
       className="group mb-6 flex break-inside-avoid flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background transition-[border-color,box-shadow] duration-300 hover:border-accent/60 hover:shadow-[0_0_32px_-4px_hsl(var(--accent)/0.35)]"
     >
       {/* Image */}
-      <Link href={`/case-studies/${project.slug}`} className={`relative block ${aspect} overflow-hidden bg-foreground/[0.04]`}>
+      <Link
+        href={`/case-studies/${project.slug}`}
+        onClick={() => trackEvent("case_study_card_click", { case_study_title: project.title })}
+        className={`relative block ${aspect} overflow-hidden bg-foreground/[0.04]`}
+      >
         {project.coverImageUrl ? (
           <img
             src={project.coverImageUrl}
@@ -55,7 +60,11 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
       {/* Content */}
       <div className="flex flex-1 flex-col gap-5 p-8">
         <h3 className="text-[18px] font-bold leading-snug tracking-tight text-foreground">
-          <Link href={`/case-studies/${project.slug}`} className="hover:text-accent">
+          <Link
+            href={`/case-studies/${project.slug}`}
+            onClick={() => trackEvent("case_study_card_click", { case_study_title: project.title })}
+            className="hover:text-accent"
+          >
             {project.title}
           </Link>
         </h3>
@@ -80,6 +89,7 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
         <div className="mt-auto pt-3">
           <Link
             href={`/case-studies/${project.slug}`}
+            onClick={() => trackEvent("case_study_card_click", { case_study_title: project.title })}
             className="group/link inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-accent transition-opacity hover:opacity-75"
           >
             Read Case Study
@@ -104,6 +114,20 @@ export function CaseStudiesGrid({
 }) {
   const [active, setActive] = useState("All");
   const [search, setSearch] = useState("");
+  const searchDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const onSearchChange = (value: string) => {
+    setSearch(value);
+    if (searchDebounce.current) clearTimeout(searchDebounce.current);
+    if (!value.trim()) return;
+    searchDebounce.current = setTimeout(() => {
+      trackEvent("case_study_search", { search_term: value.trim() });
+    }, 800);
+  };
+
+  useEffect(() => () => {
+    if (searchDebounce.current) clearTimeout(searchDebounce.current);
+  }, []);
 
   const tabs = ["All", ...industries.filter(Boolean)];
   const filtered = projects.filter((p) => {
@@ -140,7 +164,7 @@ export function CaseStudiesGrid({
               type="search"
               placeholder="Search projects..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => onSearchChange(e.target.value)}
               className="w-full rounded-[5px] border border-foreground/10 bg-foreground/5 px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:ring-1 focus:ring-accent sm:w-64"
             />
           </div>
@@ -172,7 +196,7 @@ export function CaseStudiesGrid({
               discovery call and I&apos;ll walk you through relevant project examples
               directly, this page will have the details published soon.
             </p>
-            <BookingButton className="rounded-[5px] bg-accent px-7 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+            <BookingButton location="case_studies_empty_state" className="rounded-[5px] bg-accent px-7 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
               Book Discovery Call
             </BookingButton>
           </div>

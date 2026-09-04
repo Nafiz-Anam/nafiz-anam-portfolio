@@ -184,7 +184,13 @@ const MANAGED_KEYS: { key: string; label: string; description: string; type?: "u
   {
     key: "ga_measurement_id",
     label: "Google Analytics Measurement ID",
-    description: "e.g. \"G-XXXXXXXXXX\". Leave blank to disable analytics.",
+    description: "e.g. \"G-XXXXXXXXXX\". Configured as a GA4 Configuration tag inside the GTM container below — kept here for reference when wiring that tag up.",
+    type: "text",
+  },
+  {
+    key: "gtm_container_id",
+    label: "Google Tag Manager Container ID",
+    description: "e.g. \"GTM-XXXXXXX\". Loads the GTM container site-wide. Leave blank to disable tag manager (and all events that depend on it).",
     type: "text",
   },
 ];
@@ -200,7 +206,7 @@ const SECRET_KEYS: { key: string; label: string; description: string; type?: "te
   { key: "google_client_secret", label: "Google OAuth Client Secret", description: "From Google Cloud Console credentials.", type: "password" },
 ];
 
-const GENERAL_KEYS = ["availability_status", "contact_email", "facebook_url", "linkedin_url", "github_url", "twitter_url", "ga_measurement_id"];
+const GENERAL_KEYS = ["availability_status", "contact_email", "facebook_url", "linkedin_url", "github_url", "twitter_url", "ga_measurement_id", "gtm_container_id"];
 const HERO_KEYS = [
   "footer_photo_url", "hero_headline_1", "hero_headline_2_serif", "hero_headline_2_sans",
   "hero_name", "hero_pitch", "hero_photo_url", "hero_tags",

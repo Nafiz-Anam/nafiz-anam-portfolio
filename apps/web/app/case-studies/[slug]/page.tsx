@@ -163,7 +163,11 @@ export default async function CaseStudyPage({ params }: Props) {
               >
                 See How We Helped
               </a>
-              <BookingButton className="rounded-[5px] border border-foreground/20 px-6 py-3 text-xs font-bold uppercase tracking-wide transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]">
+              <BookingButton
+                location="case_study_detail_hero"
+                eventParams={{ case_study_title: project.title }}
+                className="rounded-[5px] border border-foreground/20 px-6 py-3 text-xs font-bold uppercase tracking-wide transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]"
+              >
                 Book an Appointment
               </BookingButton>
             </div>
@@ -250,7 +254,11 @@ export default async function CaseStudyPage({ params }: Props) {
               Let's talk about your goals and how we can turn them into a scalable, production-ready system.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+              <BookingButton
+                location="case_study_detail_final"
+                eventParams={{ case_study_title: project.title }}
+                className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
+              >
                 Book a Discovery Call
               </BookingButton>
               <Link

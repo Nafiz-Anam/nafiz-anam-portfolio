@@ -24,7 +24,7 @@ export function AboutCTA() {
             the same time, let's talk about what you're building.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-4">
-            <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+            <BookingButton location="about_cta" className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
               Book Discovery Call
             </BookingButton>
             <Link

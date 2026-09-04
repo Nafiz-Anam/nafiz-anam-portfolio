@@ -39,7 +39,7 @@ export function ServicesHero() {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <BookingButton className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+            <BookingButton location="services_hero" className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
               Book Discovery Call
             </BookingButton>
             <Link

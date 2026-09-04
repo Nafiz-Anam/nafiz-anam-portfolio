@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { GoogleTagManager } from "@/components/GoogleTagManager";
 import { BookingProvider } from "@/components/sections/BookingProvider";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CursorFollower } from "@/components/CursorFollower";
@@ -147,7 +147,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <GoogleAnalytics />
+        <GoogleTagManager />
         <ThemeProvider>
           <PageIntro />
           <SmoothScroll>

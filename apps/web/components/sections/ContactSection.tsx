@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { z } from "zod";
 import { Button, Select } from "@portfolio/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { api } from "@/lib/api";
+import { trackEvent } from "@/lib/analytics";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name required"),
@@ -42,6 +43,13 @@ export function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [category, setCategory] = useState("");
   const [budget, setBudget] = useState("");
+  const started = useRef(false);
+
+  const markStarted = () => {
+    if (started.current) return;
+    started.current = true;
+    trackEvent("form_start", { form_name: "homepage" });
+  };
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -57,6 +65,9 @@ export function ContactSection() {
     });
 
     if (!parsed.success) {
+      for (const issue of parsed.error.errors) {
+        trackEvent("form_error", { field_name: issue.path.join(".") || "form", error_type: issue.message });
+      }
       const first = parsed.error.errors[0]?.message;
       setError(first ?? "Please fill in every field.");
       return;
@@ -65,6 +76,7 @@ export function ContactSection() {
     setLoading(true);
     try {
       await api.post("/contact", parsed.data);
+      trackEvent("form_submit_homepage", { category: parsed.data.category, budget_range: parsed.data.budget });
       setSubmitted(true);
     } catch (err) {
       const e = err as { message?: string };
@@ -110,6 +122,7 @@ export function ContactSection() {
             <form
               id="contact-form"
               onSubmit={handleSubmit}
+              onFocusCapture={markStarted}
               className="mt-14 flex flex-col gap-5 rounded-[5px] bg-background p-8 sm:p-12"
             >
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -126,7 +139,10 @@ export function ContactSection() {
                 <Select
                   name="budget"
                   value={budget}
-                  onChange={setBudget}
+                  onChange={(v) => {
+                    setBudget(v);
+                    trackEvent("form_field_budget_selected", { budget_range: v });
+                  }}
                   placeholder="Budget Range"
                   options={budgetOptions.map((o) => ({ value: o, label: o }))}
                   buttonClassName={fieldClassName}

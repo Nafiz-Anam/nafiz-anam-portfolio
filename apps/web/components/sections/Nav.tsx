@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@portfolio/ui";
 import { BookingButton } from "./BookingButton";
 import { defaultNav, type NavContent } from "@/lib/placeholder-content";
+import { trackEvent } from "@/lib/analytics";
 
 const SERVICE_LINKS = [
   { label: "Custom Software Development", href: "/services/custom-software-development" },
@@ -80,6 +81,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                 <a
                   href={link.href}
                   aria-current={pathname.startsWith("/services") ? "page" : undefined}
+                  onClick={() => trackEvent("nav_link_click", { nav_label: link.label })}
                   className="flex items-center gap-1.5 transition-colors hover:text-foreground aria-[current=page]:text-foreground"
                 >
                   {link.label}
@@ -128,6 +130,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                                 <a
                                   key={s.href}
                                   href={s.href}
+                                  onClick={() => trackEvent("nav_link_click", { nav_label: s.label })}
                                   className="group flex items-center justify-between px-5 py-3 transition-colors duration-150 hover:bg-panel-foreground/[0.05]"
                                 >
                                   <span className="text-[13px] font-medium text-panel-foreground/75 transition-colors duration-150 group-hover:text-panel-foreground">
@@ -143,6 +146,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                             <div className="border-t border-panel-foreground/[0.08] px-5 py-3">
                               <a
                                 href="/services"
+                                onClick={() => trackEvent("nav_link_click", { nav_label: "View All Services" })}
                                 className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent transition-opacity hover:opacity-75"
                               >
                                 View All Services →
@@ -160,6 +164,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                 key={link.href}
                 href={link.href}
                 aria-current={pathname === link.href ? "page" : undefined}
+                onClick={() => trackEvent("nav_link_click", { nav_label: link.label })}
                 className="transition-colors hover:text-foreground aria-[current=page]:text-foreground"
               >
                 {link.label}
@@ -169,7 +174,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
         </nav>
 
         <div className="flex items-center gap-3">
-          <BookingButton className="rounded-[5px] bg-accent px-5 py-2 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+          <BookingButton location="nav" className="rounded-[5px] bg-accent px-5 py-2 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
             Book a free call
           </BookingButton>
         </div>

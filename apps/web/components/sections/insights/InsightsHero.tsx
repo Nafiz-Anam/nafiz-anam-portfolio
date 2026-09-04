@@ -64,7 +64,7 @@ export function InsightsHero({
               >
                 Browse Topics
               </a>
-              <BookingButton className="rounded-[5px] border border-foreground/20 px-7 py-3 text-xs font-bold uppercase tracking-wide text-foreground transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]">
+              <BookingButton location="insights_hero" className="rounded-[5px] border border-foreground/20 px-7 py-3 text-xs font-bold uppercase tracking-wide text-foreground transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]">
                 Book Discovery Call
               </BookingButton>
             </motion.div>

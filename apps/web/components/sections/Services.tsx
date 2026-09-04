@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionReveal, titleVariants, bodyVariants, cardVariants } from "@/components/ui/SectionReveal";
+import { trackEvent } from "@/lib/analytics";
 
 const SERVICES = [
   {
@@ -86,7 +87,11 @@ const SERVICES = [
 
 function ServiceCard({ title, description, icon, href }: (typeof SERVICES)[number]) {
   return (
-    <Link href={href} className="block h-full">
+    <Link
+      href={href}
+      onClick={() => trackEvent("service_card_click", { service_name: title, source_page: "homepage" })}
+      className="block h-full"
+    >
       <motion.div
         className="group relative flex h-full flex-col gap-7 rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04] p-10 transition-[box-shadow,border-color] duration-250 hover:border-accent hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)]"
         whileHover={{ y: -4 }}

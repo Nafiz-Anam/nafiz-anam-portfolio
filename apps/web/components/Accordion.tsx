@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 export interface AccordionItem {
   q: string;
@@ -25,6 +26,12 @@ export function Accordion({
   className,
 }: AccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(defaultOpenIndex);
+
+  const toggle = (i: number, question: string) => {
+    const isOpen = openIndex === i;
+    if (!isOpen) trackEvent("faq_toggle_open", { question_text: question });
+    setOpenIndex(isOpen ? null : i);
+  };
 
   const text = theme === "panel-foreground" ? "text-panel-foreground" : "text-foreground";
   const muted = theme === "panel-foreground" ? "text-panel-foreground/50" : "text-foreground/50";
@@ -52,7 +59,7 @@ export function Accordion({
           >
             {variant === "chevron" ? (
               <button
-                onClick={() => setOpenIndex(isOpen ? null : i)}
+                onClick={() => toggle(i, item.q)}
                 className="flex w-full items-start justify-between gap-6 py-6 text-left"
               >
                 <span
@@ -79,7 +86,7 @@ export function Accordion({
               </button>
             ) : (
               <button
-                onClick={() => setOpenIndex(isOpen ? null : i)}
+                onClick={() => toggle(i, item.q)}
                 className="flex w-full items-start justify-between gap-8 py-8 text-left"
               >
                 <p className={`text-[16px] font-bold leading-snug tracking-tight ${text}`}>

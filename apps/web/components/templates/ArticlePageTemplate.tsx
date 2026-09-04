@@ -6,6 +6,29 @@ import { Button } from "@portfolio/ui";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { BookingButton } from "@/components/sections/BookingButton";
 import type { ArticleData, ContentBlock, RelatedArticle } from "@/lib/article-content";
+import { trackEvent } from "@/lib/analytics";
+
+const SCROLL_THRESHOLDS = [25, 50, 75, 100];
+
+function useArticleScrollDepth(articleSlug: string) {
+  useEffect(() => {
+    const fired = new Set<number>();
+    function onScroll() {
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - doc.clientHeight;
+      const percent = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 100;
+      for (const threshold of SCROLL_THRESHOLDS) {
+        if (percent >= threshold && !fired.has(threshold)) {
+          fired.add(threshold);
+          trackEvent("article_scroll_depth", { article_slug: articleSlug, percent: threshold });
+        }
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [articleSlug]);
+}
 
 /* ─── Animation wrapper ─── */
 function Reveal({
@@ -692,7 +715,7 @@ function RelatedArticles({ articles }: { articles: RelatedArticle[] }) {
 /* ═══════════════════════════════════════════════════════════
    SECTION 5 — CTA
 ═══════════════════════════════════════════════════════════ */
-function ArticleCTA() {
+function ArticleCTA({ articleSlug }: { articleSlug: string }) {
   return (
     <section className="dark bg-background px-6 py-28 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
@@ -712,7 +735,11 @@ function ArticleCTA() {
             products the right way. Let's talk about your specific challenges.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+            <BookingButton
+              location="blog_cta"
+              eventParams={{ article_slug: articleSlug }}
+              className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
+            >
               Book Discovery Call
             </BookingButton>
             <a href="/insights">
@@ -734,6 +761,7 @@ function ArticleCTA() {
    MAIN TEMPLATE
 ═══════════════════════════════════════════════════════════ */
 export function ArticlePageTemplate({ article }: { article: ArticleData }) {
+  useArticleScrollDepth(article.slug);
   return (
     <>
       <div className="dark bg-background text-foreground">
@@ -750,7 +778,7 @@ export function ArticlePageTemplate({ article }: { article: ArticleData }) {
       <ArticleContent blocks={article.blocks} />
       <KeyTakeaways takeaways={article.takeaways} />
       <RelatedArticles articles={article.relatedArticles} />
-      <ArticleCTA />
+      <ArticleCTA articleSlug={article.slug} />
     </>
   );
 }

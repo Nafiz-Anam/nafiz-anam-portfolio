@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import type { BlogListItem } from "@portfolio/types";
+import { trackEvent } from "@/lib/analytics";
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
@@ -154,7 +155,10 @@ export function ArticlesSection({
           {allCategories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => {
+                trackEvent("insights_topic_filter_click", { topic_name: cat });
+                setActiveCategory(cat);
+              }}
               className={`rounded-full border px-4 py-1.5 text-[12px] font-semibold tracking-wide transition-all duration-150 ${
                 activeCategory === cat
                   ? "border-accent bg-accent text-accent-foreground"

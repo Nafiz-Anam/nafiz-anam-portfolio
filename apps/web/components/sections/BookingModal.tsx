@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight, Loader2, Check, Calendar, Clock } from "lucide-react";
 import { z } from "zod";
 import { api } from "@/lib/api";
+import { trackEvent } from "@/lib/analytics";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name required"),
@@ -197,6 +198,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         durationMins: config.slotMins,
       });
+      trackEvent("call_booking_confirmed", { duration_mins: config.slotMins });
       setConfirmed(true);
       setStep("confirm");
     } catch (err) {

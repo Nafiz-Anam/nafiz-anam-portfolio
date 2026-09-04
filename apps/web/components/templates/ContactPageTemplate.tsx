@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button, Select } from "@portfolio/ui";
 import { BookingButton } from "@/components/sections/BookingButton";
 import { Accordion } from "@/components/Accordion";
 import { api } from "@/lib/api";
+import { trackEvent } from "@/lib/analytics";
 
 const CONTACT_EMAIL = "hi@nafizanam.com";
 
@@ -87,10 +88,13 @@ function ContactHero() {
             transition={{ duration: 0.45, ease: "easeOut", delay: 0.16 }}
             className="flex flex-wrap gap-4"
           >
-            <BookingButton className="rounded-[5px] bg-accent px-8 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
+            <BookingButton location="contact_hero" className="rounded-[5px] bg-accent px-8 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90">
               Schedule a Discovery Call
             </BookingButton>
-            <a href={`mailto:${CONTACT_EMAIL}`}>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              onClick={() => trackEvent("email_click", { location: "contact_hero" })}
+            >
               <Button
                 variant="outline"
                 className="h-auto rounded-[5px] border-foreground/20 px-8 py-4 text-xs font-bold uppercase tracking-wide hover:border-foreground/40 hover:bg-foreground/[0.03]"
@@ -309,15 +313,25 @@ function ProjectInquiryForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<FormState>>({});
+  const started = useRef(false);
+
+  const markStarted = () => {
+    if (started.current) return;
+    started.current = true;
+    trackEvent("form_start", { form_name: "contact_page" });
+  };
 
   const set = (field: keyof FormState) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
+    markStarted();
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
   };
 
   const setField = (field: keyof FormState) => (v: string) => {
+    markStarted();
+    if (field === "budget") trackEvent("form_field_budget_selected", { budget_range: v });
     setForm((prev) => ({ ...prev, [field]: v }));
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
   };
@@ -336,6 +350,9 @@ function ProjectInquiryForm() {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) {
+      for (const [field, message] of Object.entries(errs)) {
+        trackEvent("form_error", { field_name: field, error_type: message });
+      }
       setErrors(errs);
       return;
     }
@@ -351,6 +368,11 @@ function ProjectInquiryForm() {
         budget: form.budget ? labelFor(BUDGET_OPTIONS, form.budget) : null,
         timeline: form.timeline ? labelFor(TIMELINE_OPTIONS, form.timeline) : null,
         message: form.description.trim(),
+      });
+      trackEvent("form_submit_contact", {
+        project_type: form.projectType || null,
+        budget_range: form.budget || null,
+        timeline: form.timeline || null,
       });
       setSubmitted(true);
     } catch (err) {
@@ -598,6 +620,7 @@ function ProjectInquiryForm() {
               </p>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
+                onClick={() => trackEvent("email_click", { location: "contact_side_panel" })}
                 className="text-[13px] font-medium text-accent transition-opacity hover:opacity-75"
               >
                 {CONTACT_EMAIL}
@@ -612,6 +635,7 @@ function ProjectInquiryForm() {
                 href="https://wa.me/8801819758093"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent("whatsapp_click", { location: "contact_side_panel" })}
                 className="text-[13px] font-medium text-accent transition-opacity hover:opacity-75"
               >
                 +880 1819-758093
@@ -738,7 +762,7 @@ function OtherWaysToConnect() {
             if (item.label === "Booking Calendar") {
               return (
                 <Reveal key={item.label} delay={(i % 3) * 0.06}>
-                  <BookingButton className="block h-full w-full text-left">
+                  <BookingButton location="contact_connect_card" className="block h-full w-full text-left">
                     <ConnectCard icon={item.icon} label={item.label} value={item.value} description={item.description} />
                   </BookingButton>
                 </Reveal>
@@ -747,7 +771,15 @@ function OtherWaysToConnect() {
             const inner = <ConnectCard icon={item.icon} label={item.label} value={item.value} description={item.description} />;
             return item.href ? (
               <Reveal key={item.label} delay={(i % 3) * 0.06}>
-                <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block h-full">
+                <a
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    if (item.label === "Email") trackEvent("email_click", { location: "contact_connect_card" });
+                  }}
+                  className="block h-full"
+                >
                   {inner}
                 </a>
               </Reveal>
@@ -919,7 +951,7 @@ function ContactFinalCTA() {
             something is, let's talk about it before we talk about the solution.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+            <BookingButton location="contact_final_cta" className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
               Book Discovery Call
             </BookingButton>
             <a href="/case-studies">

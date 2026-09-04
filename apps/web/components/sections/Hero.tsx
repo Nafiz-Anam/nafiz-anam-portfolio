@@ -175,7 +175,7 @@ export function Hero({
               >
                 View case studies →
               </Link>
-              <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+              <BookingButton location="hero" className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
                 {merged.ctaLabel}
               </BookingButton>
             </div>

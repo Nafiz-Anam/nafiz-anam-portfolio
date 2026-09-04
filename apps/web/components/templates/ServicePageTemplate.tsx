@@ -85,7 +85,7 @@ function HeroSection({
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <BookingButton className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+              <BookingButton location="service_page_hero" className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
                 Book Discovery Call
               </BookingButton>
               <a
@@ -413,7 +413,7 @@ function CTASection({
             {ctaDescription}
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-4">
-            <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+            <BookingButton location="service_page_final_cta" className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
               Book Discovery Call
             </BookingButton>
             <a

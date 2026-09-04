@@ -45,7 +45,7 @@ export function CaseStudiesCTA() {
           </div>
 
           <div className="flex flex-col gap-4 sm:items-end">
-            <BookingButton className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+            <BookingButton location="case_studies_cta" className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
               Book Discovery Call
             </BookingButton>
             <a

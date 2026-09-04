@@ -46,7 +46,7 @@ export function HowItWorkHero() {
         transition={{ duration: 0.5, delay: 0.28, ease: "easeOut" }}
         className="mt-12 flex flex-wrap gap-4"
       >
-        <BookingButton className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+        <BookingButton location="how_it_work_hero" className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
           Book Discovery Call
         </BookingButton>
         <Link
