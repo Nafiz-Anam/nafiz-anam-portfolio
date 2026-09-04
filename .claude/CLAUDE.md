@@ -33,6 +33,10 @@ Monorepo: public site, CMS admin, API. pnpm workspaces + Turborepo.
 9. **Never reuse a revoked/rotated refresh token.** Current implementation revokes-on-use but does not yet detect reuse-of-a-revoked-token as a breach signal (which should revoke the whole token family) — flag this as a known gap, don't silently "fix" it as part of an unrelated change.
 10. **Uploads**: enforce the mimetype allow-list and size limit already in `apps/api/src/routes/uploads.ts` — don't loosen either without asking.
 
+## Reports & deliverables
+
+- **No Artifacts.** Reports, implementation summaries, plans-as-docs — write them as `.md` files in the repo (e.g. `docs/`), not as published Artifacts.
+
 ## Conventions
 
 - API routes live in `apps/api/src/routes/<resource>.ts`, registered in `apps/api/src/routes/index.ts`.
