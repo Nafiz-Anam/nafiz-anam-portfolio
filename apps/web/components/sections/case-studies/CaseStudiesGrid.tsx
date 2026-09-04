@@ -22,10 +22,10 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
       transition={{ duration: 0.35, ease: "easeOut", delay: (index % 3) * 0.05 }}
-      className="group mb-6 flex break-inside-avoid flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background transition-colors duration-300 hover:border-foreground/[0.15]"
+      className="group mb-6 flex break-inside-avoid flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background transition-[border-color,box-shadow] duration-300 hover:border-accent/60 hover:shadow-[0_0_32px_-4px_hsl(var(--accent)/0.35)]"
     >
       {/* Image */}
-      <div className={`relative ${aspect} overflow-hidden bg-foreground/[0.04]`}>
+      <Link href={`/case-studies/${project.slug}`} className={`relative block ${aspect} overflow-hidden bg-foreground/[0.04]`}>
         {project.coverImageUrl ? (
           <img
             src={project.coverImageUrl}
@@ -33,8 +33,16 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent/20 via-accent/5 to-background">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-foreground/30">{project.industry}</span>
+          <div className="relative flex h-full w-full items-center justify-center bg-gradient-to-br from-accent/20 via-accent/5 to-background">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(hsl(var(--panel-foreground) / 0.03) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--panel-foreground) / 0.03) 1px, transparent 1px)",
+                backgroundSize: "40px 40px",
+              }}
+            />
+            <span className="relative font-mono text-[10px] uppercase tracking-wider text-foreground/30">{project.industry}</span>
           </div>
         )}
         {project.industry && (
@@ -44,12 +52,14 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
             </span>
           </div>
         )}
-      </div>
+      </Link>
 
       {/* Content */}
       <div className="flex flex-1 flex-col gap-5 p-8">
         <h3 className="text-[18px] font-bold leading-snug tracking-tight text-foreground">
-          {project.title}
+          <Link href={`/case-studies/${project.slug}`} className="hover:text-accent">
+            {project.title}
+          </Link>
         </h3>
 
         <p className="text-[13px] leading-[1.75] text-foreground/60">{project.excerpt}</p>

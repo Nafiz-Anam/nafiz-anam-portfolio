@@ -29,20 +29,32 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
     <motion.a
       ref={ref}
       href={`/case-studies/${project.slug}`}
-      className={cn("group relative flex h-full flex-col overflow-hidden rounded-[5px] bg-[#F7F1EC]", className)}
+      className={cn(
+        "group relative flex h-full flex-col overflow-hidden rounded-[5px] border border-transparent bg-gradient-to-br from-accent/20 via-accent/5 to-background transition-[border-color,box-shadow] duration-300 hover:border-accent/60 hover:shadow-[0_0_32px_-4px_hsl(var(--accent)/0.35)]",
+        className,
+      )}
       style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d", willChange: "transform" }}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >
-      {project.coverImageUrl && (
+      {project.coverImageUrl ? (
         <Image
           src={project.coverImageUrl}
           alt={project.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-108"
           sizes="(max-width: 640px) 100vw, 50vw"
+        />
+      ) : (
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(hsl(var(--panel-foreground) / 0.03) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--panel-foreground) / 0.03) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
         />
       )}
 

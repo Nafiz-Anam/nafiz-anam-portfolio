@@ -44,7 +44,7 @@ export async function RelatedCaseStudies() {
             <Link
               key={p.id}
               href={`/case-studies/${p.slug}`}
-              className="group flex flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background transition-colors duration-300 hover:border-foreground/[0.15]"
+              className="group flex flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background transition-[border-color,box-shadow] duration-300 hover:border-accent/60 hover:shadow-[0_0_32px_-4px_hsl(var(--accent)/0.35)]"
             >
               {/* Cover */}
               <div className="relative h-[180px] overflow-hidden bg-foreground/[0.04]">
@@ -55,8 +55,16 @@ export async function RelatedCaseStudies() {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent/20 via-accent/5 to-background">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-foreground/30">{p.industry}</span>
+                  <div className="relative flex h-full w-full items-center justify-center bg-gradient-to-br from-accent/20 via-accent/5 to-background">
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(hsl(var(--panel-foreground) / 0.03) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--panel-foreground) / 0.03) 1px, transparent 1px)",
+                        backgroundSize: "40px 40px",
+                      }}
+                    />
+                    <span className="relative font-mono text-[10px] uppercase tracking-wider text-foreground/30">{p.industry}</span>
                   </div>
                 )}
                 {p.industry && (
