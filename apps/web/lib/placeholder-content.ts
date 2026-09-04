@@ -8,6 +8,7 @@ export const defaultNav: NavContent = {
   links: [
     { label: "Services", href: "/services" },
     { label: "Case Studies", href: "/case-studies" },
+    { label: "How I Work", href: "/how-i-work" },
     { label: "Insights", href: "/insights" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
@@ -130,6 +131,7 @@ export const defaultFooter: FooterContent = {
   ],
   pages: [
     { label: "Case Studies", href: "/case-studies" },
+    { label: "How I Work", href: "/how-i-work" },
     { label: "Insights", href: "/insights" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
