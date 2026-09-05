@@ -113,11 +113,11 @@ export async function StatsBand() {
   return (
     <section id="about" className="dark bg-panel bg-texture-lines-panel text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 py-16 lg:px-16">
-        <Reveal className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <Reveal className="grid grid-cols-1 gap-8 lg:grid-cols-[320px_1fr]">
           <ImagePlaceholder
             src="/Nafiz-Anam.jpg"
             aspectClassName="aspect-square"
-            className="h-[320px] w-[320px] rounded-[5px] object-cover"
+            className="h-[320px] w-full max-w-[320px] rounded-[5px] object-cover"
           />
           <p className="self-center text-left text-[28px] leading-relaxed text-panel-foreground sm:text-[30px]">
             I build software that businesses can depend on — reliable systems, scalable architecture,
