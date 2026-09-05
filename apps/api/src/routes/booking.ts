@@ -35,10 +35,14 @@ async function getBookingSettings() {
   const cfg = Object.fromEntries(rows.map((r) => [r.key, r.value]));
 
   const tz = cfg.booking_timezone ?? process.env.BOOKING_TIMEZONE ?? "UTC";
-  const slotMins = parseInt(cfg.booking_slot_mins ?? process.env.BOOKING_SLOT_MINS ?? "30", 10);
+  const slotMinsRaw = parseInt(cfg.booking_slot_mins ?? process.env.BOOKING_SLOT_MINS ?? "30", 10);
   const startHour = parseInt(cfg.booking_start_hour ?? process.env.BOOKING_START_HOUR ?? "9", 10);
   const endHour = parseInt(cfg.booking_end_hour ?? process.env.BOOKING_END_HOUR ?? "18", 10);
-  const bufferMins = parseInt(cfg.booking_buffer_mins ?? process.env.BOOKING_BUFFER_MINS ?? "15", 10);
+  const bufferMinsRaw = parseInt(cfg.booking_buffer_mins ?? process.env.BOOKING_BUFFER_MINS ?? "15", 10);
+  // Guard: an empty-string config value (unset dropdown) parses to NaN, which
+  // corrupts the slot-building loop's date arithmetic — fall back to defaults.
+  const slotMins = Number.isFinite(slotMinsRaw) && slotMinsRaw > 0 ? slotMinsRaw : 30;
+  const bufferMins = Number.isFinite(bufferMinsRaw) && bufferMinsRaw >= 0 ? bufferMinsRaw : 15;
   // booking_days: comma-separated ISO weekday numbers Mon=1..Sun=7; default Mon-Fri
   const daysStr = cfg.booking_days ?? "1,2,3,4,5";
   const days = new Set(
