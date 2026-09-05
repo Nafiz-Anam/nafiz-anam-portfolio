@@ -62,7 +62,7 @@ export function Hero({
 
       {/* ── Headline + tags ── */}
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-        <h1 className="max-w-none text-6xl font-bold leading-[0.95] tracking-tight sm:text-7xl">
+        <h1 className="max-w-none text-[clamp(2.25rem,11vw,3.75rem)] font-bold leading-[0.95] tracking-tight sm:text-7xl">
           <LineReveal delay={0.05} ready={ready} className="font-sans text-foreground">
             {merged.headlineLine1}
           </LineReveal>
