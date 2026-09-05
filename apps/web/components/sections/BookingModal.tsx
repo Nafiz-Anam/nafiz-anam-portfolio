@@ -150,6 +150,14 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const reset = useCallback(() => {
     setStep("date");
     setSelectedDate(null);
@@ -224,9 +232,9 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
         aria-hidden="true"
       />
 
-      <div className="relative z-10 w-full max-w-lg rounded-[8px] border border-foreground/10 bg-surface shadow-2xl">
+      <div className="relative z-10 flex max-h-[85vh] w-full max-w-lg flex-col rounded-[8px] border border-foreground/10 bg-surface shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-foreground/10 px-6 py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-foreground/10 px-6 py-4">
           <div className="flex items-center gap-2">
             <Calendar size={16} className="text-accent" />
             <span className="text-sm font-bold uppercase tracking-widest">Book a Discovery Call</span>
@@ -239,7 +247,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="flex-1 overflow-y-auto p-6">
           {/* Step: date */}
           {step === "date" && (
             <div>
@@ -313,7 +321,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
                 </div>
               ) : (
                 <>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-4 gap-2">
                     {slots.map((slot) => {
                       // Show time in visitor's local timezone for clarity
                       const localTime = new Date(slot.start).toLocaleTimeString([], {
