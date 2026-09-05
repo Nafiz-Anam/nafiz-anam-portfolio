@@ -7,6 +7,7 @@ import { requireAuth } from "../middleware/requireAuth";
 import { getStoredRefreshToken, getStoredEmail } from "./google-auth";
 import { getFreeBusy, createCalendarEvent, deleteCalendarEvent } from "../lib/googleCalendar";
 import { getMailTransport, getNotifyEmail } from "../lib/mail";
+import { emailShell, detailsCard, paragraph } from "../lib/emailTemplate";
 
 export const bookingRouter = Router();
 
@@ -375,6 +376,20 @@ async function sendConfirmationEmail(params: {
       ``,
       `— Nafiz Anam`,
     ].join("\n"),
+    html: emailShell(
+      "Your discovery call is confirmed",
+      [
+        paragraph(`Hi ${params.name},`),
+        paragraph(`Your ${params.durationMins}-minute discovery call with Nafiz Anam is confirmed.`),
+        detailsCard([
+          ["Date & time", `${dateStr}`],
+          ["Timezone", params.timezone],
+          ["Duration", `${params.durationMins} min`],
+        ]),
+        paragraph(`You'll receive a Google Calendar invite shortly with a meeting link.`),
+        paragraph(`If you need to reschedule, just reply to this email.`),
+      ].join(""),
+    ),
   });
 }
 
@@ -437,6 +452,14 @@ async function sendCancellationEmail(params: {
       ``,
       `— Nafiz Anam`,
     ].join("\n"),
+    html: emailShell(
+      "Your discovery call has been cancelled",
+      [
+        paragraph(`Hi ${params.name},`),
+        paragraph(`Your ${params.durationMins}-minute discovery call scheduled for ${dateStr} has been cancelled.`),
+        paragraph(`To rebook, visit <a href="https://nafizanam.com" style="color:#E8623C;">nafizanam.com</a> or just reply to this email.`),
+      ].join(""),
+    ),
   });
 }
 
@@ -471,5 +494,20 @@ async function sendRescheduleEmail(params: {
       ``,
       `— Nafiz Anam`,
     ].join("\n"),
+    html: emailShell(
+      "Your discovery call has been rescheduled",
+      [
+        paragraph(`Hi ${params.name},`),
+        paragraph(`Your discovery call has been rescheduled.`),
+        detailsCard([
+          ["Previous time", `${fmt(params.oldScheduledAt)}`],
+          ["New time", `${fmt(params.newScheduledAt)}`],
+          ["Timezone", params.timezone],
+          ["Duration", `${params.durationMins} min`],
+        ]),
+        paragraph(`Your Google Calendar invite has been updated automatically.`),
+        paragraph(`If this time doesn't work, just reply to this email.`),
+      ].join(""),
+    ),
   });
 }

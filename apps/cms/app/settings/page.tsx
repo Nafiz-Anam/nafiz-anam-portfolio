@@ -561,7 +561,7 @@ export default function SettingsPage() {
                       <Select
                         value={values["booking_start_hour"] ?? "9"}
                         onChange={(v) => setValues((prev) => ({ ...prev, booking_start_hour: v }))}
-                        options={Array.from({ length: 13 }, (_, i) => i + 6).map((h) => ({ value: String(h), label: `${String(h).padStart(2,"0")}:00` }))}
+                        options={Array.from({ length: 24 }, (_, h) => h).map((h) => ({ value: String(h), label: `${String(h).padStart(2,"0")}:00` }))}
                       />
                     </div>
                     <button
@@ -578,7 +578,7 @@ export default function SettingsPage() {
                       <Select
                         value={values["booking_end_hour"] ?? "18"}
                         onChange={(v) => setValues((prev) => ({ ...prev, booking_end_hour: v }))}
-                        options={Array.from({ length: 13 }, (_, i) => i + 10).map((h) => ({ value: String(h), label: `${String(h).padStart(2,"0")}:00` }))}
+                        options={Array.from({ length: 24 }, (_, h) => h).map((h) => ({ value: String(h), label: `${String(h).padStart(2,"0")}:00` }))}
                       />
                     </div>
                     <button
