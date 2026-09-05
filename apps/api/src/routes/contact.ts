@@ -4,6 +4,7 @@ import { prisma } from "@portfolio/db";
 import { createContactLeadSchema, updateContactLeadStatusSchema } from "@portfolio/types";
 import { requireAuth } from "../middleware/requireAuth";
 import { getMailTransport, getNotifyEmail } from "../lib/mail";
+import { emailShell, paragraph } from "../lib/emailTemplate";
 
 export const contactRouter = Router();
 
@@ -61,6 +62,34 @@ async function sendLeadNotification(lead: {
   });
 }
 
+async function sendVisitorConfirmation(lead: { name: string; email: string }) {
+  const mail = await getMailTransport();
+  if (!mail) return;
+
+  await mail.transporter.sendMail({
+    from: mail.from,
+    to: lead.email,
+    subject: `Thanks for reaching out, ${lead.name}`,
+    text: [
+      `Hi ${lead.name},`,
+      ``,
+      `Thanks for getting in touch — I've received your message and will get back to you within 1-2 business days.`,
+      ``,
+      `If it's urgent, feel free to book a discovery call directly at nafizanam.com.`,
+      ``,
+      `— Nafiz Anam`,
+    ].join("\n"),
+    html: emailShell(
+      "Thanks for reaching out",
+      [
+        paragraph(`Hi ${lead.name},`),
+        paragraph(`Thanks for getting in touch — I've received your message and will get back to you within 1-2 business days.`),
+        paragraph(`If it's urgent, feel free to <a href="https://nafizanam.com" style="color:#E8623C;">book a discovery call</a> directly.`),
+      ].join(""),
+    ),
+  });
+}
+
 // Public: submit contact form (rate limited: 5/hour per IP)
 contactRouter.post("/", submitLimit, async (req, res) => {
   const parsed = createContactLeadSchema.safeParse(req.body);
@@ -73,6 +102,9 @@ contactRouter.post("/", submitLimit, async (req, res) => {
   // Fire-and-forget — don't block the response on email delivery
   sendLeadNotification(parsed.data).catch((err) =>
     console.error("[contact] email notification failed:", err)
+  );
+  sendVisitorConfirmation(parsed.data).catch((err) =>
+    console.error("[contact] visitor confirmation email failed:", err)
   );
 
   res.status(201).json({ ok: true, id: lead.id });

@@ -8,7 +8,13 @@ export const googleAuthRouter = Router();
 
 const CMS_URL = process.env.CORS_ORIGIN_CMS ?? "http://localhost:3001";
 
-/** GET /google-calendar/connect — admin-only, redirects to Google OAuth */
+/**
+ * GET /google-calendar/connect — admin-only, returns the Google OAuth URL.
+ * Returns JSON rather than redirecting: this route requires an Authorization
+ * Bearer header (see requireAuth), which a plain browser navigation/<a href>
+ * can never send — the caller must fetch this via an authenticated XHR, then
+ * navigate the browser to the returned url itself.
+ */
 googleAuthRouter.get("/connect", requireAuth, async (_req, res) => {
   const clientId = await getSetting("google_client_id", "GOOGLE_CLIENT_ID");
   if (!clientId) {
@@ -16,7 +22,7 @@ googleAuthRouter.get("/connect", requireAuth, async (_req, res) => {
     return;
   }
   const url = await getAuthUrl("portfolio-admin");
-  res.redirect(url);
+  res.json({ url });
 });
 
 /** GET /google-calendar/callback — Google redirects here after consent */

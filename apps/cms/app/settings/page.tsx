@@ -243,6 +243,7 @@ export default function SettingsPage() {
   const [calStatus, setCalStatus] = useState<{ connected: boolean; email: string | null } | null>(null);
   const [calLoading, setCalLoading] = useState(true);
   const [calDisconnecting, setCalDisconnecting] = useState(false);
+  const [calConnecting, setCalConnecting] = useState(false);
 
   useEffect(() => {
     api.get<{ config: Record<string, string> }>("/site-config")
@@ -258,6 +259,17 @@ export default function SettingsPage() {
       .then((res) => setSecretValues(res.data.secrets ?? {}))
       .catch(() => {});
   }, []);
+
+  async function connectGoogleCalendar() {
+    setCalConnecting(true);
+    try {
+      const res = await api.get<{ url: string }>("/google-calendar/connect");
+      window.location.href = res.data.url;
+    } catch {
+      alert("Failed to start Google Calendar connection.");
+      setCalConnecting(false);
+    }
+  }
 
   async function disconnectGoogleCalendar() {
     if (!confirm("Disconnect Google Calendar? Booking slots will no longer check your availability.")) return;
@@ -476,13 +488,14 @@ export default function SettingsPage() {
                   </button>
                 </div>
               ) : (
-                <a
-                  href={`${process.env.NEXT_PUBLIC_API_URL_CMS ?? "http://localhost:4000"}/google-calendar/connect`}
-                  className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90"
+                <button
+                  onClick={connectGoogleCalendar}
+                  disabled={calConnecting}
+                  className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
-                  <ExternalLink size={14} />
+                  {calConnecting ? <Loader2 size={14} className="animate-spin" /> : <ExternalLink size={14} />}
                   Connect Google Calendar
-                </a>
+                </button>
               )}
             </div>
 
