@@ -5,9 +5,7 @@ import { Footer } from "@/components/sections/Footer";
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="dark bg-texture-lines bg-background text-foreground">
-        <Nav />
-      </div>
+      <Nav />
       <div className="flex min-h-[70vh] flex-col items-center justify-center gap-8 px-6 text-center">
         <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-accent">404</p>
         <h1 className="text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl">

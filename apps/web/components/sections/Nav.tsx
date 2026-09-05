@@ -21,10 +21,9 @@ const SERVICE_LINKS = [
 export function Nav({ data = defaultNav }: { data?: NavContent }) {
   const pathname = usePathname();
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [menuPos, setMenuPos] = useState({ top: 0, left: 0 });
   const [mounted, setMounted] = useState(false);
-  const lastY = useRef(0);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
 
@@ -34,9 +33,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
 
   useEffect(() => {
     function onScroll() {
-      const y = window.scrollY;
-      setHidden(y > 80 && y > lastY.current);
-      lastY.current = y;
+      setScrolled(window.scrollY > 20);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -55,12 +52,17 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
   };
 
   return (
-    <motion.header
-      animate={{ y: hidden ? "-100%" : "0%", opacity: hidden ? 0 : 1 }}
-      transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+    <header
       style={{ position: "sticky", top: 0, zIndex: 40 }}
+      className={`dark transition-[padding] duration-300 ease-out ${scrolled ? "px-3 pt-3 lg:px-6" : "px-0 pt-0"}`}
     >
-      <div className="mx-auto flex max-w-[1800px] items-center justify-between px-6 py-6 lg:px-16">
+      <div
+        className={`mx-auto flex items-center justify-between transition-all duration-300 ease-out ${
+          scrolled
+            ? "max-w-6xl rounded-[14px] border border-white/10 border-t-white/25 bg-background/60 px-6 py-3.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_8px_30px_-8px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150 lg:px-10"
+            : "max-w-[1800px] border border-transparent bg-transparent px-6 py-6 lg:px-16"
+        }`}
+      >
         <a href="/" className="font-sans text-2xl font-bold text-foreground">
           Nafiz{" "}
           <span className="font-serif italic" style={{ color: "hsl(13, 79%, 57%)" }}>
@@ -179,6 +181,6 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
           </BookingButton>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 }

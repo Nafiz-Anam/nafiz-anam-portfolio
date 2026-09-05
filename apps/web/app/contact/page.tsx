@@ -145,9 +145,7 @@ export default async function ContactPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }} />
-      <div className="dark bg-texture-lines bg-background text-foreground">
-        <Nav />
-      </div>
+      <Nav />
       <ContactPageTemplate config={config} />
       <Footer />
     </main>

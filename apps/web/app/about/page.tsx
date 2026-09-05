@@ -93,8 +93,8 @@ export default async function AboutPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }} />
+      <Nav />
       <div className="dark bg-texture-lines bg-background text-foreground">
-        <Nav />
         <AboutHero />
       </div>
       <FounderIntro />

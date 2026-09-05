@@ -115,9 +115,7 @@ export default async function CaseStudyPage({ params }: Props) {
           <a href={`${SITE_URL}/api/disable-draft`} className="underline">Exit preview</a>
         </div>
       )}
-      <div className="dark bg-texture-lines bg-background text-foreground">
-        <Nav />
-      </div>
+      <Nav />
 
       <article className="dark bg-texture-lines bg-background text-foreground">
         {/* Hero */}

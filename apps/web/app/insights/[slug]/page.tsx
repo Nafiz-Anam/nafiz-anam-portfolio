@@ -126,9 +126,7 @@ export default async function InsightDetailPage({ params }: Props) {
         </div>
       )}
 
-      <div className="dark bg-texture-lines bg-background text-foreground">
-        <Nav />
-      </div>
+      <Nav />
 
       <article className="relative">
         {/* Hero */}

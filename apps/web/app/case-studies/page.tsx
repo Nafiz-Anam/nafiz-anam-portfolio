@@ -121,8 +121,8 @@ export default async function CaseStudiesPage({ searchParams }: PageProps) {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudiesSchema) }} />
+      <Nav />
       <div className="dark bg-texture-lines bg-background text-foreground">
-        <Nav />
         <CaseStudiesHero />
       </div>
       <div className="dark">

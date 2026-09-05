@@ -154,8 +154,8 @@ export default async function HomePage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
+      <Nav />
       <div className="dark bg-texture-lines bg-background text-foreground">
-        <Nav />
         <Hero availability={config.availability_status ?? null} data={heroData} />
         <AuthoritySnapshot />
       </div>

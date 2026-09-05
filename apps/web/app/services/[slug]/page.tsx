@@ -83,9 +83,7 @@ export default async function ServicePage({ params }: Props) {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
-      <div className="dark bg-texture-lines bg-background text-foreground">
-        <Nav />
-      </div>
+      <Nav />
       <ServicePageTemplate data={service} />
       <RelatedCaseStudies />
       <Footer />

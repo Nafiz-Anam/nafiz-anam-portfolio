@@ -98,8 +98,8 @@ export default function HowItWorkPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howItWorkSchema) }} />
+      <Nav />
       <div className="dark bg-texture-lines bg-background text-foreground">
-        <Nav />
         <HowItWorkHero />
       </div>
       <div className="dark">

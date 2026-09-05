@@ -70,8 +70,8 @@ export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesFaqSchema) }} />
+      <Nav />
       <div className="dark bg-texture-lines bg-background text-foreground">
-        <Nav />
         <ServicesHero />
       </div>
       <ServicesOverview />
