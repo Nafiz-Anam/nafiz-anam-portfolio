@@ -61,11 +61,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.routers.portfolio-web.rule=Host(`v2.nafizanam.com`)"
+      - "traefik.http.routers.portfolio-web.rule=Host(`nafizanam.com`)"
       - "traefik.http.routers.portfolio-web.entrypoints=websecure"
       - "traefik.http.routers.portfolio-web.tls.certresolver=le"
       - "traefik.http.services.portfolio-web.loadbalancer.server.port=3000"
-      - "traefik.http.routers.portfolio-web-http.rule=Host(`v2.nafizanam.com`)"
+      - "traefik.http.routers.portfolio-web-http.rule=Host(`nafizanam.com`)"
       - "traefik.http.routers.portfolio-web-http.entrypoints=web"
       - "traefik.http.routers.portfolio-web-http.middlewares=redirect-to-https@file"
 
