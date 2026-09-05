@@ -29,7 +29,7 @@ export function emailShell(heading: string, bodyHtml: string): string {
     <tr>
       <td style="padding:20px 32px 32px;">
         <p style="margin:0;font-size:12px;color:${MUTED};font-family:${SANS};">
-          Nafiz Anam &middot; <a href="${SITE_URL}" style="color:${CORAL};text-decoration:none;">nafizanam.com</a>
+          Nafiz Anam &middot; <a href="${SITE_URL}" style="color:${CORAL};text-decoration:none;">nafizanam.com</a> &middot; <a href="mailto:hi@nafizanam.com" style="color:${CORAL};text-decoration:none;">hi@nafizanam.com</a>
         </p>
       </td>
     </tr>

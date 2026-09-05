@@ -376,7 +376,7 @@ async function sendConfirmationEmail(params: {
       ``,
       `You'll receive a Google Calendar invite shortly with a meeting link.`,
       ``,
-      `If you need to reschedule, reply to this email.`,
+      `If you need to reschedule, email hi@nafizanam.com.`,
       ``,
       `— Nafiz Anam`,
     ].join("\n"),
@@ -391,7 +391,7 @@ async function sendConfirmationEmail(params: {
           ["Duration", `${params.durationMins} min`],
         ]),
         paragraph(`You'll receive a Google Calendar invite shortly with a meeting link.`),
-        paragraph(`If you need to reschedule, just reply to this email.`),
+        paragraph(`If you need to reschedule, email <a href="mailto:hi@nafizanam.com" style="color:#E8623C;">hi@nafizanam.com</a>.`),
       ].join(""),
     ),
   });
@@ -452,7 +452,7 @@ async function sendCancellationEmail(params: {
       ``,
       `Your ${params.durationMins}-minute discovery call scheduled for ${dateStr} has been cancelled.`,
       ``,
-      `To rebook, visit nafizanam.com or reply to this email.`,
+      `To rebook, visit nafizanam.com, or email hi@nafizanam.com with any questions.`,
       ``,
       `— Nafiz Anam`,
     ].join("\n"),
@@ -461,7 +461,7 @@ async function sendCancellationEmail(params: {
       [
         paragraph(`Hi ${params.name},`),
         paragraph(`Your ${params.durationMins}-minute discovery call scheduled for ${dateStr} has been cancelled.`),
-        paragraph(`To rebook, visit <a href="https://nafizanam.com" style="color:#E8623C;">nafizanam.com</a> or just reply to this email.`),
+        paragraph(`To rebook, visit <a href="https://nafizanam.com" style="color:#E8623C;">nafizanam.com</a>, or email <a href="mailto:hi@nafizanam.com" style="color:#E8623C;">hi@nafizanam.com</a> with any questions.`),
       ].join(""),
     ),
   });
@@ -494,7 +494,7 @@ async function sendRescheduleEmail(params: {
       `Duration: ${params.durationMins} min`,
       ``,
       `Your Google Calendar invite has been updated automatically.`,
-      `If this time doesn't work, reply to this email.`,
+      `If this time doesn't work, email hi@nafizanam.com.`,
       ``,
       `— Nafiz Anam`,
     ].join("\n"),
@@ -510,7 +510,7 @@ async function sendRescheduleEmail(params: {
           ["Duration", `${params.durationMins} min`],
         ]),
         paragraph(`Your Google Calendar invite has been updated automatically.`),
-        paragraph(`If this time doesn't work, just reply to this email.`),
+        paragraph(`If this time doesn't work, email <a href="mailto:hi@nafizanam.com" style="color:#E8623C;">hi@nafizanam.com</a>.`),
       ].join(""),
     ),
   });
