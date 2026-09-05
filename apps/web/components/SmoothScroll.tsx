@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { setLenisInstance } from "@/lib/lenis";
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -11,6 +12,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       wheelMultiplier: 0.85,
       touchMultiplier: 1.4,
     });
+    setLenisInstance(lenis);
 
     let raf: number;
     function loop(time: number) {
@@ -37,6 +39,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       clearTimeout(hoverTimeout);
       lenis.off("scroll", onScroll);
       lenis.destroy();
+      setLenisInstance(null);
     };
   }, []);
 

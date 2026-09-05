@@ -8,6 +8,7 @@ import { Button } from "@portfolio/ui";
 import { BookingButton } from "./BookingButton";
 import { defaultNav, type NavContent } from "@/lib/placeholder-content";
 import { trackEvent } from "@/lib/analytics";
+import { stopLenis, startLenis } from "@/lib/lenis";
 
 const SERVICE_LINKS = [
   { label: "Custom Software Development", href: "/services/custom-software-development" },
@@ -64,8 +65,11 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
+    if (mobileOpen) stopLenis();
+    else startLenis();
     return () => {
       document.body.style.overflow = "";
+      startLenis();
     };
   }, [mobileOpen]);
 

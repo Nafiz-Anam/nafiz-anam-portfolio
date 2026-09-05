@@ -5,6 +5,7 @@ import { X, ChevronLeft, ChevronRight, Loader2, Check, Calendar, Clock } from "l
 import { z } from "zod";
 import { api } from "@/lib/api";
 import { trackEvent } from "@/lib/analytics";
+import { stopLenis, startLenis } from "@/lib/lenis";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name required"),
@@ -152,9 +153,14 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
 
   useEffect(() => {
     if (!open) return;
+    // Lenis drives scroll via JS on its own wheel/touch listeners — it ignores
+    // body{overflow:hidden} entirely, so the background keeps scrolling under
+    // the modal unless it's explicitly paused too.
     document.body.style.overflow = "hidden";
+    stopLenis();
     return () => {
       document.body.style.overflow = "";
+      startLenis();
     };
   }, [open]);
 
