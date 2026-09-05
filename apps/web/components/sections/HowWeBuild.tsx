@@ -132,13 +132,7 @@ function HeadingReveal() {
 
 function StepCard({ number, title, description, icon, index }: (typeof STEPS)[number] & { index: number }) {
   return (
-    <motion.div
-      className="group relative flex flex-1 flex-col gap-6 border-r border-panel-foreground/[0.07] px-7 py-10 transition-colors duration-200 hover:bg-panel-foreground/[0.03] last:border-r-0"
-      initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-      whileInView={{ clipPath: "inset(0 0 0% 0)", opacity: 1 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
-    >
+    <div className="group relative flex flex-1 flex-col gap-6 border-b border-panel-foreground/[0.07] px-7 py-10 transition-colors duration-200 last:border-b-0 hover:bg-panel-foreground/[0.03] lg:border-b-0 lg:border-r lg:last:border-r-0">
       {/* orange accent top line */}
       <div className="absolute inset-x-0 top-0 h-[2px] rounded-full bg-transparent transition-all duration-250 group-hover:bg-accent" />
 
@@ -159,7 +153,7 @@ function StepCard({ number, title, description, icon, index }: (typeof STEPS)[nu
           {description}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -204,7 +198,7 @@ export function HowWeBuild() {
 
         {/* Bottom: 6-step process */}
         <div className="mt-20 overflow-hidden rounded-[5px] border border-panel-foreground/[0.07]">
-          <div className="flex flex-col sm:flex-row">
+          <div className="flex flex-col lg:flex-row">
             {STEPS.map((step, i) => (
               <StepCard key={step.number} {...step} index={i} />
             ))}

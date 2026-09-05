@@ -62,8 +62,8 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
           </Reveal>
 
           {/* Thumbnails — window of 3, sliding with the active testimonial */}
-          <Reveal className="flex gap-4 self-end lg:col-start-1 lg:row-start-2" delay={0.15}>
-            <div className="flex gap-4">
+          <Reveal className="flex w-full gap-3 self-end sm:w-auto sm:gap-4 lg:col-start-1 lg:row-start-2" delay={0.15}>
+            <div className="flex w-full gap-3 sm:w-auto sm:gap-4">
               {Array.from({ length: Math.min(3, testimonials.length) }, (_, slot) => {
                 const i = (index + slot) % testimonials.length;
                 const t = testimonials[i]!;
@@ -72,7 +72,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                     key={t.id}
                     onClick={() => go(i, slot === 0 ? -1 : 1)}
                     aria-label={`Show testimonial from ${t.name}`}
-                    className="h-[160px] w-[150px] shrink-0 overflow-hidden rounded-[5px]"
+                    className="aspect-[15/16] w-full min-w-0 flex-1 overflow-hidden rounded-[5px] sm:aspect-auto sm:h-[160px] sm:w-[150px] sm:flex-none"
                     whileHover={{ scale: 1.03 }}
                     transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     animate={{ opacity: slot === 0 ? 1 : 0.45 }}

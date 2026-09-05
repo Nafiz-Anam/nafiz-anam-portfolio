@@ -67,19 +67,29 @@ html.is-scrolling body * {
   right: 1.5rem;
   pointer-events: none;
   z-index: -1;
-  background-image: repeating-linear-gradient(
-    90deg,
-    hsl(var(--foreground) / 0.07) 0px,
-    hsl(var(--foreground) / 0.07) 1px,
-    transparent 1px,
-    transparent 13px,
-    hsl(var(--foreground) / 0.07) 13px,
-    hsl(var(--foreground) / 0.07) 14px,
-    transparent 14px,
-    transparent calc((100vw - 3rem) / 8)
-  );
-  background-attachment: scroll;
-  background-position-x: 0;
+  background-image:
+    linear-gradient(to left,
+      hsl(var(--foreground) / 0.07) 0px,
+      hsl(var(--foreground) / 0.07) 1px,
+      transparent 1px,
+      transparent 13px,
+      hsl(var(--foreground) / 0.07) 13px,
+      hsl(var(--foreground) / 0.07) 14px,
+      transparent 14px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      hsl(var(--foreground) / 0.07) 0px,
+      hsl(var(--foreground) / 0.07) 1px,
+      transparent 1px,
+      transparent 13px,
+      hsl(var(--foreground) / 0.07) 13px,
+      hsl(var(--foreground) / 0.07) 14px,
+      transparent 14px,
+      transparent calc(100% / 4)
+    );
+  background-attachment: scroll, scroll;
+  background-position-x: 0, 0;
 }
 
 @media (min-width: 1024px) {
@@ -105,7 +115,7 @@ html.is-scrolling body * {
         hsl(var(--foreground) / 0.07) 13px,
         hsl(var(--foreground) / 0.07) 14px,
         transparent 14px,
-        transparent calc((100vw - 8rem) / 8)
+        transparent calc(100% / 8)
       );
     background-attachment: scroll, scroll;
     background-position-x: 0, 0;
@@ -127,19 +137,29 @@ html.is-scrolling body * {
   right: 1.5rem;
   pointer-events: none;
   z-index: -1;
-  background-image: repeating-linear-gradient(
-    90deg,
-    hsl(var(--panel-foreground) / 0.05) 0px,
-    hsl(var(--panel-foreground) / 0.05) 1px,
-    transparent 1px,
-    transparent 13px,
-    hsl(var(--panel-foreground) / 0.05) 13px,
-    hsl(var(--panel-foreground) / 0.05) 14px,
-    transparent 14px,
-    transparent calc((100vw - 3rem) / 8)
-  );
-  background-attachment: scroll;
-  background-position-x: 0;
+  background-image:
+    linear-gradient(to left,
+      hsl(var(--panel-foreground) / 0.05) 0px,
+      hsl(var(--panel-foreground) / 0.05) 1px,
+      transparent 1px,
+      transparent 13px,
+      hsl(var(--panel-foreground) / 0.05) 13px,
+      hsl(var(--panel-foreground) / 0.05) 14px,
+      transparent 14px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      hsl(var(--panel-foreground) / 0.05) 0px,
+      hsl(var(--panel-foreground) / 0.05) 1px,
+      transparent 1px,
+      transparent 13px,
+      hsl(var(--panel-foreground) / 0.05) 13px,
+      hsl(var(--panel-foreground) / 0.05) 14px,
+      transparent 14px,
+      transparent calc(100% / 4)
+    );
+  background-attachment: scroll, scroll;
+  background-position-x: 0, 0;
 }
 
 @media (min-width: 1024px) {
@@ -165,7 +185,7 @@ html.is-scrolling body * {
         hsl(var(--panel-foreground) / 0.05) 13px,
         hsl(var(--panel-foreground) / 0.05) 14px,
         transparent 14px,
-        transparent calc((100vw - 8rem) / 8)
+        transparent calc(100% / 8)
       );
     background-attachment: scroll, scroll;
     background-position-x: 0, 0;
@@ -227,19 +247,29 @@ html.is-scrolling body * {
   right: 1.5rem;
   pointer-events: none;
   z-index: -1;
-  background-image: repeating-linear-gradient(
-    90deg,
-    hsl(var(--panel-foreground) / 0.05) 0px,
-    hsl(var(--panel-foreground) / 0.05) 1px,
-    transparent 1px,
-    transparent 13px,
-    hsl(var(--panel-foreground) / 0.05) 13px,
-    hsl(var(--panel-foreground) / 0.05) 14px,
-    transparent 14px,
-    transparent calc((100vw - 3rem) / 8)
-  );
-  background-attachment: scroll;
-  background-position-x: 0;
+  background-image:
+    linear-gradient(to left,
+      hsl(var(--panel-foreground) / 0.05) 0px,
+      hsl(var(--panel-foreground) / 0.05) 1px,
+      transparent 1px,
+      transparent 13px,
+      hsl(var(--panel-foreground) / 0.05) 13px,
+      hsl(var(--panel-foreground) / 0.05) 14px,
+      transparent 14px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      hsl(var(--panel-foreground) / 0.05) 0px,
+      hsl(var(--panel-foreground) / 0.05) 1px,
+      transparent 1px,
+      transparent 13px,
+      hsl(var(--panel-foreground) / 0.05) 13px,
+      hsl(var(--panel-foreground) / 0.05) 14px,
+      transparent 14px,
+      transparent calc(100% / 4)
+    );
+  background-attachment: scroll, scroll;
+  background-position-x: 0, 0;
 }
 
 @media (min-width: 1024px) {
@@ -265,7 +295,7 @@ html.is-scrolling body * {
         hsl(var(--panel-foreground) / 0.05) 13px,
         hsl(var(--panel-foreground) / 0.05) 14px,
         transparent 14px,
-        transparent calc((100vw - 8rem) / 8)
+        transparent calc(100% / 8)
       );
     background-attachment: scroll, scroll;
     background-position-x: 0, 0;

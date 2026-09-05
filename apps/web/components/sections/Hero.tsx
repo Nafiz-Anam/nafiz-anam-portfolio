@@ -66,7 +66,7 @@ export function Hero({
           <LineReveal delay={0.05} ready={ready} className="font-sans text-foreground">
             {merged.headlineLine1}
           </LineReveal>
-          <LineReveal delay={0.18} ready={ready} className="whitespace-nowrap">
+          <LineReveal delay={0.18} ready={ready} className="sm:whitespace-nowrap">
             <span className="font-serif italic text-accent">{merged.headlineLine2Serif}</span>{" "}
             <span className="font-sans text-foreground">{merged.headlineLine2Sans}</span>
           </LineReveal>
@@ -115,7 +115,7 @@ export function Hero({
 
       {/* ── Panel card ── */}
       <motion.div
-        className="mt-16 grid grid-cols-1 items-center gap-16 rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04] p-10 text-panel-foreground sm:grid-cols-[1fr_auto] sm:p-14"
+        className="mt-16 grid grid-cols-1 items-center gap-16 rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04] p-10 text-panel-foreground sm:p-14 lg:grid-cols-[1fr_auto]"
         initial={{ opacity: 0, y: 64, scale: 0.96 }}
         animate={ready ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 64, scale: 0.96 }}
         transition={{ duration: dur.lg, ease: ease.out, delay: 0.28 }}
@@ -123,7 +123,7 @@ export function Hero({
         <div className="flex flex-col justify-center gap-10">
           <div style={{ overflow: "hidden" }}>
             <motion.p
-              className="text-center font-sans text-6xl font-bold sm:text-7xl"
+              className="whitespace-nowrap text-center font-sans text-[clamp(1.75rem,9vw,3.75rem)] font-bold sm:whitespace-normal sm:text-7xl"
               initial={{ y: "100%", opacity: 0 }}
               animate={ready ? { y: "0%", opacity: 1 } : { y: "100%", opacity: 0 }}
               transition={{ duration: 0.85, ease: ease.out, delay: 0.5 }}
@@ -145,7 +145,7 @@ export function Hero({
           </motion.p>
 
           <motion.div
-            className="flex items-center justify-between gap-6"
+            className="flex flex-wrap items-center justify-between gap-4 sm:flex-nowrap sm:gap-6"
             initial={{ opacity: 0, y: 16 }}
             animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
             transition={{ duration: dur.sm, ease: ease.out, delay: 0.72 }}
@@ -168,7 +168,7 @@ export function Hero({
               })}
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
               <Link
                 href="/case-studies"
                 className="text-[11px] font-bold uppercase tracking-widest text-panel-muted transition-colors duration-200 hover:text-panel-foreground"

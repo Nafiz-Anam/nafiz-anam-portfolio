@@ -45,10 +45,10 @@ export async function Footer() {
   return (
     <footer className="dark bg-texture-lines bg-surface px-6 pb-0 pt-36 lg:px-16">
       <div className="mx-auto max-w-[1800px] overflow-hidden rounded-[5px] bg-background p-10 pb-24 text-panel-foreground sm:p-16 sm:pb-32">
-        <div className="grid grid-cols-1 gap-14 sm:grid-cols-[1fr_auto]">
+        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1fr_auto]">
           <div className="flex flex-col justify-between gap-10">
             <div className="flex flex-col gap-6">
-              <p className="font-sans text-7xl font-bold leading-none sm:text-8xl">
+              <p className="whitespace-nowrap font-sans text-[clamp(1.75rem,9vw,4.5rem)] font-bold leading-none sm:whitespace-normal sm:text-8xl">
                 Nafiz{" "}
                 <span className="font-serif italic" style={{ color: "hsl(13, 79%, 57%)" }}>
                   Anam.
@@ -96,7 +96,7 @@ export async function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-1 items-end justify-end gap-4 sm:w-[480px]">
+          <div className="flex flex-col items-start gap-6 lg:w-[480px] lg:flex-row lg:items-end lg:justify-end lg:gap-4">
             <div className="flex h-full flex-col justify-between gap-6">
               <div className="flex flex-col gap-3">
                 <TrackedLink
@@ -135,7 +135,7 @@ export async function Footer() {
               </BookingButton>
             </div>
 
-            <div className="relative min-h-[260px] w-64 shrink-0">
+            <div className="relative min-h-[260px] w-full max-w-64 lg:w-64 lg:shrink-0">
               <ImagePlaceholder
                 src={data.photoUrl}
                 aspectClassName="aspect-auto"

@@ -21,14 +21,32 @@ const SERVICE_LINKS = [
 export function Nav({ data = defaultNav }: { data?: NavContent }) {
   const pathname = usePathname();
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [menuPos, setMenuPos] = useState({ top: 0, left: 0 });
   const [mounted, setMounted] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+  const [barBottom, setBarBottom] = useState(0);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const el = barRef.current;
+    if (!el) return;
+    const update = () => setBarBottom(el.getBoundingClientRect().bottom);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    window.addEventListener("resize", update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   useEffect(() => {
@@ -38,6 +56,18 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setMobileServicesOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   const openServices = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -57,6 +87,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
       className={`dark transition-[padding] duration-300 ease-out ${scrolled ? "px-3 pt-3 lg:px-6" : "px-0 pt-0"}`}
     >
       <div
+        ref={barRef}
         className={`mx-auto flex items-center justify-between transition-all duration-300 ease-out ${
           scrolled
             ? "max-w-6xl rounded-[14px] border border-white/10 border-t-white/25 bg-background/60 px-6 py-3.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_8px_30px_-8px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150 lg:px-10"
@@ -176,11 +207,113 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
         </nav>
 
         <div className="flex items-center gap-3">
-          <BookingButton location="nav" className="rounded-[5px] bg-accent px-5 py-2 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90">
+          <BookingButton location="nav" className="hidden rounded-[5px] bg-accent px-5 py-2 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90 sm:inline-flex">
             Book a free call
           </BookingButton>
+
+          <button
+            type="button"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 text-foreground md:hidden"
+          >
+            <span className={`h-px w-6 bg-current transition-transform duration-200 ${mobileOpen ? "translate-y-[3.5px] rotate-45" : ""}`} />
+            <span className={`h-px w-6 bg-current transition-opacity duration-200 ${mobileOpen ? "opacity-0" : "opacity-100"}`} />
+            <span className={`h-px w-6 bg-current transition-transform duration-200 ${mobileOpen ? "-translate-y-[3.5px] -rotate-45" : ""}`} />
+          </button>
         </div>
       </div>
+
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {mobileOpen && (
+              <>
+                <motion.div
+                  key="mobile-nav-backdrop"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="fixed inset-x-0 bottom-0 z-[90] bg-black/50 md:hidden"
+                  style={{ top: barBottom }}
+                  onClick={() => setMobileOpen(false)}
+                />
+                <motion.div
+                  key="mobile-nav-panel"
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="fixed inset-x-0 z-[95] overflow-y-auto px-6 pb-6 md:hidden"
+                  style={{ top: barBottom, maxHeight: `calc(100vh - ${barBottom}px)` }}
+                >
+                  <nav className="mx-auto mt-3 flex max-w-6xl flex-col gap-1 rounded-[14px] border border-white/10 bg-background/95 p-4 text-sm text-muted shadow-xl backdrop-blur-xl">
+                    {data.links.filter((l) => l.href.startsWith("/")).map((link) =>
+                      link.label === "Services" ? (
+                        <div key={link.href} className="flex flex-col">
+                          <button
+                            type="button"
+                            onClick={() => setMobileServicesOpen((v) => !v)}
+                            aria-expanded={mobileServicesOpen}
+                            className="flex items-center justify-between gap-1.5 rounded-md px-3 py-3 text-left transition-colors hover:bg-foreground/5 hover:text-foreground"
+                          >
+                            {link.label}
+                            <svg
+                              width="10"
+                              height="10"
+                              viewBox="0 0 10 10"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              className={`transition-transform duration-200 ${mobileServicesOpen ? "rotate-180" : ""}`}
+                            >
+                              <path d="M2 3.5l3 3 3-3" />
+                            </svg>
+                          </button>
+                          {mobileServicesOpen && (
+                            <div className="flex flex-col gap-0.5 pb-2 pl-3">
+                              {SERVICE_LINKS.map((s) => (
+                                <a
+                                  key={s.href}
+                                  href={s.href}
+                                  onClick={() => trackEvent("nav_link_click", { nav_label: s.label })}
+                                  className="rounded-md px-3 py-2.5 text-[13px] text-muted transition-colors hover:bg-foreground/5 hover:text-foreground"
+                                >
+                                  {s.label}
+                                </a>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <a
+                          key={link.href}
+                          href={link.href}
+                          aria-current={pathname === link.href ? "page" : undefined}
+                          onClick={() => trackEvent("nav_link_click", { nav_label: link.label })}
+                          className="rounded-md px-3 py-3 transition-colors hover:bg-foreground/5 hover:text-foreground aria-[current=page]:text-foreground"
+                        >
+                          {link.label}
+                        </a>
+                      )
+                    )}
+
+                    <BookingButton
+                      location="nav"
+                      className="mt-2 w-full rounded-[5px] bg-accent px-5 py-3 text-center text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
+                    >
+                      Book a free call
+                    </BookingButton>
+                  </nav>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
     </header>
   );
 }
