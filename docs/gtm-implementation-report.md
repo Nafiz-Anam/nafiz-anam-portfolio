@@ -1,32 +1,39 @@
 # GTM Implementation Report
 
-Every event from the tracking plan is now wired into the codebase — what fires it, what it sends, and the GTM/GA4 setup each one still needs.
+Every event from the tracking plan is wired into the codebase, and the GTM container itself is now built out (v2) — tags, trigger, variables, real GA4 Measurement ID. What's left is verification + a few things only the GTM/GA4 UI can do.
 
-**Status:** 16 events live in code (1 is a GTM-native trigger, no code needed) · GTM container ID not yet set (nothing reaches GA4 until it is)
-
----
-
-## How data moves
-
-Every event pushes to `window.dataLayer` client-side. GTM watches that array, matches a Custom Event trigger by exact event name, and forwards the mapped parameters to a GA4 Event tag. Nothing reaches GA4 until the container ID is set in the CMS.
-
-```
-nafizanam.com               GTM container                GA4 property
-dataLayer.push()      →     Custom Event trigger    →     Event log
-(lib/analytics.ts)          → GA4 Event tag                → marked conversions
-```
+**Status:** 17 events live in code · GTM container built and configured, **not yet published** (still a draft workspace) · GA4 DebugView verification not yet done
 
 ---
+
+## GTM container (built 2026-09-05)
+
+Account `6375131073`, container **`nafizanam.com - web v2`** (`GTM-MF2BSK9W`, containerId `263228431`), default workspace `2`. Built via the GTM MCP tools, not the UI.
+
+- **Built-in variables enabled:** Event, Page URL, Page Path, Page Hostname, Referrer
+- **20 Data Layer Variables**, one per event param key (`DLV - <key>`): question_text, nav_label, duration_mins, service_name, source_page, cta_location, form_name, field_name, error_type, category, budget_range, topic_name, case_study_title, search_term, location, project_type, timeline, article_slug, percent, platform
+- **1 Constant variable** `GA4 - Measurement ID` = `G-X7F8WQB3PE` (real value, set 2026-09-05)
+- **1 trigger** `CE - Tracked dataLayer Events` (Custom Event, regex-matches all 17 event names below — this is the same custom-event fan-in for every event, not one trigger per event)
+- **2 tags, both live (unpaused):**
+  - `GA4 - Configuration` (type `googtag`) — fires on All Pages, `tagId` = `{{GA4 - Measurement ID}}`
+  - `GA4 - Custom Events` (type `gaawe`) — fires on the trigger above, `eventName` = `{{Event}}`, `measurementIdOverride` = `{{GA4 - Measurement ID}}`, all 20 DLVs mapped as GA4 event params via `eventSettingsTable`. One generic tag for every event, not 17 bespoke ones — GTM omits any param that resolves undefined for a given event, so this is safe.
+
+There's also a second, empty, unrelated container **`nafizanam.com - server v2`** (`GTM-KWNKPWKQ`, containerId `263238072`, usageContext `server`) — reserved for a future server-side tagging setup, not part of this work.
+
+### Known gap: `page_path` isn't forwarded on custom events
+
+The original code-side plan (below) has every event auto-attach `page_path` via `trackEvent()`. The GA4 Custom Events tag does **not** currently map that key to a GA4 event param — there's no `DLV - page_path` and it's not in `eventSettingsTable`. GA4 still gets `page_location`/`page_referrer` for free from the Configuration tag's automatic page_view, but the per-event `page_path` value itself is dropped. Fix: add a `DLV - page_path` variable and one more row in the event tag's `eventSettingsTable` if this is wanted on every event row in GA4.
 
 ## Setup checklist
 
-1. **Create the GTM container** — tagmanager.google.com → new Web container for nafizanam.com. Copy the `GTM-XXXXXXX` ID.
-2. **Paste it into the CMS** — CMS → Settings → General → `Google Tag Manager Container ID`. The site starts loading GTM on the next page revalidation — no redeploy needed.
-3. **Add the GA4 Configuration tag inside GTM** — fires on All Pages. Measurement ID is the same value already sitting in CMS → `Google Analytics Measurement ID`.
-4. **Add the built-in Scroll Depth trigger** — GTM → Triggers → new → Scroll Depth, thresholds 25/50/75/90, fires on All Pages. This is the only event on this list that isn't in the codebase — GTM tracks it natively.
-5. **Per event below: one trigger, one tag** — Custom Event trigger matching the exact event name → GA4 Event tag referencing the config tag, forwarding each listed parameter as a GA4 Event Parameter.
-6. **Mark the real conversions** — `call_booking_confirmed`, `form_submit_contact`, and `form_submit_homepage` → GA4 Admin → Events → toggle "Mark as conversion". Not `cta_book_call_click` — that's intent, not a booked call.
-7. **Verify in GA4 DebugView before trusting any of it** — enable the GTM Preview panel, click through the site, confirm each event and its parameters land as expected.
+1. ~~Create the GTM container~~ — done, `GTM-MF2BSK9W`.
+2. ~~Paste it into the CMS~~ — done, CMS → Settings → General → `Google Tag Manager Container ID` field exists (`apps/cms/app/settings/page.tsx`); **confirm the actual CMS site-config row has `GTM-MF2BSK9W`, not the built-in field wiring** — this report doesn't cover the CMS data itself, only the GTM container.
+3. ~~Add the GA4 Configuration tag~~ — done, `GA4 - Configuration`, live.
+4. **Add the built-in Scroll Depth trigger** — GTM → Triggers → new → Scroll Depth, thresholds 25/50/75/90, fires on All Pages. Still not created. This is the only event on the list that isn't in the codebase — GTM tracks it natively. No corresponding GA4 event tag exists for it either.
+5. ~~Per-event trigger/tag wiring~~ — done, but via **one shared trigger + one shared tag** (see above) instead of one pair per event; functionally equivalent, less container clutter.
+6. **Mark the real conversions** — `call_booking_confirmed`, `form_submit_contact`, and `form_submit_homepage` → GA4 Admin → Events → toggle "Mark as conversion". Not `cta_book_call_click` — that's intent, not a booked call. Not done — GA4 Admin UI only, not reachable via the GTM API/MCP tools used here.
+7. **Publish the GTM workspace** — everything above is still an unpublished draft (`Workspace Changes` in the GTM UI). Preview it, then Submit to create a version and go live. Not done.
+8. **Verify in GA4 DebugView before trusting any of it** — enable the GTM Preview panel, click through the site, confirm each event and its parameters land as expected, and specifically check the `page_path` gap above. Not done.
 
 ---
 
