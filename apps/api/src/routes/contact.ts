@@ -5,6 +5,7 @@ import { createContactLeadSchema, updateContactLeadStatusSchema } from "@portfol
 import { requireAuth } from "../middleware/requireAuth";
 import { getMailTransport, getNotifyEmail } from "../lib/mail";
 import { emailShell, paragraph } from "../lib/emailTemplate";
+import { verifyTurnstile } from "../lib/turnstile";
 
 export const contactRouter = Router();
 
@@ -92,7 +93,13 @@ async function sendVisitorConfirmation(lead: { name: string; email: string }) {
 
 // Public: submit contact form (rate limited: 5/hour per IP)
 contactRouter.post("/", submitLimit, async (req, res) => {
-  const parsed = createContactLeadSchema.safeParse(req.body);
+  const { turnstileToken, ...body } = req.body as { turnstileToken?: unknown };
+  const humanVerified = await verifyTurnstile(turnstileToken, req.ip);
+  if (!humanVerified) {
+    return res.status(400).json({ error: { message: "Verification failed. Please try again.", code: "TURNSTILE_FAILED" } });
+  }
+
+  const parsed = createContactLeadSchema.safeParse(body);
   if (!parsed.success) {
     return res.status(400).json({ error: { message: "invalid input", details: parsed.error.flatten() } });
   }

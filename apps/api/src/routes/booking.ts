@@ -8,6 +8,7 @@ import { getStoredRefreshToken, getStoredEmail } from "./google-auth";
 import { getFreeBusy, createCalendarEvent, deleteCalendarEvent } from "../lib/googleCalendar";
 import { getMailTransport, getNotifyEmail } from "../lib/mail";
 import { emailShell, detailsCard, paragraph } from "../lib/emailTemplate";
+import { verifyTurnstile } from "../lib/turnstile";
 
 export const bookingRouter = Router();
 
@@ -166,7 +167,14 @@ bookingRouter.get("/slots", async (req, res) => {
 
 /** POST /booking — public: create a booking (rate limited: 3/hr per IP) */
 bookingRouter.post("/", bookingLimit, async (req, res) => {
-  const parsed = createBookingSchema.safeParse(req.body);
+  const { turnstileToken, ...body } = req.body as { turnstileToken?: unknown };
+  const humanVerified = await verifyTurnstile(turnstileToken, req.ip);
+  if (!humanVerified) {
+    res.status(400).json({ error: { message: "Verification failed. Please try again.", code: "TURNSTILE_FAILED" } });
+    return;
+  }
+
+  const parsed = createBookingSchema.safeParse(body);
   if (!parsed.success) {
     res.status(400).json({ error: { message: parsed.error.errors[0]?.message ?? "Invalid input" } });
     return;

@@ -39,6 +39,7 @@ jobs:
             --build-arg NEXT_PUBLIC_API_URL="${{ secrets.NEXT_PUBLIC_API_URL }}" \
             --build-arg NEXT_PUBLIC_SITE_URL="${{ secrets.NEXT_PUBLIC_SITE_URL }}" \
             --build-arg NEXT_PUBLIC_PREVIEW_SECRET="${{ secrets.REVALIDATE_SECRET }}" \
+            --build-arg NEXT_PUBLIC_TURNSTILE_SITE_KEY="${{ secrets.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}" \
             -t "$REPO-web:$IMAGE_TAG" -t "$REPO-web:latest" .
 
           docker build -f docker/cms.Dockerfile \
@@ -66,6 +67,7 @@ jobs:
           GOOGLE_REDIRECT_URI: ${{ secrets.GOOGLE_REDIRECT_URI }}
           ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
           NEXT_PUBLIC_API_URL_CMS: ${{ secrets.NEXT_PUBLIC_API_URL_CMS }}
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
         run: |
           set -e
           umask 077
@@ -105,6 +107,8 @@ jobs:
           BOOKING_BUFFER_MINS=15
 
           NEXT_PUBLIC_API_URL_CMS=${NEXT_PUBLIC_API_URL_CMS}
+
+          TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
           EOF
           chmod 600 .env
 

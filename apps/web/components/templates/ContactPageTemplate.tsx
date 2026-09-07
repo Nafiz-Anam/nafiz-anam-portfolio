@@ -7,6 +7,7 @@ import { BookingButton } from "@/components/sections/BookingButton";
 import { Accordion } from "@/components/Accordion";
 import { api } from "@/lib/api";
 import { trackEvent } from "@/lib/analytics";
+import { Turnstile } from "@/components/Turnstile";
 
 const CONTACT_EMAIL = "hi@nafizanam.com";
 
@@ -313,6 +314,7 @@ function ProjectInquiryForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<FormState>>({});
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const started = useRef(false);
 
   const markStarted = () => {
@@ -356,6 +358,10 @@ function ProjectInquiryForm() {
       setErrors(errs);
       return;
     }
+    if (!turnstileToken) {
+      setSubmitError("Please complete the verification check.");
+      return;
+    }
     setSubmitting(true);
     setSubmitError(null);
     try {
@@ -368,6 +374,7 @@ function ProjectInquiryForm() {
         budget: form.budget ? labelFor(BUDGET_OPTIONS, form.budget) : null,
         timeline: form.timeline ? labelFor(TIMELINE_OPTIONS, form.timeline) : null,
         message: form.description.trim(),
+        turnstileToken,
       });
       trackEvent("form_submit_contact", {
         project_type: form.projectType || null,
@@ -559,6 +566,8 @@ function ProjectInquiryForm() {
                       )}
                     </div>
                   </FormField>
+
+                  <Turnstile onVerify={setTurnstileToken} />
 
                   {/* Submit */}
                   <div className="pt-2">

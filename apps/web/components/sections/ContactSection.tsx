@@ -6,6 +6,7 @@ import { Button, Select } from "@portfolio/ui";
 import { Reveal } from "@/components/ui/Reveal";
 import { api } from "@/lib/api";
 import { trackEvent } from "@/lib/analytics";
+import { Turnstile } from "@/components/Turnstile";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name required"),
@@ -43,6 +44,7 @@ export function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [category, setCategory] = useState("");
   const [budget, setBudget] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const started = useRef(false);
 
   const markStarted = () => {
@@ -73,9 +75,14 @@ export function ContactSection() {
       return;
     }
 
+    if (!turnstileToken) {
+      setError("Please complete the verification check.");
+      return;
+    }
+
     setLoading(true);
     try {
-      await api.post("/contact", parsed.data);
+      await api.post("/contact", { ...parsed.data, turnstileToken });
       trackEvent("form_submit_homepage", { category: parsed.data.category, budget_range: parsed.data.budget });
       setSubmitted(true);
     } catch (err) {
@@ -149,6 +156,7 @@ export function ContactSection() {
                 />
               </div>
               <textarea name="message" placeholder="Tell me about your project..." rows={6} className={fieldClassName} />
+              <Turnstile onVerify={setTurnstileToken} />
               {error ? <p className="text-sm text-red-400">{error}</p> : null}
             </form>
 

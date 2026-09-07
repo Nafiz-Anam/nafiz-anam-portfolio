@@ -6,6 +6,7 @@ import { z } from "zod";
 import { api } from "@/lib/api";
 import { trackEvent } from "@/lib/analytics";
 import { stopLenis, startLenis } from "@/lib/lenis";
+import { Turnstile } from "@/components/Turnstile";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name required"),
@@ -144,6 +145,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   useEffect(() => {
     api.get<BookingConfig>("/booking/config")
@@ -175,6 +177,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
     setMessage("");
     setFormError(null);
     setConfirmed(false);
+    setTurnstileToken(null);
   }, []);
 
   useEffect(() => {
@@ -200,6 +203,10 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
       return;
     }
     if (!selectedSlot) return;
+    if (!turnstileToken) {
+      setFormError("Please complete the verification check.");
+      return;
+    }
 
     setSubmitting(true);
     setFormError(null);
@@ -211,6 +218,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
         scheduledAt: selectedSlot.start,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         durationMins: config.slotMins,
+        turnstileToken,
       });
       trackEvent("call_booking_confirmed", { duration_mins: config.slotMins });
       setConfirmed(true);
@@ -408,6 +416,7 @@ export function BookingModal({ open, onClose }: { open: boolean; onClose: () => 
                   rows={3}
                   className="rounded-[5px] border border-foreground/10 bg-background px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-1 focus:ring-accent"
                 />
+                <Turnstile onVerify={setTurnstileToken} />
                 {formError && <p className="text-sm text-red-400">{formError}</p>}
               </div>
 
