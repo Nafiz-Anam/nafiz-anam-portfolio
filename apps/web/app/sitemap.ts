@@ -8,18 +8,30 @@ async function getPublishedSlugs(
   path: string,
   key: "projects" | "posts"
 ): Promise<{ slug: string; updatedAt: string }[]> {
+  // API caps `limit` at 50 per page (see apps/api/src/routes/{projects,blog}.ts),
+  // so a single request silently truncates once published count exceeds 50 — paginate.
+  const out: { slug: string; updatedAt: string }[] = [];
+  let page = 1;
+  const limit = 50;
   try {
-    const res = await fetch(`${API}/${path}?limit=500`, {
-      next: { revalidate: 3600 },
-    });
-    if (!res.ok) return [];
-    const data = (await res.json()) as {
-      projects?: { slug: string; updatedAt: string }[];
-      posts?: { slug: string; updatedAt: string }[];
-    };
-    return (data[key] as { slug: string; updatedAt: string }[]) ?? [];
+    for (;;) {
+      const res = await fetch(`${API}/${path}?limit=${limit}&page=${page}`, {
+        next: { revalidate: 3600 },
+      });
+      if (!res.ok) break;
+      const data = (await res.json()) as {
+        projects?: { slug: string; updatedAt: string }[];
+        posts?: { slug: string; updatedAt: string }[];
+        totalPages?: number;
+      };
+      const items = (data[key] as { slug: string; updatedAt: string }[]) ?? [];
+      out.push(...items);
+      if (page >= (data.totalPages ?? 1) || items.length === 0) break;
+      page++;
+    }
+    return out;
   } catch {
-    return [];
+    return out;
   }
 }
 
