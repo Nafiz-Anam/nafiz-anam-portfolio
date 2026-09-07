@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowLeft, Clock, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { Nav } from "@/components/sections/Nav";
 import { Footer } from "@/components/sections/Footer";
+import { BookingButton } from "@/components/sections/BookingButton";
 import { draftMode } from "next/headers";
 import { fetchBlogPost, fetchBlogList } from "@/lib/blog";
 import { sanitizeContent } from "@/lib/sanitize";
@@ -47,7 +48,8 @@ function formatDate(iso: string | Date | null) {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const data = await fetchBlogPost(slug);
+  const { isEnabled: isPreview } = await draftMode();
+  const data = await fetchBlogPost(slug, isPreview);
   if (!data) return { title: "Insights" };
   const { post } = data;
   return {
@@ -55,6 +57,7 @@ export async function generateMetadata({ params }: Props) {
     alternates: { canonical: `/insights/${slug}` },
     description: post.seoDescription || post.excerpt,
     keywords: post.tags,
+    ...(isPreview ? { robots: { index: false, follow: false } } : {}),
     openGraph: {
       title: post.seoTitle || post.title,
       description: post.seoDescription || post.excerpt,
@@ -163,7 +166,7 @@ export default async function InsightDetailPage({ params }: Props) {
                 {initials}
               </div>
               <div>
-                <div className="text-sm font-semibold">{post.authorName}</div>
+                <Link href="/about" className="text-sm font-semibold hover:text-accent">{post.authorName}</Link>
                 <div className="text-[11px] text-foreground/40">Lead Software Engineer</div>
               </div>
             </div>
@@ -252,6 +255,40 @@ export default async function InsightDetailPage({ params }: Props) {
             )}
           </div>
         </div>
+        </div>
+
+        {/* Final CTA */}
+        <div className="dark bg-texture-lines bg-background border-t border-panel-foreground/[0.08] px-6 py-20 text-foreground lg:px-20">
+          <div className="mx-auto flex max-w-[900px] flex-col items-center gap-6 text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">Work Together</p>
+            <h2 className="max-w-[560px] text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl">
+              Facing something similar in your product?
+            </h2>
+            <p className="max-w-[480px] text-[15px] leading-[1.8] text-foreground/40">
+              I help founders and technical teams design, build, and scale software products the right way. Let's talk about your specific challenges.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <BookingButton
+                location="blog_detail_final"
+                eventParams={{ article_slug: post.slug }}
+                className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
+              >
+                Book a Discovery Call
+              </BookingButton>
+              <Link
+                href="/services"
+                className="rounded-[5px] border border-foreground/20 px-8 py-3.5 text-xs font-bold uppercase tracking-wide transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]"
+              >
+                Explore Services
+              </Link>
+              <Link
+                href="/case-studies"
+                className="rounded-[5px] border border-foreground/20 px-8 py-3.5 text-xs font-bold uppercase tracking-wide transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]"
+              >
+                See Case Studies
+              </Link>
+            </div>
+          </div>
         </div>
       </article>
 

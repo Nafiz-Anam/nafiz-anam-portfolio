@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Playfair_Display, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GoogleTagManager } from "@/components/GoogleTagManager";
+import { PageViewTracker } from "@/components/analytics/PageViewTracker";
 import { BookingProvider } from "@/components/sections/BookingProvider";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CursorFollower } from "@/components/CursorFollower";
@@ -148,6 +150,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <GoogleTagManager />
+        <Suspense fallback={null}>
+          <PageViewTracker />
+        </Suspense>
         <ThemeProvider>
           <PageIntro />
           <SmoothScroll>

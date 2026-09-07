@@ -29,13 +29,15 @@ export default function GlobalError({
           }}
         >
           <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#E8623C", margin: 0 }}>
-            Critical error
+            Critical Error
           </p>
-          <h1 style={{ fontSize: "2.5rem", fontWeight: 700, margin: 0, lineHeight: 1.05 }}>
-            Something went wrong
+          <h1 style={{ fontSize: "clamp(40px, 8vw, 84px)", fontWeight: 700, margin: 0, lineHeight: 0.98 }}>
+            Something Went
+            <br />
+            <span style={{ fontStyle: "italic", color: "#E8623C" }}>Wrong.</span>
           </h1>
-          <p style={{ maxWidth: "360px", fontSize: "15px", lineHeight: 1.8, color: "rgba(244,244,248,0.55)", margin: 0 }}>
-            The page failed to load. This has been logged.
+          <p style={{ maxWidth: "380px", fontSize: "16px", lineHeight: 1.85, color: "rgba(244,244,248,0.55)", margin: 0 }}>
+            The page failed to load. This has been logged and I&apos;ll look into it.
           </p>
           <div style={{ display: "flex", gap: "12px" }}>
             <button

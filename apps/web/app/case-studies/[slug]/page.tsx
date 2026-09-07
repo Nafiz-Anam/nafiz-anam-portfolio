@@ -43,7 +43,8 @@ function processHtml(rawHtml: string) {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const data = await fetchProject(slug);
+  const { isEnabled: isPreview } = await draftMode();
+  const data = await fetchProject(slug, isPreview);
   if (!data) return { title: "Case Studies" };
   const { project } = data;
   return {
@@ -51,6 +52,7 @@ export async function generateMetadata({ params }: Props) {
     description: project.seoDescription || project.excerpt,
     keywords: project.tags,
     alternates: { canonical: `/case-studies/${slug}` },
+    ...(isPreview ? { robots: { index: false, follow: false } } : {}),
     openGraph: {
       title: project.seoTitle || project.title,
       description: project.seoDescription || project.excerpt,
@@ -264,6 +266,12 @@ export default async function CaseStudyPage({ params }: Props) {
                 className="rounded-[5px] border border-foreground/20 px-8 py-3.5 text-xs font-bold uppercase tracking-wide transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]"
               >
                 Send a Message
+              </Link>
+              <Link
+                href="/services"
+                className="rounded-[5px] border border-foreground/20 px-8 py-3.5 text-xs font-bold uppercase tracking-wide transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]"
+              >
+                Explore Services
               </Link>
             </div>
           </div>
