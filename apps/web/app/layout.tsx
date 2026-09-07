@@ -4,6 +4,7 @@ import { Playfair_Display, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/g
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GoogleTagManager } from "@/components/GoogleTagManager";
+import { PersonJsonLd } from "@/components/PersonJsonLd";
 import { PageViewTracker } from "@/components/analytics/PageViewTracker";
 import { BookingProvider } from "@/components/sections/BookingProvider";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -79,76 +80,11 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
-      name: "Nafiz Anam",
-      url: SITE_URL,
-      jobTitle: "Technology & Product Partner",
-      description:
-        "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
-      email: "mailto:hi@nafizanam.com",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Khulna",
-        addressCountry: "Bangladesh",
-      },
-      worksFor: [
-        { "@id": `${SITE_URL}/#organization` },
-        { "@id": `${SITE_URL}/#organization-syrona` },
-      ],
-      sameAs: [
-        "https://www.linkedin.com/in/kazinafizanam/",
-        "https://github.com/Nafiz-Anam",
-        "https://www.facebook.com/anamnafiz",
-      ],
-      knowsAbout: [
-        "Software Architecture",
-        "React",
-        "Next.js",
-        "Node.js",
-        "TypeScript",
-        "SaaS",
-        "Cloud Infrastructure",
-        "AI Automation",
-      ],
-    },
-    {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#organization`,
-      name: "Agilo IT",
-      url: SITE_URL,
-      founder: { "@id": `${SITE_URL}/#person` },
-      description: "Software consultancy delivering custom software development, SaaS product engineering, AI automation, and technical consulting.",
-    },
-    {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#organization-syrona`,
-      name: "Syrona IT",
-      founder: { "@id": `${SITE_URL}/#person` },
-      description: "Company behind Servero.io, a server-side Google Tag Manager hosting platform for ecommerce brands.",
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${SITE_URL}/#website`,
-      url: SITE_URL,
-      name: "Nafiz Anam",
-      publisher: { "@id": `${SITE_URL}/#person` },
-    },
-  ],
-};
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfair.variable} ${jakarta.variable} ${jetbrains.variable} font-sans`}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <PersonJsonLd />
         <GoogleTagManager />
         <Suspense fallback={null}>
           <PageViewTracker />

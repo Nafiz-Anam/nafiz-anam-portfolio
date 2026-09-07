@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Save, Check, Eye, EyeOff, CalendarCheck, Unplug, ExternalLink, Loader2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { Select } from "@portfolio/ui";
+import { ImageUpload } from "@/components/ImageUpload";
 
 const TIMEZONES = [
   "UTC", "Europe/London", "Europe/Paris", "Europe/Berlin", "Europe/Amsterdam",
@@ -19,7 +20,7 @@ const BOOKING_DAYS = [
   { iso: 7, label: "Sun" },
 ];
 
-const MANAGED_KEYS: { key: string; label: string; description: string; type?: "url" | "text" | "select"; options?: { value: string; label: string }[] }[] = [
+const MANAGED_KEYS: { key: string; label: string; description: string; type?: "url" | "text" | "select" | "image"; options?: { value: string; label: string }[] }[] = [
   {
     key: "availability_status",
     label: "Availability Status",
@@ -193,6 +194,12 @@ const MANAGED_KEYS: { key: string; label: string; description: string; type?: "u
     description: "e.g. \"GTM-XXXXXXX\". Loads the GTM container site-wide. Leave blank to disable tag manager (and all events that depend on it).",
     type: "text",
   },
+  {
+    key: "knowledge_graph_image",
+    label: "Knowledge Graph Photo",
+    description: "Used only in site-wide structured data (schema.org Person.image) for Google Knowledge Panel eligibility. Not shown anywhere on the site itself — separate from the Hero/Footer photos.",
+    type: "image",
+  },
 ];
 
 const SECRET_KEYS: { key: string; label: string; description: string; type?: "text" | "password" }[] = [
@@ -206,7 +213,7 @@ const SECRET_KEYS: { key: string; label: string; description: string; type?: "te
   { key: "google_client_secret", label: "Google OAuth Client Secret", description: "From Google Cloud Console credentials.", type: "password" },
 ];
 
-const GENERAL_KEYS = ["availability_status", "contact_email", "facebook_url", "linkedin_url", "github_url", "twitter_url", "ga_measurement_id", "gtm_container_id"];
+const GENERAL_KEYS = ["availability_status", "contact_email", "facebook_url", "linkedin_url", "github_url", "twitter_url", "ga_measurement_id", "gtm_container_id", "knowledge_graph_image"];
 const HERO_KEYS = [
   "footer_photo_url", "hero_headline_1", "hero_headline_2_serif", "hero_headline_2_sans",
   "hero_name", "hero_pitch", "hero_photo_url", "hero_tags",
@@ -284,10 +291,10 @@ export default function SettingsPage() {
     }
   }
 
-  async function save(key: string, label: string) {
+  async function saveValue(key: string, label: string, value: string) {
     setSaving((s) => ({ ...s, [key]: true }));
     try {
-      await api.put(`/site-config/${key}`, { value: values[key] ?? "", label });
+      await api.put(`/site-config/${key}`, { value, label });
       setSaved((s) => ({ ...s, [key]: true }));
       setTimeout(() => setSaved((s) => ({ ...s, [key]: false })), 2000);
     } catch (e) {
@@ -296,6 +303,10 @@ export default function SettingsPage() {
     } finally {
       setSaving((s) => ({ ...s, [key]: false }));
     }
+  }
+
+  function save(key: string, label: string) {
+    return saveValue(key, label, values[key] ?? "");
   }
 
   async function saveSecret(key: string) {
@@ -339,7 +350,16 @@ export default function SettingsPage() {
           <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>
         </div>
         <div className="flex items-center gap-2">
-          {type === "select" && options ? (
+          {type === "image" ? (
+            <ImageUpload
+              value={values[key] || null}
+              onChange={(url) => {
+                setValues((v) => ({ ...v, [key]: url ?? "" }));
+                void saveValue(key, label, url ?? "");
+              }}
+              size={120}
+            />
+          ) : type === "select" && options ? (
             <Select
               className="flex-1"
               value={values[key] ?? ""}
@@ -357,13 +377,15 @@ export default function SettingsPage() {
               className="flex-1 rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-accent"
             />
           )}
-          <button
-            onClick={() => save(key, label)}
-            disabled={saving[key]}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-accent text-accent-foreground hover:bg-accent/90 disabled:opacity-50"
-          >
-            {saved[key] ? <Check size={15} /> : <Save size={15} />}
-          </button>
+          {type !== "image" && (
+            <button
+              onClick={() => save(key, label)}
+              disabled={saving[key]}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-accent text-accent-foreground hover:bg-accent/90 disabled:opacity-50"
+            >
+              {saved[key] ? <Check size={15} /> : <Save size={15} />}
+            </button>
+          )}
         </div>
       </div>
     );
