@@ -10,6 +10,10 @@ export const uploadsRouter = Router();
 
 const UPLOAD_DIR = process.env.UPLOAD_DIR ?? path.join(process.cwd(), "uploads");
 const MAX_UPLOAD_MB = process.env.MAX_UPLOAD_MB ? Number(process.env.MAX_UPLOAD_MB) : 5;
+// apps/web and apps/cms are on different origins from apps/api — a relative
+// "/uploads/x.jpg" URL resolves against whichever app renders it, not the API
+// that actually serves the file. Must be absolute.
+const PUBLIC_API_URL = process.env.PUBLIC_API_URL ?? "http://localhost:4000";
 
 const ALLOWED_MIME_TYPES = new Set(["image/png", "image/jpeg", "image/webp", "image/gif"]);
 
@@ -45,7 +49,7 @@ uploadsRouter.post("/", requireAuth, upload.single("file"), async (req, res) => 
   const media = await prisma.media.create({
     data: {
       filename: req.file.filename,
-      url: `/uploads/${req.file.filename}`,
+      url: `${PUBLIC_API_URL}/uploads/${req.file.filename}`,
       mimeType: req.file.mimetype,
       size: req.file.size,
     },

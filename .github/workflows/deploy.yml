@@ -88,6 +88,7 @@ jobs:
 
           UPLOAD_DIR=/repo/apps/api/uploads
           MAX_UPLOAD_MB=5
+          PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
           REVALIDATE_SECRET=${REVALIDATE_SECRET}
           WEB_URL=${WEB_URL}
