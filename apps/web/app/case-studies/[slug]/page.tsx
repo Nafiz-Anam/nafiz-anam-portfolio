@@ -57,15 +57,15 @@ export async function generateMetadata({ params }: Props) {
       title: project.seoTitle || project.title,
       description: project.seoDescription || project.excerpt,
       images: project.ogImage || project.coverImageUrl
-        ? [{ url: (project.ogImage || project.coverImageUrl) as string }]
-        : [{ url: "/opengraph-image", width: 1200, height: 630 }],
+        ? [{ url: (project.ogImage || project.coverImageUrl) as string, alt: project.seoTitle || project.title }]
+        : [{ url: "/opengraph-image", width: 1200, height: 630, alt: project.seoTitle || project.title }],
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
       title: project.seoTitle || project.title,
       description: project.seoDescription || project.excerpt,
-      images: [project.ogImage || project.coverImageUrl || "/opengraph-image"],
+      images: [{ url: project.ogImage || project.coverImageUrl || "/opengraph-image", alt: project.seoTitle || project.title }],
     },
   };
 }

@@ -61,7 +61,9 @@ export async function generateMetadata({ params }: Props) {
     openGraph: {
       title: post.seoTitle || post.title,
       description: post.seoDescription || post.excerpt,
-      images: post.ogImage || post.coverImageUrl || undefined,
+      images: post.ogImage || post.coverImageUrl
+        ? [{ url: (post.ogImage || post.coverImageUrl) as string, alt: post.seoTitle || post.title }]
+        : undefined,
       type: "article",
       publishedTime: post.publishedAt?.toString() ?? undefined,
       authors: [post.authorName],
@@ -71,7 +73,9 @@ export async function generateMetadata({ params }: Props) {
       card: "summary_large_image",
       title: post.seoTitle || post.title,
       description: post.seoDescription || post.excerpt,
-      images: post.ogImage || post.coverImageUrl || undefined,
+      images: post.ogImage || post.coverImageUrl
+        ? [{ url: (post.ogImage || post.coverImageUrl) as string, alt: post.seoTitle || post.title }]
+        : undefined,
     },
   };
 }

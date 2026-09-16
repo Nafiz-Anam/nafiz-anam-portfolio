@@ -19,13 +19,14 @@ export async function generateMetadata({ params }: Props) {
   const service = await getServicePageData(slug);
   if (!service) return {};
   const ogImage = service.metaImage
-    ? { url: service.metaImage, width: 1536, height: 1024 }
-    : { url: "/opengraph-image", width: 1200, height: 630 };
+    ? { url: service.metaImage, width: 1536, height: 1024, alt: service.metaTitle }
+    : { url: "/opengraph-image", width: 1200, height: 630, alt: service.metaTitle };
   return {
     title: service.metaTitle,
     description: service.metaDescription,
     alternates: { canonical: `/services/${slug}` },
     openGraph: {
+      type: "website",
       title: service.metaTitle,
       description: service.metaDescription,
       url: `/services/${slug}`,
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: Props) {
       card: "summary_large_image",
       title: service.metaTitle,
       description: service.metaDescription,
-      images: [ogImage.url],
+      images: [{ url: ogImage.url, alt: service.metaTitle }],
     },
   };
 }

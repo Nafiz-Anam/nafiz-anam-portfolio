@@ -71,18 +71,19 @@ export const metadata: Metadata = {
     "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
   alternates: { canonical: "/" },
   openGraph: {
+    type: "website",
     title: "Nafiz Anam | Technology & Product Partner",
     description:
       "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
     url: "/",
-    images: [{ url: "/Nafiz_Anam_Software_Engineer.png", width: 1536, height: 1024 }],
+    images: [{ url: "/Nafiz_Anam_Software_Engineer.png", width: 1536, height: 1024, alt: "Nafiz Anam | Technology & Product Partner" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Nafiz Anam | Technology & Product Partner",
     description:
       "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
-    images: ["/Nafiz_Anam_Software_Engineer.png"],
+    images: [{ url: "/Nafiz_Anam_Software_Engineer.png", alt: "Nafiz Anam | Technology & Product Partner" }],
   },
 };
 

@@ -36,6 +36,7 @@ export function generateMetadata({ searchParams }: PageProps): Metadata {
     alternates: { canonical },
     robots: { index: true, follow: true },
     openGraph: {
+      type: "website",
       title: "Case Studies | Nafiz Anam",
       description: DESCRIPTION,
       url: canonical,

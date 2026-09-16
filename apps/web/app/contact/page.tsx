@@ -116,13 +116,13 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/contact",
     type: "website",
-    images: [{ url: "/Nafiz_Anam_Technology_Partner.png", width: 1536, height: 1024 }],
+    images: [{ url: "/Nafiz_Anam_Technology_Partner.png", width: 1536, height: 1024, alt: TITLE }],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["/Nafiz_Anam_Technology_Partner.png"],
+    images: [{ url: "/Nafiz_Anam_Technology_Partner.png", alt: TITLE }],
   },
 };
 

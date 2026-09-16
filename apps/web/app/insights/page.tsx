@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/insights" },
   robots: { index: true, follow: true },
   openGraph: {
+    type: "website",
     title: "Insights | Nafiz Anam",
     description: DESCRIPTION,
     url: "/insights",

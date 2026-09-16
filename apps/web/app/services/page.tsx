@@ -19,16 +19,17 @@ export const metadata = {
   alternates: { canonical: "/services" },
   robots: { index: true, follow: true },
   openGraph: {
+    type: "website",
     title: "Services | Nafiz Anam",
     description: DESCRIPTION,
     url: "/services",
-    images: [{ url: "/Nafiz_Anam_Business_Growth_Services.png", width: 1536, height: 1024 }],
+    images: [{ url: "/Nafiz_Anam_Business_Growth_Services.png", width: 1536, height: 1024, alt: "Services | Nafiz Anam" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Services | Nafiz Anam",
     description: DESCRIPTION,
-    images: ["/Nafiz_Anam_Business_Growth_Services.png"],
+    images: [{ url: "/Nafiz_Anam_Business_Growth_Services.png", alt: "Services | Nafiz Anam" }],
   },
 };
 

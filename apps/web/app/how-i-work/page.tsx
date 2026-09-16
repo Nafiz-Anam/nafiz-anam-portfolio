@@ -23,16 +23,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/how-i-work" },
   robots: { index: true, follow: true },
   openGraph: {
+    type: "website",
     title: "How I Work | Nafiz Anam",
     description: DESCRIPTION,
     url: "/how-i-work",
-    images: [{ url: "/Nafiz_Anam_How_I_Work.png", width: 1731, height: 909 }],
+    images: [{ url: "/Nafiz_Anam_How_I_Work.png", width: 1731, height: 909, alt: "How I Work | Nafiz Anam" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "How I Work | Nafiz Anam",
     description: DESCRIPTION,
-    images: ["/Nafiz_Anam_How_I_Work.png"],
+    images: [{ url: "/Nafiz_Anam_How_I_Work.png", alt: "How I Work | Nafiz Anam" }],
   },
 };
 

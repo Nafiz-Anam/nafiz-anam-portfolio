@@ -15,18 +15,19 @@ export const metadata = {
   alternates: { canonical: "/about" },
   robots: { index: true, follow: true },
   openGraph: {
+    type: "website",
     title: "About Nafiz Anam | Technology & Product Partner",
     description:
       "Software engineer, architect, and founder with seven years building products that scale. Here's how I got here, and how I think about the work.",
     url: "/about",
-    images: [{ url: "/Nafiz_Anam_Software_Engineer_Founder_Architect.png", width: 1536, height: 1024 }],
+    images: [{ url: "/Nafiz_Anam_Software_Engineer_Founder_Architect.png", width: 1536, height: 1024, alt: "About Nafiz Anam | Technology & Product Partner" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "About Nafiz Anam | Technology & Product Partner",
     description:
       "Software engineer, architect, and founder with seven years building products that scale. Here's how I got here, and how I think about the work.",
-    images: ["/Nafiz_Anam_Software_Engineer_Founder_Architect.png"],
+    images: [{ url: "/Nafiz_Anam_Software_Engineer_Founder_Architect.png", alt: "About Nafiz Anam | Technology & Product Partner" }],
   },
 };
 
