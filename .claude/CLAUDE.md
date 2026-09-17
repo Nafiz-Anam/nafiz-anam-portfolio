@@ -30,8 +30,9 @@ Monorepo: public site, CMS admin, API. pnpm workspaces + Turborepo.
 6. **No `docker compose down -v` and no `prisma migrate reset` without explicit user confirmation** — both destroy data.
 7. **No `prisma migrate deploy` against a prod-looking `DATABASE_URL`** without explicit user confirmation.
 8. Commits follow **Conventional Commits** (`feat:`, `fix:`, `chore:`, ...).
-9. **Never reuse a revoked/rotated refresh token.** Current implementation revokes-on-use but does not yet detect reuse-of-a-revoked-token as a breach signal (which should revoke the whole token family) — flag this as a known gap, don't silently "fix" it as part of an unrelated change.
-10. **Uploads**: enforce the mimetype allow-list and size limit already in `apps/api/src/routes/uploads.ts` — don't loosen either without asking.
+9. **Never add AI/Claude co-authorship or attribution lines** (e.g. `Co-Authored-By: Claude ...`, "Generated with Claude Code") to commits, PR descriptions, or anywhere else in this repo.
+10. **Never reuse a revoked/rotated refresh token.** Current implementation revokes-on-use but does not yet detect reuse-of-a-revoked-token as a breach signal (which should revoke the whole token family) — flag this as a known gap, don't silently "fix" it as part of an unrelated change.
+11. **Uploads**: enforce the mimetype allow-list and size limit already in `apps/api/src/routes/uploads.ts` — don't loosen either without asking.
 
 ## Reports & deliverables
 
