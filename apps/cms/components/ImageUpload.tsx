@@ -9,9 +9,10 @@ interface ImageUploadProps {
   onChange: (url: string | null) => void;
   label?: string;
   size?: number;
+  aspect?: "square" | "video";
 }
 
-export function ImageUpload({ value, onChange, label, size = 160 }: ImageUploadProps) {
+export function ImageUpload({ value, onChange, label, size = 160, aspect = "square" }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [dragging, setDragging] = useState(false);
@@ -56,7 +57,10 @@ export function ImageUpload({ value, onChange, label, size = 160 }: ImageUploadP
     <div className="flex flex-col gap-2">
       {label && <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</p>}
 
-      <div style={{ width: dim, height: dim }} className="relative">
+      <div
+        style={aspect === "square" ? { width: dim, height: dim } : undefined}
+        className={`relative ${aspect === "video" ? "aspect-video w-full" : ""}`}
+      >
         {value ? (
           /* Preview state */
           <div className="group relative h-full w-full overflow-hidden rounded-xl border border-border">

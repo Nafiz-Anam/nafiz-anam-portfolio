@@ -228,13 +228,13 @@ export function BlogForm({
           {/* Cover image */}
           <div className="rounded-xl border border-border bg-muted/20 p-4">
             <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Cover image</p>
-            <ImageUpload label="" value={values.coverImageUrl} onChange={(url) => set("coverImageUrl", url)} />
+            <ImageUpload label="" value={values.coverImageUrl} onChange={(url) => set("coverImageUrl", url)} aspect="video" />
           </div>
 
           {/* OG image */}
           <div className="rounded-xl border border-border bg-muted/20 p-4">
             <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">OG image <span className="normal-case font-normal">(optional, falls back to cover)</span></p>
-            <ImageUpload label="" value={values.ogImage} onChange={(url) => set("ogImage", url)} />
+            <ImageUpload label="" value={values.ogImage} onChange={(url) => set("ogImage", url)} aspect="video" />
           </div>
 
           {/* Category */}
