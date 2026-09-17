@@ -89,6 +89,33 @@ const SERVICES = [
       </svg>
     ),
   },
+  {
+    slug: "tracking-analytics",
+    title: "Tracking & Analytics",
+    description:
+      "Your ad platforms and your order system don't agree on how many sales you actually made, and every spend decision gets made on whichever number happens to be wrong. I build tracking infrastructure, server-side included, that closes the gap.",
+    outcome: "Conversion data you can actually make decisions on.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 3v18h18" />
+        <path d="M18 17V9M13 17V5M8 17v-4" />
+      </svg>
+    ),
+  },
+  {
+    slug: "ecommerce-engineering",
+    title: "Ecommerce Engineering",
+    description:
+      "Your store worked fine at 20 orders a month and behaves very differently at 2,000. I fix the performance, checkout, database, and plugin issues that quietly cap ecommerce growth, before you pay for a rebuild you didn't need.",
+    outcome: "A store engineered to hold up at the next stage of growth.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="9" cy="21" r="1" />
+        <circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+      </svg>
+    ),
+  },
 ] as const;
 
 function ServiceCard({

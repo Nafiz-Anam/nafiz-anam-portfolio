@@ -1055,6 +1055,355 @@ export const SERVICE_PAGES: ServicePageData[] = [
     ctaDescription:
       "The first conversation is free, with no obligation. Tell me what's not working with the team, and I'll tell you honestly whether fractional leadership is the right fix.",
   },
+
+  {
+    slug: "tracking-analytics",
+    metaTitle: "Tracking & Analytics | Nafiz Anam — Technology & Product Partner",
+    metaDescription:
+      "Server-side tracking and analytics infrastructure that closes the gap between what your ad platforms report and what your business actually sold.",
+    metaImage: "/Nafiz_Anam_Tracking_Analytics_Services.png",
+    tagline: "Tracking & Analytics",
+    headline: "Your Ad Spend Is Only As Good",
+    headlineAccent: "as the Data Behind It.",
+    description:
+      "Browser-based tracking alone quietly loses conversions to ad blockers, cookie restrictions, and iOS privacy changes, and every lost event is a decision made on incomplete data. I build tracking and analytics infrastructure, server-side included, that gives you numbers you can actually trust before you scale spend on top of them.",
+    problems: [
+      {
+        title: "Unreliable Browser-Based Tracking",
+        description:
+          "Ad blockers, Safari's ITP, and third-party cookie restrictions silently drop a meaningful share of events before they ever reach your analytics or ad platforms.",
+      },
+      {
+        title: "Conversion Data That Doesn't Match Reality",
+        description:
+          "Your analytics dashboard says one number, your order system says another, and every ad spend decision gets made on whichever one happens to be wrong.",
+      },
+      {
+        title: "No Server-Side Layer",
+        description:
+          "Every tracking event depends entirely on a script executing correctly in someone else's browser, with no fallback when it doesn't.",
+      },
+      {
+        title: "Consent & Privacy Compliance Gaps",
+        description:
+          "Tracking was implemented before consent requirements were fully thought through, creating both a compliance risk and a data quality problem at the same time.",
+      },
+      {
+        title: "Fragmented Attribution Across Platforms",
+        description:
+          "Meta says a sale came from Meta, Google says the same sale came from Google, and nobody has a single source of truth to reconcile it.",
+      },
+    ],
+    deliverables: [
+      {
+        title: "Server-Side Tracking Infrastructure",
+        description:
+          "A server-side GTM (or equivalent) layer that processes events on infrastructure you control, instead of relying entirely on the browser.",
+      },
+      {
+        title: "GA4 & Google Tag Manager Implementation",
+        description:
+          "Clean event architecture, a proper data layer, and conversion tracking that actually reflects how your business defines a sale.",
+      },
+      {
+        title: "Server-Side Conversion APIs",
+        description:
+          "Meta Conversions API, Google Ads Enhanced Conversions, and equivalent server-side integrations, so signal loss from the browser doesn't cost you ad performance.",
+      },
+      {
+        title: "Consent Management Integration",
+        description:
+          "Consent Mode and CMP integration built into the tracking architecture from the start, not patched on afterward.",
+      },
+      {
+        title: "Event Deduplication & QA",
+        description:
+          "Systematic validation so client-side and server-side events don't double-count, and every conversion event is verified against real order data.",
+      },
+      {
+        title: "Reporting & Dashboards",
+        description:
+          "Reporting that reconciles ad platform numbers against your actual sales data, so you know which number to trust.",
+      },
+      {
+        title: "Ongoing Tracking Audits",
+        description:
+          "Scheduled checks that catch tracking breakage early, a plugin update, a theme change, an API change, before it quietly costs you a month of clean data.",
+      },
+    ],
+    process: [
+      {
+        number: "01",
+        title: "Tracking Audit",
+        description:
+          "Mapping every current tracking implementation, where it's accurate, where it's leaking data, and why, before changing anything.",
+      },
+      {
+        number: "02",
+        title: "Event & Data Layer Mapping",
+        description:
+          "Defining what a conversion actually means for your business and designing the data layer and event schema around it.",
+      },
+      {
+        number: "03",
+        title: "Server-Side Architecture Design",
+        description:
+          "Designing the server-side tracking layer: what runs client-side, what moves server-side, and how the two reconcile.",
+      },
+      {
+        number: "04",
+        title: "Implementation",
+        description:
+          "Building the tracking infrastructure: tags, triggers, server-side containers, and conversion API integrations.",
+      },
+      {
+        number: "05",
+        title: "Deduplication & Validation",
+        description:
+          "Testing every event against real transactions until the numbers in your dashboards match what actually happened.",
+      },
+      {
+        number: "06",
+        title: "Consent & Compliance Review",
+        description:
+          "Verifying the tracking setup respects consent state correctly across regions and platforms.",
+      },
+      {
+        number: "07",
+        title: "Monitoring & Iteration",
+        description:
+          "Ongoing monitoring for tracking drift, plus iteration as new campaigns, platforms, or product changes require new events.",
+      },
+    ],
+    idealFor: [
+      {
+        type: "Ecommerce Businesses Scaling Ad Spend",
+        description:
+          "Increasing budget across Meta, Google, or TikTok, and need conversion data solid enough to justify the spend.",
+      },
+      {
+        type: "Teams Making Decisions on Bad Data",
+        description:
+          "Suspect their analytics numbers don't match reality, but don't have a clear way to prove or fix it.",
+      },
+      {
+        type: "Businesses Hit by iOS & Privacy Signal Loss",
+        description:
+          "Have seen ad platform performance degrade since iOS 14.5 and browser privacy changes, and haven't closed the gap.",
+      },
+      {
+        type: "Marketing Teams Needing Platform-Level Trust",
+        description:
+          "Need Meta, Google, and internal reporting to agree closely enough that budget decisions don't get second-guessed every week.",
+      },
+    ],
+    technologies: [
+      "GA4", "Google Tag Manager", "Server-Side GTM", "Meta Conversions API",
+      "Google Ads Enhanced Conversions", "Consent Mode", "BigQuery",
+      "Looker Studio", "Node.js", "Servero",
+    ],
+    faqs: [
+      {
+        q: "What's the difference between client-side and server-side tracking?",
+        a: "Client-side tracking runs entirely in the visitor's browser and depends on a script executing successfully there. Server-side tracking moves that processing to a server you control, so ad blockers, browser restrictions, and script failures don't silently drop the event before it's ever recorded.",
+      },
+      {
+        q: "Will this fix inaccurate GA4 or ad platform numbers?",
+        a: "In most cases, yes, meaningfully. It won't get you to a perfect 1:1 match with your order system, no tracking setup does, but it closes the gap enough that the numbers become trustworthy enough to make spend decisions on.",
+      },
+      {
+        q: "Do I need server-side tracking if I'm a smaller store?",
+        a: "Not always. If your ad spend is small and the current setup is roughly accurate, the investment may not be worth it yet. I'll tell you honestly whether it's the right time or whether the money's better spent elsewhere.",
+      },
+      {
+        q: "How does this handle consent and privacy requirements?",
+        a: "Consent state is built into the tracking architecture itself, both client-side and server-side, so events only fire, or fire in a privacy-safe mode, according to what the visitor actually consented to.",
+      },
+      {
+        q: "How long does a tracking implementation take?",
+        a: "A focused GA4 and GTM cleanup can take one to two weeks. A full server-side tracking build, with conversion API integrations across platforms, is usually three to six weeks depending on scope.",
+      },
+    ],
+    ctaEyebrow: "LET'S TALK",
+    ctaHeadline: "Let's Fix",
+    ctaHeadlineAccent: "What Your Data Is Telling You.",
+    ctaDescription:
+      "The first conversation is free, with no obligation. Tell me what your numbers don't add up to, and I'll tell you honestly what it would take to close the gap.",
+  },
+
+  {
+    slug: "ecommerce-engineering",
+    metaTitle: "Ecommerce Engineering | Nafiz Anam — Technology & Product Partner",
+    metaDescription:
+      "Performance, checkout reliability, plugin debt, database health, and integration stability for growing WooCommerce and Shopify stores, engineered, not guessed at.",
+    metaImage: "/Nafiz_Anam_Ecommerce_Engineering_Services.png",
+    tagline: "Ecommerce Engineering",
+    headline: "Your Store Doesn't Need a Rebuild.",
+    headlineAccent: "It Needs an Engineer.",
+    description:
+      "A store rarely becomes technically difficult overnight. It happens gradually, a plugin here, a checkout customization there, until performance, tracking, and reliability start quietly costing more than they should. I engineer the technical side of growing ecommerce stores, WooCommerce and Shopify included, so the platform can actually support the business as it scales, not hold it back.",
+    problems: [
+      {
+        title: "Slow Performance Under Real Traffic",
+        description:
+          "The store passes a basic speed test but real customers on mobile, on checkout, on a busy sale day still experience something slow. Synthetic tests and real user experience aren't the same thing.",
+      },
+      {
+        title: "Plugin & Theme Debt",
+        description:
+          "A theme, a page builder, and thirty plugins have accumulated into a system where one update can unexpectedly break another. Development time now goes to troubleshooting interactions, not building.",
+      },
+      {
+        title: "Checkout Reliability Problems",
+        description:
+          "Add to cart failures, coupon bugs, broken shipping calculations, or a slow checkout, on an ecommerce site, this isn't a minor bug. It's already-paid-for customers walking away at the last step.",
+      },
+      {
+        title: "A Heavy, Under-Optimized Database",
+        description:
+          "Orders, sessions, logs, and transients have piled up for years, and queries that were invisible at a few thousand records now visibly slow the store down.",
+      },
+      {
+        title: "Fragile Third-Party Integrations",
+        description:
+          "Payment gateways, shipping platforms, CRMs, and marketing tools all talk to the store through APIs that can change, fail, or rate-limit without warning, and nothing's watching for it.",
+      },
+    ],
+    deliverables: [
+      {
+        title: "Performance Optimization",
+        description:
+          "Core Web Vitals, server response time, image and asset optimization, and caching tuned around the actual customer journey, not just a Lighthouse score.",
+      },
+      {
+        title: "Plugin & Architecture Audit",
+        description:
+          "A clear-eyed review of every plugin and customization: what's necessary, what's redundant, and what's quietly creating risk.",
+      },
+      {
+        title: "Checkout Hardening",
+        description:
+          "Testing and fixing the critical revenue path, cart, coupons, shipping, payment, mobile, so it holds up under real traffic, not just a demo run.",
+      },
+      {
+        title: "Database Optimization",
+        description:
+          "Query profiling, cleanup, and indexing so the database stops being the invisible bottleneck behind a slow store.",
+      },
+      {
+        title: "Integration Monitoring & Reliability",
+        description:
+          "Logging, retries, and alerting around payment, shipping, and marketing integrations, so a failed API call gets caught, not discovered by a customer.",
+      },
+      {
+        title: "Security & Update Management",
+        description:
+          "A defined process for WordPress, WooCommerce, plugin, and PHP updates, backups, and staging, so maintenance stops being optional.",
+      },
+      {
+        title: "A Practical Scalability Plan",
+        description:
+          "A clear answer to \"what happens at 5x the traffic and orders,\" before that becomes an emergency instead of a milestone.",
+      },
+    ],
+    process: [
+      {
+        number: "01",
+        title: "Technical Health Check",
+        description:
+          "A structured review across performance, architecture, tracking, security, and scalability, before recommending anything.",
+      },
+      {
+        number: "02",
+        title: "Performance & Database Audit",
+        description:
+          "Profiling real-world load times, slow queries, and bottlenecks under conditions that actually match your traffic.",
+      },
+      {
+        number: "03",
+        title: "Prioritization",
+        description:
+          "Ranking fixes by commercial impact and effort, so the first changes are the ones that actually move the numbers.",
+      },
+      {
+        number: "04",
+        title: "Implementation",
+        description:
+          "Fixing, optimizing, or rebuilding the specific pieces that need it, in a staging environment before anything touches production.",
+      },
+      {
+        number: "05",
+        title: "Testing & Validation",
+        description:
+          "Verifying critical flows, cart, checkout, payment, shipping, under real conditions before deployment.",
+      },
+      {
+        number: "06",
+        title: "Deployment",
+        description:
+          "Controlled rollout with monitoring and a rollback plan, so a fix doesn't introduce a new outage.",
+      },
+      {
+        number: "07",
+        title: "Ongoing Monitoring",
+        description:
+          "Continued visibility into performance, errors, and integration health as the store keeps growing.",
+      },
+    ],
+    idealFor: [
+      {
+        type: "Growing WooCommerce & Shopify Stores",
+        description:
+          "Orders and traffic are increasing, and the store that worked fine at 20 orders a month is behaving differently at 2,000.",
+      },
+      {
+        type: "Stores Scaling Ad Spend",
+        description:
+          "Investing more in Meta, Google, or TikTok ads, and need the checkout and tracking underneath that spend to actually hold up.",
+      },
+      {
+        type: "Stores With Plugin & Customization Sprawl",
+        description:
+          "Years of plugins and custom code have made every change slower and riskier than it should be.",
+      },
+      {
+        type: "Businesses Considering a Full Rebuild",
+        description:
+          "Assume the only fix is starting over, when the real issue may be five plugins, one slow query, or a fragile integration.",
+      },
+    ],
+    technologies: [
+      "WooCommerce", "WordPress", "Shopify", "PHP", "MySQL", "Redis",
+      "Nginx", "Stripe", "REST APIs", "Server-Side Tracking",
+    ],
+    faqs: [
+      {
+        q: "Do I need a full rebuild, or can my store be fixed?",
+        a: "Often it can be fixed. A full rebuild sounds like the obvious answer but usually isn't the first one. I'll audit the actual bottlenecks first, removing a few plugins, fixing a slow query, hardening checkout, and tell you honestly if a rebuild is genuinely what's needed.",
+      },
+      {
+        q: "Do you work with WooCommerce, Shopify, or both?",
+        a: "Both, along with custom-built ecommerce platforms. The underlying engineering problems, performance, checkout reliability, tracking, database health, show up across all of them.",
+      },
+      {
+        q: "Can you improve site speed without a redesign?",
+        a: "In most cases, yes. Performance issues are usually architectural, caching, queries, scripts, unoptimized assets, not visual, so a redesign isn't required to fix them.",
+      },
+      {
+        q: "Do you handle tracking and analytics as part of this?",
+        a: "Tracking accuracy is closely tied to ecommerce performance, so it's often part of the same engagement. For a deeper server-side tracking build, that's covered specifically under my Tracking & Analytics service.",
+      },
+      {
+        q: "How do you prioritize what to fix first?",
+        a: "By commercial impact, not by what's technically interesting. Checkout and revenue-path issues come first, followed by whatever is most expensive to keep ignoring.",
+      },
+    ],
+    ctaEyebrow: "LET'S TALK",
+    ctaHeadline: "Let's Make Your Store",
+    ctaHeadlineAccent: "Fast Enough to Convert.",
+    ctaDescription:
+      "The first conversation is free, with no obligation. Tell me what's slow, breaking, or worrying you about the store, and I'll tell you honestly what it would take to fix it.",
+  },
 ];
 
 export function getServiceBySlug(slug: string): ServicePageData | undefined {

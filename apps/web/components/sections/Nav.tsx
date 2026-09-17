@@ -17,6 +17,8 @@ const SERVICE_LINKS = [
   { label: "Technical Consulting & Architecture", href: "/services/technical-consulting-architecture" },
   { label: "Cloud Infrastructure & DevOps", href: "/services/cloud-infrastructure-devops" },
   { label: "Engineering Leadership", href: "/services/engineering-leadership" },
+  { label: "Tracking & Analytics", href: "/services/tracking-analytics" },
+  { label: "Ecommerce Engineering", href: "/services/ecommerce-engineering" },
 ] as const;
 
 export function Nav({ data = defaultNav }: { data?: NavContent }) {
