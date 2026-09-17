@@ -186,7 +186,7 @@ export default async function InsightDetailPage({ params }: Props) {
         </div>
 
         {post.coverImageUrl && (
-          <div className="mx-auto max-w-[1600px] px-6 pt-10 lg:px-20">
+          <div className="mx-auto max-w-[1120px] px-6 pt-10 lg:px-20">
             <div className="overflow-hidden rounded-2xl border border-foreground/[0.08]">
               <Image src={post.coverImageUrl} alt={post.title} width={1200} height={630} className="h-auto w-full object-cover" priority />
             </div>
