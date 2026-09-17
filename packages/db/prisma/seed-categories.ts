@@ -4,8 +4,11 @@ const CATEGORIES = [
   { name: "e-Commerce", slug: "e-commerce", sortOrder: 0 },
   { name: "Engineering", slug: "engineering", sortOrder: 1 },
   { name: "Architecture", slug: "architecture", sortOrder: 2 },
+  { name: "Software Architecture", slug: "software-architecture", sortOrder: 3 },
   { name: "Process", slug: "process", sortOrder: 4 },
   { name: "Business", slug: "business", sortOrder: 5 },
+  { name: "Engineering Leadership", slug: "engineering-leadership", sortOrder: 6 },
+  { name: "AI & Automation", slug: "ai-automation", sortOrder: 7 },
 ];
 
 async function main() {
