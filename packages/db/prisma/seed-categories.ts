@@ -1,9 +1,9 @@
 import { prisma } from "../src/index";
 
 const CATEGORIES = [
+  { name: "e-Commerce", slug: "e-commerce", sortOrder: 0 },
   { name: "Engineering", slug: "engineering", sortOrder: 1 },
   { name: "Architecture", slug: "architecture", sortOrder: 2 },
-  { name: "Ecommerce", slug: "ecommerce", sortOrder: 3 },
   { name: "Process", slug: "process", sortOrder: 4 },
   { name: "Business", slug: "business", sortOrder: 5 },
 ];

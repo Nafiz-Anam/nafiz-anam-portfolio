@@ -102,7 +102,7 @@ const POSTS = [
     slug: "hidden-technical-costs-growing-woocommerce-store",
     excerpt:
       "A WooCommerce store can grow quickly while technical problems quietly increase costs. Here's how performance, tracking, plugins, hosting, security, and architecture affect ecommerce growth.",
-    category: "Ecommerce",
+    category: "e-Commerce",
     tags: ["WooCommerce", "Ecommerce", "Performance", "Architecture", "Tracking"],
     contentHtml: `<p>A WooCommerce store rarely becomes technically difficult overnight. It usually happens gradually. You launch with a simple theme. Then you add a few plugins. Then payment gateways. Then analytics. Then Meta Pixel. Then Google Ads. Then email automation. Then a CRM. Then product variations. Then subscriptions. Then custom checkout logic.</p>
 <p>Then your marketing starts working. Orders increase. Traffic increases. And suddenly, the website that worked perfectly with 20 orders a month starts behaving very differently at 2,000.</p>
