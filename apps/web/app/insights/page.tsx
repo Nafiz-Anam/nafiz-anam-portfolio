@@ -31,8 +31,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function InsightsPage() {
-  const { posts, categories, total } = await fetchBlogList({ limit: 12 });
+const PAGE_SIZE = 9;
+
+export default async function InsightsPage({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
+  const page = Math.max(1, Number(searchParams.page) || 1);
+  const { posts, categories, total, totalPages } = await fetchBlogList({ page, limit: PAGE_SIZE });
 
   const avgReadTime =
     posts.length > 0
@@ -116,7 +123,7 @@ export default async function InsightsPage() {
           avgReadTime={avgReadTime}
         />
       </div>
-      <ArticlesSection posts={posts} categories={categories} total={total} initialLimit={12} />
+      <ArticlesSection posts={posts} categories={categories} page={page} totalPages={totalPages} />
       <InsightsFAQ />
       <Footer />
     </main>
