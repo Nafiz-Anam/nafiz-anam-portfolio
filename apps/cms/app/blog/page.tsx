@@ -126,6 +126,7 @@ export default function BlogAdminPage() {
           <table className="w-full text-sm">
             <thead className="border-b border-border bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
               <tr>
+                <th className="px-4 py-3 text-left font-semibold" />
                 <th className="px-4 py-3 text-left font-semibold">Post</th>
                 <th className="px-4 py-3 text-left font-semibold">Category</th>
                 <th className="px-4 py-3 text-left font-semibold">Status</th>
@@ -136,6 +137,19 @@ export default function BlogAdminPage() {
             <tbody>
               {posts.map((p) => (
                 <tr key={p.id} className="border-b border-border/60 last:border-b-0 hover:bg-muted/20">
+                  <td className="px-4 py-3">
+                    {p.coverImageUrl ? (
+                      <img
+                        src={p.coverImageUrl}
+                        alt=""
+                        className="h-12 w-16 rounded-md border border-border object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-12 w-16 items-center justify-center rounded-md border border-dashed border-border text-muted-foreground">
+                        <FileText size={16} />
+                      </div>
+                    )}
+                  </td>
                   <td className="px-4 py-3 max-w-sm">
                     <div className="truncate font-semibold" title={p.title}>{p.title}</div>
                     <div className="truncate text-xs text-muted-foreground" title={p.excerpt}>{p.excerpt}</div>
