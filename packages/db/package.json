@@ -11,6 +11,7 @@
     "seed": "tsx prisma/seed.ts",
     "seed:projects": "tsx prisma/seed-projects.ts",
     "seed:blogs": "tsx prisma/seed-blogs.ts",
+    "seed:categories": "tsx prisma/seed-categories.ts",
     "seed:testimonials": "tsx prisma/seed-testimonials.ts",
     "seed:case-study-demo": "tsx prisma/seed-case-study-demo.ts"
   },
