@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
 function WordReveal({ children, className, delay = 0 }: { children: string; className?: string; delay?: number }) {
@@ -10,7 +10,9 @@ function WordReveal({ children, className, delay = 0 }: { children: string; clas
   return (
     <span ref={ref} className={className} style={{ display: "block" }}>
       {children.split(" ").map((word, i) => (
-        <span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", marginRight: "0.25em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
+        <Fragment key={i}>
+        {i > 0 && " "}
+        <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
           <motion.span
             style={{ display: "inline-block" }}
             initial={{ y: "110%", opacity: 0 }}
@@ -20,6 +22,7 @@ function WordReveal({ children, className, delay = 0 }: { children: string; clas
             {word}
           </motion.span>
         </span>
+        </Fragment>
       ))}
     </span>
   );
@@ -108,7 +111,8 @@ function HeadingReveal() {
   return (
     <h2 ref={ref} className="text-5xl font-bold tracking-tight text-panel-foreground sm:text-6xl" style={{ lineHeight: 1.1 }}>
       {words.map((w, i) => (
-        <span key={w} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", lineHeight: 1.4, marginRight: "0.25em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
+        <Fragment key={w}>
+        <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", lineHeight: 1.4, paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
           <motion.span
             style={{ display: "inline-block" }}
             initial={{ y: "110%", opacity: 0 }}
@@ -116,6 +120,8 @@ function HeadingReveal() {
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.05 + i * 0.07 }}
           >{w}</motion.span>
         </span>
+        {" "}
+        </Fragment>
       ))}
       <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", lineHeight: 1.4, paddingRight: "0.15em", marginRight: "-0.15em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
         <motion.span
