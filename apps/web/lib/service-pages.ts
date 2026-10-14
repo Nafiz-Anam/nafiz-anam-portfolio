@@ -14,6 +14,7 @@ export interface ServicePageData {
   technologies: string[];
   faqs: { q: string; a: string }[];
   ctaEyebrow: string;
+  ctaLabel: string;
   ctaHeadline: string;
   ctaHeadlineAccent: string;
   ctaDescription: string;
@@ -189,6 +190,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
       },
     ],
     ctaEyebrow: "LET'S TALK",
+    ctaLabel: "Request a Project Scoping Call",
     ctaHeadline: "Let's Build Software",
     ctaHeadlineAccent: "That Actually Fits.",
     ctaDescription:
@@ -364,6 +366,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
       },
     ],
     ctaEyebrow: "LET'S TALK",
+    ctaLabel: "Book a Product Strategy Call",
     ctaHeadline: "Let's Build Something",
     ctaHeadlineAccent: "That Can Actually Scale.",
     ctaDescription:
@@ -534,6 +537,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
       },
     ],
     ctaEyebrow: "LET'S TALK",
+    ctaLabel: "Request an Automation Audit",
     ctaHeadline: "Let's Automate",
     ctaHeadlineAccent: "What's Actually Slowing You Down.",
     ctaDescription:
@@ -705,6 +709,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
       },
     ],
     ctaEyebrow: "LET'S TALK",
+    ctaLabel: "Schedule an Architecture Review",
     ctaHeadline: "Get a Second Opinion",
     ctaHeadlineAccent: "Before You Commit.",
     ctaDescription:
@@ -879,6 +884,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
       },
     ],
     ctaEyebrow: "LET'S TALK",
+    ctaLabel: "Request an Infrastructure Review",
     ctaHeadline: "Let's Build Infrastructure",
     ctaHeadlineAccent: "You Don't Have to Think About.",
     ctaDescription:
@@ -1050,6 +1056,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
       },
     ],
     ctaEyebrow: "LET'S TALK",
+    ctaLabel: "Book a Leadership Consultation",
     ctaHeadline: "Let's Give Your Team",
     ctaHeadlineAccent: "the Direction It's Missing.",
     ctaDescription:
@@ -1225,6 +1232,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
       },
     ],
     ctaEyebrow: "LET'S TALK",
+    ctaLabel: "Request a Tracking Audit",
     ctaHeadline: "Let's Fix",
     ctaHeadlineAccent: "What Your Data Is Telling You.",
     ctaDescription:
@@ -1399,6 +1407,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
       },
     ],
     ctaEyebrow: "LET'S TALK",
+    ctaLabel: "Request a Store Performance Audit",
     ctaHeadline: "Let's Make Your Store",
     ctaHeadlineAccent: "Fast Enough to Convert.",
     ctaDescription:

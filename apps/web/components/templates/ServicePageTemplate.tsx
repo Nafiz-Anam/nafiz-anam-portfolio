@@ -47,9 +47,11 @@ function HeroSection({
   headline,
   headlineAccent,
   description,
+  ctaLabel,
+  slug,
 }: Pick<
   ServicePageData,
-  "tagline" | "headline" | "headlineAccent" | "description"
+  "tagline" | "headline" | "headlineAccent" | "description" | "ctaLabel" | "slug"
 >) {
   return (
     <section className="dark bg-texture-lines bg-background text-foreground">
@@ -85,8 +87,8 @@ function HeroSection({
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <BookingButton location="service_page_hero" className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
-                Book Discovery Call
+              <BookingButton location="service_page_hero" eventParams={{ service: slug }} className="rounded-[5px] bg-accent px-9 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+                {ctaLabel}
               </BookingButton>
               <a
                 href="/case-studies"
@@ -396,7 +398,9 @@ function CTASection({
   ctaHeadline,
   ctaHeadlineAccent,
   ctaDescription,
-}: Pick<ServicePageData, "ctaEyebrow" | "ctaHeadline" | "ctaHeadlineAccent" | "ctaDescription">) {
+  ctaLabel,
+  slug,
+}: Pick<ServicePageData, "ctaEyebrow" | "ctaHeadline" | "ctaHeadlineAccent" | "ctaDescription" | "ctaLabel" | "slug">) {
   return (
     <section className="dark overflow-hidden bg-texture-lines-panel bg-surface px-6 py-36 text-panel-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
@@ -413,8 +417,8 @@ function CTASection({
             {ctaDescription}
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-4">
-            <BookingButton location="service_page_final_cta" className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
-              Book Discovery Call
+            <BookingButton location="service_page_final_cta" eventParams={{ service: slug }} className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
+              {ctaLabel}
             </BookingButton>
             <a
               href="/case-studies"
@@ -440,6 +444,8 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
         headline={data.headline}
         headlineAccent={data.headlineAccent}
         description={data.description}
+        ctaLabel={data.ctaLabel}
+        slug={data.slug}
       />
       <ProblemsSection problems={data.problems} />
       <DeliverablesSection deliverables={data.deliverables} />
@@ -452,6 +458,8 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
         ctaHeadline={data.ctaHeadline}
         ctaHeadlineAccent={data.ctaHeadlineAccent}
         ctaDescription={data.ctaDescription}
+        ctaLabel={data.ctaLabel}
+        slug={data.slug}
       />
     </>
   );

@@ -18,6 +18,16 @@ const contactSchema = {
       mainEntity: { "@id": `${SITE_URL}/#person` },
     },
     {
+      "@type": "ContactPoint",
+      "@id": `${SITE_URL}/contact#contactpoint`,
+      contactType: "sales",
+      email: "hi@nafizanam.com",
+      telephone: "+8801819758093",
+      areaServed: "Worldwide",
+      availableLanguage: "English",
+      hoursAvailable: "Flexible overlap with client time zones; base time zone GMT+6",
+    },
+    {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
