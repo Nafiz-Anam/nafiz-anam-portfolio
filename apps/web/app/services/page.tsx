@@ -9,7 +9,7 @@ import { FrequentlyRequested } from "@/components/sections/services/FrequentlyRe
 import { ServicesFAQ } from "@/components/sections/services/ServicesFAQ";
 import { ServicesCTA } from "@/components/sections/services/ServicesCTA";
 
-const TITLE = "Services | Nafiz Anam — Technology & Product Partner";
+const TITLE = "Software Engineering & Consulting Services | Nafiz Anam";
 const DESCRIPTION =
   "Diagnosing and solving the technical bottlenecks holding growth-stage businesses and funded founders back, not just building whatever's requested.";
 

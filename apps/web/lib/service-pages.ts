@@ -22,7 +22,7 @@ export interface ServicePageData {
 export const SERVICE_PAGES: ServicePageData[] = [
   {
     slug: "custom-software-development",
-    metaTitle: "Custom Software Development | Nafiz Anam — Technology & Product Partner",
+    metaTitle: "Custom Software Development Services | Nafiz Anam",
     metaDescription:
       "Custom software built around how your business actually operates, not a generic template you have to work around.",
     metaImage: "/Nafiz_Anam_Custom_Software_development_Service.png",
@@ -197,7 +197,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
 
   {
     slug: "saas-product-engineering",
-    metaTitle: "SaaS Product Engineering | Nafiz Anam — Technology & Product Partner",
+    metaTitle: "SaaS Product Engineering & Development | Nafiz Anam",
     metaDescription:
       "Building SaaS products with the architecture decisions that let you scale from beta to thousands of paying users, without an expensive rebuild.",
     metaImage: "/Nafiz_Anam_SaaS_Product_Engineering_Service.png",
@@ -372,7 +372,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
 
   {
     slug: "ai-automation-business-systems",
-    metaTitle: "AI Automation & Business Systems | Nafiz Anam — Technology & Product Partner",
+    metaTitle: "AI Automation & Enterprise Workflow Systems | Nafiz Anam",
     metaDescription:
       "Removing the repetitive, manual work quietly capping your team's capacity, with AI systems built into how your business actually operates.",
     metaImage: "/Nafiz_Anam_AI_Automation_Services.png",
@@ -542,7 +542,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
 
   {
     slug: "technical-consulting-architecture",
-    metaTitle: "Technical Consulting & Architecture | Nafiz Anam — Technology & Product Partner",
+    metaTitle: "Technical Consulting & Software Architecture | Nafiz Anam",
     metaDescription:
       "Independent technical advisory that helps you make confident decisions about technology, architecture, and engineering strategy before you commit budget.",
     metaImage: "/Nafiz_Anam_technical_Consulting_Architecture_Service.png",
@@ -713,7 +713,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
 
   {
     slug: "cloud-infrastructure-devops",
-    metaTitle: "Cloud Infrastructure & DevOps | Nafiz Anam — Technology & Product Partner",
+    metaTitle: "Cloud Infrastructure & DevOps Consulting | Nafiz Anam",
     metaDescription:
       "Cloud infrastructure that's boring in the best way: reliable, observable, and built to handle growth without the 2am page.",
     metaImage: "/Nafiz_Anam_Cloud_Infrastructure_Devops_Services.png",
@@ -887,7 +887,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
 
   {
     slug: "engineering-leadership",
-    metaTitle: "Engineering Leadership | Nafiz Anam — Technology & Product Partner",
+    metaTitle: "Engineering Leadership Consulting | Nafiz Anam",
     metaDescription:
       "Fractional CTO and technical leadership for growing teams that need direction, standards, and mentoring, without a full-time senior hire.",
     metaImage: "/Nafiz_Anam_Engineering_Leadership_Service.png",
@@ -1058,7 +1058,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
 
   {
     slug: "tracking-analytics",
-    metaTitle: "Tracking & Analytics | Nafiz Anam — Technology & Product Partner",
+    metaTitle: "Tracking & Analytics Implementation Services | Nafiz Anam",
     metaDescription:
       "Server-side tracking and analytics infrastructure that closes the gap between what your ad platforms report and what your business actually sold.",
     metaImage: "/Nafiz_Anam_Tracking_Analytics_Services.png",
@@ -1233,7 +1233,7 @@ export const SERVICE_PAGES: ServicePageData[] = [
 
   {
     slug: "ecommerce-engineering",
-    metaTitle: "Ecommerce Engineering | Nafiz Anam — Technology & Product Partner",
+    metaTitle: "Ecommerce Engineering & Development Services | Nafiz Anam",
     metaDescription:
       "Performance, checkout reliability, plugin debt, database health, and integration stability for growing WooCommerce and Shopify stores, engineered, not guessed at.",
     metaImage: "/Nafiz_Anam_Ecommerce_Engineering_Services.png",

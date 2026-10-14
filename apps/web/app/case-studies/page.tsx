@@ -13,7 +13,7 @@ import { CaseStudiesFAQ } from "@/components/sections/case-studies/CaseStudiesFA
 import { CaseStudiesCTA } from "@/components/sections/case-studies/CaseStudiesCTA";
 import { fetchProjectList } from "@/lib/projects";
 
-const TITLE = "Case Studies | Nafiz Anam — Real Projects, Measurable Business Outcomes";
+const TITLE = "Case Studies: Real Projects, Business Outcomes | Nafiz Anam";
 const DESCRIPTION =
   "Selected engagements where I've helped businesses solve real technical problems and hit measurable business outcomes.";
 

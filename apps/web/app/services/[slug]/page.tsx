@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props) {
     ? { url: service.metaImage, width: 1536, height: 1024, alt: service.metaTitle }
     : { url: "/opengraph-image", width: 1200, height: 630, alt: service.metaTitle };
   return {
-    title: service.metaTitle,
+    title: { absolute: service.metaTitle },
     description: service.metaDescription,
     alternates: { canonical: `/services/${slug}` },
     openGraph: {
@@ -54,7 +54,7 @@ export default async function ServicePage({ params }: Props) {
       {
         "@type": "Service",
         "@id": `${SITE_URL}/services/${service.slug}#service`,
-        name: service.metaTitle.replace(" — Nafiz Anam", ""),
+        name: service.metaTitle.replace(" | Nafiz Anam", ""),
         description: service.metaDescription,
         url: `${SITE_URL}/services/${service.slug}`,
         provider: { "@id": `${SITE_URL}/#person` },
@@ -75,7 +75,7 @@ export default async function ServicePage({ params }: Props) {
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
           { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
-          { "@type": "ListItem", position: 3, name: service.metaTitle.replace(" — Nafiz Anam", ""), item: `${SITE_URL}/services/${service.slug}` },
+          { "@type": "ListItem", position: 3, name: service.metaTitle.replace(" | Nafiz Anam", ""), item: `${SITE_URL}/services/${service.slug}` },
         ],
       },
     ],

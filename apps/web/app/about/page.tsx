@@ -9,7 +9,7 @@ import { FAQSection } from "@/components/sections/about/FAQSection";
 import { AboutCTA } from "@/components/sections/about/AboutCTA";
 
 export const metadata = {
-  title: "About Nafiz Anam | Technology & Product Partner",
+  title: { absolute: "About Nafiz Anam | Technology & Product Partner" },
   description:
     "Software engineer, architect, and founder with seven years building products that scale. Here's how I got here, and how I think about the work.",
   alternates: { canonical: "/about" },

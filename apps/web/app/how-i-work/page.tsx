@@ -13,7 +13,7 @@ import { IndustriesServed } from "@/components/sections/case-studies/IndustriesS
 import { HowItWorkFAQ } from "@/components/sections/how-i-work/HowItWorkFAQ";
 import { HowItWorkCTA } from "@/components/sections/how-i-work/HowItWorkCTA";
 
-const TITLE = "How I Work | Nafiz Anam — Process, Communication & Technology";
+const TITLE = "How I Work: Process & Communication | Nafiz Anam";
 const DESCRIPTION =
   "A structured, repeatable process built from over 100 engagements, plus how communication, timelines, and technology decisions actually work day to day.";
 

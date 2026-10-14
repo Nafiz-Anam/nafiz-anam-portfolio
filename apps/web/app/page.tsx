@@ -66,7 +66,7 @@ const homeSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Nafiz Anam | Technology & Product Partner",
+  title: { absolute: "Nafiz Anam | Technology & Product Partner" },
   description:
     "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",
   alternates: { canonical: "/" },

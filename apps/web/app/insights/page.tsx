@@ -9,7 +9,7 @@ import { ArticlesSection } from "@/components/sections/insights/ArticlesSection"
 import { InsightsFAQ } from "@/components/sections/insights/InsightsFAQ";
 import { fetchBlogList } from "@/lib/blog";
 
-const TITLE = "Insights | Nafiz Anam — Engineering Leadership & Technical Notes";
+const TITLE = "Engineering Insights & Technical Notes | Nafiz Anam";
 const DESCRIPTION =
   "Practical lessons on software architecture, engineering leadership, and building technology that businesses can actually depend on.";
 
