@@ -13,7 +13,7 @@
   --muted: 240 8% 42%;         /* cool slate muted text */
   --border: 240 10% 87%;       /* cool light border */
   --accent: 9 100% 62%;        /* coral #FF5A3C — pops on cool bg */
-  --accent-foreground: 0 0% 100%;
+  --accent-foreground: 240 35% 8%; /* navy, not white — white-on-coral fails WCAG AA contrast (~3.6:1) */
   --primary: 240 35% 8%;
   --primary-foreground: 240 20% 97%;
   --panel: 240 35% 8%;          /* inverted card — navy #0E0E1D */
@@ -30,7 +30,7 @@
   --muted: 240 10% 60%;
   --border: 240 15% 20%;
   --accent: 13 79% 57%;       /* spec coral #E8623C */
-  --accent-foreground: 0 0% 100%;
+  --accent-foreground: 240 35% 8%; /* navy, not white — white-on-coral fails WCAG AA contrast (~3.6:1) */
   --primary: 27 41% 95%;
   --primary-foreground: 240 35% 8%;
   --panel: 240 22% 18%;        /* elevated dark navy card — one step above --surface, no light inversion */

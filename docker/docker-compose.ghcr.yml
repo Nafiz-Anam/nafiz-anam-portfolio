@@ -56,6 +56,13 @@ services:
       INTERNAL_API_URL: http://api:4000
     depends_on:
       - api
+    volumes:
+      # Next's on-demand image optimizer (sharp) caches resized variants here.
+      # Without this, every deploy replaces the container and starts cold, so
+      # the first requests for each width (including the hero's LCP image)
+      # resize synchronously instead of serving from cache — slow/occasionally
+      # timing out right after a deploy.
+      - web_image_cache:/repo/apps/web/.next/cache
     networks:
       - web
     labels:
@@ -95,6 +102,7 @@ services:
 volumes:
   pgdata:
   api_uploads:
+  web_image_cache:
 
 networks:
   internal:
