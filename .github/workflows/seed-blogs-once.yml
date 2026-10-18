@@ -1,0 +1,19 @@
+name: Seed Blog Posts (one-off)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  seed:
+    runs-on: [self-hosted, portfolio-vps]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: false
+
+      - name: Run seed:blogs inside the api container
+        working-directory: /opt/portfolio
+        run: |
+          set -e
+          docker compose cp "$GITHUB_WORKSPACE/packages/db/prisma/seed-blogs.ts" api:/repo/packages/db/prisma/seed-blogs.ts
+          docker compose exec -T api sh -c "cd /repo/packages/db && /repo/node_modules/.bin/tsx prisma/seed-blogs.ts"
