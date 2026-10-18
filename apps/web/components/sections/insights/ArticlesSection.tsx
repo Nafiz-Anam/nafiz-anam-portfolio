@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import type { BlogListItem } from "@portfolio/types";
 import { trackEvent } from "@/lib/analytics";
@@ -24,11 +25,13 @@ export function ArticleCard({ post }: { post: BlogListItem }) {
     >
       <Link href={`/insights/${post.slug}`} className="block overflow-hidden rounded-t-[5px]">
         {post.coverImageUrl ? (
-          <div className="aspect-[16/9] overflow-hidden">
-            <img
+          <div className="relative aspect-[16/9] overflow-hidden">
+            <Image
               src={post.coverImageUrl}
               alt={post.title}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
             />
           </div>
         ) : (

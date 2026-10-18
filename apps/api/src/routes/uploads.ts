@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import crypto from "node:crypto";
 import { Router } from "express";
 import multer from "multer";
+import sharp from "sharp";
 import { prisma } from "@portfolio/db";
 import { requireAuth } from "../middleware/requireAuth";
 
@@ -17,16 +18,13 @@ const PUBLIC_API_URL = process.env.PUBLIC_API_URL ?? "http://localhost:4000";
 
 const ALLOWED_MIME_TYPES = new Set(["image/png", "image/jpeg", "image/webp", "image/gif"]);
 
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, UPLOAD_DIR),
-  filename: (_req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    cb(null, `${crypto.randomUUID()}${ext}`);
-  },
-});
+// Max width images are ever rendered at on web/cms, x2 for retina — resizing to
+// this is lossless in practice since nothing displays the extra pixels anyway.
+const MAX_IMAGE_WIDTH = 2000;
+const WEBP_QUALITY = 90;
 
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: MAX_UPLOAD_MB * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
     if (!ALLOWED_MIME_TYPES.has(file.mimetype)) {
@@ -37,6 +35,22 @@ const upload = multer({
   },
 });
 
+// Animated GIFs pass through untouched — a single-frame re-encode would kill the
+// animation. Everything else is resized and re-encoded to WebP on the way in, so
+// every upload (no matter what the CMS user drops in) is optimized automatically.
+async function optimizeImage(file: Express.Multer.File) {
+  if (file.mimetype === "image/gif") {
+    return { buffer: file.buffer, ext: ".gif", mimeType: "image/gif" };
+  }
+
+  const buffer = await sharp(file.buffer)
+    .resize({ width: MAX_IMAGE_WIDTH, withoutEnlargement: true })
+    .webp({ quality: WEBP_QUALITY })
+    .toBuffer();
+
+  return { buffer, ext: ".webp", mimeType: "image/webp" };
+}
+
 // Admin: list all media
 uploadsRouter.get("/", requireAuth, async (_req, res) => {
   const media = await prisma.media.findMany({ orderBy: { createdAt: "desc" } });
@@ -46,12 +60,16 @@ uploadsRouter.get("/", requireAuth, async (_req, res) => {
 uploadsRouter.post("/", requireAuth, upload.single("file"), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: { message: "no file uploaded" } });
 
+  const { buffer, ext, mimeType } = await optimizeImage(req.file);
+  const filename = `${crypto.randomUUID()}${ext}`;
+  await fs.writeFile(path.join(UPLOAD_DIR, filename), buffer);
+
   const media = await prisma.media.create({
     data: {
-      filename: req.file.filename,
-      url: `${PUBLIC_API_URL}/uploads/${req.file.filename}`,
-      mimeType: req.file.mimetype,
-      size: req.file.size,
+      filename,
+      url: `${PUBLIC_API_URL}/uploads/${filename}`,
+      mimeType,
+      size: buffer.byteLength,
     },
   });
 

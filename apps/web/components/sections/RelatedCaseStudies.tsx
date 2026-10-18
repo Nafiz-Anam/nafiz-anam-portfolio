@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ProjectListItem } from "@portfolio/types";
 
@@ -49,10 +50,12 @@ export async function RelatedCaseStudies() {
               {/* Cover */}
               <div className="relative h-[180px] overflow-hidden bg-foreground/[0.04]">
                 {p.coverImageUrl ? (
-                  <img
+                  <Image
                     src={p.coverImageUrl}
                     alt={p.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    fill
+                    sizes="(min-width: 640px) 33vw, 100vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 ) : (
                   <div className="relative flex h-full w-full items-center justify-center bg-gradient-to-br from-accent/20 via-accent/5 to-background">

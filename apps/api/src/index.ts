@@ -23,7 +23,10 @@ app.use(compression());
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use("/uploads", express.static(uploadDir));
+app.use(
+  "/uploads",
+  express.static(uploadDir, { maxAge: "1y", immutable: true })
+);
 
 app.use(apiRouter);
 
