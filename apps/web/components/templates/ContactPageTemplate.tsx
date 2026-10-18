@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button, Select } from "@portfolio/ui";
 import { BookingButton } from "@/components/sections/BookingButton";
@@ -315,13 +315,36 @@ function ProjectInquiryForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<FormState>>({});
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileActive, setTurnstileActive] = useState(false);
   const started = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const markStarted = () => {
     if (started.current) return;
     started.current = true;
     trackEvent("form_start", { form_name: "contact_page" });
   };
+
+  // Mount Turnstile (and its challenge-platform scripts/iframes) only once
+  // the form nears the viewport, not unconditionally on page load.
+  useEffect(() => {
+    const el = formRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setTurnstileActive(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setTurnstileActive(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const set = (field: keyof FormState) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -461,6 +484,7 @@ function ProjectInquiryForm() {
               ) : (
                 <motion.form
                   key="form"
+                  ref={formRef}
                   onSubmit={handleSubmit}
                   className="flex flex-col gap-7"
                 >
@@ -567,7 +591,7 @@ function ProjectInquiryForm() {
                     </div>
                   </FormField>
 
-                  <Turnstile onVerify={setTurnstileToken} />
+                  {turnstileActive && <Turnstile onVerify={setTurnstileToken} />}
 
                   {/* Submit */}
                   <div className="pt-2">

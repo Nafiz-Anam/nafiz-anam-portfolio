@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { z } from "zod";
 import { Button, Select } from "@portfolio/ui";
 import { Reveal } from "@/components/ui/Reveal";
@@ -45,13 +45,38 @@ export function ContactSection() {
   const [category, setCategory] = useState("");
   const [budget, setBudget] = useState("");
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileActive, setTurnstileActive] = useState(false);
   const started = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const markStarted = () => {
     if (started.current) return;
     started.current = true;
     trackEvent("form_start", { form_name: "homepage" });
   };
+
+  // Mount the Turnstile widget (and its challenge-platform scripts/iframes)
+  // only once the contact form nears the viewport, not on initial page load.
+  // Unconditionally mounting it on every homepage visit was firing a heavy
+  // Cloudflare challenge cascade on first paint for a form below the fold.
+  useEffect(() => {
+    const el = formRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setTurnstileActive(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setTurnstileActive(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -127,6 +152,7 @@ export function ContactSection() {
         ) : (
           <Reveal delay={0.1}>
             <form
+              ref={formRef}
               id="contact-form"
               onSubmit={handleSubmit}
               onFocusCapture={markStarted}
@@ -156,7 +182,7 @@ export function ContactSection() {
                 />
               </div>
               <textarea name="message" placeholder="Tell me about your project..." rows={6} className={fieldClassName} />
-              <Turnstile onVerify={setTurnstileToken} />
+              {turnstileActive && <Turnstile onVerify={setTurnstileToken} />}
               {error ? <p className="text-sm text-red-400">{error}</p> : null}
             </form>
 
