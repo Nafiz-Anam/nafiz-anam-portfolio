@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Facebook, Linkedin, Github, Star } from "lucide-react";
@@ -187,11 +188,23 @@ export function Hero({
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ duration: dur.lg, ease: ease.out, delay: 0.42 }}
         >
-          <ImagePlaceholder
-            src={merged.photoUrl}
-            aspectClassName="aspect-square"
-            className="w-64 rounded-[5px] object-cover sm:w-72"
-          />
+          {merged.photoUrl ? (
+            <div className="relative aspect-square w-64 overflow-hidden rounded-[5px] sm:w-72">
+              <Image
+                src={merged.photoUrl}
+                alt={merged.name}
+                fill
+                priority
+                sizes="(min-width: 640px) 288px, 256px"
+                className="object-cover"
+              />
+            </div>
+          ) : (
+            <ImagePlaceholder
+              aspectClassName="aspect-square"
+              className="w-64 rounded-[5px] object-cover sm:w-72"
+            />
+          )}
         </motion.div>
       </motion.div>
     </section>

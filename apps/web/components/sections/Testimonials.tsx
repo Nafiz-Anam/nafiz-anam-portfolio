@@ -105,10 +105,12 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
               >
                 <div className="relative aspect-[3/4] sm:aspect-auto sm:min-h-[430px]">
                   {testimonial.photoUrl ? (
-                    <img
+                    <Image
                       src={testimonial.photoUrl}
                       alt={testimonial.name}
-                      className="absolute inset-0 h-full w-full object-cover"
+                      fill
+                      sizes="(min-width: 640px) 45vw, 100vw"
+                      className="object-cover"
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center bg-accent/20 text-6xl font-bold text-accent">
