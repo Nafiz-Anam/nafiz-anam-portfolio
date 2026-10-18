@@ -87,7 +87,7 @@ export async function WorkGrid() {
         )}
 
         <div className="mt-14 flex justify-center">
-          <Link
+          <Link prefetch={false}
             href="/case-studies"
             className="rounded-[5px] bg-accent px-6 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground hover:bg-accent/90"
           >

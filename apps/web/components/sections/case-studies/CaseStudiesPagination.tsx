@@ -26,7 +26,7 @@ export function CaseStudiesPagination({ page, totalPages }: { page: number; tota
 
   return (
     <nav aria-label="Case studies pagination" className="mt-14 flex items-center justify-center gap-2">
-      <Link
+      <Link prefetch={false}
         href={pageHref(page - 1)}
         aria-disabled={page <= 1}
         tabIndex={page <= 1 ? -1 : undefined}
@@ -46,7 +46,7 @@ export function CaseStudiesPagination({ page, totalPages }: { page: number; tota
               …
             </span>
           ) : (
-            <Link
+            <Link prefetch={false}
               key={entry}
               href={pageHref(entry)}
               aria-current={entry === page ? "page" : undefined}
@@ -62,7 +62,7 @@ export function CaseStudiesPagination({ page, totalPages }: { page: number; tota
         )}
       </div>
 
-      <Link
+      <Link prefetch={false}
         href={pageHref(page + 1)}
         aria-disabled={page >= totalPages}
         tabIndex={page >= totalPages ? -1 : undefined}

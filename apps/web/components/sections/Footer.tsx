@@ -59,7 +59,7 @@ export async function Footer() {
               {data.pages && data.pages.length > 0 && (
                 <div className="flex flex-wrap gap-x-9 gap-y-3 text-sm font-medium uppercase tracking-wide text-panel-muted">
                   {data.pages.map((page) => (
-                    <Link
+                    <Link prefetch={false}
                       key={page.href}
                       href={page.href}
                       className="group relative inline-block pb-1 transition-colors duration-200 hover:text-panel-foreground"

@@ -179,7 +179,7 @@ function ServiceCard({
       </div>
 
       {/* learn more */}
-      <Link
+      <Link prefetch={false}
         href={`/services/${slug}`}
         onClick={() => trackEvent("service_card_click", { service_name: title, source_page: "services_page" })}
         className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-accent hover:opacity-75 transition-opacity duration-200"

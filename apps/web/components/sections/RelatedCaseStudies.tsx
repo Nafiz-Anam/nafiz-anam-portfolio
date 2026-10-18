@@ -32,7 +32,7 @@ export async function RelatedCaseStudies() {
               <span className="font-serif italic text-accent">In Action.</span>
             </h2>
           </div>
-          <Link
+          <Link prefetch={false}
             href="/case-studies"
             className="hidden text-[11px] font-bold uppercase tracking-[0.14em] text-accent/60 transition-colors hover:text-accent sm:block"
           >
@@ -42,7 +42,7 @@ export async function RelatedCaseStudies() {
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
           {projects.map((p) => (
-            <Link
+            <Link prefetch={false}
               key={p.id}
               href={`/case-studies/${p.slug}`}
               className="group flex flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background transition-[border-color,box-shadow] duration-300 hover:border-accent/60 hover:shadow-[0_0_32px_-4px_hsl(var(--accent)/0.35)]"
@@ -100,7 +100,7 @@ export async function RelatedCaseStudies() {
         </div>
 
         <div className="mt-8 flex justify-center sm:hidden">
-          <Link href="/case-studies" className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent/60 hover:text-accent">
+          <Link prefetch={false} href="/case-studies" className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent/60 hover:text-accent">
             View all case studies →
           </Link>
         </div>

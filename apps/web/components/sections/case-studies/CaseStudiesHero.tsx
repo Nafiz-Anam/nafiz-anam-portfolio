@@ -48,7 +48,7 @@ export function CaseStudiesHero() {
         <BookingButton location="case_studies_hero" className="rounded-[5px] bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
           Book Discovery Call
         </BookingButton>
-        <Link
+        <Link prefetch={false}
           href="/services"
           className="rounded-[5px] border border-foreground/20 bg-transparent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-foreground/40 hover:bg-foreground/5"
         >

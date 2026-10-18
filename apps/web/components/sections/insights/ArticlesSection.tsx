@@ -23,7 +23,7 @@ export function ArticleCard({ post }: { post: BlogListItem }) {
       transition={{ duration: 0.3, ease: "easeOut" }}
       className="dark group flex flex-col rounded-[5px] border border-panel-foreground/[0.08] bg-background transition-colors duration-200 hover:border-accent/60"
     >
-      <Link href={`/insights/${post.slug}`} className="block overflow-hidden rounded-t-[5px]">
+      <Link prefetch={false} href={`/insights/${post.slug}`} className="block overflow-hidden rounded-t-[5px]">
         {post.coverImageUrl ? (
           <div className="relative aspect-[16/9] overflow-hidden">
             <Image
@@ -58,7 +58,7 @@ export function ArticleCard({ post }: { post: BlogListItem }) {
 
         <div className="flex flex-col gap-3">
           <h3 className="text-[17px] font-bold leading-[1.25] tracking-tight">
-            <Link href={`/insights/${post.slug}`} className="text-panel-foreground transition-colors duration-150 group-hover:text-accent">
+            <Link prefetch={false} href={`/insights/${post.slug}`} className="text-panel-foreground transition-colors duration-150 group-hover:text-accent">
               {post.title}
             </Link>
           </h3>
@@ -71,7 +71,7 @@ export function ArticleCard({ post }: { post: BlogListItem }) {
             <span className="h-0.5 w-0.5 rounded-full bg-panel-foreground/24" />
             <span>{formatDate(post.publishedAt)}</span>
           </div>
-          <Link
+          <Link prefetch={false}
             href={`/insights/${post.slug}`}
             className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.12em] text-accent/60 transition-all duration-150 hover:gap-1.5 hover:text-accent"
           >
@@ -186,7 +186,7 @@ export function ArticlesSection({
                   leadership, or scaling a technical team, reach out directly.
                   I read every message myself.
                 </p>
-                <Link
+                <Link prefetch={false}
                   href="/contact"
                   className="rounded-[5px] bg-accent px-7 py-3 text-xs font-bold uppercase tracking-wide text-accent-foreground transition-opacity hover:opacity-90"
                 >

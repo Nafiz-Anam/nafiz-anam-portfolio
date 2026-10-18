@@ -112,7 +112,7 @@ const SERVICES = [
 
 function ServiceCard({ title, description, icon, href }: (typeof SERVICES)[number]) {
   return (
-    <Link
+    <Link prefetch={false}
       href={href}
       onClick={() => trackEvent("service_card_click", { service_name: title, source_page: "homepage" })}
       className="block h-full"

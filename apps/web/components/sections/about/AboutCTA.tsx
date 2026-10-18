@@ -27,7 +27,7 @@ export function AboutCTA() {
             <BookingButton location="about_cta" className="rounded-[5px] bg-accent px-10 py-4 text-xs font-bold uppercase tracking-widest text-accent-foreground transition-opacity duration-250 hover:opacity-90">
               Book Discovery Call
             </BookingButton>
-            <Link
+            <Link prefetch={false}
               href="/case-studies"
               className="rounded-[5px] border border-foreground/20 bg-transparent px-10 py-4 text-xs font-bold uppercase tracking-widest text-foreground transition-colors duration-250 hover:border-accent hover:text-accent"
             >

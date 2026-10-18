@@ -139,7 +139,7 @@ export function Hero({
             </div>
 
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-              <Link
+              <Link prefetch={false}
                 href="/case-studies"
                 className="text-[11px] font-bold uppercase tracking-widest text-panel-muted transition-colors duration-200 hover:text-panel-foreground"
               >

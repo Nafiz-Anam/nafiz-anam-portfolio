@@ -7,7 +7,7 @@ export function HowItWorkLinkOut() {
         <p className="text-[15px] text-panel-foreground/60">
           Curious how I actually work, end to end?
         </p>
-        <Link
+        <Link prefetch={false}
           href="/how-i-work"
           className="group inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.14em] text-accent transition-opacity hover:opacity-75"
         >

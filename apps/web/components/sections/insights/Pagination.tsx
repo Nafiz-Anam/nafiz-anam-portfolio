@@ -27,7 +27,7 @@ export function Pagination({ currentPage, totalPages }: { currentPage: number; t
 
   return (
     <nav aria-label="Insights pagination" className="mt-14 flex items-center justify-center gap-1.5">
-      <Link
+      <Link prefetch={false}
         href={pageHref(currentPage - 1)}
         aria-disabled={currentPage <= 1}
         tabIndex={currentPage <= 1 ? -1 : undefined}
@@ -47,7 +47,7 @@ export function Pagination({ currentPage, totalPages }: { currentPage: number; t
               …
             </span>
           ) : (
-            <Link
+            <Link prefetch={false}
               key={p}
               href={pageHref(p)}
               aria-current={p === currentPage ? "page" : undefined}
@@ -63,7 +63,7 @@ export function Pagination({ currentPage, totalPages }: { currentPage: number; t
         )}
       </div>
 
-      <Link
+      <Link prefetch={false}
         href={pageHref(currentPage + 1)}
         aria-disabled={currentPage >= totalPages}
         tabIndex={currentPage >= totalPages ? -1 : undefined}

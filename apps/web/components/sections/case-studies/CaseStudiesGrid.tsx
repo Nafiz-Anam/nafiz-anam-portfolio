@@ -25,7 +25,7 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
       className="group mb-6 flex break-inside-avoid flex-col overflow-hidden rounded-[5px] border border-foreground/[0.08] bg-background transition-[border-color,box-shadow] duration-300 hover:border-accent/60 hover:shadow-[0_0_32px_-4px_hsl(var(--accent)/0.35)]"
     >
       {/* Image */}
-      <Link
+      <Link prefetch={false}
         href={`/case-studies/${project.slug}`}
         onClick={() => trackEvent("case_study_card_click", { case_study_title: project.title })}
         className={`relative block ${aspect} overflow-hidden bg-foreground/[0.04]`}
@@ -63,7 +63,7 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
       {/* Content */}
       <div className="flex flex-1 flex-col gap-5 p-8">
         <h3 className="text-[18px] font-bold leading-snug tracking-tight text-foreground">
-          <Link
+          <Link prefetch={false}
             href={`/case-studies/${project.slug}`}
             onClick={() => trackEvent("case_study_card_click", { case_study_title: project.title })}
             className="hover:text-accent"
@@ -90,7 +90,7 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
         </div>
 
         <div className="mt-auto pt-3">
-          <Link
+          <Link prefetch={false}
             href={`/case-studies/${project.slug}`}
             onClick={() => trackEvent("case_study_card_click", { case_study_title: project.title })}
             className="group/link inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-accent transition-opacity hover:opacity-75"
