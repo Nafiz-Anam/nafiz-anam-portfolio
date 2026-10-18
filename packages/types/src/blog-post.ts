@@ -12,7 +12,7 @@ export const blogPostSchema = z.object({
   contentHtml: z.string().default(""),
   readTimeMinutes: z.number().int().min(1).default(1),
   status: z.enum(["draft", "published"]).default("draft"),
-  publishedAt: z.coerce.date().nullable().optional(),
+  publishedAt: z.coerce.date().nullable(),
   authorName: z.string().default("Nafiz Anam"),
   seoTitle: z.string().nullable(),
   seoDescription: z.string().nullable(),
@@ -23,11 +23,15 @@ export const blogPostSchema = z.object({
 
 export type BlogPost = z.infer<typeof blogPostSchema>;
 
-export const createBlogPostSchema = blogPostSchema.omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
+export const createBlogPostSchema = blogPostSchema
+  .omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    publishedAt: z.coerce.date().nullable().optional(),
+  });
 
 export type CreateBlogPostInput = z.infer<typeof createBlogPostSchema>;
 
