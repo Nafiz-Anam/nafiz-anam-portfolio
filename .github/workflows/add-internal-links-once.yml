@@ -1,0 +1,19 @@
+name: Add Blog Internal Links (one-off)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  run:
+    runs-on: [self-hosted, portfolio-vps]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: false
+
+      - name: Run add-internal-links inside the api container
+        working-directory: /opt/portfolio
+        run: |
+          set -e
+          docker compose cp "$GITHUB_WORKSPACE/packages/db/prisma/add-internal-links.ts" api:/repo/packages/db/prisma/add-internal-links.ts
+          docker compose exec -T api sh -c "cd /repo/packages/db && /repo/node_modules/.bin/tsx prisma/add-internal-links.ts"
