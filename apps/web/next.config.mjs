@@ -7,6 +7,10 @@ const apiHostname = (() => {
 const nextConfig = {
   transpilePackages: ["@portfolio/ui", "@portfolio/types"],
 
+  experimental: {
+    optimizeCss: true,
+  },
+
   images: {
     remotePatterns: [
       { protocol: "http", hostname: "localhost", port: "4000", pathname: "/uploads/**" },

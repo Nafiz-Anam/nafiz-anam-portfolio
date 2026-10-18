@@ -31,6 +31,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nafizanam.com";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfair.variable} ${jakarta.variable} ${jetbrains.variable} font-sans`}>
+        {API_URL && <link rel="preconnect" href={API_URL} />}
         <PersonJsonLd />
         <Suspense fallback={null}>
           <GoogleTagManager />
