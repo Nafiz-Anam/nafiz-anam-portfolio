@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@portfolio/ui";
 
 interface ImagePlaceholderProps {
@@ -6,6 +7,8 @@ interface ImagePlaceholderProps {
   aspectClassName?: string;
   className?: string;
   label?: string;
+  priority?: boolean;
+  sizes?: string;
 }
 
 function hashHue(label: string) {
@@ -22,15 +25,32 @@ export function ImagePlaceholder({
   aspectClassName = "aspect-video",
   className,
   label,
+  priority,
+  sizes = "100vw",
 }: ImagePlaceholderProps) {
   if (src) {
-    // eslint-disable-next-line @next/next/no-img-element
+    // Callers either size the box themselves (default) or pass "absolute inset-0"
+    // to fill an already-positioned ancestor (e.g. Footer's own relative wrapper).
+    // tailwind-merge resolves the position conflict below deterministically —
+    // whichever className supplies last wins — so both patterns stay correct.
+    const fillsAncestor = className?.includes("absolute");
     return (
-      <img
-        src={src}
-        alt={alt}
-        className={cn(aspectClassName, "w-full rounded-xl object-cover", className)}
-      />
+      <div
+        className={cn(
+          fillsAncestor ? "absolute inset-0" : cn(aspectClassName, "relative w-full"),
+          "overflow-hidden rounded-xl",
+          className
+        )}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={priority}
+          sizes={sizes}
+          className={cn("object-cover", className)}
+        />
+      </div>
     );
   }
 
