@@ -112,7 +112,7 @@ export function BlogForm({
     }
   };
 
-  const WEBSITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL ?? "http://localhost:3000";
+  const WEBSITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
   return (
     <div className="space-y-6 p-8">

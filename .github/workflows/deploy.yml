@@ -44,6 +44,8 @@ jobs:
 
           docker build -f docker/cms.Dockerfile \
             --build-arg NEXT_PUBLIC_API_URL_CMS="${{ secrets.NEXT_PUBLIC_API_URL_CMS }}" \
+            --build-arg NEXT_PUBLIC_SITE_URL="${{ secrets.NEXT_PUBLIC_SITE_URL }}" \
+            --build-arg NEXT_PUBLIC_PREVIEW_SECRET="${{ secrets.REVALIDATE_SECRET }}" \
             -t "$REPO-cms:$IMAGE_TAG" -t "$REPO-cms:latest" .
 
           docker push "$REPO-api:$IMAGE_TAG"   && docker push "$REPO-api:latest"

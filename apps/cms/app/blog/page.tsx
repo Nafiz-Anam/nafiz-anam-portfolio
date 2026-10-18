@@ -21,7 +21,7 @@ export default function BlogAdminPage() {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const WEBSITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL ?? "http://localhost:3000";
+  const WEBSITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
   async function load() {
     setLoading(true);
