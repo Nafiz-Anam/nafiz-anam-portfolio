@@ -12,7 +12,7 @@ export const blogPostSchema = z.object({
   contentHtml: z.string().default(""),
   readTimeMinutes: z.number().int().min(1).default(1),
   status: z.enum(["draft", "published"]).default("draft"),
-  publishedAt: z.coerce.date().nullable(),
+  publishedAt: z.coerce.date().nullable().optional(),
   authorName: z.string().default("Nafiz Anam"),
   seoTitle: z.string().nullable(),
   seoDescription: z.string().nullable(),
