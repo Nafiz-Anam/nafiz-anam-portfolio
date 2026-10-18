@@ -1,14 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Facebook, Linkedin, Github, Star } from "lucide-react";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { defaultHero, defaultFooter, type HeroContent } from "@/lib/placeholder-content";
 import { BookingButton } from "./BookingButton";
-import { ease, dur } from "@/lib/motion";
 
 const SOCIAL_ICONS: Record<string, typeof Facebook> = {
   Facebook: Facebook,
@@ -16,31 +13,24 @@ const SOCIAL_ICONS: Record<string, typeof Facebook> = {
   GitHub: Github,
 };
 
-// Local, mount-triggered — the headline/trust-badge reveal no longer needs to
-// wait on the splash (removed from the homepage); it just plays once Hero hydrates.
-function useReady() {
-  const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
-  return ready;
-}
-
 const AVAILABILITY_CONFIG = {
   available: { dot: "bg-green-400", text: "Available for work" },
   limited:   { dot: "bg-amber-400", text: "Limited availability" },
   unavailable: { dot: "bg-red-400", text: "Not available" },
 } as const;
 
-function LineReveal({ children, delay = 0, className, ready }: { children: React.ReactNode; delay?: number; className?: string; ready?: boolean }) {
+// Pure CSS (animate-line-reveal, see globals.css) — starts on first paint
+// instead of waiting on JS hydration, which is what made the headline the
+// new LCP bottleneck once the panel below it was fixed the same way.
+function LineReveal({ children, delayMs = 0, className }: { children: React.ReactNode; delayMs?: number; className?: string }) {
   return (
     <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.15em", marginBottom: "-0.15em" }} className={className}>
-      <motion.span
-        style={{ display: "block" }}
-        initial={{ y: "110%", opacity: 0, rotate: 1.5 }}
-        animate={ready ? { y: "0%", opacity: 1, rotate: 0 } : { y: "110%", opacity: 0, rotate: 1.5 }}
-        transition={{ duration: 0.9, ease: ease.out, delay }}
+      <span
+        className="animate-line-reveal"
+        style={{ display: "block", animationDelay: `${delayMs}ms` }}
       >
         {children}
-      </motion.span>
+      </span>
     </span>
   );
 }
@@ -52,7 +42,6 @@ export function Hero({
   data?: Partial<HeroContent>;
   availability?: string | null;
 }) {
-  const ready = useReady();
   const merged: HeroContent = {
     ...defaultHero,
     ...Object.fromEntries(Object.entries(data ?? {}).filter(([, v]) => v !== undefined)),
@@ -65,21 +54,16 @@ export function Hero({
       {/* ── Headline + tags ── */}
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
         <h1 className="max-w-none text-[clamp(2.25rem,11vw,3.75rem)] font-bold leading-[0.95] tracking-tight sm:text-7xl">
-          <LineReveal delay={0.05} ready={ready} className="font-sans text-foreground">
+          <LineReveal delayMs={50} className="font-sans text-foreground">
             {merged.headlineLine1}
           </LineReveal>
-          <LineReveal delay={0.18} ready={ready} className="sm:whitespace-nowrap">
+          <LineReveal delayMs={180} className="sm:whitespace-nowrap">
             <span className="font-serif italic text-accent">{merged.headlineLine2Serif}</span>{" "}
             <span className="font-sans text-foreground">{merged.headlineLine2Sans}</span>
           </LineReveal>
         </h1>
 
-        <motion.div
-          className="flex flex-col items-end gap-5 pt-4 sm:pt-6"
-          initial={{ opacity: 0, x: 24 }}
-          animate={ready ? { opacity: 1, x: 0 } : { opacity: 0, x: 24 }}
-          transition={{ duration: dur.md, ease: ease.out, delay: 0.45 }}
-        >
+        <div className="animate-hero-badge flex flex-col items-end gap-5 pt-4 sm:pt-6">
           {/* Trust badge */}
           <div className="flex flex-col items-end gap-4">
             <div className="flex items-center gap-3">
@@ -112,7 +96,7 @@ export function Hero({
               {badge.text}
             </span>
           )}
-        </motion.div>
+        </div>
       </div>
 
       {/* ── Panel card ──
@@ -135,12 +119,7 @@ export function Hero({
             {merged.pitch}
           </p>
 
-          <motion.div
-            className="flex flex-wrap items-center justify-between gap-4 sm:flex-nowrap sm:gap-6"
-            initial={{ opacity: 0, y: 16 }}
-            animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-            transition={{ duration: dur.sm, ease: ease.out, delay: 0.2 }}
-          >
+          <div className="animate-hero-cta flex flex-wrap items-center justify-between gap-4 sm:flex-nowrap sm:gap-6">
             <div className="flex items-center gap-4">
               {(merged.socials ?? defaultFooter.socials).map((social) => {
                 const Icon = SOCIAL_ICONS[social.label];
@@ -170,7 +149,7 @@ export function Hero({
                 {merged.ctaLabel}
               </BookingButton>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {merged.photoUrl ? (
