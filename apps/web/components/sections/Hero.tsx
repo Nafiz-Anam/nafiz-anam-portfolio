@@ -9,7 +9,6 @@ import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { defaultHero, defaultFooter, type HeroContent } from "@/lib/placeholder-content";
 import { BookingButton } from "./BookingButton";
 import { ease, dur } from "@/lib/motion";
-import { onIntroDone } from "@/lib/intro-signal";
 
 const SOCIAL_ICONS: Record<string, typeof Facebook> = {
   Facebook: Facebook,
@@ -17,9 +16,11 @@ const SOCIAL_ICONS: Record<string, typeof Facebook> = {
   GitHub: Github,
 };
 
+// Local, mount-triggered — the headline/trust-badge reveal no longer needs to
+// wait on the splash (removed from the homepage); it just plays once Hero hydrates.
 function useReady() {
   const [ready, setReady] = useState(false);
-  useEffect(() => onIntroDone(() => setReady(true)), []);
+  useEffect(() => setReady(true), []);
   return ready;
 }
 
@@ -114,42 +115,29 @@ export function Hero({
         </motion.div>
       </div>
 
-      {/* ── Panel card ── */}
-      <motion.div
-        className="mt-16 grid grid-cols-1 items-center gap-16 rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04] p-10 text-panel-foreground sm:p-14 lg:grid-cols-[1fr_auto]"
-        initial={{ opacity: 0, y: 64, scale: 0.96 }}
-        animate={ready ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 64, scale: 0.96 }}
-        transition={{ duration: dur.lg, ease: ease.out, delay: 0.28 }}
-      >
+      {/* ── Panel card ──
+          Unanimated: this is the LCP region (name, pitch, avatar). Gating it
+          behind JS-hydration + a staggered fade cost ~2.8s of render delay on
+          throttled mobile. It renders at full opacity immediately; only the
+          lightweight CTA row below keeps a small entrance flourish. */}
+      <div className="mt-16 grid grid-cols-1 items-center gap-16 rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04] p-10 text-panel-foreground sm:p-14 lg:grid-cols-[1fr_auto]">
         <div className="flex flex-col justify-center gap-10">
-          <div style={{ overflow: "hidden" }}>
-            <motion.p
-              className="whitespace-nowrap text-center font-sans text-[clamp(1.75rem,9vw,3.75rem)] font-bold sm:whitespace-normal sm:text-7xl"
-              initial={{ y: "100%", opacity: 0 }}
-              animate={ready ? { y: "0%", opacity: 1 } : { y: "100%", opacity: 0 }}
-              transition={{ duration: 0.85, ease: ease.out, delay: 0.5 }}
-            >
-              Nafiz{" "}
-              <span className="font-serif italic" style={{ color: "hsl(13, 79%, 57%)" }}>
-                Anam.
-              </span>
-            </motion.p>
-          </div>
+          <p className="whitespace-nowrap text-center font-sans text-[clamp(1.75rem,9vw,3.75rem)] font-bold sm:whitespace-normal sm:text-7xl">
+            Nafiz{" "}
+            <span className="font-serif italic" style={{ color: "hsl(13, 79%, 57%)" }}>
+              Anam.
+            </span>
+          </p>
 
-          <motion.p
-            className="max-w-[605px] text-base leading-[1.8] text-panel-foreground"
-            initial={{ opacity: 0, y: 20 }}
-            animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: dur.md, ease: ease.out, delay: 0.65 }}
-          >
+          <p className="max-w-[605px] text-base leading-[1.8] text-panel-foreground">
             {merged.pitch}
-          </motion.p>
+          </p>
 
           <motion.div
             className="flex flex-wrap items-center justify-between gap-4 sm:flex-nowrap sm:gap-6"
             initial={{ opacity: 0, y: 16 }}
             animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-            transition={{ duration: dur.sm, ease: ease.out, delay: 0.72 }}
+            transition={{ duration: dur.sm, ease: ease.out, delay: 0.2 }}
           >
             <div className="flex items-center gap-4">
               {(merged.socials ?? defaultFooter.socials).map((social) => {
@@ -183,30 +171,24 @@ export function Hero({
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 48, scale: 0.94 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: dur.lg, ease: ease.out, delay: 0.42 }}
-        >
-          {merged.photoUrl ? (
-            <div className="relative aspect-square w-64 overflow-hidden rounded-[5px] sm:w-72">
-              <Image
-                src={merged.photoUrl}
-                alt={merged.name}
-                fill
-                priority
-                sizes="(min-width: 640px) 288px, 256px"
-                className="object-cover"
-              />
-            </div>
-          ) : (
-            <ImagePlaceholder
-              aspectClassName="aspect-square"
-              className="w-64 rounded-[5px] object-cover sm:w-72"
+        {merged.photoUrl ? (
+          <div className="relative aspect-square w-64 overflow-hidden rounded-[5px] sm:w-72">
+            <Image
+              src={merged.photoUrl}
+              alt={merged.name}
+              fill
+              priority
+              sizes="(min-width: 640px) 288px, 256px"
+              className="object-cover"
             />
-          )}
-        </motion.div>
-      </motion.div>
+          </div>
+        ) : (
+          <ImagePlaceholder
+            aspectClassName="aspect-square"
+            className="w-64 rounded-[5px] object-cover sm:w-72"
+          />
+        )}
+      </div>
     </section>
   );
 }
