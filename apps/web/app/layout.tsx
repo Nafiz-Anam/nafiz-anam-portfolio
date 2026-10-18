@@ -85,7 +85,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfair.variable} ${jakarta.variable} ${jetbrains.variable} font-sans`}>
         <PersonJsonLd />
-        <GoogleTagManager />
+        <Suspense fallback={null}>
+          <GoogleTagManager />
+        </Suspense>
         <Suspense fallback={null}>
           <PageViewTracker />
         </Suspense>

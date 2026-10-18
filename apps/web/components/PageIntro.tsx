@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { markIntroDone } from "@/lib/intro-signal";
 
@@ -8,17 +9,26 @@ const DOT_START = 1100;   // ms after mount — name is done at ~800ms, 300ms ho
 const DOT_DURATION = 650; // ms for iris expand (matches transition below)
 
 export function PageIntro() {
+  // Homepage skips the splash entirely — it was blocking LCP by ~1.75s on first
+  // paint. Other routes (reached via direct/hard load) keep the intro.
+  const isHome = usePathname() === "/";
   const overlayRef = useRef<HTMLDivElement>(null);
   const [dotVisible, setDotVisible] = useState(false);
 
   useEffect(() => {
+    if (isHome) {
+      markIntroDone();
+      return;
+    }
     const t1 = setTimeout(() => setDotVisible(true), DOT_START);
     const t2 = setTimeout(() => {
       if (overlayRef.current) overlayRef.current.style.display = "none";
       markIntroDone();
     }, DOT_START + DOT_DURATION);
     return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
+  }, [isHome]);
+
+  if (isHome) return null;
 
   return (
     <div
