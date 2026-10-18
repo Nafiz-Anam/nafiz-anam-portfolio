@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export function FounderIntro() {
   return (
@@ -9,7 +9,7 @@ export function FounderIntro() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[2fr_3fr] lg:items-start">
 
           {/* Left */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -24,10 +24,10 @@ export function FounderIntro() {
               <br />
               <span className="font-serif italic text-accent">Architect.</span>
             </h2>
-          </motion.div>
+          </m.div>
 
           {/* Right */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -55,7 +55,7 @@ export function FounderIntro() {
               consulting directly with founders and growing businesses on technical
               strategy, system architecture, and hands-on engineering.
             </p>
-          </motion.div>
+          </m.div>
 
         </div>
       </div>

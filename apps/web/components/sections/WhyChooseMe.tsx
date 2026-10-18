@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { SectionReveal, titleVariants, bodyVariants, cardVariants } from "@/components/ui/SectionReveal";
 
 const PRINCIPLES = [
@@ -89,26 +89,26 @@ export function WhyChooseMe() {
       <div className="mx-auto max-w-[1800px]">
 
         <SectionReveal className="mb-20 flex flex-col items-center gap-5 text-center" stagger={0.14}>
-          <motion.p variants={bodyVariants} className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+          <m.p variants={bodyVariants} className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
             Core Principles
-          </motion.p>
+          </m.p>
           <div style={{ overflow: "hidden" }}>
-            <motion.h2 variants={titleVariants} className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
+            <m.h2 variants={titleVariants} className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
               The Principles Behind{" "}
               <span className="font-serif italic text-accent">Every Product I Build.</span>
-            </motion.h2>
+            </m.h2>
           </div>
-          <motion.p variants={bodyVariants} className="max-w-[580px] text-[15px] leading-[1.85] text-panel-foreground/50">
+          <m.p variants={bodyVariants} className="max-w-[580px] text-[15px] leading-[1.85] text-panel-foreground/50">
             Great software is built on thoughtful decisions, not just technical skill.
             These principles apply to every engagement, from the first conversation to long-term product growth.
-          </motion.p>
+          </m.p>
         </SectionReveal>
 
         <SectionReveal className="overflow-hidden rounded-[5px] border border-panel-foreground/[0.07] bg-panel-tint" stagger={0.1} delay={0.05}>
           {PRINCIPLES.map((p, i) => (
-            <motion.div key={p.number} variants={cardVariants}>
+            <m.div key={p.number} variants={cardVariants}>
               <PrincipleRow {...p} isLast={i === PRINCIPLES.length - 1} />
-            </motion.div>
+            </m.div>
           ))}
         </SectionReveal>
 

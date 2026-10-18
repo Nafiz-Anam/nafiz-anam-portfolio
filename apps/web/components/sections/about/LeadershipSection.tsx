@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const PILLARS = [
   {
@@ -39,7 +39,7 @@ export function LeadershipSection() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[3fr_4fr] lg:items-start">
 
           {/* Left — sticky heading */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -54,10 +54,10 @@ export function LeadershipSection() {
               <span className="font-serif italic text-accent">leadership</span>{" "}
               is a discipline, not a title.
             </h2>
-          </motion.div>
+          </m.div>
 
           {/* Right — pillars */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
@@ -74,7 +74,7 @@ export function LeadershipSection() {
                 </p>
               </div>
             ))}
-          </motion.div>
+          </m.div>
 
         </div>
       </div>

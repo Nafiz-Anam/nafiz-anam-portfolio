@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 
 const STEPS = [
@@ -66,7 +66,7 @@ function StepRow({
 
   return (
     <>
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-30px" }}
@@ -126,7 +126,7 @@ function StepRow({
           </div>
 
         </div>
-      </motion.div>
+      </m.div>
 
       {!isLast && (
         <div className="mx-10 border-b border-panel-foreground/[0.06]" />
@@ -140,7 +140,7 @@ export function ProjectApproach() {
     <section className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -158,7 +158,7 @@ export function ProjectApproach() {
             A structured, repeatable process built from over 100 engagements, designed to
             reduce risk, maximize alignment, and ship software that actually works in production.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="overflow-hidden rounded-[5px] bg-texture-lines-inset bg-surface">
           {STEPS.map((step, i) => (

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { inView } from "@/lib/motion";
 
 interface AnimatedHeadingProps {
@@ -26,7 +26,7 @@ export function AnimatedHeading({
     <Tag className={className} style={{ overflow: "hidden" }} aria-label={children}>
       <span className="flex flex-wrap" aria-hidden>
         {units.map((unit, i) => (
-          <motion.span
+          <m.span
             key={i}
             initial={{ y: "110%", opacity: 0 }}
             whileInView={{ y: "0%", opacity: 1 }}
@@ -39,7 +39,7 @@ export function AnimatedHeading({
             style={{ display: "inline-block" }}
           >
             {unit}{splitBy === "word" ? " " : ""}
-          </motion.span>
+          </m.span>
         ))}
       </span>
     </Tag>

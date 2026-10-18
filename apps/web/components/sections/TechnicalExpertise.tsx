@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { SectionReveal, titleVariants, bodyVariants, cardVariants } from "@/components/ui/SectionReveal";
 
 const CAPABILITIES = [
@@ -135,30 +135,30 @@ export function TechnicalExpertise() {
 
         {/* Header */}
         <SectionReveal className="mb-20 flex flex-col items-center gap-5 text-center" stagger={0.14}>
-          <motion.p variants={bodyVariants} className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+          <m.p variants={bodyVariants} className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
             Technical Expertise
-          </motion.p>
+          </m.p>
           <div style={{ overflow: "hidden" }}>
-            <motion.h2 variants={titleVariants} className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+            <m.h2 variants={titleVariants} className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
               Modern Technologies.{" "}
               <span className="font-serif italic text-accent">Practical Experience.</span>
-            </motion.h2>
+            </m.h2>
           </div>
-          <motion.p variants={bodyVariants} className="max-w-[640px] text-[15px] leading-relaxed text-foreground/55">
+          <m.p variants={bodyVariants} className="max-w-[640px] text-[15px] leading-relaxed text-foreground/55">
             Technology choices get made based on business requirements, not trends.
             Every tool below has shipped in a real production environment.
-          </motion.p>
+          </m.p>
         </SectionReveal>
 
         {/* Capability matrix — rows stagger in */}
         <SectionReveal className="overflow-hidden rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04]" stagger={0.09} delay={0.05}>
           {CAPABILITIES.map((cap, i) => (
-            <motion.div key={cap.title} variants={cardVariants}>
+            <m.div key={cap.title} variants={cardVariants}>
               <CapabilityRow
                 {...cap}
                 isLast={i === CAPABILITIES.length - 1}
               />
-            </motion.div>
+            </m.div>
           ))}
         </SectionReveal>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import type { ProjectListItem } from "@portfolio/types";
@@ -16,7 +16,7 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
   const aspect = IMAGE_ASPECTS[index % IMAGE_ASPECTS.length];
 
   return (
-    <motion.div
+    <m.div
       layout
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -100,7 +100,7 @@ function CaseStudyCard({ project, index }: { project: ProjectListItem; index: nu
           </Link>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -146,7 +146,7 @@ export function CaseStudiesGrid({
       className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -171,7 +171,7 @@ export function CaseStudiesGrid({
               className="w-full rounded-[5px] border border-foreground/10 bg-foreground/5 px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:ring-1 focus:ring-accent sm:w-64"
             />
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Industry filter */}
         {tabs.length > 1 && (
@@ -207,11 +207,11 @@ export function CaseStudiesGrid({
           <p className="text-sm text-foreground/40">No case studies in this industry yet.</p>
         ) : (
           <AnimatePresence mode="popLayout">
-            <motion.div layout className="columns-1 gap-6 sm:columns-2">
+            <m.div layout className="columns-1 gap-6 sm:columns-2">
               {filtered.map((p, i) => (
                 <CaseStudyCard key={p.id} project={p} index={i} />
               ))}
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         )}
 

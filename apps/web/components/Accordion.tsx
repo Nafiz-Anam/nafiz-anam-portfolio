@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 
@@ -113,7 +113,7 @@ export function Accordion({
 
             <AnimatePresence initial={false}>
               {isOpen && (
-                <motion.div
+                <m.div
                   key="answer"
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
@@ -130,7 +130,7 @@ export function Accordion({
                   >
                     {item.a}
                   </p>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>

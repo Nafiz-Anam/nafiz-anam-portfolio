@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactNode } from "react";
 import { clipReveal, fadeUp, stagger, staggerItem, inView } from "@/lib/motion";
 
@@ -29,7 +29,7 @@ export function Reveal({ children, className, delay = 0, variant = "up" }: Revea
   };
 
   return (
-    <motion.div
+    <m.div
       variants={variants}
       initial="hidden"
       whileInView="show"
@@ -37,7 +37,7 @@ export function Reveal({ children, className, delay = 0, variant = "up" }: Revea
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -53,7 +53,7 @@ export function RevealList({
   delayChildren?: number;
 }) {
   return (
-    <motion.div
+    <m.div
       variants={stagger(staggerDelay, delayChildren)}
       initial="hidden"
       whileInView="show"
@@ -61,14 +61,14 @@ export function RevealList({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
 export function RevealItem({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <motion.div variants={staggerItem} className={className}>
+    <m.div variants={staggerItem} className={className}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }

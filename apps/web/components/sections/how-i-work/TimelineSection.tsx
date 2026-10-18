@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const RANGES = [
   {
@@ -25,7 +25,7 @@ export function TimelineSection() {
   return (
     <section className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16">
       <div className="mx-auto max-w-[1800px]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -49,7 +49,7 @@ export function TimelineSection() {
 
           <div className="flex flex-col divide-y divide-foreground/[0.07]">
             {RANGES.map((range, i) => (
-              <motion.div
+              <m.div
                 key={range.label}
                 initial={{ opacity: 0, x: 10 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -63,10 +63,10 @@ export function TimelineSection() {
                 <span className="shrink-0 font-mono text-[13px] font-bold tracking-tight text-accent">
                   {range.duration}
                 </span>
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

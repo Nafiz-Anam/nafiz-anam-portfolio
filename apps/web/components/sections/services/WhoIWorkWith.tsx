@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 
 const CLIENTS = [
@@ -84,7 +84,7 @@ export function WhoIWorkWith() {
       className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -100,9 +100,9 @@ export function WhoIWorkWith() {
               One Underlying Problem
             </span>
           </h2>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -116,7 +116,7 @@ export function WhoIWorkWith() {
               isLast={i === CLIENTS.length - 1}
             />
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

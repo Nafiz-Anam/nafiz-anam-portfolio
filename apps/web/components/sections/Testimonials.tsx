@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { SectionReveal, titleVariants, bodyVariants } from "@/components/ui/SectionReveal";
@@ -33,13 +33,13 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
           {/* Heading — clip reveal */}
           <SectionReveal className="lg:col-start-1 lg:row-start-1" stagger={0.12}>
             <div style={{ overflow: "hidden" }}>
-              <motion.h2
+              <m.h2
                 variants={titleVariants}
                 className="text-5xl font-bold leading-none sm:text-6xl"
               >
                 <span className="font-serif italic text-accent">Client</span>{" "}
                 <span className="font-sans text-foreground">Results.</span>
-              </motion.h2>
+              </m.h2>
             </div>
           </SectionReveal>
 
@@ -68,7 +68,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                 const i = (index + slot) % testimonials.length;
                 const t = testimonials[i]!;
                 return (
-                  <motion.button
+                  <m.button
                     key={t.id}
                     onClick={() => go(i, slot === 0 ? -1 : 1)}
                     aria-label={`Show testimonial from ${t.name}`}
@@ -84,7 +84,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                         {t.name.charAt(0).toUpperCase()}
                       </div>
                     )}
-                  </motion.button>
+                  </m.button>
                 );
               })}
             </div>
@@ -93,7 +93,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
           {/* Carousel */}
           <Reveal className="relative overflow-hidden rounded-[5px] bg-[#3A2822] lg:col-start-2 lg:row-start-2" delay={0.1}>
             <AnimatePresence mode="wait" custom={direction} initial={false}>
-              <motion.div
+              <m.div
                 key={index}
                 custom={direction}
                 variants={slideVariants}
@@ -130,7 +130,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
                     </span>
                   </p>
                 </div>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </Reveal>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { Fragment, useRef } from "react";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
@@ -13,14 +13,14 @@ function WordReveal({ children, className, delay = 0 }: { children: string; clas
         <Fragment key={i}>
         {i > 0 && " "}
         <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
-          <motion.span
+          <m.span
             style={{ display: "inline-block" }}
             initial={{ y: "110%", opacity: 0 }}
             animate={inView ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: delay + i * 0.06 }}
           >
             {word}
-          </motion.span>
+          </m.span>
         </span>
         </Fragment>
       ))}
@@ -113,24 +113,24 @@ function HeadingReveal() {
       {words.map((w, i) => (
         <Fragment key={w}>
         <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", lineHeight: 1.4, paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
-          <motion.span
+          <m.span
             style={{ display: "inline-block" }}
             initial={{ y: "110%", opacity: 0 }}
             animate={inView ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.05 + i * 0.07 }}
-          >{w}</motion.span>
+          >{w}</m.span>
         </span>
         {" "}
         </Fragment>
       ))}
       <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", lineHeight: 1.4, paddingRight: "0.15em", marginRight: "-0.15em", paddingBottom: "0.18em", marginBottom: "-0.18em" }}>
-        <motion.span
+        <m.span
           className="font-serif italic"
           style={{ display: "inline-block", color: "hsl(var(--accent))", letterSpacing: "normal" }}
           initial={{ y: "110%", opacity: 0 }}
           animate={inView ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.19 }}
-        >Build</motion.span>
+        >Build</m.span>
       </span>
     </h2>
   );
@@ -170,7 +170,7 @@ export function HowWeBuild() {
 
         {/* Top: portrait + copy */}
         <div className="grid grid-cols-1 items-center gap-16 sm:grid-cols-[35fr_65fr]">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -181,7 +181,7 @@ export function HowWeBuild() {
               aspectClassName="aspect-[4/5]"
               className="max-h-[500px] w-full rounded-[5px] object-cover object-top"
             />
-          </motion.div>
+          </m.div>
 
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-3">

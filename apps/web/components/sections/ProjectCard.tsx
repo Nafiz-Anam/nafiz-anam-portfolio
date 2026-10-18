@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@portfolio/ui";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { m, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
 import type { Project } from "@portfolio/types";
 
@@ -26,7 +26,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
   function onLeave() { mx.set(0); my.set(0); }
 
   return (
-    <motion.a
+    <m.a
       ref={ref}
       href={`/case-studies/${project.slug}`}
       className={cn(
@@ -58,13 +58,13 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
         />
       )}
 
-      <motion.span
+      <m.span
         className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-accent text-white"
         whileHover={{ scale: 1.15, rotate: 45 }}
         transition={{ duration: 0.25 }}
       >
         <ArrowUpRight size={16} />
-      </motion.span>
+      </m.span>
 
       <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/70 to-transparent p-5">
         <p className="text-sm font-bold text-white leading-tight">{project.title}</p>
@@ -72,6 +72,6 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
           <p className="mt-1 line-clamp-2 text-xs text-white/70">{project.excerpt}</p>
         )}
       </div>
-    </motion.a>
+    </m.a>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const PROJECTS = [
   {
@@ -42,7 +42,7 @@ export function FrequentlyRequested() {
       className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -60,9 +60,9 @@ export function FrequentlyRequested() {
             If your project doesn't fit neatly into one of these, reach out anyway.
             Most of the interesting work doesn't fit a template.
           </p>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -85,7 +85,7 @@ export function FrequentlyRequested() {
               </p>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 
 interface MagneticButtonProps {
   children: ReactNode;
@@ -45,11 +45,11 @@ export function MagneticButton({
   }
 
   const inner = (
-    <motion.div
+    <m.div
       style={{ x: sx, y: sy, display: "inline-flex" }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 
   const baseProps = {

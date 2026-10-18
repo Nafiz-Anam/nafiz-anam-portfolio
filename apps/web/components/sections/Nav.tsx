@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Button } from "@portfolio/ui";
 import { BookingButton } from "./BookingButton";
 import { defaultNav, type NavContent } from "@/lib/placeholder-content";
@@ -142,7 +142,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                   createPortal(
                     <AnimatePresence>
                       {servicesOpen && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0, y: -6, scale: 0.97 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -6, scale: 0.97 }}
@@ -192,7 +192,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                               </a>
                             </div>
                           </div>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>,
                     document.body
@@ -236,7 +236,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
           <AnimatePresence>
             {mobileOpen && (
               <>
-                <motion.div
+                <m.div
                   key="mobile-nav-backdrop"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -246,7 +246,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                   style={{ top: barBottom }}
                   onClick={() => setMobileOpen(false)}
                 />
-                <motion.div
+                <m.div
                   key="mobile-nav-panel"
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -314,7 +314,7 @@ export function Nav({ data = defaultNav }: { data?: NavContent }) {
                       Book a free call
                     </BookingButton>
                   </nav>
-                </motion.div>
+                </m.div>
               </>
             )}
           </AnimatePresence>,

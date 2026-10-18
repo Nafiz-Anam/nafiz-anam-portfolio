@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Button, Select } from "@portfolio/ui";
 import { BookingButton } from "@/components/sections/BookingButton";
 import { Accordion } from "@/components/Accordion";
@@ -22,7 +22,7 @@ function Reveal({
   className?: string;
 }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -30,7 +30,7 @@ function Reveal({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -50,16 +50,16 @@ function ContactHero() {
     <section className="px-6 pb-28 pt-24 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         <div className="max-w-[1000px]">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className="mb-8"
           >
             <SectionLabel>Get in Touch</SectionLabel>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: "easeOut", delay: 0.05 }}
@@ -69,9 +69,9 @@ function ContactHero() {
             Tell Me What's
             <br />
             <span className="font-serif italic text-accent">Not Working.</span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
@@ -81,9 +81,9 @@ function ContactHero() {
             together with workarounds, or a decision you don't want to get
             wrong on your own, I'd like to hear what's actually going on
             before we talk about the fix.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: "easeOut", delay: 0.16 }}
@@ -103,7 +103,7 @@ function ContactHero() {
                 Send an Email
               </Button>
             </a>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
@@ -436,7 +436,7 @@ function ProjectInquiryForm() {
           <Reveal>
             <AnimatePresence mode="wait">
               {submitted ? (
-                <motion.div
+                <m.div
                   key="success"
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -480,9 +480,9 @@ function ProjectInquiryForm() {
                   >
                     Send another message
                   </button>
-                </motion.div>
+                </m.div>
               ) : (
-                <motion.form
+                <m.form
                   key="form"
                   ref={formRef}
                   onSubmit={handleSubmit}
@@ -609,7 +609,7 @@ function ProjectInquiryForm() {
                       No spam. No commitment. I'll respond within one business day.
                     </p>
                   </div>
-                </motion.form>
+                </m.form>
               )}
             </AnimatePresence>
           </Reveal>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 
 const REASONS = [
@@ -83,7 +83,7 @@ function ReasonRow({
 
       {!isLast && (
         <div className="relative mx-10 h-px bg-foreground/[0.07]">
-          <motion.div
+          <m.div
             className="absolute inset-0 origin-left bg-accent"
             initial={false}
             animate={{ scaleX: hovered ? 1 : 0 }}
@@ -102,7 +102,7 @@ export function WhyClientsChooseMe() {
       className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -118,9 +118,9 @@ export function WhyClientsChooseMe() {
               Not Just Execution
             </span>
           </h2>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -134,7 +134,7 @@ export function WhyClientsChooseMe() {
               isLast={i === REASONS.length - 1}
             />
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

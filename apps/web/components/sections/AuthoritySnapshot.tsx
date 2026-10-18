@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { SectionReveal } from "@/components/ui/SectionReveal";
 
 const statVariants = {
@@ -43,7 +43,7 @@ const STATS = [
 
 function StatItem({ value, label, caption }: { value: string; label: string; caption: string }) {
   return (
-    <motion.div
+    <m.div
       variants={statVariants}
       whileHover={{ y: -3 }}
       className="group relative flex flex-1 flex-col justify-center px-6 py-10 transition-shadow duration-200 hover:shadow-[0_12px_32px_rgba(0,0,0,0.10)] lg:px-8"
@@ -60,7 +60,7 @@ function StatItem({ value, label, caption }: { value: string; label: string; cap
       <p className="mt-1.5 text-[10px] leading-snug text-panel-foreground/35">
         {caption}
       </p>
-    </motion.div>
+    </m.div>
   );
 }
 

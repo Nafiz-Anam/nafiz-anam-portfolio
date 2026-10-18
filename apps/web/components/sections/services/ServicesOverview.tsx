@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
@@ -128,7 +128,7 @@ function ServiceCard({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <motion.div
+    <m.div
       className="dark group relative flex flex-col gap-7 rounded-[5px] border bg-background p-10"
       animate={{
         y: hovered ? -3 : 0,
@@ -146,7 +146,7 @@ function ServiceCard({
       onHoverEnd={() => setHovered(false)}
     >
       {/* icon */}
-      <motion.span
+      <m.span
         className="block w-fit"
         animate={{
           y: hovered ? -2 : 0,
@@ -157,7 +157,7 @@ function ServiceCard({
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
         {icon}
-      </motion.span>
+      </m.span>
 
       <div className="flex flex-col gap-3">
         <p className="text-[17px] font-bold leading-snug tracking-tight text-panel-foreground">
@@ -185,14 +185,14 @@ function ServiceCard({
         className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-accent hover:opacity-75 transition-opacity duration-200"
       >
         <span>Learn More</span>
-        <motion.span
+        <m.span
           animate={{ x: hovered ? 4 : 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
         >
           →
-        </motion.span>
+        </m.span>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -203,7 +203,7 @@ export function ServicesOverview() {
       className="bg-panel bg-texture-lines-panel px-6 py-28 text-panel-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -217,9 +217,9 @@ export function ServicesOverview() {
             Six Ways{" "}
             <span className="font-serif italic text-accent">I Get Involved</span>
           </h2>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -229,7 +229,7 @@ export function ServicesOverview() {
           {SERVICES.map((s) => (
             <ServiceCard key={s.title} {...s} />
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

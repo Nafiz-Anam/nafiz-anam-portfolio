@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Accordion } from "@/components/Accordion";
 
 const FAQS = [
@@ -29,7 +29,7 @@ export function InsightsFAQ() {
       className="dark bg-texture-lines bg-background px-6 py-28 text-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -43,9 +43,9 @@ export function InsightsFAQ() {
             Questions About{" "}
             <span className="font-serif italic text-accent">These Insights</span>
           </h2>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -53,7 +53,7 @@ export function InsightsFAQ() {
           className="mx-auto max-w-[860px]"
         >
           <Accordion items={FAQS} defaultOpenIndex={0} />
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

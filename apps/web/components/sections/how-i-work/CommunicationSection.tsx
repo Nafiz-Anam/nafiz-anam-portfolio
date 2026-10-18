@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const POINTS = [
   {
@@ -59,7 +59,7 @@ export function CommunicationSection() {
   return (
     <section className="bg-texture-lines bg-surface py-28 text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 lg:px-16">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -80,9 +80,9 @@ export function CommunicationSection() {
             silence. Weeks go by, then a status update arrives that doesn&apos;t match
             expectations. That gap is where trust breaks down, and it&apos;s avoidable.
           </p>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -92,7 +92,7 @@ export function CommunicationSection() {
           {POINTS.map((point, i) => (
             <PointRow key={point.title} {...point} isLast={i === POINTS.length - 1} />
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

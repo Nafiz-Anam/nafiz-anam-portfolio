@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Button } from "@portfolio/ui";
 
 export function NewsletterSection() {
@@ -22,7 +22,7 @@ export function NewsletterSection() {
       <div className="mx-auto max-w-[1800px]">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
           {/* Left */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -61,10 +61,10 @@ export function NewsletterSection() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Right — form */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -114,7 +114,7 @@ export function NewsletterSection() {
                 </p>
               </form>
             )}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

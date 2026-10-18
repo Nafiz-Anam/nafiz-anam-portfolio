@@ -1,23 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { BookingButton } from "@/components/sections/BookingButton";
 
 export function ServicesHero() {
   return (
     <section className="dark bg-texture-lines bg-background text-foreground">
       <div className="mx-auto max-w-[1800px] px-6 pb-28 pt-20 lg:px-16 lg:pb-36 lg:pt-28">
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-14 text-[10px] font-bold uppercase tracking-[0.22em] text-accent"
         >
           Services
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.1, ease: "easeOut" }}
@@ -49,7 +49,7 @@ export function ServicesHero() {
               View Case Studies
             </Link>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

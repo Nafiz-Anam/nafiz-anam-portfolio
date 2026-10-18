@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const INDUSTRIES = [
   "Marketplace Platforms",
@@ -21,7 +21,7 @@ export function IndustriesServed() {
   return (
     <section className="bg-texture-lines bg-surface py-24 text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 lg:px-16">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -49,7 +49,7 @@ export function IndustriesServed() {
           {/* Right: industry list */}
           <div className="flex flex-col divide-y divide-panel-foreground/[0.07]">
             {INDUSTRIES.map((industry, i) => (
-              <motion.div
+              <m.div
                 key={industry}
                 initial={{ opacity: 0, x: 10 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -63,10 +63,10 @@ export function IndustriesServed() {
                 <span className="font-mono text-[11px] text-panel-foreground/25 transition-colors duration-200 group-hover:text-accent/50">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

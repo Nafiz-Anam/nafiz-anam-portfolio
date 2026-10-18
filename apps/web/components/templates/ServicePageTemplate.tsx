@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 import { Button } from "@portfolio/ui";
 import type { ServicePageData } from "@/lib/service-pages";
@@ -18,7 +18,7 @@ function Reveal({
   className?: string;
 }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
@@ -26,7 +26,7 @@ function Reveal({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -56,17 +56,17 @@ function HeroSection({
   return (
     <section className="dark bg-texture-lines bg-background text-foreground">
       <div className="mx-auto max-w-[1800px] px-6 pb-28 pt-20 lg:px-16 lg:pb-36 lg:pt-28">
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-14 text-[10px] font-bold uppercase tracking-[0.22em] text-accent"
         >
           {tagline}
-        </motion.p>
+        </m.p>
 
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_380px] lg:items-end">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1, ease: "easeOut" }}
@@ -97,10 +97,10 @@ function HeroSection({
                 View Case Studies
               </a>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* right: trust signal */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.22, ease: "easeOut" }}
@@ -116,7 +116,7 @@ function HeroSection({
                 <p className="text-[14px] leading-[1.7] text-foreground/50">{point}</p>
               </div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

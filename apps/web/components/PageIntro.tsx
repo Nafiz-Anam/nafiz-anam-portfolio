@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { markIntroDone } from "@/lib/intro-signal";
 
 const DOT_START = 1100;   // ms after mount — name is done at ~800ms, 300ms hold
@@ -36,19 +36,19 @@ export function PageIntro() {
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0E0E1D]"
     >
       {/* Name */}
-      <motion.div
+      <m.div
         style={{ overflow: "hidden" }}
         animate={dotVisible ? { opacity: 0, y: -12 } : {}}
         transition={{ duration: 0.2 }}
       >
-        <motion.p
+        <m.p
           className="font-sans text-4xl font-bold text-white sm:text-6xl"
           initial={{ y: "110%" }}
           animate={{ y: "0%" }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
         >
           Nafiz{" "}
-          <motion.span
+          <m.span
             className="font-serif italic"
             style={{ color: "hsl(13, 79%, 57%)" }}
             initial={{ opacity: 0 }}
@@ -56,13 +56,13 @@ export function PageIntro() {
             transition={{ duration: 0.45, delay: 0.3 }}
           >
             Anam.
-          </motion.span>
-        </motion.p>
-      </motion.div>
+          </m.span>
+        </m.p>
+      </m.div>
 
       {/* Iris */}
       {dotVisible && (
-        <motion.div
+        <m.div
           className="absolute inset-0 pointer-events-none"
           style={{
             background: "hsl(13, 79%, 57%)",

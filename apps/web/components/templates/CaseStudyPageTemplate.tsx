@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Button } from "@portfolio/ui";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { BookingButton } from "@/components/sections/BookingButton";
@@ -23,7 +23,7 @@ function Reveal({
   className?: string;
 }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -31,7 +31,7 @@ function Reveal({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -90,7 +90,7 @@ function CaseStudyHero({
     <section className="px-6 pb-0 pt-20 lg:px-16">
       <div className="mx-auto max-w-[1800px]">
         {/* Breadcrumb */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
@@ -101,12 +101,12 @@ function CaseStudyHero({
           </a>
           <span>/</span>
           <span className="text-foreground/50">{industry}</span>
-        </motion.div>
+        </m.div>
 
         {/* Content column */}
         <div className="mx-auto max-w-[900px]">
           {/* Industry badge */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
@@ -115,10 +115,10 @@ function CaseStudyHero({
             <span className="rounded-[3px] border border-accent/25 bg-accent/[0.08] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
               {industry}
             </span>
-          </motion.div>
+          </m.div>
 
           {/* Title */}
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
@@ -126,20 +126,20 @@ function CaseStudyHero({
             style={{ fontSize: "clamp(32px, 4.5vw, 64px)" }}
           >
             {title}
-          </motion.h1>
+          </m.h1>
 
           {/* Summary */}
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
             className="mb-12 text-[18px] leading-[1.75] text-foreground/52"
           >
             {summary}
-          </motion.p>
+          </m.p>
 
           {/* Meta strip */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: "easeOut", delay: 0.16 }}
@@ -166,10 +166,10 @@ function CaseStudyHero({
               </p>
               <StatusBadge status={status} />
             </div>
-          </motion.div>
+          </m.div>
 
           {/* CTA */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: "easeOut", delay: 0.2 }}
@@ -180,11 +180,11 @@ function CaseStudyHero({
                 Discuss a Similar Project
               </Button>
             </a>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Hero image */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.24 }}
@@ -197,7 +197,7 @@ function CaseStudyHero({
             aspectClassName="aspect-[16/7]"
             className="!rounded-[5px] w-full"
           />
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
@@ -785,7 +785,7 @@ function KeyFeatures({ features }: Pick<CaseStudyData, "features">) {
 ═══════════════════════════════════════════════════════════ */
 function MetricCard({ metric, index }: { metric: CaseStudyMetric; index: number }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
@@ -809,7 +809,7 @@ function MetricCard({ metric, index }: { metric: CaseStudyMetric; index: number 
           {metric.context}
         </p>
       )}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -959,7 +959,7 @@ function RelatedProjects({
           </h2>
         </Reveal>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -969,7 +969,7 @@ function RelatedProjects({
           {relatedProjects.map((p) => (
             <RelatedProjectCard key={p.slug} project={p} />
           ))}
-        </motion.div>
+        </m.div>
 
         <Reveal delay={0.12} className="mt-14 text-center">
           <a href="/case-studies">

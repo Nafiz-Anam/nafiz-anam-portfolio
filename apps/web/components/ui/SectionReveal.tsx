@@ -3,10 +3,10 @@
 /**
  * SectionReveal — wraps a section so ALL direct motion children
  * stagger automatically (no individual whileInView needed on children).
- * Children just need `variants` from lib/motion.
+ * Children just need `variants` from lib/m.
  */
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactNode } from "react";
 
 interface SectionRevealProps {
@@ -26,7 +26,7 @@ export function SectionReveal({
   delay = 0,
   margin = "0px",
 }: SectionRevealProps) {
-  const Wrapper = motion[Tag];
+  const Wrapper = m[Tag];
   return (
     <Wrapper
       initial="hidden"

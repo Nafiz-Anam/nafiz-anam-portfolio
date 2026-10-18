@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export function TextHoverEffect({
   text,
@@ -24,7 +24,7 @@ export function TextHoverEffect({
           <stop offset="100%" stopColor="hsl(0,72%,65%)" />
         </linearGradient>
 
-        <motion.radialGradient
+        <m.radialGradient
           id="naRevealMask"
           gradientUnits="userSpaceOnUse"
           r="22%"
@@ -34,7 +34,7 @@ export function TextHoverEffect({
         >
           <stop offset="0%"   stopColor="white" />
           <stop offset="100%" stopColor="black" />
-        </motion.radialGradient>
+        </m.radialGradient>
 
         <mask id="naTextMask">
           <rect x="0" y="0" width="100%" height="100%" fill="url(#naRevealMask)" />
@@ -53,7 +53,7 @@ export function TextHoverEffect({
       </text>
 
       {/* Draw-on stroke animation — plays once on mount */}
-      <motion.text
+      <m.text
         x="50%" y="55%" textAnchor="middle" dominantBaseline="middle"
         fontSize="85" fontWeight="700" fontFamily="var(--font-sans, sans-serif)"
         strokeWidth="1"
@@ -64,7 +64,7 @@ export function TextHoverEffect({
         transition={{ duration: 4, ease: "easeInOut" }}
       >
         {text}
-      </motion.text>
+      </m.text>
 
       {/* Hover gradient reveal */}
       <text

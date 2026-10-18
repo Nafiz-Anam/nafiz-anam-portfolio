@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 
 const CAPABILITIES = [
@@ -168,7 +168,7 @@ export function TechCapabilities() {
     <section className="bg-texture-lines bg-surface py-28 text-panel-foreground">
       <div className="mx-auto max-w-[1800px] px-6 lg:px-16">
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -188,9 +188,9 @@ export function TechCapabilities() {
             Technology choices are informed by business requirements, not trends. Every capability
             below has been deployed in real production environments serving real users.
           </p>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -204,7 +204,7 @@ export function TechCapabilities() {
               isLast={i === CAPABILITIES.length - 1}
             />
           ))}
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

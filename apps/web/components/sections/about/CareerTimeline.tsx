@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const MILESTONES = [
   {
@@ -48,7 +48,7 @@ export function CareerTimeline({ milestones: data }: { milestones?: typeof MILES
       className="dark bg-texture-lines bg-surface px-6 py-28 text-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -62,12 +62,12 @@ export function CareerTimeline({ milestones: data }: { milestones?: typeof MILES
             Years of{" "}
             <span className="font-serif italic text-accent">Building & Leading</span>
           </h2>
-        </motion.div>
+        </m.div>
 
         <div className="mx-auto max-w-[860px]">
-          {milestones.map((m, i) => (
-            <motion.div
-              key={`${m.org}-${i}`}
+          {milestones.map((item, i) => (
+            <m.div
+              key={`${item.org}-${i}`}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
@@ -89,21 +89,21 @@ export function CareerTimeline({ milestones: data }: { milestones?: typeof MILES
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
                     <p className="text-[20px] font-bold leading-snug tracking-tight">
-                      {m.title}
+                      {item.title}
                     </p>
                     <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-accent">
-                      {m.org}
+                      {item.org}
                     </p>
                   </div>
                   <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-foreground/32">
-                    {m.period}
+                    {item.period}
                   </p>
                   <p className="max-w-[620px] text-[14px] leading-[1.85] text-foreground/50">
-                    {m.description}
+                    {item.description}
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

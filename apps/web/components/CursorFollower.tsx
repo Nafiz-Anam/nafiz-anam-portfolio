@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 
 export function CursorFollower() {
   const [visible, setVisible] = useState(false);
@@ -40,23 +40,23 @@ export function CursorFollower() {
   return (
     <>
       {/* Dot — snaps directly to cursor */}
-      <motion.div
+      <m.div
         style={{ x: cx, y: cy, position: "fixed", top: 0, left: 0, pointerEvents: "none", zIndex: 9999 }}
         className="mix-blend-difference"
       >
-        <motion.div
+        <m.div
           animate={{ scale: hoveringLink ? 0 : 1, opacity: visible ? 1 : 0 }}
           transition={{ duration: 0.15 }}
           className="h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
         />
-      </motion.div>
+      </m.div>
 
       {/* Ring — lags behind */}
-      <motion.div
+      <m.div
         style={{ x: sx, y: sy, position: "fixed", top: 0, left: 0, pointerEvents: "none", zIndex: 9998 }}
         className="mix-blend-difference"
       >
-        <motion.div
+        <m.div
           animate={{
             width:   hoveringLink ? 56 : 32,
             height:  hoveringLink ? 56 : 32,
@@ -66,7 +66,7 @@ export function CursorFollower() {
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="-translate-x-1/2 -translate-y-1/2 rounded-full border border-white"
         />
-      </motion.div>
+      </m.div>
     </>
   );
 }

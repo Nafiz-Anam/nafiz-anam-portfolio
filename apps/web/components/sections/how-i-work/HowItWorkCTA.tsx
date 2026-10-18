@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { BookingButton } from "@/components/sections/BookingButton";
 
 export function HowItWorkCTA() {
   return (
     <section className="bg-texture-lines bg-background py-32 text-foreground">
       <div className="mx-auto max-w-[1800px] px-6 lg:px-16">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -54,10 +54,10 @@ export function HowItWorkCTA() {
               View Case Studies →
             </a>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* bottom divider strip */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -80,7 +80,7 @@ export function HowItWorkCTA() {
               ))}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

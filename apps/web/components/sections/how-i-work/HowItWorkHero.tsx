@@ -1,22 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { BookingButton } from "@/components/sections/BookingButton";
 
 export function HowItWorkHero() {
   return (
     <section className="mx-auto max-w-[1800px] px-6 pb-28 pt-16 lg:px-16">
-      <motion.p
+      <m.p
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: "easeOut" }}
         className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent"
       >
         How I Work
-      </motion.p>
+      </m.p>
 
-      <motion.h1
+      <m.h1
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
@@ -24,9 +24,9 @@ export function HowItWorkHero() {
       >
         <span className="font-sans text-foreground">The Process Behind</span>{" "}
         <span className="block font-serif italic text-accent">Every Engagement.</span>
-      </motion.h1>
+      </m.h1>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.18, ease: "easeOut" }}
@@ -38,9 +38,9 @@ export function HowItWorkHero() {
           beginning of the relationship, not the end of it. This is what that actually looks
           like, step by step.
         </p>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.28, ease: "easeOut" }}
@@ -55,7 +55,7 @@ export function HowItWorkHero() {
         >
           View Case Studies
         </Link>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

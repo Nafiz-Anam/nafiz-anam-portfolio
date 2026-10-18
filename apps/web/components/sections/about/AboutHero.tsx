@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Button } from "@portfolio/ui";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { BookingButton } from "@/components/sections/BookingButton";
@@ -10,18 +10,18 @@ export function AboutHero() {
   return (
     <section className="dark bg-texture-lines bg-background text-foreground">
       <div className="mx-auto max-w-[1800px] px-6 pb-28 pt-20 lg:px-16 lg:pb-32 lg:pt-24">
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-14 text-[10px] font-bold uppercase tracking-[0.22em] text-accent"
         >
           About Nafiz Anam
-        </motion.p>
+        </m.p>
 
         <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-[1fr_360px]">
           {/* Left */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1, ease: "easeOut" }}
@@ -56,10 +56,10 @@ export function AboutHero() {
                 View Case Studies
               </Link>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Right: portrait */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.75, delay: 0.2, ease: "easeOut" }}
@@ -70,7 +70,7 @@ export function AboutHero() {
               aspectClassName="aspect-[3/4]"
               className="w-full rounded-[5px] object-cover object-top"
             />
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

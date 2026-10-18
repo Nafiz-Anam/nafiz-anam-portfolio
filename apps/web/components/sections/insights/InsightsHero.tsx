@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { BookingButton } from "@/components/sections/BookingButton";
 
 export function InsightsHero({
@@ -24,7 +24,7 @@ export function InsightsHero({
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_280px]">
           {/* Left */}
           <div className="flex flex-col gap-12">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: "easeOut" }}
@@ -50,9 +50,9 @@ export function InsightsHero({
                 solving real technical problems for the businesses I work
                 with.
               </p>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: "easeOut", delay: 0.2 }}
@@ -67,11 +67,11 @@ export function InsightsHero({
               <BookingButton location="insights_hero" className="rounded-[5px] border border-foreground/20 px-7 py-3 text-xs font-bold uppercase tracking-wide text-foreground transition-colors hover:border-foreground/40 hover:bg-foreground/[0.03]">
                 Book Discovery Call
               </BookingButton>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Right — editorial stat column */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, ease: "easeOut", delay: 0.15 }}
@@ -87,7 +87,7 @@ export function InsightsHero({
                 </p>
               </div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

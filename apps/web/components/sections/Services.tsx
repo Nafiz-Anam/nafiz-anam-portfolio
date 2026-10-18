@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { SectionReveal, titleVariants, bodyVariants, cardVariants } from "@/components/ui/SectionReveal";
 import { trackEvent } from "@/lib/analytics";
 
@@ -117,7 +117,7 @@ function ServiceCard({ title, description, icon, href }: (typeof SERVICES)[numbe
       onClick={() => trackEvent("service_card_click", { service_name: title, source_page: "homepage" })}
       className="block h-full"
     >
-      <motion.div
+      <m.div
         className="group relative flex h-full flex-col gap-7 rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04] p-10 transition-[box-shadow,border-color] duration-250 hover:border-accent hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)]"
         whileHover={{ y: -4 }}
         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
@@ -139,7 +139,7 @@ function ServiceCard({ title, description, icon, href }: (typeof SERVICES)[numbe
           <span>Learn More</span>
           <span className="inline-block translate-x-0 transition-transform duration-250 group-hover:translate-x-1">→</span>
         </div>
-      </motion.div>
+      </m.div>
     </Link>
   );
 }
@@ -151,27 +151,27 @@ export function Services() {
 
         {/* Header — cascades label → heading → body */}
         <SectionReveal className="mb-20 flex flex-col items-center gap-5 text-center" stagger={0.14}>
-          <motion.p variants={bodyVariants} className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+          <m.p variants={bodyVariants} className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
             Services
-          </motion.p>
+          </m.p>
           <div style={{ overflow: "hidden" }}>
-            <motion.h2 variants={titleVariants} className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+            <m.h2 variants={titleVariants} className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
               Where I Actually{" "}
               <span className="font-serif italic text-accent">Get Involved</span>
-            </motion.h2>
+            </m.h2>
           </div>
-          <motion.p variants={bodyVariants} className="max-w-[600px] text-[15px] leading-relaxed text-foreground/55">
+          <m.p variants={bodyVariants} className="max-w-[600px] text-[15px] leading-relaxed text-foreground/55">
             From the first architecture decision to the infrastructure that keeps things
             running, this is the work that most often brings a business to this conversation.
-          </motion.p>
+          </m.p>
         </SectionReveal>
 
         {/* Cards — each card staggers in */}
         <SectionReveal className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.12} delay={0.05}>
           {SERVICES.map((service) => (
-            <motion.div key={service.title} variants={cardVariants}>
+            <m.div key={service.title} variants={cardVariants}>
               <ServiceCard {...service} />
-            </motion.div>
+            </m.div>
           ))}
         </SectionReveal>
 

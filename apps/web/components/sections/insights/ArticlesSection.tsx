@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import type { BlogListItem } from "@portfolio/types";
@@ -15,7 +15,7 @@ function formatDate(iso: Date | string | null) {
 
 export function ArticleCard({ post }: { post: BlogListItem }) {
   return (
-    <motion.article
+    <m.article
       layout
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ export function ArticleCard({ post }: { post: BlogListItem }) {
           </Link>
         </div>
       </div>
-    </motion.article>
+    </m.article>
   );
 }
 
@@ -111,7 +111,7 @@ export function ArticlesSection({
       className="dark bg-surface bg-texture-lines px-6 py-28 text-panel-foreground lg:px-16"
     >
       <div className="mx-auto max-w-[1800px]">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -124,9 +124,9 @@ export function ArticlesSection({
               Latest <span className="font-serif italic text-accent">Insights</span>
             </h2>
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -149,9 +149,9 @@ export function ArticlesSection({
               {cat}
             </button>
           ))}
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -165,10 +165,10 @@ export function ArticlesSection({
             onChange={(e) => setSearch(e.target.value)}
             className="dark w-full rounded-[5px] border border-panel-foreground/10 bg-background/50 px-4 py-2.5 text-sm text-panel-foreground placeholder:text-panel-foreground/30 focus:outline-none focus:ring-1 focus:ring-accent sm:w-64"
           />
-        </motion.div>
+        </m.div>
 
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={activeCategory}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -194,7 +194,7 @@ export function ArticlesSection({
                 </Link>
               </div>
             )}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
 
         {!search && activeCategory === "All" && (

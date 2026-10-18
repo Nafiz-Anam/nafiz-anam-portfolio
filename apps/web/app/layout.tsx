@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Playfair_Display, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LazyMotionProvider } from "@/components/LazyMotionProvider";
 import { GoogleTagManager } from "@/components/GoogleTagManager";
 import { PersonJsonLd } from "@/components/PersonJsonLd";
 import { PageViewTracker } from "@/components/analytics/PageViewTracker";
@@ -95,10 +96,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <PageViewTracker />
         </Suspense>
         <ThemeProvider>
-          <PageIntro />
-          <SmoothScroll>
-            <BookingProvider>{children}</BookingProvider>
-          </SmoothScroll>
+          <LazyMotionProvider>
+            <PageIntro />
+            <SmoothScroll>
+              <BookingProvider>{children}</BookingProvider>
+            </SmoothScroll>
+          </LazyMotionProvider>
         </ThemeProvider>
       </body>
     </html>
