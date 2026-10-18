@@ -85,7 +85,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfair.variable} ${jakarta.variable} ${jetbrains.variable} font-sans`}>
-        {API_URL && <link rel="preconnect" href={API_URL} />}
+        {API_URL && <link rel="preconnect" href={API_URL} crossOrigin="anonymous" />}
+        <link rel="preconnect" href="https://sst.nafizanam.com" />
         <PersonJsonLd />
         <Suspense fallback={null}>
           <GoogleTagManager />

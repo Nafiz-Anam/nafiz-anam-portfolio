@@ -116,20 +116,22 @@ export function Hero({
       </div>
 
       {/* ── Panel card ──
-          Unanimated: this is the LCP region (name, pitch, avatar). Gating it
-          behind JS-hydration + a staggered fade cost ~2.8s of render delay on
-          throttled mobile. It renders at full opacity immediately; only the
-          lightweight CTA row below keeps a small entrance flourish. */}
-      <div className="mt-16 grid grid-cols-1 items-center gap-16 rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04] p-10 text-panel-foreground sm:p-14 lg:grid-cols-[1fr_auto]">
+          This is the LCP region (name, pitch, avatar). It previously waited
+          on JS hydration + a Framer Motion stagger before painting, costing
+          ~2.8s of LCP render delay on throttled mobile. The entrance is now
+          plain CSS (animate-hero-*, see globals.css) — it starts on first
+          paint regardless of hydration, so the fade/slide-in look is kept
+          without blocking LCP on it. */}
+      <div className="animate-hero-panel mt-16 grid grid-cols-1 items-center gap-16 rounded-[5px] border border-panel-foreground/10 bg-panel-foreground/[0.04] p-10 text-panel-foreground sm:p-14 lg:grid-cols-[1fr_auto]">
         <div className="flex flex-col justify-center gap-10">
-          <p className="whitespace-nowrap text-center font-sans text-[clamp(1.75rem,9vw,3.75rem)] font-bold sm:whitespace-normal sm:text-7xl">
+          <p className="animate-hero-name whitespace-nowrap text-center font-sans text-[clamp(1.75rem,9vw,3.75rem)] font-bold sm:whitespace-normal sm:text-7xl">
             Nafiz{" "}
             <span className="font-serif italic" style={{ color: "hsl(13, 79%, 57%)" }}>
               Anam.
             </span>
           </p>
 
-          <p className="max-w-[605px] text-base leading-[1.8] text-panel-foreground">
+          <p className="animate-hero-pitch max-w-[605px] text-base leading-[1.8] text-panel-foreground">
             {merged.pitch}
           </p>
 
@@ -172,7 +174,7 @@ export function Hero({
         </div>
 
         {merged.photoUrl ? (
-          <div className="relative aspect-square w-64 overflow-hidden rounded-[5px] sm:w-72">
+          <div className="animate-hero-photo relative aspect-square w-64 overflow-hidden rounded-[5px] sm:w-72">
             <Image
               src={merged.photoUrl}
               alt={merged.name}
@@ -185,7 +187,7 @@ export function Hero({
         ) : (
           <ImagePlaceholder
             aspectClassName="aspect-square"
-            className="w-64 rounded-[5px] object-cover sm:w-72"
+            className="animate-hero-photo w-64 rounded-[5px] object-cover sm:w-72"
           />
         )}
       </div>
