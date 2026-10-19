@@ -32,7 +32,6 @@ COPY --from=builder /repo/packages packages
 COPY --from=builder /repo/apps/cms/.next apps/cms/.next
 COPY --from=builder /repo/apps/cms/public apps/cms/public
 COPY --from=builder /repo/apps/cms/package.json apps/cms/package.json
-COPY --from=builder /repo/apps/cms/next.config.ts apps/cms/next.config.ts
 COPY --from=builder /repo/apps/cms/next.config.mjs apps/cms/next.config.mjs
 EXPOSE 3001
 WORKDIR /repo/apps/cms
