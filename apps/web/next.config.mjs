@@ -3,6 +3,28 @@ const apiHostname = (() => {
   try { return new URL(API_URL).hostname; } catch { return "localhost"; }
 })();
 
+const isDev = process.env.NODE_ENV !== "production";
+const apiOrigin = (() => {
+  try { return new URL(API_URL).origin; } catch { return "http://localhost:4000"; }
+})();
+
+// GTM is the only third-party script host besides Turnstile. Any tag GTM loads
+// (Meta, TikTok, etc.) needs its hosts added to script-src / connect-src / img-src.
+const csp = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com`,
+  "style-src 'self' 'unsafe-inline'",
+  `img-src 'self' data: blob: https: ${apiOrigin}`,
+  "font-src 'self' data:",
+  `connect-src 'self' ${apiOrigin} https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.g.doubleclick.net https://challenges.cloudflare.com`,
+  "frame-src https://challenges.cloudflare.com https://www.googletagmanager.com",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+  ...(isDev ? [] : ["upgrade-insecure-requests"]),
+].join("; ");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@portfolio/ui", "@portfolio/types"],
@@ -23,6 +45,7 @@ const nextConfig = {
       {
         source: "/(.*)",
         headers: [
+          { key: "Content-Security-Policy", value: csp },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
