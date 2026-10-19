@@ -147,7 +147,7 @@ export function ContactSection() {
               </div>
               <h3 className="text-xl font-bold">Message received!</h3>
               <p className="max-w-sm text-[14px] leading-relaxed text-foreground/55">
-                Thanks for reaching out. I&apos;ll review your message and get back to you within 24 hours.
+                Thanks for reaching out. I&apos;ll review your message and get back to you within one business day.
               </p>
             </div>
           </Reveal>

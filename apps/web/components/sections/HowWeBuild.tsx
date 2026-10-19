@@ -31,7 +31,7 @@ function WordReveal({ children, className, delay = 0 }: { children: string; clas
 const STEPS = [
   {
     number: "01",
-    title: "Discovery",
+    title: "Diagnose",
     description:
       "Understanding the actual problem before any technical decision gets made.",
     icon: (
@@ -43,7 +43,19 @@ const STEPS = [
   },
   {
     number: "02",
-    title: "Architecture",
+    title: "Decide",
+    description:
+      "Settling the direction together: what gets built, what doesn't, and why.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="8 12 11 15 16 9" />
+      </svg>
+    ),
+  },
+  {
+    number: "03",
+    title: "Architect",
     description:
       "Designing the technical foundation for where the business is going.",
     icon: (
@@ -56,10 +68,10 @@ const STEPS = [
     ),
   },
   {
-    number: "03",
-    title: "Development",
+    number: "04",
+    title: "Build",
     description:
-      "Building in visible, reviewable iterations.",
+      "Building in visible, reviewable iterations, with testing matched to the risk.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="16 18 22 12 16 6" />
@@ -68,20 +80,8 @@ const STEPS = [
     ),
   },
   {
-    number: "04",
-    title: "Quality Assurance",
-    description:
-      "Testing that matches the risk profile of what's being built.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <polyline points="9 12 11 14 15 10" />
-      </svg>
-    ),
-  },
-  {
     number: "05",
-    title: "Deployment",
+    title: "Ship",
     description:
       "Production releases handled with the same care as everything before them.",
     icon: (
@@ -92,7 +92,7 @@ const STEPS = [
   },
   {
     number: "06",
-    title: "Growth & Support",
+    title: "Stay",
     description:
       "Staying involved as the business, and the software, keeps evolving.",
     icon: (

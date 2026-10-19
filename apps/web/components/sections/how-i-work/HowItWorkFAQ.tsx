@@ -6,7 +6,7 @@ import { Accordion } from "@/components/Accordion";
 const FAQS = [
   {
     q: "What if I don't know exactly what I need yet?",
-    a: "That's normal, and it's what Discovery is for. Most engagements start with a rough problem, not a finished spec, and the scope gets defined together, not handed to you as a take-it-or-leave-it proposal.",
+    a: "That's normal, and it's what the Diagnose step is for. Most engagements start with a rough problem, not a finished spec, and the scope gets defined together, not handed to you as a take-it-or-leave-it proposal.",
   },
   {
     q: "Do you provide fixed timelines?",

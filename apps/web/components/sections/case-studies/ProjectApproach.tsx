@@ -6,51 +6,44 @@ import { useState } from "react";
 const STEPS = [
   {
     number: "01",
-    title: "Discovery",
+    title: "Diagnose",
     description:
-      "Before writing a single line of code, I invest time understanding the business, its goals, constraints, existing systems, and the people it serves. This is where strategy begins.",
+      "Before anything gets built, I invest time understanding the actual problem: the business, its goals, constraints, existing systems, and why previous fixes didn't stick.",
     detail: "Stakeholder Interviews · Requirements Mapping · Risk Identification · Scope Definition",
   },
   {
     number: "02",
-    title: "Product Strategy",
+    title: "Decide",
     description:
-      "With business goals defined, I translate them into a product roadmap, prioritizing features by impact, defining the MVP, and creating a technical vision that aligns the whole team.",
+      "Together we settle the direction: what gets built, what doesn't, and why. I translate business goals into a prioritized roadmap and a clear MVP.",
     detail: "MVP Definition · Roadmap Planning · Feature Prioritization · Success Metrics",
   },
   {
     number: "03",
-    title: "Architecture",
+    title: "Architect",
     description:
       "Every technical decision at this stage has a five-year consequence. I design systems for the business you're becoming, not just the business you are today.",
     detail: "System Design · Tech Stack Selection · Data Modeling · API Contracts · Security Posture",
   },
   {
     number: "04",
-    title: "Engineering",
+    title: "Build",
     description:
-      "Clean, maintainable code with rigorous review culture, agile sprints, and continuous communication, delivered iteratively so you can validate progress, not just trust a timeline.",
-    detail: "Agile Sprints · Code Review · Documentation · Feature Flagging · Continuous Delivery",
+      "Clean, maintainable code with code review and testing built in, delivered in short, visible iterations so you can validate progress, not just trust a timeline.",
+    detail: "Agile Sprints · Code Review · Unit & Integration Tests · E2E Testing · Documentation",
   },
   {
     number: "05",
-    title: "Testing",
+    title: "Ship",
     description:
-      "Comprehensive testing that matches the risk profile of your product: unit, integration, end-to-end, performance, and security testing before anything ships to real users.",
-    detail: "Unit & Integration Tests · E2E Testing · Load Testing · Security Audits · Accessibility",
-  },
-  {
-    number: "06",
-    title: "Deployment",
-    description:
-      "Production is where it matters. CI/CD pipelines, zero-downtime deployments, observability dashboards, and rollback plans ensure launches are events you celebrate, not fear.",
+      "Production is where it matters. CI/CD pipelines, monitored and reversible deployments, and rollback plans make launches events you celebrate, not fear.",
     detail: "CI/CD Pipelines · Infrastructure as Code · Monitoring & Alerting · Zero-downtime Deploys",
   },
   {
-    number: "07",
-    title: "Continuous Improvement",
+    number: "06",
+    title: "Stay",
     description:
-      "Shipping it is the beginning. I stay close to the metrics, user feedback, and evolving business requirements, iterating to maximize the compounding value of what we built.",
+      "Shipping is the beginning. I stay close to the metrics, user feedback, and evolving business requirements, iterating to maximize the compounding value of what we built.",
     detail: "Performance Optimization · Feature Iteration · Technical Debt Management · Team Support",
   },
 ] as const;

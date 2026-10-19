@@ -67,7 +67,7 @@ export function CaseStudiesCTA() {
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[12px] text-panel-foreground/35">
-              Typically responds within 24 hours.
+              Typically responds within one business day.
             </p>
             <div className="flex flex-wrap gap-6">
               {["Custom Software Development", "SaaS Engineering", "AI Automation", "Technical Consulting", "Architecture Review"].map((service) => (

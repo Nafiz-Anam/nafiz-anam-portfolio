@@ -623,7 +623,7 @@ function ProjectInquiryForm() {
                 Response Time
               </p>
               <p className="text-[15px] font-semibold text-foreground/80">
-                Within 1 business day
+                Within one business day
               </p>
             </div>
 
@@ -749,7 +749,7 @@ const CONNECT_ITEMS = [
   },
   {
     label: "Timezone",
-    value: "GMT+6 (BST)",
+    value: "GMT+6 (Dhaka)",
     href: null,
     description: "Flexible overlap with EU & US East",
     icon: (
@@ -842,7 +842,7 @@ const STEPS = [
     number: "02",
     title: "Discovery Conversation",
     description:
-      "A focused 30-45 minute conversation about what's actually going on: your goals, constraints, and what's not working.",
+      "A focused 30-minute conversation about what's actually going on: your goals, constraints, and what's not working.",
   },
   {
     number: "03",
