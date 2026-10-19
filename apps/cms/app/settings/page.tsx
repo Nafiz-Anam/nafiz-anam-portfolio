@@ -51,6 +51,12 @@ const MANAGED_KEYS: { key: string; label: string; description: string; type?: "u
     type: "url",
   },
   {
+    key: "google_business_url",
+    label: "Google Business Profile URL",
+    description: "Maps link to your Business Profile — added to schema.org sameAs only.",
+    type: "url",
+  },
+  {
     key: "github_url",
     label: "GitHub URL",
     description: "Your GitHub profile — shown in footer socials.",
@@ -213,7 +219,7 @@ const SECRET_KEYS: { key: string; label: string; description: string; type?: "te
   { key: "google_client_secret", label: "Google OAuth Client Secret", description: "From Google Cloud Console credentials.", type: "password" },
 ];
 
-const GENERAL_KEYS = ["availability_status", "contact_email", "facebook_url", "linkedin_url", "github_url", "twitter_url", "ga_measurement_id", "gtm_container_id", "knowledge_graph_image"];
+const GENERAL_KEYS = ["availability_status", "contact_email", "facebook_url", "linkedin_url", "github_url", "twitter_url", "google_business_url", "ga_measurement_id", "gtm_container_id", "knowledge_graph_image"];
 const HERO_KEYS = [
   "footer_photo_url", "hero_headline_1", "hero_headline_2_serif", "hero_headline_2_sans",
   "hero_name", "hero_pitch", "hero_photo_url", "hero_tags",

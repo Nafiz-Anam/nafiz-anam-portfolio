@@ -123,7 +123,7 @@ export const defaultFooter: FooterContent = {
   email: "hi@nafizanam.com",
   whatsapp: "+880 1819-758093",
   location: "Khulna, Bangladesh",
-  locationUrl: "https://maps.app.goo.gl/DXT66bC2RxYV9Mw77",
+  locationUrl: "https://maps.app.goo.gl/miFjuTJg2TBByep89",
   socials: [
     { label: "Facebook", href: "https://www.facebook.com/anamnafiz" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/kazinafizanam/" },
