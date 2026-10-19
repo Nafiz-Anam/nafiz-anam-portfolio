@@ -59,7 +59,7 @@ const logoTiles = [
 
 const STAT_DEFAULTS = [
   { value: "7+",   label: "Years Experience" },
-  { value: "100+", label: "Projects Delivered" },
+  { value: "500+", label: "Projects Delivered" },
   { value: "5",    label: "Countries Served" },
 ];
 
@@ -120,7 +120,7 @@ export async function StatsBand() {
             className="h-[320px] w-full max-w-[320px] rounded-[5px] object-cover"
           />
           <p className="self-center text-left text-[28px] leading-relaxed text-panel-foreground sm:text-[30px]">
-            I build software that businesses can depend on — reliable systems, scalable architecture,
+            I build software that businesses can depend on: reliable systems, scalable architecture,
             and engineering decisions grounded in real business outcomes. Seven years building
             production software across startups, enterprises, and my own ventures.
           </p>

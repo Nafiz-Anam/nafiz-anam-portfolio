@@ -128,7 +128,7 @@ export default async function InsightDetailPage({ params }: Props) {
 
       {isPreview && (
         <div className="flex items-center justify-between bg-amber-500 px-6 py-2 text-xs font-bold text-black">
-          <span>DRAFT PREVIEW — not published</span>
+          <span>DRAFT PREVIEW: not published</span>
           <a href={`${SITE_URL_DRAFT}/api/disable-draft`} className="underline">Exit preview</a>
         </div>
       )}

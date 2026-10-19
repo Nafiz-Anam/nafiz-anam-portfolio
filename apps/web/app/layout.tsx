@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: "Nafiz Anam | Technology & Product Partner",
-    template: "%s — Nafiz Anam",
+    template: "%s | Nafiz Anam",
   },
   description:
     "I diagnose the real problem behind a technical bottleneck, decide the right direction, and lead or execute the fix. Working with growth-stage businesses and funded founders.",

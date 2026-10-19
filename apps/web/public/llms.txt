@@ -1,6 +1,6 @@
 # Nafiz Anam
 
-> Technology & Product Partner for growth-stage businesses and funded founders. Diagnoses the real problem behind a technical bottleneck, decides the right direction, and leads or executes the fix — spanning custom software development, SaaS product engineering, AI automation, technical consulting/architecture, cloud infrastructure/DevOps, and engineering leadership. Based in Khulna, Bangladesh; works with clients worldwide. Founder of Agilo IT; also behind Syrona IT / Servero.io (server-side Google Tag Manager hosting for ecommerce brands).
+> Technology & Product Partner for growth-stage businesses and funded founders. Diagnoses the real problem behind a technical bottleneck, decides the right direction, and leads or executes the fix. Services span custom software development, SaaS product engineering, AI automation, technical consulting/architecture, cloud infrastructure/DevOps, and engineering leadership. Based in Khulna, Bangladesh; works with clients worldwide. Founder of Agilo IT; also behind Syrona IT / Servero.io (server-side Google Tag Manager hosting for ecommerce brands).
 
 ## Core pages
 
@@ -19,6 +19,8 @@
 - [Technical Consulting & Architecture](https://nafizanam.com/services/technical-consulting-architecture)
 - [Cloud Infrastructure & DevOps](https://nafizanam.com/services/cloud-infrastructure-devops)
 - [Engineering Leadership](https://nafizanam.com/services/engineering-leadership)
+- [Tracking & Analytics](https://nafizanam.com/services/tracking-analytics)
+- [Ecommerce Engineering](https://nafizanam.com/services/ecommerce-engineering)
 
 ## Machine-readable
 

@@ -38,6 +38,13 @@ const MILESTONES = [
     description:
       "Spent over five years as a senior full-stack engineer, owning features end-to-end across frontend and backend. Worked closely with product and design to ship reliable, production-grade systems, and built the deep full-stack foundation that now shapes how I lead engineering teams.",
   },
+  {
+    title: "Freelance Software Engineer",
+    org: "Independent",
+    period: "2019 – 2021",
+    description:
+      "Started my career freelancing, building websites, web applications, and custom software directly for clients. Learned to scope, price, and deliver work end-to-end, and to deal with the business side of technical decisions long before I joined a company full-time.",
+  },
 ] as const;
 
 export function CareerTimeline({ milestones: data }: { milestones?: typeof MILESTONES }) {

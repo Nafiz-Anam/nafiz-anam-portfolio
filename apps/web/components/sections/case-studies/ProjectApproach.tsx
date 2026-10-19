@@ -155,7 +155,7 @@ export function ProjectApproach() {
             <span className="font-serif italic text-accent">Every Project.</span>
           </h2>
           <p className="max-w-[560px] text-[15px] leading-[1.85] text-foreground/50">
-            A structured, repeatable process built from over 100 engagements, designed to
+            A structured, repeatable process built from over 500 engagements, designed to
             reduce risk, maximize alignment, and ship software that actually works in production.
           </p>
         </m.div>

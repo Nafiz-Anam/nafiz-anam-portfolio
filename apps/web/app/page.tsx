@@ -29,7 +29,7 @@ const homeSchema = {
           name: "Who do you actually work with?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Mainly two kinds of clients: funded founders and startups scaling a product past its MVP, and growing businesses whose systems or processes have started limiting growth. If you're not sure you fit either, reach out anyway.",
+            text: "Mainly three kinds of clients: funded founders and startups scaling a product past its MVP, growing businesses whose systems or processes have started limiting growth, and product or engineering teams that need a senior second opinion on a specific decision. If you're not sure you fit any of these, reach out anyway.",
           },
         },
         {

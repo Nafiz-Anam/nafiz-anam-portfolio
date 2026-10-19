@@ -27,7 +27,7 @@ const ABOUT_SECTIONS: { key: string; label: string; description: string; placeho
     key: "about_numbers_json",
     label: "Numbers That Matter",
     description: "Array of {value, label}",
-    placeholder: JSON.stringify([{ value: "7+", label: "Years Experience" }, { value: "100+", label: "Projects Delivered" }], null, 2),
+    placeholder: JSON.stringify([{ value: "7+", label: "Years Experience" }, { value: "500+", label: "Projects Delivered" }], null, 2),
   },
   {
     key: "about_faqs_json",

@@ -214,7 +214,7 @@ export function ServicesOverview() {
             What I Do
           </p>
           <h2 className="max-w-[700px] text-4xl font-bold leading-[1.05] tracking-tight text-panel-foreground sm:text-5xl">
-            Six Ways{" "}
+            Eight Ways{" "}
             <span className="font-serif italic text-accent">I Get Involved</span>
           </h2>
         </m.div>

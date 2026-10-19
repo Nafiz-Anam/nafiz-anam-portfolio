@@ -53,7 +53,7 @@ export default async function InsightsPage({
         "@type": "Blog",
         "@id": `${SITE_URL}/insights#blog`,
         url: `${SITE_URL}/insights`,
-        name: "Insights — Nafiz Anam",
+        name: "Insights | Nafiz Anam",
         description: DESCRIPTION,
         author: { "@id": `${SITE_URL}/#person` },
         blogPost: posts.map((p) => ({

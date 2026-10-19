@@ -60,7 +60,7 @@ export default async function CaseStudiesPage({ searchParams }: PageProps) {
         "@type": "CollectionPage",
         "@id": `${SITE_URL}/case-studies#collectionpage`,
         url: `${SITE_URL}/case-studies`,
-        name: "Case Studies — Nafiz Anam",
+        name: "Case Studies | Nafiz Anam",
         description: DESCRIPTION,
         author: { "@id": `${SITE_URL}/#person` },
         hasPart: projects.map((p) => ({

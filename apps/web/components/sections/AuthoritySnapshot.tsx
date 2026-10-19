@@ -15,14 +15,14 @@ const STATS = [
     caption: "Building production software since 2019",
   },
   {
-    value: "800+",
+    value: "500+",
     label: "Projects Delivered",
     caption: "Web, SaaS, and enterprise systems shipped",
   },
   {
     value: "Lead",
     label: "Software Engineer",
-    caption: "Leading engineering at GrainX, Australia",
+    caption: "Leading engineering at Grain Marketplace, Australia",
   },
   {
     value: "Founder",

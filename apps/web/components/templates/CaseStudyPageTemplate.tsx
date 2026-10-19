@@ -765,7 +765,7 @@ function KeyFeatures({ features }: Pick<CaseStudyData, "features">) {
             <span className="font-serif italic text-accent">Delivered</span>
           </h2>
           <p className="mt-5 max-w-[560px] text-[16px] leading-[1.85] text-foreground/48">
-            Each capability was scoped to solve a specific business problem — not built for its own sake.
+            Each capability was scoped to solve a specific business problem, not built for its own sake.
           </p>
         </Reveal>
 
@@ -1003,8 +1003,8 @@ function CaseStudyCTA() {
             <span className="font-serif italic text-accent">Similar Project?</span>
           </h2>
           <p className="max-w-[520px] text-[16px] leading-[1.88] text-foreground/48">
-            Let's talk about how we can build a scalable, maintainable solution
-            tailored to your business — from strategy and architecture through to
+            Let's talk about how I can build a scalable, maintainable solution
+            tailored to your business, from strategy and architecture through to
             production and long-term success.
           </p>
           <div className="flex flex-wrap justify-center gap-4">

@@ -15,7 +15,7 @@ import { HowItWorkCTA } from "@/components/sections/how-i-work/HowItWorkCTA";
 
 const TITLE = "How I Work: Process & Communication | Nafiz Anam";
 const DESCRIPTION =
-  "A structured, repeatable process built from over 100 engagements, plus how communication, timelines, and technology decisions actually work day to day.";
+  "A structured, repeatable process built from over 500 engagements, plus how communication, timelines, and technology decisions actually work day to day.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -44,7 +44,7 @@ const howItWorkSchema = {
       "@type": "WebPage",
       "@id": `${SITE_URL}/how-i-work#webpage`,
       url: `${SITE_URL}/how-i-work`,
-      name: "How I Work — Nafiz Anam",
+      name: "How I Work | Nafiz Anam",
       description: DESCRIPTION,
       author: { "@id": `${SITE_URL}/#person` },
     },

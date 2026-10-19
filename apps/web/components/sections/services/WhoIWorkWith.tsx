@@ -95,7 +95,7 @@ export function WhoIWorkWith() {
             Who I Work With
           </p>
           <h2 className="max-w-[640px] text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-            Two Kinds of Clients,{" "}
+            Three Kinds of Clients,{" "}
             <span className="font-serif italic text-accent">
               One Underlying Problem
             </span>

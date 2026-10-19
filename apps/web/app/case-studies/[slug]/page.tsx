@@ -113,7 +113,7 @@ export default async function CaseStudyPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudySchema) }} />
       {isPreview && (
         <div className="flex items-center justify-between bg-amber-500 px-6 py-2 text-xs font-bold text-black">
-          <span>DRAFT PREVIEW — not published</span>
+          <span>DRAFT PREVIEW: not published</span>
           <a href={`${SITE_URL}/api/disable-draft`} className="underline">Exit preview</a>
         </div>
       )}
@@ -150,7 +150,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
             {project.tags.length > 0 && (
               <p className="mt-6 text-sm text-foreground/50">
-                <span className="font-semibold text-foreground">Services We Provided — </span>
+                <span className="font-semibold text-foreground">Services provided: </span>
                 <span className="text-accent">{project.tags.join(", ")}</span>
               </p>
             )}

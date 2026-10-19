@@ -42,7 +42,7 @@ const contactSchema = {
           name: "What types of projects do you work on?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Mostly two kinds: SaaS products that need to scale past their MVP, and operating businesses whose manual processes or legacy systems have started limiting growth. If your project doesn't fit either, reach out anyway, I'll tell you honestly if I'm the right fit.",
+            text: "Mostly three kinds: SaaS products that need to scale past their MVP, operating businesses whose manual processes or legacy systems have started limiting growth, and engineering teams that need a senior second opinion on a specific decision. If your project doesn't fit any of these, reach out anyway, I'll tell you honestly if I'm the right fit.",
           },
         },
         {

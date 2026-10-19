@@ -65,7 +65,7 @@ export interface PlaceholderStat {
 
 export const placeholderStats: PlaceholderStat[] = [
   { value: "7+",   label: "Years Experience" },
-  { value: "100+", label: "Projects Delivered" },
+  { value: "500+", label: "Projects Delivered" },
   { value: "5",    label: "Countries Served" },
 ];
 
@@ -87,14 +87,14 @@ export const placeholderTestimonials: PlaceholderTestimonial[] = [
     photoUrl: null,
   },
   {
-    quote: "Delivered beyond expectations — design and engineering merged seamlessly.",
+    quote: "Delivered beyond expectations. Design and engineering merged seamlessly.",
     name: "John Smith",
     role: "Founder, Another Co.",
     photoUrl: null,
   },
   {
     quote:
-      "A true partner in every sense — proactive, sharp, and relentless about getting the details right.",
+      "A true partner in every sense: proactive, sharp, and relentless about getting the details right.",
     name: "Amara Chen",
     role: "Head of Product, Northwind",
     photoUrl: null,
