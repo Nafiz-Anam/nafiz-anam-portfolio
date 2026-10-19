@@ -8,16 +8,16 @@ const apiOrigin = (() => {
   try { return new URL(API_URL).origin; } catch { return "http://localhost:4000"; }
 })();
 
-// GTM is the only third-party script host besides Turnstile. Any tag GTM loads
+// GTM (plus the sst.nafizanam.com server-side container) and Turnstile are the only script hosts. Any tag GTM loads
 // (Meta, TikTok, etc.) needs its hosts added to script-src / connect-src / img-src.
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://sst.nafizanam.com https://challenges.cloudflare.com`,
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: blob: https: ${apiOrigin}`,
   "font-src 'self' data:",
-  `connect-src 'self' ${apiOrigin} https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.g.doubleclick.net https://challenges.cloudflare.com`,
-  "frame-src https://challenges.cloudflare.com https://www.googletagmanager.com",
+  `connect-src 'self' ${apiOrigin} https://sst.nafizanam.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.g.doubleclick.net https://challenges.cloudflare.com`,
+  "frame-src https://challenges.cloudflare.com https://www.googletagmanager.com https://sst.nafizanam.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

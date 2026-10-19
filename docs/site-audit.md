@@ -27,7 +27,7 @@ Scope: `apps/web` source code, static content, metadata, and config. Not covered
 
 Ordered by impact on a high-ticket buyer.
 
-1. **Intro overlay on every full page load.** `components/PageIntro.tsx` blocks the screen for about 1.75s with a fixed full-screen overlay, and the hero headline (`Hero.tsx`) stays at `opacity: 0` until the overlay finishes. This delays LCP by at least that long and shows a repeat visitor a splash screen each time. Suggested: show it once per session (sessionStorage) or drop it, and render the h1 visible by default.
+1. **Intro overlay on non-home routes.** The homepage now skips the splash and the hero no longer waits on JS (recent perf commits). Other routes reached by hard load still show the ~1.75s overlay in `components/PageIntro.tsx`. Consider showing it once per session or removing it.
 2. **Budget floor invites low-ticket leads.** Both forms offer "Under $10,000" as the first option. Consider making `$10,000+` the lowest tier, or keeping it but routing it to a lighter auto-reply. This is a positioning decision, so I left it.
 3. **Seed scripts contain generic agency content** (`seed-projects.ts`, `seed-case-study-demo.ts`). Make sure none of it is live.
 4. **`about/page.tsx` and `services/page.tsx` use untyped `export const metadata`.** Works, but type it as `Metadata` like the others.
@@ -39,10 +39,10 @@ Ordered by impact on a high-ticket buyer.
 - Do the DB case studies, testimonials, and blog posts contain em dashes or "we" voice? Search the CMS.
 - Are testimonials named, with company and role? Anonymous quotes carry little weight with funded buyers.
 - Does the booking flow work end to end (slot fetch, confirmation email, Turnstile)?
-- Is a call to action visible above the fold on mobile, behind the intro overlay?
+- Is a call to action visible above the fold on mobile?
 
 ## Suggested order
 
-1. Fix the intro overlay and hero visibility (item 1).
+1. Decide whether to keep the splash on non-home routes (item 1).
 2. Write the Servero.io case study, then one SaaS or marketplace case study.
 3. Rewrite the six case study intros in the site voice.
