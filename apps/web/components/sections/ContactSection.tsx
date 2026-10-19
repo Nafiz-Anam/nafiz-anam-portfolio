@@ -26,6 +26,8 @@ const categoryOptions = [
   "Cloud Infrastructure & DevOps",
   "Technical Consulting & Architecture",
   "Engineering Leadership & Team Scaling",
+  "Tracking & Analytics",
+  "Ecommerce Engineering",
   "System Integration",
   "Other",
 ];

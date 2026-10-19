@@ -284,6 +284,8 @@ const PROJECT_TYPE_OPTIONS = [
   { value: "legacy", label: "Fixing or modernizing legacy systems" },
   { value: "automation", label: "Automation & AI integration" },
   { value: "consulting", label: "Technical consulting / second opinion" },
+  { value: "tracking", label: "Tracking & analytics (GA4, GTM, server-side)" },
+  { value: "ecommerce", label: "Ecommerce build or optimization" },
   { value: "retainer", label: "Ongoing technical leadership (retainer)" },
   { value: "other", label: "Something else" },
 ];
@@ -426,7 +428,7 @@ function ProjectInquiryForm() {
             <span className="font-serif italic text-accent">your project</span>
           </h2>
           <p className="mt-5 max-w-[500px] text-[15px] leading-[1.85] text-foreground/45">
-            Fill in what you know. There are no wrong answers — this starts a
+            Fill in what you know. There are no wrong answers. This starts a
             conversation, not a contract.
           </p>
         </Reveal>
@@ -467,7 +469,7 @@ function ProjectInquiryForm() {
                     </h3>
                     <p className="text-[15px] leading-[1.8] text-foreground/55">
                       I'll review your inquiry and be in touch within one
-                      business day. Check your inbox — I reply from{" "}
+                      business day. Check your inbox. I reply from{" "}
                       <span className="font-medium text-foreground/75">
                         {CONTACT_EMAIL}
                       </span>
@@ -908,7 +910,7 @@ function WhatHappensNext() {
 const FAQS = [
   {
     q: "What types of projects do you work on?",
-    a: "Mostly two kinds: SaaS products that need to scale past their MVP, and operating businesses whose manual processes or legacy systems have started limiting growth. If your project doesn't fit either, reach out anyway. I'll tell you honestly if I'm the right fit.",
+    a: "Mostly three kinds: SaaS products that need to scale past their MVP, operating businesses whose manual processes or legacy systems have started limiting growth, and engineering teams that need a senior second opinion on a specific decision. If your project doesn't fit any of these, reach out anyway. I'll tell you honestly if I'm the right fit.",
   },
   {
     q: "Do you work with international clients?",
